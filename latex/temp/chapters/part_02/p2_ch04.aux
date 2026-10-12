@@ -1,0 +1,95 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {chapter}{\numberline {8}残差连接与密集连接}{101}{chapter.8}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{toc}{\contentsline {section}{\numberline {8.1}退化问题}{101}{section.8.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {8.1}{\ignorespaces 退化问题。左、右两图分别为训练误差与测试误差随epochs的变化曲线：56层网络（红）始终高于20层网络（蓝）。连训练误差都更高，说明性能退化并非过拟合所致，而是更深的网络本身难以优化。}}{101}{figure.caption.70}\protected@file@percent }
+\newlabel{fig:degradation}{{8.1}{101}{退化问题。左、右两图分别为训练误差与测试误差随epochs的变化曲线：56层网络（红）始终高于20层网络（蓝）。连训练误差都更高，说明性能退化并非过拟合所致，而是更深的网络本身难以优化。}{figure.caption.70}{}}
+\newlabel{fig:degradation@cref}{{[figure][1][8]8.1}{[1][101][]101}{}{}{}}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {section}{\numberline {8.2}残差连接}{102}{section.8.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {8.2}{\ignorespaces 残差连接示意图。输入$x$分为两路：主路经过层变换得到$\mathcal  {F}(x)$，旁路（跳跃连接）将$x$不经任何变换直接传递；二者在加法节点相加，输出$y=\mathcal  {F}(x)+x$。}}{102}{figure.caption.71}\protected@file@percent }
+\newlabel{fig:residual}{{8.2}{102}{残差连接示意图。输入$x$分为两路：主路经过层变换得到$\mathcal {F}(x)$，旁路（跳跃连接）将$x$不经任何变换直接传递；二者在加法节点相加，输出$y=\mathcal {F}(x)+x$。}{figure.caption.71}{}}
+\newlabel{fig:residual@cref}{{[figure][2][8]8.2}{[1][102][]102}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {8.3}{\ignorespaces ResNet基本残差块（ResNet-18/34）：两个$3\times 3$卷积串联为主路，与恒等跳跃连接相加后经ReLU输出。}}{103}{figure.caption.72}\protected@file@percent }
+\newlabel{fig:residual_basic}{{8.3}{103}{ResNet基本残差块（ResNet-18/34）：两个$3\times 3$卷积串联为主路，与恒等跳跃连接相加后经ReLU输出。}{figure.caption.72}{}}
+\newlabel{fig:residual_basic@cref}{{[figure][3][8]8.3}{[1][103][]103}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {8.4}{\ignorespaces ResNet瓶颈残差块（ResNet-50/101/152）：$1\times 1$降维、$3\times 3$卷积、$1\times 1$升维串联为主路，与恒等跳跃连接相加后经ReLU输出。}}{104}{figure.caption.73}\protected@file@percent }
+\newlabel{fig:residual_bottleneck}{{8.4}{104}{ResNet瓶颈残差块（ResNet-50/101/152）：$1\times 1$降维、$3\times 3$卷积、$1\times 1$升维串联为主路，与恒等跳跃连接相加后经ReLU输出。}{figure.caption.73}{}}
+\newlabel{fig:residual_bottleneck@cref}{{[figure][4][8]8.4}{[1][104][]104}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {8.5}{\ignorespaces ResNet-34整体架构。输入经$7\times 7$卷积（64通道、步长2）与$3\times 3$池化（步长2）后，进入通道数依次为64、128、256、512的四个阶段，分别含3、4、6、3个基本残差块；每个阶段的首块以步长2降采样、其跳跃连接为投影连接（虚线弧），其余跳跃连接为恒等连接（实线弧）；末端经平均池化输出。}}{105}{figure.caption.74}\protected@file@percent }
+\newlabel{fig:resnet}{{8.5}{105}{ResNet-34整体架构。输入经$7\times 7$卷积（64通道、步长2）与$3\times 3$池化（步长2）后，进入通道数依次为64、128、256、512的四个阶段，分别含3、4、6、3个基本残差块；每个阶段的首块以步长2降采样、其跳跃连接为投影连接（虚线弧），其余跳跃连接为恒等连接（实线弧）；末端经平均池化输出。}{figure.caption.74}{}}
+\newlabel{fig:resnet@cref}{{[figure][5][8]8.5}{[1][105][]105}{}{}{}}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {section}{\numberline {8.3}密集连接}{106}{section.8.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {8.6}{\ignorespaces 相加与拼接两种特征融合方式。上排为逐元素相加：两特征图对应位置数值相加，输出通道数保持不变；下排为通道拼接：沿通道维首尾相接，输出通道数为$6+6=12$。两种方式的空间尺寸均保持不变。}}{106}{figure.caption.75}\protected@file@percent }
+\newlabel{fig:add_concat}{{8.6}{106}{相加与拼接两种特征融合方式。上排为逐元素相加：两特征图对应位置数值相加，输出通道数保持不变；下排为通道拼接：沿通道维首尾相接，输出通道数为$6+6=12$。两种方式的空间尺寸均保持不变。}{figure.caption.75}{}}
+\newlabel{fig:add_concat@cref}{{[figure][6][8]8.6}{[1][106][]106}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {8.7}{\ignorespaces 密集连接示意图。第$l$层直接接收前面所有层的输出，并将这些特征沿通道维度拼接后作为当前层的输入。随着层数增加，后面的层可以同时利用浅层提取的基础特征和深层提取的高级特征。}}{107}{figure.caption.76}\protected@file@percent }
+\newlabel{fig:dense_block}{{8.7}{107}{密集连接示意图。第$l$层直接接收前面所有层的输出，并将这些特征沿通道维度拼接后作为当前层的输入。随着层数增加，后面的层可以同时利用浅层提取的基础特征和深层提取的高级特征。}{figure.caption.76}{}}
+\newlabel{fig:dense_block@cref}{{[figure][7][8]8.7}{[1][107][]107}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8.8}{\ignorespaces 密集连接中的特征复用与通道增长示意。以增长率$k=4$为例，初始输入包含4个通道，每经过一层新增4个特征图，并与之前的所有特征沿通道维度拼接，通道数依次增加为$4\rightarrow 8\rightarrow 12\rightarrow 16\rightarrow 20$。}}{107}{figure.caption.77}\protected@file@percent }
+\newlabel{fig:dense}{{8.8}{107}{密集连接中的特征复用与通道增长示意。以增长率$k=4$为例，初始输入包含4个通道，每经过一层新增4个特征图，并与之前的所有特征沿通道维度拼接，通道数依次增加为$4\rightarrow 8\rightarrow 12\rightarrow 16\rightarrow 20$。}{figure.caption.77}{}}
+\newlabel{fig:dense@cref}{{[figure][8][8]8.8}{[1][107][]107}{}{}{}}
+\def\@LN@column{1}
+\def\@LN@column{1}
+\@setckpt{./chapters/part_02/p2_ch04}{
+\setcounter{page}{110}
+\setcounter{equation}{0}
+\setcounter{enumi}{9}
+\setcounter{enumii}{0}
+\setcounter{enumiii}{0}
+\setcounter{enumiv}{0}
+\setcounter{footnote}{4}
+\setcounter{mpfootnote}{0}
+\setcounter{part}{2}
+\setcounter{chapter}{8}
+\setcounter{section}{3}
+\setcounter{subsection}{0}
+\setcounter{subsubsection}{0}
+\setcounter{paragraph}{0}
+\setcounter{subparagraph}{0}
+\setcounter{figure}{8}
+\setcounter{table}{0}
+\setcounter{FancyVerbLine}{0}
+\setcounter{linenumber}{1}
+\setcounter{LN@truepage}{117}
+\setcounter{FancyVerbWriteLine}{0}
+\setcounter{FancyVerbBufferLine}{0}
+\setcounter{FV@TrueTabGroupLevel}{0}
+\setcounter{FV@TrueTabCounter}{0}
+\setcounter{FV@HighlightLinesStart}{0}
+\setcounter{FV@HighlightLinesStop}{0}
+\setcounter{FancyVerbLineBreakLast}{0}
+\setcounter{FV@BreakBufferDepth}{0}
+\setcounter{parentequation}{0}
+\setcounter{float@type}{16}
+\setcounter{caption@flags}{2}
+\setcounter{continuedfloat}{0}
+\setcounter{subfigure}{0}
+\setcounter{subtable}{0}
+\setcounter{LT@tables}{0}
+\setcounter{LT@chunks}{0}
+\setcounter{nlinenum}{0}
+\setcounter{lstnumber}{1}
+\setcounter{tcbbreakpart}{1}
+\setcounter{tcblayer}{0}
+\setcounter{tcolorbox@number}{64}
+\setcounter{tcbrastercolumn}{1}
+\setcounter{tcbrasterrow}{1}
+\setcounter{tcbrasternum}{1}
+\setcounter{tcbraster}{0}
+\setcounter{tcblisting}{0}
+\setcounter{section@level}{0}
+\setcounter{Item}{36}
+\setcounter{Hfootnote}{30}
+\setcounter{Hy@AnnotLevel}{0}
+\setcounter{bookmark@seq@number}{56}
+\setcounter{lstlisting}{0}
+}

@@ -1,0 +1,94 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\@writefile{toc}{\contentsline {chapter}{\numberline {1}多层感知机}{3}{chapter.1}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{toc}{\contentsline {section}{\numberline {1.1}神经元与感知机模型}{3}{section.1.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1.1}{\ignorespaces 生物神经元结构示意图。图左侧的输入神经元与感知器通过突触将信号传递给中间神经元的树突；树突接收信号后将其送入细胞体进行整合。当累积输入超过激发阈值，则在轴丘处触发动作电位，并沿轴突传导至轴突末端，最终再经突触作用于下游神经元或目标组织。}}{3}{figure.caption.3}\protected@file@percent }
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{fig:neuron}{{1.1}{3}{生物神经元结构示意图。图左侧的输入神经元与感知器通过突触将信号传递给中间神经元的树突；树突接收信号后将其送入细胞体进行整合。当累积输入超过激发阈值，则在轴丘处触发动作电位，并沿轴突传导至轴突末端，最终再经突触作用于下游神经元或目标组织。}{figure.caption.3}{}}
+\newlabel{fig:neuron@cref}{{[figure][1][1]1.1}{[1][3][]3}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {1.2}{\ignorespaces 感知机分类决策边界示意图。以平时成绩$x_1$和期末成绩$x_2$为坐标轴，蓝色斜线$0.4x_1+0.6x_2=60$为决策边界，其上方阴影区域（含边界）为通过区域，其余为挂科；红点$(30,80)$落在边界上，对应平时30分需期末至少80分才能通过的临界情形。}}{4}{figure.caption.4}\protected@file@percent }
+\newlabel{fig:perceptron_boundary}{{1.2}{4}{感知机分类决策边界示意图。以平时成绩$x_1$和期末成绩$x_2$为坐标轴，蓝色斜线$0.4x_1+0.6x_2=60$为决策边界，其上方阴影区域（含边界）为通过区域，其余为挂科；红点$(30,80)$落在边界上，对应平时30分需期末至少80分才能通过的临界情形。}{figure.caption.4}{}}
+\newlabel{fig:perceptron_boundary@cref}{{[figure][2][1]1.2}{[1][4][]4}{}{}{}}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {section}{\numberline {1.2}感知机模型的局限}{5}{section.1.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1.3}{\ignorespaces 异或（XOR）问题示意图。四个样本点分为两类：$(0,0)$、$(1,1)$（红色）输出为0，$(0,1)$、$(1,0)$（蓝色）输出为1。两类点各占对角、交叉分布。}}{5}{figure.caption.5}\protected@file@percent }
+\newlabel{fig:xor_problem}{{1.3}{5}{异或（XOR）问题示意图。四个样本点分为两类：$(0,0)$、$(1,1)$（红色）输出为0，$(0,1)$、$(1,0)$（蓝色）输出为1。两类点各占对角、交叉分布。}{figure.caption.5}{}}
+\newlabel{fig:xor_problem@cref}{{[figure][3][1]1.3}{[1][5][]5}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {1.3}多层感知机模型}{5}{section.1.3}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {1.4}{\ignorespaces 没有激活函数的多层感知机模型。输入层$x_1,x_2$、隐藏层$h_1,h_2$与输出层$y$逐层全连接，偏置$b_1,b_2,b_3$注入对应神经元；各节点仅做线性加权求和。}}{6}{figure.caption.6}\protected@file@percent }
+\newlabel{fig:mlp_without_activation}{{1.4}{6}{没有激活函数的多层感知机模型。输入层$x_1,x_2$、隐藏层$h_1,h_2$与输出层$y$逐层全连接，偏置$b_1,b_2,b_3$注入对应神经元；各节点仅做线性加权求和。}{figure.caption.6}{}}
+\newlabel{fig:mlp_without_activation@cref}{{[figure][4][1]1.4}{[1][5][]6}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {1.5}{\ignorespaces 带有激活函数的多层感知机模型。结构与\cref  {fig:mlp_without_activation}相同，但在隐藏层和输出层的线性加权求和之后加入阶跃函数$f$，分别得到$h_1$、$h_2$和最终输出$y$。}}{7}{figure.caption.7}\protected@file@percent }
+\newlabel{fig:mlp_with_activation}{{1.5}{7}{带有激活函数的多层感知机模型。结构与\cref {fig:mlp_without_activation}相同，但在隐藏层和输出层的线性加权求和之后加入阶跃函数$f$，分别得到$h_1$、$h_2$和最终输出$y$。}{figure.caption.7}{}}
+\newlabel{fig:mlp_with_activation@cref}{{[figure][5][1]1.5}{[1][7][]7}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lot}{\contentsline {table}{\numberline {1.1}{\ignorespaces 异或问题输入输出表}}{8}{table.caption.8}\protected@file@percent }
+\newlabel{tab:xor_table}{{1.1}{8}{异或问题输入输出表}{table.caption.8}{}}
+\newlabel{tab:xor_table@cref}{{[table][1][1]1.1}{[1][8][]8}{}{}{}}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {section}{\numberline {1.4}多层感知机的矩阵表示}{9}{section.1.4}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {section}{\numberline {1.5}参数设置的局限}{10}{section.1.5}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{lot}{\contentsline {table}{\numberline {1.2}{\ignorespaces 错误参数下异或问题的分类结果}}{11}{table.caption.9}\protected@file@percent }
+\newlabel{tab:xor_wrong_params}{{1.2}{11}{错误参数下异或问题的分类结果}{table.caption.9}{}}
+\newlabel{tab:xor_wrong_params@cref}{{[table][2][1]1.2}{[1][11][]11}{}{}{}}
+\@setckpt{./chapters/part_01/p1_ch01}{
+\setcounter{page}{12}
+\setcounter{equation}{0}
+\setcounter{enumi}{0}
+\setcounter{enumii}{0}
+\setcounter{enumiii}{0}
+\setcounter{enumiv}{0}
+\setcounter{footnote}{3}
+\setcounter{mpfootnote}{0}
+\setcounter{part}{1}
+\setcounter{chapter}{1}
+\setcounter{section}{5}
+\setcounter{subsection}{0}
+\setcounter{subsubsection}{0}
+\setcounter{paragraph}{0}
+\setcounter{subparagraph}{0}
+\setcounter{figure}{5}
+\setcounter{table}{2}
+\setcounter{FancyVerbLine}{0}
+\setcounter{linenumber}{1}
+\setcounter{LN@truepage}{17}
+\setcounter{FancyVerbWriteLine}{0}
+\setcounter{FancyVerbBufferLine}{0}
+\setcounter{FV@TrueTabGroupLevel}{0}
+\setcounter{FV@TrueTabCounter}{0}
+\setcounter{FV@HighlightLinesStart}{0}
+\setcounter{FV@HighlightLinesStop}{0}
+\setcounter{FancyVerbLineBreakLast}{0}
+\setcounter{FV@BreakBufferDepth}{0}
+\setcounter{parentequation}{0}
+\setcounter{float@type}{16}
+\setcounter{caption@flags}{2}
+\setcounter{continuedfloat}{0}
+\setcounter{subfigure}{0}
+\setcounter{subtable}{0}
+\setcounter{LT@tables}{0}
+\setcounter{LT@chunks}{0}
+\setcounter{nlinenum}{0}
+\setcounter{lstnumber}{1}
+\setcounter{tcbbreakpart}{1}
+\setcounter{tcblayer}{0}
+\setcounter{tcolorbox@number}{6}
+\setcounter{tcbrastercolumn}{1}
+\setcounter{tcbrasterrow}{1}
+\setcounter{tcbrasternum}{1}
+\setcounter{tcbraster}{0}
+\setcounter{tcblisting}{0}
+\setcounter{section@level}{0}
+\setcounter{Item}{0}
+\setcounter{Hfootnote}{3}
+\setcounter{Hy@AnnotLevel}{0}
+\setcounter{bookmark@seq@number}{8}
+\setcounter{lstlisting}{0}
+}

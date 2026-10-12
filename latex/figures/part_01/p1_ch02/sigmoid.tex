@@ -1,0 +1,49 @@
+\documentclass[border=10pt]{standalone}
+\usepackage{tikz}
+\usepackage{amsmath}
+\definecolor{myred}{RGB}{190,60,45}
+
+% 左图：sigmoid（风格对齐 step 图，仅 x 拉到 ±8）
+\newcommand{\sigfig}{%
+\begin{tikzpicture}[x=0.4125cm, y=1.8cm, >=stealth, line width=0.8pt, font=\large, baseline=(origin)]
+  \draw[->] (-8,0) -- (8,0)      node[below right] {$x$};
+  \draw[->] (0,-0.6) -- (0,1.5)  node[above right] {$y$};
+  \coordinate (origin) at (0,0);
+  % y 轴刻度（短线 + 数字，样式同 step 图）
+  \draw (0,1)   -- ++(-0.1,0);
+  \draw (0,0.5) -- ++(-0.1,0);
+  % 渐近线 y=1
+  \draw[myred!60, dashed] (-8,1) -- (8,1);
+  % sigmoid 曲线
+  \draw[myred, line width=1pt, domain=-8:8, samples=150]
+        plot (\x, {1/(1+exp(-\x))});
+  \fill[myred] (0,0.5) circle (2.5pt);
+  \node[left] at (-0.12,1.18)   {$1$};     % 再上移
+  \node[left] at (-0.12,0.62)   {$0.5$};
+  \node[below left] at (-0.06,0.06) {$O$};
+\end{tikzpicture}}
+
+% 右图：导数
+\newcommand{\sigderivfig}{%
+\begin{tikzpicture}[x=0.4125cm, y=1.8cm, >=stealth, line width=0.8pt, font=\large, baseline=(origin)]
+  \draw[->] (-8,0) -- (8,0)      node[below right] {$x$};
+  \draw[->] (0,-0.6) -- (0,1.5)  node[above right] {$y'$};
+  \coordinate (origin) at (0,0);
+  % y 轴刻度
+  \draw (0,0.25) -- ++(-0.1,0);
+  % 导数曲线：钟形，峰值 0.25
+  \draw[myred, line width=1pt, domain=-8:8, samples=150]
+        plot (\x, {1/(1+exp(-\x))*(1-1/(1+exp(-\x)))});
+  \fill[myred] (0,0.25) circle (2.5pt);
+  \node[left] at (-0.12,0.40) {$0.25$};    % 再上移
+  \node[below left] at (-0.06,0.06) {$O$};
+\end{tikzpicture}}
+
+\begin{document}
+\begin{tabular}{c@{\qquad}c}
+  \sigfig & \sigderivfig \\[30pt]
+  $\displaystyle f(x)=\frac{1}{1+e^{-x}}$
+  &
+  $\displaystyle f'(x)=\frac{e^{-x}}{(1+e^{-x})^2}$
+\end{tabular}
+\end{document}

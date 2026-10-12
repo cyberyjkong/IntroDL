@@ -1,0 +1,98 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\@writefile{toc}{\contentsline {chapter}{\numberline {11}文本的向量表示}{137}{chapter.11}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{toc}{\contentsline {section}{\numberline {11.1}One-Hot编码}{137}{section.11.1}\protected@file@percent }
+\def\@LN@column{1}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {11.1}{\ignorespaces 余弦相似度的几何意义。$\mathbf  {v}_1$在$\mathbf  {v}_2$方向上的投影为$\|\mathbf  {v}_1\|\cos \theta $：夹角为钝角时投影为负（左），直角（$\theta =\pi /2$）时为零（中），锐角时为正（右）。夹角决定投影的正负，而投影的大小同时受到向量长度和夹角的影响。由于余弦相似度消除了向量长度的影响，因此只反映两个向量的方向关系。}}{139}{figure.caption.97}\protected@file@percent }
+\newlabel{fig:cosine_similarity}{{11.1}{139}{余弦相似度的几何意义。$\mathbf {v}_1$在$\mathbf {v}_2$方向上的投影为$\|\mathbf {v}_1\|\cos \theta $：夹角为钝角时投影为负（左），直角（$\theta =\pi /2$）时为零（中），锐角时为正（右）。夹角决定投影的正负，而投影的大小同时受到向量长度和夹角的影响。由于余弦相似度消除了向量长度的影响，因此只反映两个向量的方向关系。}{figure.caption.97}{}}
+\newlabel{fig:cosine_similarity@cref}{{[figure][1][11]11.1}{[1][139][]139}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {11.2}词嵌入}{139}{section.11.2}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {11.2}{\ignorespaces One-Hot编码与词嵌入的对比。左：One-Hot向量维度为$|V|$、仅一个位置为1，且任意两词向量正交（$\langle \mathbf  {v}_i,\mathbf  {v}_j\rangle =0$），无法反映语义相近程度；右：词嵌入将词映射为低维稠密向量，语义相近的词（如apples与bananas）在空间中彼此接近、聚为一簇。}}{140}{figure.caption.98}\protected@file@percent }
+\newlabel{fig:dense_embedding}{{11.2}{140}{One-Hot编码与词嵌入的对比。左：One-Hot向量维度为$|V|$、仅一个位置为1，且任意两词向量正交（$\langle \mathbf {v}_i,\mathbf {v}_j\rangle =0$），无法反映语义相近程度；右：词嵌入将词映射为低维稠密向量，语义相近的词（如apples与bananas）在空间中彼此接近、聚为一簇。}{figure.caption.98}{}}
+\newlabel{fig:dense_embedding@cref}{{[figure][2][11]11.2}{[1][140][]140}{}{}{}}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {section}{\numberline {11.3}Word2Vec}{141}{section.11.3}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {11.3}{\ignorespaces Word2Vec的整体思想。左上：词向量随机初始化，各词在空间中彼此分散；左下：以“由上下文预测词”构造训练任务（如上下文I like to eat），把常共现的词（apple、banana）拉近、把不相关的词（book）推远；右：训练结束后语义相近的词聚为一簇——词向量正是这一预测任务的副产品。}}{142}{figure.caption.99}\protected@file@percent }
+\newlabel{fig:word2vec}{{11.3}{142}{Word2Vec的整体思想。左上：词向量随机初始化，各词在空间中彼此分散；左下：以“由上下文预测词”构造训练任务（如上下文I like to eat），把常共现的词（apple、banana）拉近、把不相关的词（book）推远；右：训练结束后语义相近的词聚为一簇——词向量正是这一预测任务的副产品。}{figure.caption.99}{}}
+\newlabel{fig:word2vec@cref}{{[figure][3][11]11.3}{[1][141][]142}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {11.3.1}CBOW}{142}{subsection.11.3.1}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {11.4}{\ignorespaces CBOW结构示意图。上下文词（I、like、apples）在共享嵌入表中查得各自词向量，取平均（$\tfrac  {1}{3}\DOTSB \sum@ \slimits@ $）聚合为单一上下文向量（聚合不保留先后顺序，正体现“词袋”之意）；再据此经softmax预测中心词，输出词汇表上的概率分布（本例目标词eating得0.82）。}}{143}{figure.caption.100}\protected@file@percent }
+\newlabel{fig:cbow}{{11.4}{143}{CBOW结构示意图。上下文词（I、like、apples）在共享嵌入表中查得各自词向量，取平均（$\tfrac {1}{3}\sum $）聚合为单一上下文向量（聚合不保留先后顺序，正体现“词袋”之意）；再据此经softmax预测中心词，输出词汇表上的概率分布（本例目标词eating得0.82）。}{figure.caption.100}{}}
+\newlabel{fig:cbow@cref}{{[figure][4][11]11.4}{[1][142][]143}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {11.3.2}Skip-Gram}{143}{subsection.11.3.2}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {11.5}{\ignorespaces Skip-Gram结构示意图。与CBOW方向相反：由中心词（eating）查共享嵌入表得到词向量，再对每个上下文位置独立进行softmax预测，三个输出分布分别以I、like、apples为目标词（概率0.78、0.84、0.80），一个中心词由此同时提供多个训练样本。}}{144}{figure.caption.101}\protected@file@percent }
+\newlabel{fig:skip_gram}{{11.5}{144}{Skip-Gram结构示意图。与CBOW方向相反：由中心词（eating）查共享嵌入表得到词向量，再对每个上下文位置独立进行softmax预测，三个输出分布分别以I、like、apples为目标词（概率0.78、0.84、0.80），一个中心词由此同时提供多个训练样本。}{figure.caption.101}{}}
+\newlabel{fig:skip_gram@cref}{{[figure][5][11]11.5}{[1][144][]144}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {11.3.3}Negative Sampling}{144}{subsection.11.3.3}\protected@file@percent }
+\def\@LN@column{1}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {11.6}{\ignorespaces Negative Sampling 的示意图。}}{146}{figure.caption.102}\protected@file@percent }
+\newlabel{fig:negative_sampling}{{11.6}{146}{Negative Sampling 的示意图。}{figure.caption.102}{}}
+\newlabel{fig:negative_sampling@cref}{{[figure][6][11]11.6}{[1][146][]146}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {11.7}{\ignorespaces 词向量空间中的语义类比示意图。图中展示King、Queen、Man和Woman之间的近似向量关系：$\mathbf  {v}_{\text  {King}}-\mathbf  {v}_{\text  {Man}}+\mathbf  {v}_{\text  {Woman}}\approx \mathbf  {v}_{\text  {Queen}}$。这一关系说明，经过训练的词向量可能将性别等语义关系编码为近似一致的向量偏移。}}{147}{figure.caption.103}\protected@file@percent }
+\newlabel{fig:word2vec_analogy}{{11.7}{147}{词向量空间中的语义类比示意图。图中展示King、Queen、Man和Woman之间的近似向量关系：$\mathbf {v}_{\text {King}}-\mathbf {v}_{\text {Man}}+\mathbf {v}_{\text {Woman}}\approx \mathbf {v}_{\text {Queen}}$。这一关系说明，经过训练的词向量可能将性别等语义关系编码为近似一致的向量偏移。}{figure.caption.103}{}}
+\newlabel{fig:word2vec_analogy@cref}{{[figure][7][11]11.7}{[1][146][]147}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {11.3.4}Word2Vec的局限}{147}{subsection.11.3.4}\protected@file@percent }
+\def\@LN@column{1}
+\@setckpt{./chapters/part_03/p3_ch01}{
+\setcounter{page}{149}
+\setcounter{equation}{0}
+\setcounter{enumi}{11}
+\setcounter{enumii}{0}
+\setcounter{enumiii}{0}
+\setcounter{enumiv}{0}
+\setcounter{footnote}{4}
+\setcounter{mpfootnote}{0}
+\setcounter{part}{3}
+\setcounter{chapter}{11}
+\setcounter{section}{3}
+\setcounter{subsection}{4}
+\setcounter{subsubsection}{0}
+\setcounter{paragraph}{0}
+\setcounter{subparagraph}{0}
+\setcounter{figure}{7}
+\setcounter{table}{0}
+\setcounter{FancyVerbLine}{0}
+\setcounter{linenumber}{1}
+\setcounter{LN@truepage}{156}
+\setcounter{FancyVerbWriteLine}{0}
+\setcounter{FancyVerbBufferLine}{0}
+\setcounter{FV@TrueTabGroupLevel}{0}
+\setcounter{FV@TrueTabCounter}{0}
+\setcounter{FV@HighlightLinesStart}{0}
+\setcounter{FV@HighlightLinesStop}{0}
+\setcounter{FancyVerbLineBreakLast}{0}
+\setcounter{FV@BreakBufferDepth}{0}
+\setcounter{parentequation}{0}
+\setcounter{float@type}{16}
+\setcounter{caption@flags}{2}
+\setcounter{continuedfloat}{0}
+\setcounter{subfigure}{0}
+\setcounter{subtable}{0}
+\setcounter{LT@tables}{0}
+\setcounter{LT@chunks}{0}
+\setcounter{nlinenum}{0}
+\setcounter{lstnumber}{1}
+\setcounter{tcbbreakpart}{1}
+\setcounter{tcblayer}{0}
+\setcounter{tcolorbox@number}{78}
+\setcounter{tcbrastercolumn}{1}
+\setcounter{tcbrasterrow}{1}
+\setcounter{tcbrasternum}{1}
+\setcounter{tcbraster}{0}
+\setcounter{tcblisting}{0}
+\setcounter{section@level}{0}
+\setcounter{Item}{47}
+\setcounter{Hfootnote}{42}
+\setcounter{Hy@AnnotLevel}{0}
+\setcounter{bookmark@seq@number}{78}
+\setcounter{lstlisting}{0}
+}

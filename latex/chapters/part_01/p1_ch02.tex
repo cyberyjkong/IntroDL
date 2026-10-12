@@ -1,0 +1,423 @@
+% !TEX root = ../../main.tex
+
+\chapter{反向传播算法}
+
+多层感知机虽然具备了表示复杂非线性关系的能力，但模型能否真正完成任务，最终取决于权重和偏置是否设置合理。在实际应用中，这些参数无法依靠人工逐一设定，而是需要模型在训练过程中根据预测结果不断进行调整。那么，模型应该如何判断自己的预测是否准确，又应该如何调整这些参数？
+
+\section{损失函数}
+
+首先，我们需要让模型知道自己的预测结果是否准确。对于模型给出的一个预测结果，我们需要将其与真实目标进行比较，从而判断模型的预测结果是否正确，以及预测结果与真实目标之间存在多大的差距。这个用于衡量预测结果与真实目标之间差距的数学函数，就是\textbf{损失函数（Loss Function）}。一般来说，损失函数的值越大，说明模型的预测结果与真实目标相差越远；损失值越小，则说明模型的预测结果越接近真实目标。
+
+假设对于某一个输入样本$x$，模型经过计算得到的预测结果为$y_{\text{pred}}$，而真实标签为$y_{\text{true}}$。要衡量二者之间的差距，最直接的做法，就是直接计算二者之间的差值：
+$$
+\mathcal{L} = y_{\text{pred}} - y_{\text{true}}
+$$
+这个差值可以表示模型预测方向上的偏差。当$\mathcal{L}>0$时，说明模型预测值偏大；当$\mathcal{L}<0$时，说明模型预测值偏小；当$\mathcal{L}=0$时，则表示模型预测完全正确。
+
+然而，在实际任务中，我们通常面对的并不是一个样本，而是包含大量样本的数据集。为了衡量模型在整个数据集上的预测误差，就需要将各个样本产生的误差进行累加。如果直接使用预测值与真实值之间的差值，不同样本的正负误差就可能相互抵消。例如，模型在一个样本上的预测偏差为$+5$，在另一个样本上的预测偏差为$-5$，虽然二者方向相反，但实际误差大小都是$5$。将它们直接相加后得到$(+5)+(-5)=0$，这就无法准确反映模型在这两个样本上的实际误差。
+
+因此，我们需要消除误差的正负方向，只关注误差绝对值的大小。比较直接的做法，就是取绝对值。这样，无论原来的误差是正数还是负数，最终得到的结果都不会带有负号：
+$$
+\mathcal{L}=|y_{\text{pred}}-y_{\text{true}}|
+$$
+这就是\textbf{绝对误差（Absolute Error）}。它能直接表示预测值与真实值之间的距离，不会因为不同样本之间误差方向不同而相互抵消。
+
+现在我们使用绝对误差作为损失函数，那么接下来的目标就是：让损失函数尽可能小，也就是寻找损失函数的最小值。需要注意的是，损失函数并不是一个固定不变的数值，而是由模型参数决定的函数。当模型中的参数发生变化时，模型的预测结果也会随之改变，进而导致损失函数的大小发生变化。因此，更准确地说，损失函数实际上应该表示为：
+$$
+\mathcal{L}(\theta)
+$$
+其中，$\theta$表示模型中的所有参数。我们的目标，就是寻找一组最优参数$\theta^*$，使得损失函数达到最小：
+$$
+\theta^*=\arg\min_{\theta}\mathcal{L}(\theta)
+$$
+这里的$\theta^*$表示使损失函数取得最小值的参数组合，也就是模型希望学习到的参数。
+
+在数学中，寻找函数最小值的一种常见方法就是\textbf{求导}。但是，利用导数求函数最小值，要求函数具有良好的可导性。绝对值函数虽然能够表示预测误差的大小，但它在零点处不可导。这意味着在损失函数为零的附近，无法通过导数准确描述函数的变化情况，不利于后续基于梯度的方法进行参数更新。
+
+因此，我们需要一个既能够衡量预测误差，又具有良好可导性的函数。一个直接的做法，就是将误差进行平方：
+$$
+\mathcal{L}=(y_{\text{pred}}-y_{\text{true}})^2
+$$
+平方操作不仅消除了误差的正负方向，使损失值始终为正，同时也使函数变得连续且处处可导，更适合通过梯度下降的方法寻找最优参数。除此之外，平方还会进一步放大较大的误差。例如，当预测误差为$1$时，平方后的损失为$1$；而当误差增加到$10$时，损失会变为$100$。这意味着模型在训练过程中会更加关注那些偏差较大的预测结果，从而优先修正严重错误。
+
+对于包含多个样本的数据集，我们通常不会只关注单个样本的损失，而是需要综合考虑所有样本的预测误差。因此，可以将每个样本的平方误差进行累加，并计算其平均值，这就是\textbf{均方误差（Mean Squared Error, MSE）}：
+$$
+\mathcal{L} = \frac{1}{n} \sum_{i=1}^{n} \left( y_{\text{pred}}^{(i)} - y_{\text{true}}^{(i)} \right)^2
+$$
+其中，$n$表示样本数量。这个值反映了模型在整个数据集上的整体预测误差，数值越小，说明模型的预测结果整体越接近真实目标。
+
+需要注意的是，在实际的训练过程中，我们通常会在平方误差前加入一个$\frac{1}{2}$，即：
+$$
+\mathcal{L} = \frac{1}{2} \left(y_{\text{pred}} - y_{\text{true}} \right)^2
+$$
+这里的$\frac{1}{2}$主要是为了后续求导更加方便。因为对平方项求导时会产生一个$2$，正好可以和前面的$\frac{1}{2}$抵消：
+$$
+\frac{\partial\mathcal{L}} {\partial y_{\text{pred}}} = \frac{\partial}{\partial y_{\text{pred}}} \left[ \frac{1}{2} \left(y_{\text{pred}}-y_{\text{true}}\right)^2 \right] = y_{\text{pred}}-y_{\text{true}}
+$$
+因此，在后续的推导中，我们通常会保留这个$\frac{1}{2}$。对于整个数据集，如果同样加入$\frac{1}{2}$，则可以写成：
+$$
+\mathcal{L} = \frac{1}{2n} \sum_{i=1}^{n} \left( y_{\text{pred}}^{(i)}-y_{\text{true}}^{(i)} \right)^2
+$$
+
+\begin{orangeBox}{损失函数与代价函数}
+在机器学习中，\textbf{损失函数（Loss Function）}和\textbf{代价函数（Cost Function）}通常用于衡量不同范围内的预测误差。一般来说，损失函数用于衡量单个样本的预测误差。例如，对于第$i$个样本，其平方损失可以写成：
+$$
+\mathcal{L}^{(i)}=\frac{1}{2}\left(y_{\text{pred}}^{(i)}-y_{\text{true}}^{(i)}\right)^2
+$$
+而代价函数用于衡量整个数据集上的总体误差，通常是所有样本损失的平均值：
+$$
+\mathcal{J}=\frac{1}{n}\sum_{i=1}^{n}\mathcal{L}^{(i)}
+$$
+因此，可以简单理解为：损失函数用来衡量单个样本的预测误差，而代价函数用来衡量整个数据集的总体误差。为了便于后续学习，本书不做区分，统一使用损失函数这一称呼。
+\end{orangeBox}
+
+\section{激活函数}
+
+我们现在知道，可以通过求导来寻找损失函数的最小值。因此，模型的计算过程需要具有良好的可导性。我们回顾一下之前设计的多层感知机模型，如\cref{fig:mlp_step_function}所示。
+\begin{figure}[H]
+    \boxedimage[width=0.5\textwidth]{figures/part_01/p1_ch02/mlp_step_function.pdf}
+    \caption{采用阶跃函数作为激活函数的多层感知机模型。节点内的$f$代表阶跃函数，它将神经元的线性输入$z$转换为阶跃输出（$h$或$y$）。}
+    \label{fig:mlp_step_function}
+\end{figure}
+
+当时采用的激活函数是阶跃函数，其函数图像及对应的导数图像如\cref{fig:step_function}所示：
+\begin{figure}[H]
+    \boxedimage[width=0.8\textwidth]{figures/part_01/p1_ch02/step_function.pdf}
+    \caption{阶跃函数及其导数示意图。左图为阶跃函数$f(x)$，在$x=0$处发生单位跳变；右图为其导数$f'(x)$，在$x \neq 0$的区域恒为零，在$x=0$处无定义。}
+    \label{fig:step_function}
+\end{figure}
+
+阶跃函数虽然能够根据输入判断神经元是否被激活，但它存在一个明显的问题：无法提供有效的梯度信息。阶跃函数的导数在$x\neq0$的区域内恒为$0$。这意味着在利用梯度下降更新参数时，相关梯度会因为乘以$0$而变成$0$，参数无法得到有效的更新。而在$x=0$的位置，阶跃函数不可导，无法计算确定的梯度。  
+
+那么，能不能设计一种函数，在保留阶跃函数基本形状的同时，让输出随输入平滑变化，并且处处可导呢？实际上，数学中早就有一种函数，能够满足这些要求，这就是\textbf{Logistic函数（Logistic Function）}。它的输出会随着输入从较低水平逐渐过渡到较高水平，但整个变化过程是连续且平滑的，并且其导数形式简洁，易于计算。
+
+在深度学习领域，我们通常将这个函数称为\textbf{Sigmoid函数（Sigmoid Function）}。“Sigmoid”一词来源于希腊字母$\sigma$（Sigma）的末写形式$\varsigma$，其形状与英文字母“S”相似。因此，在数学中，Sigmoid函数通常泛指曲线呈S形的函数，而在深度学习中，Sigmoid函数一般默认指Logistic函数\footnote{Logistic函数作为神经网络激活函数的使用，通常可追溯至David Rumelhart、Geoffrey Hinton和Ronald Williams于1986年发表的论文\href{https://www.nature.com/articles/323533a0}{\textit{Learning representations by back-propagating errors}}。}，其数学形式为：
+$$
+\sigma(z)=\frac{1}{1+e^{-z}}
+$$
+
+如\cref{fig:sigmoid}所示，Sigmoid函数的输出范围被限制在$0$到$1$之间。当输入值较小时，函数输出逐渐接近$0$；当输入值较大时，函数输出逐渐接近$1$；而在输入接近$0$的位置，函数输出会发生较为明显的变化。因此，从形状上看，Sigmoid函数可以理解为阶跃函数的一种平滑近似。与阶跃函数在临界点处发生突然跳变不同，Sigmoid函数通过连续、平滑的变化过程，将任意实数输入映射到$0$和$1$之间。
+
+\begin{figure}[H]
+    \boxedimage[width=0.8\textwidth]{figures/part_01/p1_ch02/sigmoid.pdf}
+    \caption{Sigmoid函数及其导数示意图。左图为Sigmoid函数$f(x)$，呈现平滑的S形曲线，输出范围限制在0到1之间；右图为其导数$f'(x)$，在整个定义域内连续且可导。}
+    \label{fig:sigmoid}
+\end{figure}
+
+这种映射方式也使Sigmoid函数具有较为直观的解释。在二分类任务中，如果将Sigmoid函数的输出作为模型的预测值，那么输出越接近$1$，通常表示模型越倾向于判断样本属于正类；输出越接近$0$，则表示模型越倾向于判断样本属于负类。
+
+更重要的是，Sigmoid函数在整个定义域内连续且可导，而且其导数形式也十分简洁。
+\begin{align*}
+\sigma(x) &= \frac{1}{1+e^{-x}} = (1+e^{-x})^{-1}, \\
+\sigma'(x) &= -1 \cdot (1+e^{-x})^{-2} \cdot (-e^{-x}) \\
+&= \frac{e^{-x}}{(1+e^{-x})^2} \\
+&= \frac{1}{1+e^{-x}} \cdot \frac{e^{-x}}{1+e^{-x}} \\
+&= \sigma(x) \left(1-\sigma(x)\right).
+\end{align*}
+因此，Sigmoid函数的导数为
+$$
+\sigma'(x)=\sigma(x)\bigl(1-\sigma(x)\bigr)
+$$
+可以看到，Sigmoid函数的导数可以直接利用函数本身的输出来表示，而不需要重新计算复杂的指数表达式。这种简洁的导数形式使梯度计算更加方便。
+
+因此，从阶跃函数到Sigmoid函数的变化，不仅使神经元的输出从离散跳变变为连续变化，更重要的是提供了可导的数学形式，使梯度能够通过反向传播逐层传递，从而根据梯度不断调整网络参数，实现模型的学习。
+
+\section{反向传播算法}
+
+我们现在已经有了衡量预测误差的损失函数$\mathcal{L}$，也用平滑可导的Sigmoid函数替换了不可导的阶跃函数，扫清了数学上的障碍。现在，万事俱备，只欠东风——如果模型预测得不准确，我们该如何调整网络中的参数，使损失函数逐渐减小？
+
+我们以\cref{fig:mlp}所示的感知机模型为例。该模型包含两个输入节点$x_1,x_2$、两个隐藏节点$h_1,h_2$以及一个输出节点$y_{\text{pred}}$。不过不同于之前的设计，现在所有的激活函数均采用Sigmoid函数。
+\begin{figure}[H]
+    \boxedimage[width=0.5\textwidth]{figures/part_01/p1_ch02/mlp.pdf}
+    \caption{采用Sigmoid函数作为激活函数的多层感知机模型。节点内的$\sigma(\cdot)$代表Sigmoid函数，它将神经元的线性输入$z$平滑转换为非线性输出（$h$或$y$），保证了模型在整个定义域内的连续可导性。}
+    \label{fig:mlp}
+\end{figure}
+
+其完整的数学表达式为：
+\begin{align*}
+    \text{隐藏层1：} & z_1 = w_{11}x_1 + w_{12}x_2 + b_1 \quad \Rightarrow \quad h_1 = \sigma(z_1) \\
+    \text{隐藏层2：} & z_2 = w_{21}x_1 + w_{22}x_2 + b_2 \quad \Rightarrow \quad h_2 = \sigma(z_2) \\
+    \text{输出层：} & z_3 = v_1h_1 + v_2h_2 + b_3 \quad \Rightarrow \quad y_{\text{pred}} = \sigma(z_3) \\
+    \text{激活函数：} & \sigma(z) = \frac{1}{1 + e^{-z}} \\
+    \text{损失函数：} & \mathcal{L} = \frac{1}{2} (y_{\text{pred}} - y_{\text{true}})^2
+\end{align*}
+
+首先，我们进行\textbf{参数初始化（Parameter Initialization）}，即为网络中的权重和偏置设置初始值。我们仍然采用之前异或问题的参数设置，将所有权重初始化为$1$，所有偏置初始化为$0$。
+
+随后，我们进行\textbf{前向传播（Forward Propagation）}，即将输入数据送入模型中，通过隐藏层和输出层逐层计算，最终得到模型的预测结果。由于异或问题属于二分类任务，我们以阈值$0.5$作为分类边界：当模型输出大于$0.5$时，预测为$1$；否则预测为$0$。经过前向传播后，四组输入对应的预测结果如\cref{tab:xor_sigmoid_wrong_params}所示：
+
+\begin{table}[H]
+    \centering
+    \caption{采用Sigmoid激活函数的异或问题预测结果}
+    \label{tab:xor_sigmoid_wrong_params}
+    \begin{tabular}{ccccc}
+        \toprule
+        \thead{输入$x_1$} & \thead{输入$x_2$} & \thead{模型输出$y$} & \thead{期望输出} & \thead{是否正确（阈值$0.5$）} \\
+        \midrule
+        0 & 0 & 0.7311 & 0 & \textbf{错误} \\
+        1 & 1 & 0.8534 & 0 & \textbf{错误} \\
+        0 & 1 & 0.8119 & 1 & 正确 \\
+        1 & 0 & 0.8119 & 1 & 正确 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+可以看到，结果非常糟糕。在这组初始参数下，即使采用了平滑可导的Sigmoid函数，模型仍然无法正确解决异或问题。四组输入的输出都大于$0.5$，因此模型把它们全部预测成了$1$。
+
+接下来，我们需要进一步\textbf{计算模型的损失}。对于任意第$i$个样本（$i$从$1$到$4$），模型前向传播得到的预测输出为$y_{\text{pred}}^{(i)}$，真实标签为$y_{\text{true}}^{(i)}$，对应的单点损失为
+$$
+\mathcal{L}^{(i)} = \frac{1}{2} \left( y_{\text{pred}}^{(i)} - y_{\text{true}}^{(i)} \right)^2
+$$
+为了评估模型在整个数据集上的表现，我们不能只关注某一个样本，而需要综合考虑全部四个样本。因此，将四个样本的损失取平均，得到整体的损失（准确地说，这里应该称为代价函数）：
+$$
+\mathcal{J} = \frac{1}{4} \sum_{i=1}^{4} \mathcal{L}^{(i)} = \frac{1}{4} \sum_{i=1}^{4} \frac{1}{2} \left( y_{\text{pred}}^{(i)} - y_{\text{true}}^{(i)} \right)^2
+$$
+
+现在，我们的目标是不断调整模型中的参数，使整体损失$\mathcal{J}$不断减小，并最终找到一组参数，使其最小。为此，我们需要对损失函数进行\textbf{求导}，更准确地说，是计算损失函数关于各个模型参数的\textbf{梯度（Gradient）}。这里所说的模型参数，也就是整体损失$\mathcal{J}$的自变量，指的是模型中需要通过训练不断调整的权重和偏置，而不是输入数据$x_1,x_2$。对于当前的训练样本，输入数据$x_1,x_2$以及对应的真实标签都是已经给定的，我们真正需要优化的是网络中的各个权重和偏置。
+
+由于整体损失$\mathcal{J}$是各个样本损失的平均，我们可以先从单个样本入手，计算其损失$\mathcal{L}$关于网络参数的偏导数，再将各个样本得到的梯度求平均。因此，下面我们暂时只考虑一个样本，并以隐藏层参数$w_{11}$为例，计算损失$\mathcal{L}$关于该参数的偏导数：
+$$
+\frac{\partial\mathcal{L}}{\partial w_{11}}
+$$
+
+\begin{orangeBox}{梯度}
+所谓梯度，就是将损失函数关于每一个参数的偏导数组合起来，用来描述损失随各个参数变化的方向和程度。
+$$
+\frac{\partial\mathcal{L}}{\partial w_{11}}
+$$
+只是关于单个参数$w_{11}$的一个偏导数。由于网络中还存在其他参数，例如$w_{12}$，$w_{21}$，$w_{22}$，$v_1$，$v_2$，$b_1$，$b_2$，$b_3$，因此还需要分别计算损失关于这些参数的偏导数，并将它们组合起来，形成完整的梯度。
+
+例如，对于参数集合
+$$
+\boldsymbol{\theta} = (w_{11},w_{12},w_{21},w_{22},v_1,v_2,b_1,b_2,b_3)
+$$
+损失函数$\mathcal{L}$关于这些参数的梯度可以写成：
+$$
+\nabla_{\boldsymbol{\theta}}\mathcal{L}
+=
+\left(
+\frac{\partial\mathcal{L}}{\partial w_{11}},
+\frac{\partial\mathcal{L}}{\partial w_{12}},
+\frac{\partial\mathcal{L}}{\partial w_{21}},
+\frac{\partial\mathcal{L}}{\partial w_{22}},
+\frac{\partial\mathcal{L}}{\partial v_1},
+\frac{\partial\mathcal{L}}{\partial v_2},
+\frac{\partial\mathcal{L}}{\partial b_1},
+\frac{\partial\mathcal{L}}{\partial b_2},
+\frac{\partial\mathcal{L}}{\partial b_3}
+\right)
+$$
+\end{orangeBox}
+
+然而，损失$\mathcal{L}$并不是$w_{11}$的直接函数，无法直接求出$\frac{\partial\mathcal{L}}{\partial w_{11}}$。回顾模型的前向传播过程，$w_{11}$首先参与计算隐藏层的总输入：
+$$
+z_1=w_{11}x_1+w_{12}x_2+b_1
+$$
+因此，根据链式法则，可以先将损失对$w_{11}$的偏导拆开：
+$$
+\frac{\partial\mathcal{L}}{\partial w_{11}}=\frac{\partial\mathcal{L}}{\partial z_1} \cdot \frac{\partial z_1}{\partial w_{11}}
+$$
+由于$z_1$关于$w_{11}$的偏导数为$x_1$，所以：
+$$
+\frac{\partial\mathcal{L}}{\partial w_{11}}=x_1 \cdot \frac{\partial\mathcal{L}}{\partial z_1}
+$$
+
+我们接着求$\frac{\partial\mathcal{L}}{\partial z_1}$，但$\mathcal{L}$同样不是$z_1$的直接函数。由于$z_1$经过Sigmoid函数得到隐藏层输出$h_1$，即$h_1=\sigma(z_1)$，我们可以再次使用链式法则：
+$$
+\frac{\partial\mathcal{L}}{\partial z_1}=\frac{\partial\mathcal{L}}{\partial h_1} \cdot \frac{\partial h_1}{\partial z_1}
+$$
+其中，$\frac{\partial h_1}{\partial z_1}$就是Sigmoid函数在$z_1$处的导数，所以：
+$$
+\frac{\partial h_1}{\partial z_1}=h_1 \cdot (1-h_1)
+$$
+
+于是，问题进一步转化为求$\frac{\partial\mathcal{L}}{\partial h_1}$。由于$h_1$参与计算输出层总输入$z_3$，即$z_3=v_1h_1+v_2h_2+b_3$，因此：
+$$
+\frac{\partial\mathcal{L}}{\partial h_1}=\frac{\partial\mathcal{L}}{\partial z_3} \cdot \frac{\partial z_3}{\partial h_1}
+$$
+
+换句话说，参数$w_{11}$影响了$z_1$，$z_1$决定了隐藏神经元$h_1$的输出，$h_1$又通过输出层参与计算$z_3$，进而影响最终输出$y_{\text{pred}}$，而$y_{\text{pred}}$决定了最终损失值$\mathcal{L}$。因此，$w_{11}$对最终损失的影响路径为：
+$$
+w_{11}\rightarrow z_1\rightarrow h_1\rightarrow z_3\rightarrow y_{\text{pred}}\rightarrow\mathcal{L}
+$$
+沿着这条路径，将各部分的导数依次连接起来，就可以得到完整的链式法则：
+$$
+\frac{\partial \mathcal{L}}{\partial w_{11}} = \frac{\partial \mathcal{L}}{\partial y_{\text{pred}}} \cdot \frac{\partial y_{\text{pred}}}{\partial z_3} \cdot \frac{\partial z_3}{\partial h_1} \cdot \frac{\partial h_1}{\partial z_1} \cdot \frac{\partial z_1}{\partial w_{11}}
+$$
+
+这正是\textbf{反向传播（Backpropagation）}的核心思想：利用链式法则，从损失函数出发，沿着网络计算路径的反方向逐层传播梯度，最终得到损失函数关于各个模型参数的偏导数，从而为参数更新提供依据。观察刚才得到的导数链可以发现，要计算网络较前面的参数$w_{11}$对损失的影响，需要依次经过$y_{\text{pred}}$、$z_3$、$h_1$和$z_1$等中间变量。也就是说，越靠近网络前端的参数，其梯度计算越依赖后面节点的计算结果。因此，与其从参数$w_{11}$出发一路向后追踪，不如从已经确定的损失$\mathcal{L}$开始，沿着计算路径反方向逐层计算梯度，并将已经得到的中间结果逐层传递下去。
+
+正如\cref{fig:bp}所示，前向传播负责从输入出发，依次经过网络各层计算预测结果和损失；反向传播则从损失出发，沿着与前向传播相反的方向逐层传递梯度。正因为这种计算过程是沿网络计算路径反向进行的，所以称为反向传播（Backpropagation）。
+\begin{figure}[H]
+    \boxedimage[width=0.95\textwidth]{figures/part_01/p1_ch02/forward_back_propagation.pdf}
+    \caption{多层感知机的前向传播与反向传播示意图。上排为前向前向传播：输入经隐藏层、输出层逐层算出损失$L$；下排为反向传播：梯度自$L$沿计算路径反方向回传至输入。图中高亮表示本步已激活的节点与连接，半透明部分表示尚未涉及。}
+    \label{fig:bp}
+\end{figure}
+
+明确了反向传播的基本思想后，我们来看一个具体的计算过程。由于整体损失$\mathcal{J}$是各个样本损失的平均，我们先选取异或问题中的一个样本$(1,1)$，计算其单个损失$\mathcal{L}$关于参数$w_{11}$的偏导数。之前得到的计算路径为：
+$$
+w_{11}\rightarrow z_1\rightarrow h_1\rightarrow z_3\rightarrow y_{\text{pred}}\rightarrow\mathcal{L},
+$$
+
+首先，从输出层开始。损失关于输出层总输入$z_3$的偏导数为：
+$$
+\delta_3=\frac{\partial\mathcal{L}}{\partial z_3}=(y_{\text{pred}}-y_{\text{true}})\,y_{\text{pred}}(1-y_{\text{pred}})
+$$
+对于样本$(1,1)$，前向传播得到$y_{\text{pred}}\approx0.8534$、$y_{\text{true}}=0$，因此$\delta_3\approx0.1068$。接下来，将$\delta_3$沿连接权重$v_1$反向传递到隐藏层，并结合隐藏层Sigmoid函数的导数，可以得到隐藏层的局部误差信号：
+$$
+\delta_1=\frac{\partial\mathcal{L}}{\partial z_1}=\delta_3\,v_1\,h_1(1-h_1) \approx0.0112
+$$
+最后，由于$z_1$关于$w_{11}$的偏导数为$x_1$，所以：
+$$
+\frac{\partial\mathcal{L}}{\partial w_{11}}=\delta_1x_1 = (y_{\text{pred}}-y_{\text{true}})y_{\text{pred}}(1-y_{\text{pred}})\cdot v_1\cdot h_1(1-h_1)\cdot x_1
+$$
+对于样本$(1,1)$，$x_1=1$，所以：
+$$
+\frac{\partial\mathcal{L}}{\partial w_{11}}\approx0.0112\times1=0.0112.
+$$
+
+这样，我们就完成了一个样本的反向传播计算：从损失$\mathcal{L}$出发，先得到输出层误差$\delta_3$，再将其传递到隐藏层得到$\delta_1$，最后计算出参数$w_{11}$的梯度。
+
+\section{梯度下降算法}
+
+现在，我们已经能够利用反向传播算法计算出损失函数关于各个参数的梯度了。但是，仅仅算出梯度是不够的，我们还需要利用它来更新模型参数，使损失逐渐减小。那么，梯度究竟应该如何指导参数的更新呢？为了直观理解模型如何利用梯度进行学习，我们先将问题简化为只有一个参数$\theta$的情况，如\cref{fig:loss_function}所示。
+
+\begin{figure}[H]
+    \boxedimage[width=0.5\textwidth]{figures/part_01/p1_ch02/loss_function.pdf}
+    \caption{损失函数曲线与梯度下降示意图。横轴为参数$\theta$，纵轴为损失$\mathcal{L}(\theta)$，$\theta_0$处虚线切线的斜率即该点梯度$\partial \mathcal{L}/\partial \theta$。}
+    \label{fig:loss_function}
+\end{figure}
+
+我们当前的目标是寻找一个合适的$\theta$，使得$\mathcal{L}(\theta)$尽可能小，也就是寻找损失函数曲线的最低点。在\cref{fig:loss_function}中，曲线在某一点处的斜率，就是损失函数关于参数$\theta$在该点的导数。当$\theta$位于最低点左侧时，导数为负，曲线向右下降；当$\theta$位于最低点右侧时，导数为正，曲线向右上升。
+
+因此，我们可以根据导数的正负来判断参数应该向哪个方向调整。当
+$$
+\frac{\partial\mathcal{L}}{\partial\theta}>0
+$$
+时，说明$\theta$增大会使得损失增大，因此应该减小$\theta$；反之，当
+$$
+\frac{\partial\mathcal{L}}{\partial\theta}<0
+$$
+时，说明$\theta$增大会使得损失减小，因此应该增大$\theta$。也就是说，要让损失函数朝减小的方向变化，我们应该沿着梯度的反方向调整参数。
+
+为了控制每次参数调整的幅度，我们引入\textbf{学习率（Learning Rate）}这一超参数，通常记作$\eta$，它决定了每次参数更新迈出的步伐大小。将梯度下降的思想写成数学形式，就得到\textbf{梯度下降算法（Gradient Descent）}的参数更新公式：
+$$
+\theta\leftarrow\theta-\eta\frac{\partial\mathcal{L}}{\partial\theta}
+$$
+其中，$\frac{\partial\mathcal{L}}{\partial\theta}$表示当前参数处的梯度，负号表示沿着梯度的反方向更新，而$\eta$则控制更新的幅度。只要学习率选择合适，经过不断迭代，参数就能够逐渐向损失较小的区域移动。
+
+我们回到之前的多层感知机模型，看看梯度下降如何更新模型参数。在前面的反向传播示例中，我们以输入样本$(1,1)$为例，计算得到了该样本损失$\mathcal{L}$关于权重$w_{11}$的梯度：
+$$
+\frac{\partial\mathcal{L}}{\partial w_{11}}=0.0112.
+$$
+我们现在使用这个样本计算得到的梯度来更新参数，并设当前权重$w_{11}=1$，学习率$\eta=1$。根据梯度下降公式：
+\begin{align*}
+w_{11}^{\text{new}} &= w_{11}^{\text{old}} - \eta \cdot \frac{\partial \mathcal{L}}{\partial w_{11}} \\
+&= 1 - 1 \times 0.0112 \\
+&= 0.9888
+\end{align*}
+由于当前梯度为正，梯度下降将$w_{11}$向减小的方向调整，使其从$1$变为$0.9888$。这就是梯度真正发挥作用的方式：反向传播负责计算梯度，而梯度下降则根据梯度更新模型参数。
+
+至此，我们就把神经网络的一次完整学习过程串联起来了。首先，模型通过前向传播得到预测结果并计算损失，接着通过反向传播计算各个参数的梯度，最后利用梯度下降更新模型参数。具体而言，一次参数更新可以概括为：
+$$
+\text{前向传播} \rightarrow \text{计算损失} \rightarrow \text{反向传播} \rightarrow \text{计算梯度} \rightarrow \text{梯度下降} \rightarrow \text{更新参数}
+$$
+通过不断重复这一过程，模型参数逐渐得到调整，使损失整体趋于减小。
+
+\begin{cyanBox}{反向传播算法发展史}
+反向传播算法是现代神经网络训练的核心基石，但它的发展历程并非一蹴而就，而是经历了数十年的沉淀与曲折。
+
+早在1967年，日本学者Shunichi Amari便对自适应模式分类器中的学习机制进行了系统研究，并在论文\href{https://ieeexplore.ieee.org/document/4039068}{\textit{A Theory of Adaptive Pattern Classifiers}}中详细阐述了利用梯度调整模型参数的思想。这一工作在数学本质上与后来的反向传播算法高度契合。然而，受限于当时匮乏的计算能力以及神经网络研究的边缘化处境，这些早期成果并没有得到广泛关注。
+
+1974年，哈佛大学研究生Paul Werbos在其博士毕业论文\href{https://perceptrondemo.com/assets/PJW_thesis_Beyond_Regression_1974-4b63aa5f.pdf}{\textit{Beyond Regression: New Tools for Prediction and Analysis in the Behavioral Sciences}}中，首次系统地提出了利用误差反向传播训练多层网络的方法。遗憾的是，彼时正值第一次人工智能寒冬，神经网络研究陷入低谷，这项极具前瞻性的工作同样被学术界束之高阁。
+
+直到1986年，David Rumelhart、Geoffrey Hinton和Ronald Williams在《Nature》上发表了具有里程碑意义的论文\href{https://www.nature.com/articles/323533a0}{\textit{Learning representations by back-propagating errors}}。论文系统阐述了误差反向传播算法在多层神经网络中的训练机制，并通过实验证明，网络能够通过梯度下降不断调整权重，使隐藏层逐步提取出任务相关的特征表示。这项工作有效突破了多层网络难以训练的瓶颈，极大地推动了反向传播算法的普及，使其正式确立了作为神经网络核心训练方法的地位。
+\end{cyanBox}
+
+\section{计算图与自动微分}
+
+我们以\cref{fig:mlp_repeat}所示的多层感知机模型为例，手工推导了反向传播的过程。可以发现，损失函数关于某个参数的梯度，并不是直接计算出来的，而是沿着模型中的计算路径，依据链式法则将各个局部导数依次相乘得到的。
+
+\begin{figure}[H]
+    \boxedimage[width=0.5\textwidth]{figures/part_01/p1_ch02/mlp.pdf}
+    \caption{采用Sigmoid函数作为激活函数的多层感知机模型。节点内的$\sigma(\cdot)$代表Sigmoid函数，它将神经元的线性输入$z$平滑转换为非线性输出（$h$或$y$），保证了模型在整个定义域内的连续可导性。}
+    \label{fig:mlp_repeat}
+\end{figure}
+
+之前的例子中，参数$w_{11}$影响最终损失的过程可以表示为：
+$$
+w_{11}\rightarrow z_1\rightarrow h_1\rightarrow z_3\rightarrow y_{\text{pred}}\rightarrow\mathcal{L}.
+$$
+这条路径实际上就是模型前向计算过程的一部分：$w_{11}$参与计算$z_1$，$z_1$经过Sigmoid函数得到$h_1$，随后$h_1$参与输出层的计算，最终得到预测结果$y_{\text{pred}}$和损失$\mathcal{L}$。如果将网络中的所有变量及其计算关系按照这种依赖关系连接起来，就得到了整个模型的\textbf{计算图（Computational Graph）}，如\cref{fig:computational_graph}所示。
+
+\begin{figure}[H]
+    \boxedimage[width=0.95\textwidth]{figures/part_01/p1_ch02/computational_graph.pdf}
+    \caption{多层感知机模型的计算图。图中节点表示输入、参数、偏置与基本运算（$\times$、$\Sigma$、$\sigma$），虚线框标出各个神经元。}
+    \label{fig:computational_graph}
+\end{figure}
+
+有了计算图之后，模型的前向传播和梯度计算都可以在这张图上完成。前向传播时，从输入出发，按照计算关系依次计算各个节点的数值；计算梯度时，则从最终的损失出发，沿着相反的方向逐层回传梯度，并依据链式法则完成各个局部导数的计算。在实际项目中，我们不需要再针对每个模型、每个参数手动推导梯度。以\code{PyTorch}为例，只需要在前向计算得到损失后调用\code{loss.backward()}，框架就会根据计算图自动完成梯度计算，并将相应的梯度保存到各个参数中，这就是\textbf{自动微分（Automatic Differentiation）}。也就是说，\redbf{计算图负责记录计算过程，自动微分负责根据计算图自动计算梯度。}
+
+\begin{purpleBox}{深度学习框架}
+在实际项目中，我们通常不会手动完成神经网络中的梯度计算、参数更新以及大量底层计算，而是会借助\textbf{深度学习框架（Deep Learning Framework）}来完成这些工作。当前常见的深度学习框架包括\code{PyTorch}、\code{TensorFlow}等，它们为模型构建、自动微分、参数优化以及GPU计算等提供了完整的工具支持。下面介绍深度学习框架的三项核心功能。
+
+\textbf{第一，自动微分。}前面我们已经介绍过，自动微分可以根据前向传播过程中记录的计算关系，自动计算损失函数关于各个模型参数的梯度。在\code{PyTorch}中，我们只需要在得到损失后调用\code{loss.backward()}，就可以自动完成梯度计算，而不需要再手动推导每一个参数的梯度。
+
+\textbf{第二，张量计算与GPU加速。}我们一直以单个神经元的形式描述模型，但在实际计算中，多个神经元的计算可以统一组织成矩阵运算，从而一次性完成大量计算。以之前的多层感知机为例：
+$$
+y=\sigma\big(w_{31}\sigma(w_{11}x_1+w_{12}x_2+b_1)+w_{32}\sigma(w_{21}x_1+w_{22}x_2+b_2)+b_3\big)
+$$
+我们可以将权重、偏置和中间变量统一表示为矩阵和向量，并将整个前向传播过程写成如下矩阵形式：
+$$
+y = \mathbf{v}^{\top} \sigma\!\left(
+  \begin{pmatrix} w_{11}&w_{12}\\ w_{21}&w_{22} \end{pmatrix}
+  \begin{pmatrix} x_1\\ x_2 \end{pmatrix}
+  + \begin{pmatrix} b_1\\ b_2 \end{pmatrix}
+\right) + b_3
+$$
+其中，各矩阵与向量分别为：
+$$
+\mathbf{x}= \begin{pmatrix} x_1\\ x_2 \end{pmatrix},\quad
+\mathbf{W}= \begin{pmatrix} w_{11}&w_{12}\\ w_{21}&w_{22} \end{pmatrix},\quad
+\mathbf{b}= \begin{pmatrix} b_1\\ b_2 \end{pmatrix},\quad
+\mathbf{v}= \begin{pmatrix} w_{31}\\ w_{32} \end{pmatrix}
+$$
+这样一来，原本需要逐个神经元计算的过程，现在可以统一转换为矩阵运算。当模型需要同时处理多个样本时，还可以将多个输入组成一个矩阵，通过批量矩阵运算一次性完成整批数据的计算。而矩阵运算具有高度的并行性，非常适合GPU执行，因此现代深度学习框架通常利用GPU加速大规模矩阵运算。在\code{PyTorch}中，只需要使用\code{.to('cuda')}，即可将模型和数据移动到GPU。
+
+\textbf{第三，模块化建模与训练。}深度学习框架将模型构建和训练过程中常用的组件封装成可以直接调用的模块，开发者不需要从零实现每一个基础功能。在\code{PyTorch}中，常见的损失函数都已经提供了现成实现，我们只需要根据任务选择合适的损失函数即可。例如，均方误差损失可以直接通过\code{nn.MSELoss()}调用，平均绝对误差则可以通过\code{nn.L1Loss()}调用。同时，模型的训练模式也可以通过调用\code{.train()}直接切换，无需手动处理相关设置，从而更加方便地完成模型的构建与训练。
+\end{purpleBox}
+
+\section{万能逼近定理}
+
+经过前面的学习，我们已经知道神经网络能够通过训练不断调整参数，从而学习数据中的规律。那么，神经网络的表达能力到底有多强？除了能够解决异或这样的非线性问题，它还能表示多么复杂的函数？
+
+答案是：在一定条件下，神经网络几乎可以逼近任意复杂的连续函数，这就是\textbf{万能逼近定理（Universal Approximation Theorem）}。所谓万能逼近定理（Universal Approximation Theorem），可以通俗地理解为：对于定义在紧集上的任意连续函数$f$，以及任意给定的精度$\epsilon>0$，只要单隐藏层前馈神经网络包含足够多的神经元，就可以使网络输出与$f$之间的误差小于$\epsilon$。也就是说，一个足够宽的神经网络，原则上可以逼近任意复杂的连续函数。这一结论最早由多位研究者在1989年前后独立证明。1989年，George Cybenko在论文\href{https://doi.org/10.1007/BF02551274}{\textit{Approximation by Superpositions of a Sigmoidal Function}}中证明了，采用连续Sigmoid激活函数的单隐藏层前馈神经网络可以以任意精度逼近定义在单位超立方体上的连续函数。同年，日本学者Ken-Ichi Funahashi也独立给出了类似的结果，在论文\href{https://doi.org/10.1016/0893-6080(89)90003-8}{\textit{On the Approximate Realization of Continuous Mappings by Neural Networks}}中证明了采用Sigmoid激活函数的多层神经网络能够近似实现任意连续映射。此后，Kurt Hornik、Maxwell Stinchcombe和Halbert White在论文\href{https://doi.org/10.1016/0893-6080(89)90020-8}{\textit{Multilayer Feedforward Networks are Universal Approximators}}中进一步推广了这一结论，将万能逼近性质扩展到更广泛的激活函数类别。对于有界、非恒定且连续的激活函数，单隐藏层前馈神经网络同样能够在紧集上以任意精度逼近任意连续函数。
+
+这里我们不展开万能逼近定理的具体数学证明，因为其中涉及的数学工具已经超出了本书的范围。需要注意的是，这个定理本质上是一个存在性定理：它只告诉我们，在满足条件的情况下，存在一个足够宽的神经网络可以逼近目标函数，却没有告诉我们应该如何找到这样一个网络。总的来说，万能逼近定理告诉我们，神经网络拥有近乎无穷的表达潜力（当然，人的潜力也是无穷的）。
+
+我们可以通过一个直观的例子，看看神经网络是如何逼近复杂的函数。如\cref{fig:complex_function_2d}所示，我们希望逼近图中的连续曲线：
+
+\begin{figure}[H]
+    \boxedimage[width=0.5\textwidth]{figures/part_01/p1_ch02/complex_function_2d.pdf}
+    \caption{复杂连续函数图像。图中蓝色曲线为目标函数$f(x)$，由整体趋势叠加高频振荡构成。}
+    \label{fig:complex_function_2d}
+\end{figure}
+其函数式是：
+$$
+f(x) = 1.2\sin(120x) + 0.6\cos(300x) + 0.2x + 1
+$$
+可以看到，这个函数在整体趋势上叠加了高频振荡，具有较为复杂的变化。现在，我们使用Sigmoid网络来逼近它。
+
+如\cref{fig:sigmoid_approx_2d}所示：当隐藏层只有8个神经元时，网络的表达能力有限，只能大致捕捉目标函数的整体趋势，对其中的高频变化拟合得并不理想；当神经元数量增加到36个后，网络可以利用更多的参数调整输出曲线，拟合效果明显提升。
+
+\begin{figure}[H]
+    \boxedimage[width=0.95\textwidth]{figures/part_01/p1_ch02/sigmoid_approx_2d.pdf}
+    \caption{Sigmoid网络对目标函数的逼近效果对比。左图隐藏层含8个神经元，右图含36个神经元；红色曲线为网络输出$\hat{f}(x)$，蓝色曲线为目标函数$f(x)$。}
+    \label{fig:sigmoid_approx_2d}
+\end{figure}
+
+可以看到，随着神经元数量增加，网络能够表达的函数更加丰富，对目标函数的拟合也更加精细。这个例子直观展示了万能逼近定理所揭示的思想：只要网络具有足够的表达能力，就能够以任意高的精度逼近复杂的连续函数。
+
+\begin{quote}
+    我们已经知道如何计算梯度，也知道如何沿着梯度下降的方向更新参数。那么，学习率应该设置多大？一次应该使用多少个样本？有没有更加高效的参数更新方法，让模型能够学得更快、更稳？
+\end{quote}

@@ -1,0 +1,124 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {chapter}{\numberline {12}循环神经网络}{149}{chapter.12}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{toc}{\contentsline {section}{\numberline {12.1}序列模型}{149}{section.12.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {12.1}{\ignorespaces 全连接网络处理变长文本序列的局限性。其输入层固定为6个节点，文本须先装入固定6槽窗口：长度1的序列要填充5个PAD（引入多余信息），长度6恰好填满，长度9则被截断、丢失3个token（丢弃原始信息）。填充与截断正是全连接网络无法直接接收变长序列的代价。}}{149}{figure.caption.104}\protected@file@percent }
+\newlabel{fig:limitation_fcn}{{12.1}{149}{全连接网络处理变长文本序列的局限性。其输入层固定为6个节点，文本须先装入固定6槽窗口：长度1的序列要填充5个PAD（引入多余信息），长度6恰好填满，长度9则被截断、丢失3个token（丢弃原始信息）。填充与截断正是全连接网络无法直接接收变长序列的代价。}{figure.caption.104}{}}
+\newlabel{fig:limitation_fcn@cref}{{[figure][1][12]12.1}{[1][149][]149}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {12.2}{\ignorespaces 卷积网络处理变长文本序列时的局限性。卷积核在序列上滑动提取局部特征，感受野逐层扩大（3、5、7）：本例需堆叠三层，最深层的单个单元才覆盖全部7个token。感受野窗口固定，相距更远的词依赖要靠继续堆层捕捉，且最终仍须把特征压缩成固定长度的表示。}}{150}{figure.caption.105}\protected@file@percent }
+\newlabel{fig:limitation_cnn}{{12.2}{150}{卷积网络处理变长文本序列时的局限性。卷积核在序列上滑动提取局部特征，感受野逐层扩大（3、5、7）：本例需堆叠三层，最深层的单个单元才覆盖全部7个token。感受野窗口固定，相距更远的词依赖要靠继续堆层捕捉，且最终仍须把特征压缩成固定长度的表示。}{figure.caption.105}{}}
+\newlabel{fig:limitation_cnn@cref}{{[figure][2][12]12.2}{[1][150][]150}{}{}{}}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {section}{\numberline {12.2}循环神经网络}{151}{section.12.2}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {12.3}{\ignorespaces 循环神经网络在单个时间步上的计算过程。当前时刻的输入$x_t$与上一时刻的隐藏状态$h_{t-1}$分别经过线性变换后进行融合，再通过非线性激活函数得到当前隐藏状态$h_t$。其中，$h_{t-1}$用于携带此前序列中积累的历史信息，$x_t$表示当前时刻输入的新信息。}}{152}{figure.caption.106}\protected@file@percent }
+\newlabel{fig:rnn_cell}{{12.3}{152}{循环神经网络在单个时间步上的计算过程。当前时刻的输入$x_t$与上一时刻的隐藏状态$h_{t-1}$分别经过线性变换后进行融合，再通过非线性激活函数得到当前隐藏状态$h_t$。其中，$h_{t-1}$用于携带此前序列中积累的历史信息，$x_t$表示当前时刻输入的新信息。}{figure.caption.106}{}}
+\newlabel{fig:rnn_cell@cref}{{[figure][3][12]12.3}{[1][152][]152}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {12.4}{\ignorespaces 循环神经网络沿时间展开的计算过程。每个时间步接收当前词向量$x_t$与上一隐藏状态$h_{t-1}$，经权重映射与激活函数$f$融合，更新为当前隐藏状态$h_t$。图中所有时间步的计算单元完全相同，共享同一组参数（$W_{xh}, W_{hh}, b, f$）。读取完最后一个词后，末态$h_T$经分类器输出最终预测$y_T$。}}{153}{figure.caption.107}\protected@file@percent }
+\newlabel{fig:rnn_architecture}{{12.4}{153}{循环神经网络沿时间展开的计算过程。每个时间步接收当前词向量$x_t$与上一隐藏状态$h_{t-1}$，经权重映射与激活函数$f$融合，更新为当前隐藏状态$h_t$。图中所有时间步的计算单元完全相同，共享同一组参数（$W_{xh}, W_{hh}, b, f$）。读取完最后一个词后，末态$h_T$经分类器输出最终预测$y_T$。}{figure.caption.107}{}}
+\newlabel{fig:rnn_architecture@cref}{{[figure][4][12]12.4}{[1][153][]153}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {12.5}{\ignorespaces 循环神经网络的折叠（循环）画法：自始至终只有一个计算单元，词向量$x_1,\ldots  ,x_T$按时间顺序逐个送入；隐藏状态$h$不交给其他单元，而是沿环形箭头回到自身输入端，在下一时间步参与计算——这条指向自身的环即``循环''的含义。读完序列后$h$（即$h_T$）送入classifier+softmax得输出$y$。该图与\cref  {fig:rnn_architecture}是同一模型的两种画法：一为展开，一为折叠。}}{154}{figure.caption.108}\protected@file@percent }
+\newlabel{fig:rnn_fold}{{12.5}{154}{循环神经网络的折叠（循环）画法：自始至终只有一个计算单元，词向量$x_1,\ldots ,x_T$按时间顺序逐个送入；隐藏状态$h$不交给其他单元，而是沿环形箭头回到自身输入端，在下一时间步参与计算——这条指向自身的环即``循环''的含义。读完序列后$h$（即$h_T$）送入classifier+softmax得输出$y$。该图与\cref {fig:rnn_architecture}是同一模型的两种画法：一为展开，一为折叠。}{figure.caption.108}{}}
+\newlabel{fig:rnn_fold@cref}{{[figure][5][12]12.5}{[1][154][]154}{}{}{}}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {section}{\numberline {12.3}RNN的反向传播}{155}{section.12.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {12.6}{\ignorespaces RNN的前向传播示意图（3个词的情感分类示例）。隐藏状态沿时间步递推：$x_1$算出$h_1$，$x_2$与$h_1$算出$h_2$，$x_3$与$h_2$算出$h_3$，各时间步共享同一组参数；末尾$h_3$经输出层得预测$\hat  y$，与真实标签$y$算出损失$\mathcal  L$。前向计算顺时间链从前往后，为逆向回传梯度做铺垫。}}{155}{figure.caption.109}\protected@file@percent }
+\newlabel{fig:rnn_forward}{{12.6}{155}{RNN的前向传播示意图（3个词的情感分类示例）。隐藏状态沿时间步递推：$x_1$算出$h_1$，$x_2$与$h_1$算出$h_2$，$x_3$与$h_2$算出$h_3$，各时间步共享同一组参数；末尾$h_3$经输出层得预测$\hat y$，与真实标签$y$算出损失$\mathcal L$。前向计算顺时间链从前往后，为逆向回传梯度做铺垫。}{figure.caption.109}{}}
+\newlabel{fig:rnn_forward@cref}{{[figure][6][12]12.6}{[1][155][]155}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {12.7}{\ignorespaces RNN前向计算图（3词情感分类示例）：将基本运算拆为独立节点。每个时间步结合$h_{t-1}$与$x_t$经乘加与激活$f$算出$h_t$，各步复用同一组参数（参数共享）。末态$h_3$经输出层得预测$\hat  y$，与真实标签$y$算出损失$\mathcal  L$。反向传播即梯度沿箭头逆向逐节点回传，按链式法则累加下游贡献。}}{156}{figure.caption.110}\protected@file@percent }
+\newlabel{fig:rnn_computation}{{12.7}{156}{RNN前向计算图（3词情感分类示例）：将基本运算拆为独立节点。每个时间步结合$h_{t-1}$与$x_t$经乘加与激活$f$算出$h_t$，各步复用同一组参数（参数共享）。末态$h_3$经输出层得预测$\hat y$，与真实标签$y$算出损失$\mathcal L$。反向传播即梯度沿箭头逆向逐节点回传，按链式法则累加下游贡献。}{figure.caption.110}{}}
+\newlabel{fig:rnn_computation@cref}{{[figure][7][12]12.7}{[1][156][]156}{}{}{}}
+\def\@LN@column{1}
+\def\@LN@column{1}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {section}{\numberline {12.4}RNN的输入输出}{159}{section.12.4}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {12.8}{\ignorespaces RNN的多种输入输出结构。左：带输出层的RNN单元，$h_{t-1}$与$x_t$加权相加、过激活$f$得$h_t$，$h_t$经输出层线性变换得到分类得分，再经Softmax得到当前时刻的输出概率$y_t$。右：四种经典结构：一对一（普通前馈网络）、多对一（如情感分类）、一对多（如图像描述生成）、多对多（如词性标注或机器翻译）。}}{160}{figure.caption.111}\protected@file@percent }
+\newlabel{fig:rnn_io}{{12.8}{160}{RNN的多种输入输出结构。左：带输出层的RNN单元，$h_{t-1}$与$x_t$加权相加、过激活$f$得$h_t$，$h_t$经输出层线性变换得到分类得分，再经Softmax得到当前时刻的输出概率$y_t$。右：四种经典结构：一对一（普通前馈网络）、多对一（如情感分类）、一对多（如图像描述生成）、多对多（如词性标注或机器翻译）。}{figure.caption.111}{}}
+\newlabel{fig:rnn_io@cref}{{[figure][8][12]12.8}{[1][160][]160}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {12.9}{\ignorespaces 同步多对多结构。输入与输出序列等长、逐时间步对齐：每个时间步的隐藏状态$h_t$都接一个classifier+softmax输出层，读入$x_t$的同时即刻产出$y_t$（图中每列下绿输入、上红输出垂直成对）。}}{160}{figure.caption.112}\protected@file@percent }
+\newlabel{fig:many_to_many}{{12.9}{160}{同步多对多结构。输入与输出序列等长、逐时间步对齐：每个时间步的隐藏状态$h_t$都接一个classifier+softmax输出层，读入$x_t$的同时即刻产出$y_t$（图中每列下绿输入、上红输出垂直成对）。}{figure.caption.112}{}}
+\newlabel{fig:many_to_many@cref}{{[figure][9][12]12.9}{[1][160][]160}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {12.10}{\ignorespaces 编码器--解码器结构。上半为编码器：依次读入源语言句子$x_1,\ldots  ,x_T$、不产生输出，将整句信息压缩进末尾隐藏状态$h_T$；下半为解码器：以$h_T$为初始状态（图中跨接箭头），从起始符$\langle s\rangle $出发，每步经classifier+softmax产出一个词并把它喂回作为下一步输入（自回归），逐步生成$y_1,\ldots  ,y_S$。输入长度$T$与输出长度$S$一般不相等。}}{161}{figure.caption.113}\protected@file@percent }
+\newlabel{fig:encoder_decoder}{{12.10}{161}{编码器--解码器结构。上半为编码器：依次读入源语言句子$x_1,\ldots ,x_T$、不产生输出，将整句信息压缩进末尾隐藏状态$h_T$；下半为解码器：以$h_T$为初始状态（图中跨接箭头），从起始符$\langle s\rangle $出发，每步经classifier+softmax产出一个词并把它喂回作为下一步输入（自回归），逐步生成$y_1,\ldots ,y_S$。输入长度$T$与输出长度$S$一般不相等。}{figure.caption.113}{}}
+\newlabel{fig:encoder_decoder@cref}{{[figure][10][12]12.10}{[1][161][]161}{}{}{}}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {section}{\numberline {12.5}RNN的局限}{162}{section.12.5}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {12.11}{\ignorespaces Sigmoid、ReLU和tanh激活函数的对比：左为Sigmoid，中为ReLU，右为tanh。}}{163}{figure.caption.114}\protected@file@percent }
+\newlabel{fig:rnn_activation}{{12.11}{163}{Sigmoid、ReLU和tanh激活函数的对比：左为Sigmoid，中为ReLU，右为tanh。}{figure.caption.114}{}}
+\newlabel{fig:rnn_activation@cref}{{[figure][11][12]12.11}{[1][162][]163}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {12.5.1}梯度消失与梯度爆炸}{163}{subsection.12.5.1}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {12.12}{\ignorespaces 梯度消失与梯度爆炸示意图。横轴表示从当前时刻向更早时间步追溯的距离，纵轴表示梯度大小。随着反向传播经过的时间步增加，梯度可能逐渐衰减至接近$0$，也可能不断放大。前者使模型难以学习较早输入对当前预测的影响，后者则可能导致参数更新不稳定。两种现象都源于梯度在时间维度上的反复连乘。}}{164}{figure.caption.115}\protected@file@percent }
+\newlabel{fig:gradient_magnitude}{{12.12}{164}{梯度消失与梯度爆炸示意图。横轴表示从当前时刻向更早时间步追溯的距离，纵轴表示梯度大小。随着反向传播经过的时间步增加，梯度可能逐渐衰减至接近$0$，也可能不断放大。前者使模型难以学习较早输入对当前预测的影响，后者则可能导致参数更新不稳定。两种现象都源于梯度在时间维度上的反复连乘。}{figure.caption.115}{}}
+\newlabel{fig:gradient_magnitude@cref}{{[figure][12][12]12.12}{[1][163][]164}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {12.5.2}长期依赖问题}{164}{subsection.12.5.2}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {12.13}{\ignorespaces 长期依赖问题的示意图。短距离依赖（例如相邻两个词之间的关联）信息传递短、几乎不衰减，模型容易学到；而长距离依赖（句首的法国和句末的填空）要穿过很多时间步、严重衰减，模型几乎学不到。}}{165}{figure.caption.116}\protected@file@percent }
+\newlabel{fig:long_term_dependency}{{12.13}{165}{长期依赖问题的示意图。短距离依赖（例如相邻两个词之间的关联）信息传递短、几乎不衰减，模型容易学到；而长距离依赖（句首的法国和句末的填空）要穿过很多时间步、严重衰减，模型几乎学不到。}{figure.caption.116}{}}
+\newlabel{fig:long_term_dependency@cref}{{[figure][13][12]12.13}{[1][165][]165}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {12.5.3}串行计算}{165}{subsection.12.5.3}\protected@file@percent }
+\def\@LN@column{1}
+\@setckpt{./chapters/part_03/p3_ch02}{
+\setcounter{page}{167}
+\setcounter{equation}{0}
+\setcounter{enumi}{11}
+\setcounter{enumii}{0}
+\setcounter{enumiii}{0}
+\setcounter{enumiv}{0}
+\setcounter{footnote}{1}
+\setcounter{mpfootnote}{0}
+\setcounter{part}{3}
+\setcounter{chapter}{12}
+\setcounter{section}{5}
+\setcounter{subsection}{3}
+\setcounter{subsubsection}{0}
+\setcounter{paragraph}{0}
+\setcounter{subparagraph}{0}
+\setcounter{figure}{13}
+\setcounter{table}{0}
+\setcounter{FancyVerbLine}{0}
+\setcounter{linenumber}{1}
+\setcounter{LN@truepage}{174}
+\setcounter{FancyVerbWriteLine}{0}
+\setcounter{FancyVerbBufferLine}{0}
+\setcounter{FV@TrueTabGroupLevel}{0}
+\setcounter{FV@TrueTabCounter}{0}
+\setcounter{FV@HighlightLinesStart}{0}
+\setcounter{FV@HighlightLinesStop}{0}
+\setcounter{FancyVerbLineBreakLast}{0}
+\setcounter{FV@BreakBufferDepth}{0}
+\setcounter{parentequation}{0}
+\setcounter{float@type}{16}
+\setcounter{caption@flags}{2}
+\setcounter{continuedfloat}{0}
+\setcounter{subfigure}{0}
+\setcounter{subtable}{0}
+\setcounter{LT@tables}{0}
+\setcounter{LT@chunks}{0}
+\setcounter{nlinenum}{0}
+\setcounter{lstnumber}{1}
+\setcounter{tcbbreakpart}{1}
+\setcounter{tcblayer}{0}
+\setcounter{tcolorbox@number}{87}
+\setcounter{tcbrastercolumn}{1}
+\setcounter{tcbrasterrow}{1}
+\setcounter{tcbrasternum}{1}
+\setcounter{tcbraster}{0}
+\setcounter{tcblisting}{0}
+\setcounter{section@level}{0}
+\setcounter{Item}{47}
+\setcounter{Hfootnote}{43}
+\setcounter{Hy@AnnotLevel}{0}
+\setcounter{bookmark@seq@number}{87}
+\setcounter{lstlisting}{0}
+}

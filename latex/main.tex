@@ -1,0 +1,46 @@
+\documentclass[fontset=fandol]{template}
+
+% ============================================================
+% 文档信息定义
+% ============================================================
+\title{深度学习入门教程}
+\author{偷书的孔乙己}
+\date{\today}
+
+% 自定义变量（供 chapter-00.tex 读取）
+\newcommand{\mySubtitle}{Introduction to Deep Learning}
+\newcommand{\myVersion}{v0.9}
+
+% 页眉链接设置
+\setlink{https://github.com/cyberyjkong/IntroDL}{https://github.com/cyberyjkong/IntroDL}
+
+% ============================================================
+% 文档开始
+% ============================================================
+\begin{document}
+
+% 封面
+\input{./chapters/front_cover}
+
+% 前导部分
+\frontmatter
+
+% 前言
+\input{chapters/preface}
+
+% 目录
+\tableofcontents
+
+% 正文
+\mainmatter
+
+% 第一部分
+\part{神经网络入门}
+\include{./chapters/part_01/p1_ch01}
+\include{./chapters/part_01/p1_ch02}
+
+% 后记部分
+\backmatter
+\input{./chapters/back_cover.tex}
+
+\end{document}

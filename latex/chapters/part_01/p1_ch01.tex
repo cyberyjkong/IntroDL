@@ -1,0 +1,315 @@
+% !TEX root = ../../main.tex
+
+\chapter{多层感知机}
+
+\section{神经元与感知机模型}
+
+在生物神经系统中，神经元（Neuron）是信息处理的基本单元。早在20世纪40年代，神经科学家就发现，大脑中的神经元通过树突（Dendrites）接收来自其他神经元或感知器（如视网膜）的信号。这些信号通过突触（Synapse）传递，并携带一定的突触强度（也称突触权重），以调节信号对神经元激活程度的影响。多个输入在细胞体膜上整合后，如果累积输入超过激发阈值，神经元便会在轴丘（Axon Hillock）触发动作电位，并沿轴突（Axon）传输至下一个神经元或目标组织。
+
+我们可以通过\cref{fig:neuron}来直观地观察神经元的典型结构：它由树突、细胞体（Soma）及其内部的细胞核（Nucleus）、轴突以及轴突末端（Axon Terminals）构成。
+
+\begin{figure}[H]
+    \boxedimage[width=0.95\textwidth]{figures/part_01/p1_ch01/neuron.pdf}
+    \caption{生物神经元结构示意图。图左侧的输入神经元与感知器通过突触将信号传递给中间神经元的树突；树突接收信号后将其送入细胞体进行整合。当累积输入超过激发阈值，则在轴丘处触发动作电位，并沿轴突传导至轴突末端，最终再经突触作用于下游神经元或目标组织。}
+    \label{fig:neuron}
+\end{figure}
+
+受此启发，我们可以把这套生物机制抽象成一个简洁的数学模型。首先，模型接收若干输入信号$x_{1},x_{2},x_{3},\ldots$，每个输入信号都有对应的权重$w_{1},w_{2},w_{3},\ldots$。将信号与权重相乘，就能表示该信号对最终决策的贡献度。随后，将所有加权的输入进行求和，并加上一个偏置项$b$（Bias），就得到了神经元的总输入信号$z$。这个过程可以表示为：
+$$
+z=\sum_{i}w_{i}x_{i}+b
+$$
+
+接下来，我们需要一个机制来判断这个总输入$z$是否达到了触发条件。最直接的做法是设定一个阈值：若超过阈值，神经元激活（输出$1$）；否则保持沉寂（输出$0$）。基于这一思想，我们便重新发明了人工神经网络中最早的模型——\textbf{感知机（Perceptron）}\footnote{感知机模型由美国心理学家Frank Rosenblatt于1957年提出，原始论文参见\href{https://homepages.math.uic.edu/~lreyzin/papers/rosenblatt58.pdf}{\textit{The Perceptron: A Probabilistic Model for Information Storage and Organization in the Brain}}。该模型首次引入了基于误差驱动的权重更新算法，使机器具备了从数据中学习的能力。这一突破在当时的人工智能领域引发了巨大轰动，学界一度乐观地认为，机器智能的实现已近在咫尺。}。它的完整数学表达式为：
+$$
+y=f(z)=f(\sum_{i}w_{i}x_{i}+b)
+$$
+
+在这里，$f(x)$被称为\textbf{激活函数}。在感知机模型中，它是一个阶跃函数（Step Function），用于判断总输入信号是否超过了某个预先设定的阈值，从而确定神经元是否被激活：
+$$
+f(z)=\begin{cases}
+    1 & \text{if }z>0 \\
+    0 & \text{otherwise}
+\end{cases}
+$$
+
+为了更直观地理解，我们可以将感知机模型应用于一个简单的分类任务：判断一位学生能否通过某门课程。输入为平时成绩$x_{1}\in[0,100]$和期末成绩$x_{2}\in[0,100]$，对应的权重分别为$w_{1}$和$w_{2}$，权重的大小表示这两项成绩在最终评估中的占比。假设平时成绩占总评的40\%，期末成绩占60\%（即$w_{1}=0.4,w_2=0.6$），且不考虑额外的加分或扣分，即偏置项设定为$0$，总分达到或超过60分即为通过。顺着这个逻辑，我们可以构造出一个明确的感知机分类器：
+$$
+f(x_1,x_2)=\begin{cases}
+    \text{通过}, &\text{if }0.4x_1+0.6x_2\ge60\\
+    \text{挂科},&\text{otherwise}
+\end{cases}
+$$
+
+通过这一模型，我们可以轻松计算出某位学生的最低达标要求。例如，如果一位学生的平时成绩为$x_{1}=30$分，代入公式后，其期末成绩$x_2$最低需满足$0.4\times30+0.6x_2\ge60$，方可通过。解得$x_2\ge80$。该分类问题的分界线如\cref{fig:perceptron_boundary}所示：
+
+\begin{figure}[H]
+    \boxedimage[width=0.45\textwidth]{figures/part_01/p1_ch01/perceptron_boundary.pdf}
+    \caption{感知机分类决策边界示意图。以平时成绩$x_1$和期末成绩$x_2$为坐标轴，蓝色斜线$0.4x_1+0.6x_2=60$为决策边界，其上方阴影区域（含边界）为通过区域，其余为挂科；红点$(30,80)$落在边界上，对应平时30分需期末至少80分才能通过的临界情形。}
+    \label{fig:perceptron_boundary}
+\end{figure}
+
+\section{感知机模型的局限}
+
+从刚刚的例子可以看出，感知机模型简单、直观且计算高效。然而，让我们重新审视感知机的核心判决逻辑（以二维数据为例）：
+$$
+f(x_1, x_2) = \begin{cases}
+    1, & \text{if } w_1x_1 + w_2x_2 + b > 0 \\
+    0, & \text{otherwise}
+\end{cases}
+$$
+
+可以看出，感知机的分类边界在二维空间中，永远是一条笔直的线（$w_{1}x_{1}+w_{2}x_{2}+b=0$）。在三维空间中，它是一个平整的面；在更高维空间中，则是一个超平面（即高维空间中的线性分类边界，可以简单理解为高维空间中的“平面”）。这意味着它只能解决\textbf{线性可分（Linearly Separable）}的问题。如果现实世界的数据分布稍微复杂一点，无法被一刀切开，感知机便会暴露出其致命的软肋。
+
+我们可以考虑一个具体的例子：如\cref{fig:xor_problem}所示，在二维平面中，点$(0,0)$、$(1,1)$属于同一类别，而点$(0,1)$、$(1,0)$属于另一类别。可以发现，两类样本并不是简单地分布在某条直线的两侧，而是呈现出交叉对立的分布形式，这就是逻辑运算中著名的异或（XOR）问题。
+
+对于这样的数据分布，我们可以拿尺子在图上任意比划一下，就会发现：无论怎样调整直线的位置和方向，都不可能找到一条直线，将这两类点完美分隔开来\footnote{1969年，Marvin Minsky和Seymour Papert出版了《感知机》（\href{https://rodsmith.nz/wp-content/uploads/Minsky-and-Papert-Perceptrons.pdf}{\textit{Perceptrons}}）一书。该书通过数学分析指出，单层感知机无法解决异或（XOR）等非线性可分问题。}。
+
+\begin{figure}[H]
+    \boxedimage[width=0.45\textwidth]{figures/part_01/p1_ch01/xor_problem.pdf}
+    \caption{异或（XOR）问题示意图。四个样本点分为两类：$(0,0)$、$(1,1)$（红色）输出为0，$(0,1)$、$(1,0)$（蓝色）输出为1。两类点各占对角、交叉分布。}
+    \label{fig:xor_problem}
+\end{figure}
+
+\section{多层感知机模型}
+
+感知机模型的设计本身受到了生物神经系统的启发。在生物神经系统中，神经元并不是孤立工作的，而是通过大量神经元之间的连接形成多层次的网络，共同完成信息的传递与处理。那既然单个感知机的表达能力有限，那么能否将多个感知机按照一定的层级结构进行组合，从而获得更强的表示能力，并进一步解决异或这样的非线性问题呢？基于这一思路，我们可以构建一个简单的\textbf{多层感知机模型}，其具体结构如\cref{fig:mlp_without_activation}所示：
+\begin{figure}[H]
+    \boxedimage[width=0.5\textwidth]{figures/part_01/p1_ch01/mlp_without_activation.pdf}
+    \caption{没有激活函数的多层感知机模型。输入层$x_1,x_2$、隐藏层$h_1,h_2$与输出层$y$逐层全连接，偏置$b_1,b_2,b_3$注入对应神经元；各节点仅做线性加权求和。}
+    \label{fig:mlp_without_activation}
+\end{figure}
+
+如图所示，该模型增加了两个中间节点：两个输入节点$x_1$和$x_2$的信号不再直接决定结果，而是先传递给中间节点$h_1$和$h_2$。这些位于输入层和输出层之间的节点被称为\textbf{隐藏层（Hidden Layer）}，它们负责对输入信息进行进一步的变换与组合，随后将处理后的信息传递给输出节点$y$，由输出节点得到最终结果。假设暂时不引入激活函数，仅依靠神经元内部的线性加权求和（如$z_1 = w_{11}x_1 + w_{12}x_2 + b_1$），则整个网络的计算过程可表示为：
+\begin{align*}
+    h_1&=w_{11}x_1+w_{12}x_2+b_1\\
+    h_2&=w_{21}x_1+w_{22}x_2+b_2\\
+    y&=v_1h_1+v_2h_2+b_3\\
+     &= v_1 (w_{11}x_1 + w_{12}x_2 + b_1) + v_2 (w_{21}x_1 + w_{22}x_2 + b_2) + b_3 \\
+     &= v_1w_{11}x_1 + v_1w_{12}x_2 + v_1b_1 + v_2w_{21}x_1 + v_2w_{22}x_2 + v_2b_2 + b_3 \\
+     &= (v_1w_{11} + v_2w_{21})x_1 + (v_1w_{12} + v_2w_{22})x_2 + (v_1b_1 + v_2b_2 + b_3)
+\end{align*}
+
+稍加整理后我们可以发现，若定义新权重$W_1 = v_1w_{11} + v_2w_{21}$、 $W_2 = v_1w_{12} + v_2w_{22}$，以及新偏置$B = v_1b_1 + v_2b_2 + b_3$，那整个模型就可以写成：
+$$
+y = W_1 x_1 + W_2 x_2 + B
+$$
+
+可以看到，虽然我们在网络中增加了隐藏层，将多个神经元进行了堆叠，但在没有激活函数的情况下，这些线性计算始终可以合并成一次线性加权求和。换句话说，在没有激活函数的情况下，无论网络堆叠多少层，只要每一层都只是线性变换，整个网络本质上仍然只是一个线性模型，并不会因为增加网络层数而获得更强的表达能力。
+
+因此，单纯依靠线性层的堆叠并不能突破感知机的局限。既然如此，我们不妨加入之前介绍过的激活函数，看看情况是否会有所不同。如\cref{fig:mlp_with_activation}所示，输入信号$x_1$和$x_2$首先分别经过加权求和并加上偏置，得到两个中间结果；随后，这两个结果分别经过激活函数，得到$h_1$和$h_2$。接着，$h_1$和$h_2$再进行加权求和并加上偏置，最后经过激活函数得到输出$y$。其完整的数学公式也随之变为：
+\begin{align*}
+    h_1&=f(w_{11}x_1+w_{12}x_2+b_1)\\
+    h_2&=f(w_{21}x_1+w_{22}x_2+b_2)\\
+    y&=f(v_1h_1+v_2h_2+b_3)
+\end{align*}
+其中，$f(x)$表示阶跃函数。
+
+\begin{figure}[H]
+    \boxedimage[width=0.5\textwidth]{figures/part_01/p1_ch01/mlp_with_activation.pdf}
+    \caption{带有激活函数的多层感知机模型。结构与\cref{fig:mlp_without_activation}相同，但在隐藏层和输出层的线性加权求和之后加入阶跃函数$f$，分别得到$h_1$、$h_2$和最终输出$y$。}
+    \label{fig:mlp_with_activation}
+\end{figure}
+
+为验证该结构能否解决异或问题，我们设定以下具体的权重与偏置参数：
+\begin{align*}
+    & w_{11}=1,\quad w_{12}=1,\quad b_1=-0.5 \\
+    & w_{21}=1,\quad w_{22}=1,\quad b_2=-1.5 \\
+    & v_1=1,\quad v_2=-2,\quad b_3=-0.5 \\
+    & \downarrow \\
+    & h_1=f(x_1+x_2-0.5) \\
+    & h_2=f(x_1+x_2-1.5) \\
+    & y=f(h_1-2h_2-0.5)
+\end{align*}
+
+情形一：输入为$(x_1,x_2)=(0,0)$
+\begin{align*}
+    z_1 &= 1\cdot0 + 1\cdot0 - 0.5 = -0.5 \quad\Rightarrow\quad h_1 = f(-0.5) = 0 \\
+    z_2 &= 1\cdot0 + 1\cdot0 - 1.5 = -1.5 \quad\Rightarrow\quad h_2 = f(-1.5) = 0 \\
+    z_3 &= 1\cdot0 - 2\cdot0 - 0.5 = -0.5 \quad\Rightarrow\quad y = f(-0.5) = 0
+\end{align*}
+
+情形二：输入为$(x_1,x_2)=(1,1)$
+\begin{align*}
+    z_1 &= 1\cdot1 + 1\cdot1 - 0.5 = 1.5 \quad\Rightarrow\quad h_1 = f(1.5) = 1 \\
+    z_2 &= 1\cdot1 + 1\cdot1 - 1.5 = 0.5 \quad\Rightarrow\quad h_2 = f(0.5) = 1 \\
+    z_3 &= 1\cdot1 - 2\cdot1 - 0.5 = -1.5 \quad\Rightarrow\quad y = f(-1.5) = 0
+\end{align*}
+
+情形三：输入为$(x_1,x_2)=(0,1)$
+\begin{align*}
+    z_1 &= 1\cdot0 + 1\cdot1 - 0.5 = 0.5 \quad\Rightarrow\quad h_1 = f(0.5) = 1 \\
+    z_2 &= 1\cdot0 + 1\cdot1 - 1.5 = -0.5 \quad\Rightarrow\quad h_2 = f(-0.5) = 0 \\
+    z_3 &= 1\cdot1 - 2\cdot0 - 0.5 = 0.5 \quad\Rightarrow\quad y = f(0.5) = 1
+\end{align*}
+
+情形四：输入为$(x_1,x_2)=(1,0)$
+\begin{align*}
+    z_1 &= 1\cdot1 + 1\cdot0 - 0.5 = 0.5 \quad\Rightarrow\quad h_1 = f(0.5) = 1 \\
+    z_2 &= 1\cdot1 + 1\cdot0 - 1.5 = -0.5 \quad\Rightarrow\quad h_2 = f(-0.5) = 0 \\
+    z_3 &= 1\cdot1 - 2\cdot0 - 0.5 = 0.5 \quad\Rightarrow\quad y = f(0.5) = 1
+\end{align*}
+
+汇总上述计算结果，可以得到\cref{tab:xor_table}。可以看到，模型对4组输入均做出了正确判断，说明通过引入隐藏层和激活函数，多层感知机已经成功解决了异或问题。
+
+\begin{table}[H]
+    \centering
+    \caption{异或问题输入输出表}
+    \label{tab:xor_table}
+    \begin{tabular}{ccccc}
+        \toprule
+        \thead{输入$x_1$} & \thead{输入$x_2$} & \thead{模型输出$y$} & \thead{期望输出} & \thead{是否正确} \\
+        \midrule
+        0 & 0 & 0 & 0 & 正确 \\
+        1 & 1 & 0 & 0 & 正确 \\
+        0 & 1 & 1 & 1 & 正确 \\
+        1 & 0 & 1 & 1 & 正确 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+通过上述内容可以发现，非线性激活函数的主要作用是为模型引入非线性，使模型能够学习和表示更加复杂的非线性关系。
+
+\begin{cyanBox}{深度学习名称的由来}
+“深度学习”（Deep Learning）从网络结构上看，本质就是具有多层隐藏层的神经网络。但在第二次人工智能寒冬期间（20世纪末至21世纪初），“神经网络”一词在学术界几乎声名狼藉，学术评审对神经网络方向存在强烈的偏见。带“Neural Network”关键词的稿件极易在初审阶段被直接驳回，相关的科研经费也难以获批。
+
+转机出现在2006年。Geoffrey Hinton、Simon Osindero和Yee-Whye Teh在论文\href{https://doi.org/10.1162/neco.2006.18.7.1527}{\textit{A Fast Learning Algorithm for Deep Belief Nets}}中提出基于逐层无监督预训练的深度信念网络方法，为深层网络的训练提供了新的思路。同年，Geoffrey Hinton与Ruslan Salakhutdinov在《Science》发表论文\href{https://doi.org/10.1126/science.1127647}{Reducing the Dimensionality of Data with Neural Networks}，进一步验证了深层网络在降维与特征学习上的潜力。Hinton等人策略性地引入并推广了“深度信念网络”与“深度学习”等新概念，以规避当时对“神经网络”的严重偏见。此后几年，“深度学习”这一统称逐渐在学术界流传开来。
+
+2012年，AlexNet在ImageNet竞赛中以显著优势夺冠，深度卷积网络展现出的强大性能成为深度学习复兴的重要转折点。此后，随着计算能力和数据规模的快速增长，“深度学习”逐渐成为多层网络研究的主流，并发展为今天人工智能领域的核心技术体系。
+\end{cyanBox}
+
+\section{多层感知机的矩阵表示}
+
+前面我们通过具体的权重和偏置，逐个计算了多层感知机中的每个神经元。虽然这种写法能够直观展示网络的计算过程，但当网络层数和神经元数量增加后，逐个书写每个神经元的计算公式会变得越来越繁琐。实际上，我们可以把同一层中的神经元统一表示成向量，并进一步使用矩阵来描述整个网络的计算过程。如\cref{fig:mlp_with_activation}所示，输入层与隐藏层之间、隐藏层与输出层之间的神经元均相互连接，因此这种网络也可以称为\textbf{全连接网络（Fully Connected Network）}。对于全连接层，每个输出神经元都会接收上一层所有神经元的输入，并为每一条连接学习一个独立的权重。
+
+以当前的多层感知机为例，我们可以将输入$x_1,x_2$组成输入向量：
+$$
+\boldsymbol{x}=\begin{pmatrix}
+x_1\\
+x_2
+\end{pmatrix}
+$$
+隐藏层包含两个神经元，因此也可以将它们的线性输出写成向量：
+$$
+\boldsymbol{z}^{(1)}=\begin{pmatrix}
+z_1\\
+z_2
+\end{pmatrix}
+$$
+而对应的权重和偏置可分别写成：
+$$
+W^{(1)}=\begin{pmatrix}
+w_{11}&w_{12}\\
+w_{21}&w_{22}
+\end{pmatrix} \qquad
+\boldsymbol{b}^{(1)}=\begin{pmatrix}
+b_1\\
+b_2
+\end{pmatrix}
+$$
+这样，隐藏层原来分别写成：
+$$
+z_1=w_{11}x_1+w_{12}x_2+b_1 \qquad z_2=w_{21}x_1+w_{22}x_2+b_2
+$$
+的两个标量计算，就可以统一写成一个矩阵运算：
+$$
+\boldsymbol{z}^{(1)}=W^{(1)}\boldsymbol{x}+\boldsymbol{b}^{(1)}
+$$
+如果隐藏层使用激活函数$f$，则有：
+$$
+\boldsymbol{h}=f\left(W^{(1)}\boldsymbol{x}+\boldsymbol{b}^{(1)}\right)
+$$
+其中$f$作用于向量中的每一个元素。
+
+同样，对于输出层，将隐藏层的两个输出组成向量$\boldsymbol{h}$，输出层的权重可以写成：
+$$
+W^{(2)}=\begin{pmatrix}
+v_1&v_2
+\end{pmatrix} \qquad b^{(2)}=b_3
+$$
+因此，输出层的计算可以写成：
+$$
+z^{(2)}=W^{(2)}\boldsymbol{h}+b^{(2)}
+$$
+经过激活函数后得到最终输出：
+$$
+y=f\left(W^{(2)}\boldsymbol{h}+b^{(2)}\right)
+$$
+将隐藏层代入其中，整个多层感知机就可以进一步写成：
+$$
+y=f\left(W^{(2)}f\left(W^{(1)}\boldsymbol{x}+\boldsymbol{b}^{(1)}\right)+b^{(2)}\right)
+$$
+
+这样一来，原来需要分别计算每个神经元的多组公式，就被统一成了矩阵乘法和向量加法。更一般地，对于一个全连接层，如果上一层的输出包含$N_{\mathrm{in}}$个神经元，当前层包含$N_{\mathrm{out}}$个神经元，那么可以将上一层的输出表示为向量$\boldsymbol{x}\in\mathbb{R}^{N_{\mathrm{in}}}$，权重表示为$W\in\mathbb{R}^{N_{\mathrm{out}}\times N_{\mathrm{in}}}$，偏置表示为$\boldsymbol{b}\in\mathbb{R}^{N_{\mathrm{out}}}$。整个全连接层就可以统一写成：
+$$
+\boldsymbol{z}=W\boldsymbol{x}+\boldsymbol{b}
+$$
+再经过激活函数得到：
+$$
+\boldsymbol{y}=f(\boldsymbol{z})
+$$
+其中，权重矩阵$W$的第$i$行对应第$i$个输出神经元与上一层所有输入之间的连接权重。因此，矩阵乘法$W\boldsymbol{x}$实际上就是同时完成了这一层所有神经元的加权求和。这种矩阵表示不仅让网络的计算形式更加简洁，也为后续的反向传播提供了统一的数学基础。
+
+\section{参数设置的局限}
+
+在刚才的验证中，我们通过一组精心设计的权重和偏置，使多层感知机成功解决了异或问题。然而，这也带来了一个新的问题：\textbf{如果这些参数不是人为设计好的，而是随意设置的一组初始值，模型还能正常完成分类吗？}
+
+为了直观地观察这一点，我们对\cref{fig:mlp_with_activation}中的模型进行进一步测试。我们不再针对异或问题刻意调整参数，而是直接将所有权重设为$1$，所有偏置设为$0$：
+\begin{align*}
+&w_{11}=1,\quad w_{12}=1,\quad b_1=0 \\
+&w_{21}=1,\quad w_{22}=1,\quad b_2=0 \\
+&v_1=1,\quad v_2=1,\quad b_3=0
+\end{align*}
+
+现在，我们将异或问题的四组输入依次代入该模型，并使用阶跃函数作为激活函数，观察模型的输出结果。
+
+情形一：输入为 $(x_1,x_2)=(0,0)$
+\begin{align*}
+    z_1 &= 1\cdot0 + 1\cdot0 + 0 = 0 \quad\Rightarrow\quad h_1 = f(0) = 0 \\
+    z_2 &= 1\cdot0 + 1\cdot0 + 0 = 0 \quad\Rightarrow\quad h_2 = f(0) = 0 \\
+    z_3 &= 1\cdot0 + 1\cdot0 + 0 = 0 \quad\Rightarrow\quad y = f(0) = 0
+\end{align*}
+
+情形二：输入为 $(x_1,x_2)=(1,1)$
+\begin{align*}
+    z_1 &= 1\cdot1 + 1\cdot1 + 0 = 2 \quad\Rightarrow\quad h_1 = f(2) = 1 \\
+    z_2 &= 1\cdot1 + 1\cdot1 + 0 = 2 \quad\Rightarrow\quad h_2 = f(2) = 1 \\
+    z_3 &= 1\cdot1 + 1\cdot1 + 0 = 2 \quad\Rightarrow\quad y = f(2) = 1
+\end{align*}
+
+情形三：输入为 $(x_1,x_2)=(0,1)$
+\begin{align*}
+    z_1 &= 1\cdot0 + 1\cdot1 + 0 = 1 \quad\Rightarrow\quad h_1 = f(1) = 1 \\
+    z_2 &= 1\cdot0 + 1\cdot1 + 0 = 1 \quad\Rightarrow\quad h_2 = f(1) = 1 \\
+    z_3 &= 1\cdot1 + 1\cdot1 + 0 = 2 \quad\Rightarrow\quad y = f(2) = 1
+\end{align*}
+
+情形四：输入为 $(x_1,x_2)=(1,0)$
+\begin{align*}
+    z_1 &= 1\cdot1 + 1\cdot0 + 0 = 1 \quad\Rightarrow\quad h_1 = f(1) = 1 \\
+    z_2 &= 1\cdot1 + 1\cdot0 + 0 = 1 \quad\Rightarrow\quad h_2 = f(1) = 1 \\
+    z_3 &= 1\cdot1 + 1\cdot1 + 0 = 2 \quad\Rightarrow\quad y = f(2) = 1
+\end{align*}
+
+汇总结果如\cref{tab:xor_wrong_params}所示：
+
+\begin{table}[H]
+    \centering
+    \caption{错误参数下异或问题的分类结果}
+    \label{tab:xor_wrong_params}
+    \begin{tabular}{ccccc}
+        \toprule
+        \thead{输入$x_1$} & \thead{输入$x_2$} & \thead{模型输出$y$} & \thead{期望输出} & \thead{是否正确} \\
+        \midrule
+        0 & 0 & 0 & 0 & 正确 \\
+        1 & 1 & 1 & 0 & \textbf{错误} \\
+        0 & 1 & 1 & 1 & 正确 \\
+        1 & 0 & 1 & 1 & 正确 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+可以看到，在这组随意设置的参数下，模型面对输入$(1,1)$时出现了错误预测，说明仅仅构建多层感知机并不能保证它能够正确解决异或问题。要使模型得到正确的结果，还需要为网络设置合适的权重和偏置。对于异或这样简单的问题，由于模型的参数量很少，我们可以通过手工计算和反复尝试找到一组合适的参数；但在实际任务中，模型往往包含成千上万，甚至数以亿计的参数，依靠人工逐一调整参数显然是不现实的。
+
+\begin{quote}
+    那我们能不能设计一种方法，让模型根据预测结果与真实结果之间的误差，自动调整网络中的参数，使模型的预测逐渐变得更加准确？\footnote{Frank Rosenblatt为早期感知机设计的参数更新规则主要适用于单层感知机，无法有效训练多层感知机中的隐藏层参数。虽然多层网络具有解决非线性问题的潜力，但当时缺乏有效的训练方法，这一局限导致神经网络研究陷入低潮，也是20世纪70年代第一次人工智能寒冬的重要原因之一。}
+\end{quote}

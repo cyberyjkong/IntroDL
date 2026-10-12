@@ -1,0 +1,102 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {chapter}{\numberline {6}卷积网络的训练}{72}{chapter.6}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.1}{\ignorespaces 一个简单的卷积神经网络。3通道$12\times 12$输入依次经过两组卷积与最大池化，再经64、32两个全连接层，最终输出5个类别得分。}}{72}{figure.caption.55}\protected@file@percent }
+\newlabel{fig:cnn}{{6.1}{72}{一个简单的卷积神经网络。3通道$12\times 12$输入依次经过两组卷积与最大池化，再经64、32两个全连接层，最终输出5个类别得分。}{figure.caption.55}{}}
+\newlabel{fig:cnn@cref}{{[figure][1][6]6.1}{[1][72][]72}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6.1}分类损失函数}{72}{section.6.1}\protected@file@percent }
+\def\@LN@column{1}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {section}{\numberline {6.2}反向传播}{74}{section.6.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2.1}池化层的反向传播}{74}{subsection.6.2.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {6.2}{\ignorespaces 最大池化的反向传播。前向传播将$12\times 6\times 6$的特征图通过$2\times 2$、步长为$2$的最大池化得到$12\times 3\times 3$的特征图；反向传播时，$12\times 3\times 3$的梯度根据前向传播时记录的最大值位置重新分配，恢复为$12\times 6\times 6$的梯度。}}{74}{figure.caption.56}\protected@file@percent }
+\newlabel{fig:bp_pooling}{{6.2}{74}{最大池化的反向传播。前向传播将$12\times 6\times 6$的特征图通过$2\times 2$、步长为$2$的最大池化得到$12\times 3\times 3$的特征图；反向传播时，$12\times 3\times 3$的梯度根据前向传播时记录的最大值位置重新分配，恢复为$12\times 6\times 6$的梯度。}{figure.caption.56}{}}
+\newlabel{fig:bp_pooling@cref}{{[figure][2][6]6.2}{[1][74][]74}{}{}{}}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2.2}卷积层的反向传播}{75}{subsection.6.2.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {6.3}{\ignorespaces 卷积层Conv2的反向传播。来自Pool2的梯度同时用于计算卷积核的权重梯度、偏置梯度以及输入梯度：将梯度与对应输入逐位置相乘并累加，得到权重梯度；对空间位置上的梯度求和，得到偏置梯度；将梯度与对应卷积核权重进行加权并累加，得到输入梯度，并继续传回Pool1。}}{75}{figure.caption.57}\protected@file@percent }
+\newlabel{fig:bp_convolution}{{6.3}{75}{卷积层Conv2的反向传播。来自Pool2的梯度同时用于计算卷积核的权重梯度、偏置梯度以及输入梯度：将梯度与对应输入逐位置相乘并累加，得到权重梯度；对空间位置上的梯度求和，得到偏置梯度；将梯度与对应卷积核权重进行加权并累加，得到输入梯度，并继续传回Pool1。}{figure.caption.57}{}}
+\newlabel{fig:bp_convolution@cref}{{[figure][3][6]6.3}{[1][75][]75}{}{}{}}
+\def\@LN@column{1}
+\def\@LN@column{1}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.4}{\ignorespaces 输入位置$X_c(3,3)$参与的9个卷积计算。红框为各输出位置（$(2,2)$--$(4,4)$）的感受野，粉红格为$(3,3)$，标题$w_{k,c,ij}$为对应的核权重；该位置的梯度由9路梯度按这些权重累加。}}{78}{figure.caption.58}\protected@file@percent }
+\newlabel{fig:bp_input}{{6.4}{78}{输入位置$X_c(3,3)$参与的9个卷积计算。红框为各输出位置（$(2,2)$--$(4,4)$）的感受野，粉红格为$(3,3)$，标题$w_{k,c,ij}$为对应的核权重；该位置的梯度由9路梯度按这些权重累加。}{figure.caption.58}{}}
+\newlabel{fig:bp_input@cref}{{[figure][4][6]6.4}{[1][78][]78}{}{}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {6.1}{\ignorespaces $X_c(3,3)$在不同卷积输出位置对应的卷积核权重}}{78}{table.caption.59}\protected@file@percent }
+\newlabel{tab:conv2_input_gradient}{{6.1}{78}{$X_c(3,3)$在不同卷积输出位置对应的卷积核权重}{table.caption.59}{}}
+\newlabel{tab:conv2_input_gradient@cref}{{[table][1][6]6.1}{[1][78][]78}{}{}{}}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {section}{\numberline {6.3}卷积的统一理解}{79}{section.6.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3.1}结构化线性变换}{79}{subsection.6.3.1}\protected@file@percent }
+\def\@LN@column{1}
+\def\@LN@column{1}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3.2}矩阵视角}{82}{subsection.6.3.2}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3.3}平移等变与平移不变}{83}{subsection.6.3.3}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.5}{\ignorespaces 平移等变性示意图。第一行的数字$7$包含明显的横线结构，卷积核用于检测该结构；将数字$7$向左移动$2$个像素、向下移动$1$个像素后，卷积核仍能检测到对应的横线响应，且响应位置随输入同步移动。}}{84}{figure.caption.60}\protected@file@percent }
+\newlabel{fig:translation_equivariance}{{6.5}{84}{平移等变性示意图。第一行的数字$7$包含明显的横线结构，卷积核用于检测该结构；将数字$7$向左移动$2$个像素、向下移动$1$个像素后，卷积核仍能检测到对应的横线响应，且响应位置随输入同步移动。}{figure.caption.60}{}}
+\newlabel{fig:translation_equivariance@cref}{{[figure][5][6]6.5}{[1][84][]84}{}{}{}}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3.4}反向传播再理解与过渡}{85}{subsection.6.3.4}\protected@file@percent }
+\def\@LN@column{1}
+\def\@LN@column{1}
+\@setckpt{./chapters/part_02/p2_ch02}{
+\setcounter{page}{88}
+\setcounter{equation}{0}
+\setcounter{enumi}{6}
+\setcounter{enumii}{0}
+\setcounter{enumiii}{0}
+\setcounter{enumiv}{0}
+\setcounter{footnote}{0}
+\setcounter{mpfootnote}{0}
+\setcounter{part}{2}
+\setcounter{chapter}{6}
+\setcounter{section}{3}
+\setcounter{subsection}{4}
+\setcounter{subsubsection}{0}
+\setcounter{paragraph}{0}
+\setcounter{subparagraph}{0}
+\setcounter{figure}{5}
+\setcounter{table}{1}
+\setcounter{FancyVerbLine}{0}
+\setcounter{linenumber}{1}
+\setcounter{LN@truepage}{95}
+\setcounter{FancyVerbWriteLine}{0}
+\setcounter{FancyVerbBufferLine}{0}
+\setcounter{FV@TrueTabGroupLevel}{0}
+\setcounter{FV@TrueTabCounter}{0}
+\setcounter{FV@HighlightLinesStart}{0}
+\setcounter{FV@HighlightLinesStop}{0}
+\setcounter{FancyVerbLineBreakLast}{0}
+\setcounter{FV@BreakBufferDepth}{0}
+\setcounter{parentequation}{0}
+\setcounter{float@type}{16}
+\setcounter{caption@flags}{2}
+\setcounter{continuedfloat}{0}
+\setcounter{subfigure}{0}
+\setcounter{subtable}{0}
+\setcounter{LT@tables}{0}
+\setcounter{LT@chunks}{0}
+\setcounter{nlinenum}{0}
+\setcounter{lstnumber}{1}
+\setcounter{tcbbreakpart}{1}
+\setcounter{tcblayer}{0}
+\setcounter{tcolorbox@number}{50}
+\setcounter{tcbrastercolumn}{1}
+\setcounter{tcbrasterrow}{1}
+\setcounter{tcbrasternum}{1}
+\setcounter{tcbraster}{0}
+\setcounter{tcblisting}{0}
+\setcounter{section@level}{0}
+\setcounter{Item}{14}
+\setcounter{Hfootnote}{18}
+\setcounter{Hy@AnnotLevel}{0}
+\setcounter{bookmark@seq@number}{48}
+\setcounter{lstlisting}{0}
+}

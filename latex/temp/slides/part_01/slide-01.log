@@ -1,0 +1,410 @@
+This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026) (preloaded format=xelatex 2026.7.11)  4 OCT 2026 12:08
+entering extended mode
+ restricted \write18 enabled.
+ file:line:error style messages enabled.
+ %&-line parsing enabled.
+**d:/A_IntroDL/latex/slides/part_01/slide-01.tex
+(d:/A_IntroDL/latex/slides/part_01/slide-01.tex
+LaTeX2e <2025-11-01>
+L3 programming layer <2026-01-19>
+(c:/texlive/2026/texmf-dist/tex/latex/base/slides.cls
+Document Class: slides 2022/05/18 v2.4b Standard LaTeX document class
+(c:/texlive/2026/texmf-dist/tex/latex/base/slides.def
+File: slides.def 2022/05/18 v2.4b SLiTeX definitions
+ hacks, slides,
+\c@page=\count271
+ picture, mods,
+\@smashboxa=\box53
+\@smashboxb=\box54
+\@smashboxc=\box55
+ output, init) (c:/texlive/2026/texmf-dist/tex/latex/base/sfonts.def
+File: sfonts.def 2023/12/02 v2.2f Standard LaTeX slide font definitions
+ (c:/texlive/2026/texmf-dist/tex/latex/base/ot1lcmss.fd
+File: ot1lcmss.fd 2023/12/02 v2.2f Standard LaTeX slide font definitions
+))
+\c@minutes=\count272
+\c@seconds=\count273
+\c@mv@invisible=\count274
+LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
+(Font)                  OT1/cmr/m/n --> OT1/lcmss/m/n on input line 360.
+LaTeX Font Info:    Overwriting symbol font `letters' in version `normal'
+(Font)                  OML/cmm/m/it --> OML/lcmm/m/it on input line 363.
+LaTeX Font Info:    Overwriting symbol font `symbols' in version `normal'
+(Font)                  OMS/cmsy/m/n --> OMS/lcmsy/m/n on input line 365.
+LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `normal'
+(Font)                  OMX/cmex/m/n --> OMX/lcmex/m/n on input line 367.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `invisible'
+(Font)                  OT1/cmr/m/n --> OT1/lcmss/m/In on input line 370.
+LaTeX Font Info:    Overwriting symbol font `letters' in version `invisible'
+(Font)                  OML/cmm/m/it --> OML/lcmm/m/Iit on input line 372.
+LaTeX Font Info:    Overwriting symbol font `symbols' in version `invisible'
+(Font)                  OMS/cmsy/m/n --> OMS/lcmsy/m/In on input line 374.
+LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `invisible'
+(Font)                  OMX/cmex/m/n --> OMX/lcmex/m/In on input line 376.
+)
+d:/A_IntroDL/latex/slides/part_01/slide-01.tex:360: Undefined control sequence.
+l.360 \covertag
+               {IPAD PRO · 4:3 极简设计}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+d:/A_IntroDL/latex/slides/part_01/slide-01.tex:360: LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.360 \covertag{I
+                 PAD PRO · 4:3 极简设计}
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+Missing character: There is no · ("B7) in font lcmss8!
+Missing character: There is no 极 ("6781) in font lcmss8!
+Missing character: There is no 简 ("7B80) in font lcmss8!
+Missing character: There is no 设 ("8BBE) in font lcmss8!
+Missing character: There is no 计 ("8BA1) in font lcmss8!
+d:/A_IntroDL/latex/slides/part_01/slide-01.tex:361: Undefined control sequence.
+l.361 \coverextra
+                 {VOL. 08 / 视频专属}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+Missing character: There is no 视 ("89C6) in font lcmss8!
+Missing character: There is no 频 ("9891) in font lcmss8!
+Missing character: There is no 专 ("4E13) in font lcmss8!
+Missing character: There is no 属 ("5C5E) in font lcmss8!
+d:/A_IntroDL/latex/slides/part_01/slide-01.tex:362: Undefined control sequence.
+l.362 \maintitle
+                {深度学习框架底层\\原理解析与实战}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+Missing character: There is no 深 ("6DF1) in font lcmss8!
+Missing character: There is no 度 ("5EA6) in font lcmss8!
+Missing character: There is no 学 ("5B66) in font lcmss8!
+Missing character: There is no 习 ("4E60) in font lcmss8!
+Missing character: There is no 框 ("6846) in font lcmss8!
+Missing character: There is no 架 ("67B6) in font lcmss8!
+Missing character: There is no 底 ("5E95) in font lcmss8!
+Missing character: There is no 层 ("5C42) in font lcmss8!
+Missing character: There is no 原 ("539F) in font lcmss8!
+Missing character: There is no 理 ("7406) in font lcmss8!
+Missing character: There is no 解 ("89E3) in font lcmss8!
+Missing character: There is no 析 ("6790) in font lcmss8!
+Missing character: There is no 与 ("4E0E) in font lcmss8!
+Missing character: There is no 实 ("5B9E) in font lcmss8!
+Missing character: There is no 战 ("6218) in font lcmss8!
+d:/A_IntroDL/latex/slides/part_01/slide-01.tex:363: Undefined control sequence.
+l.363 \chaptertitle
+                   {从计算图拓扑排序到自动求导引擎}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+Missing character: There is no 从 ("4ECE) in font lcmss8!
+Missing character: There is no 计 ("8BA1) in font lcmss8!
+Missing character: There is no 算 ("7B97) in font lcmss8!
+Missing character: There is no 图 ("56FE) in font lcmss8!
+Missing character: There is no 拓 ("62D3) in font lcmss8!
+Missing character: There is no 扑 ("6251) in font lcmss8!
+Missing character: There is no 排 ("6392) in font lcmss8!
+Missing character: There is no 序 ("5E8F) in font lcmss8!
+Missing character: There is no 到 ("5230) in font lcmss8!
+Missing character: There is no 自 ("81EA) in font lcmss8!
+Missing character: There is no 动 ("52A8) in font lcmss8!
+Missing character: There is no 求 ("6C42) in font lcmss8!
+Missing character: There is no 导 ("5BFC) in font lcmss8!
+Missing character: There is no 引 ("5F15) in font lcmss8!
+Missing character: There is no 擎 ("64CE) in font lcmss8!
+d:/A_IntroDL/latex/slides/part_01/slide-01.tex:364: Undefined control sequence.
+l.364 \authorname
+                 {TechExplorer @ Bilibili}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+LaTeX Font Info:    Trying to load font information for TU+lcmss on input line 366.
+LaTeX Font Info:    No file TUlcmss.fd. on input line 366.
+
+LaTeX Font Warning: Font shape `TU/lcmss/m/n' undefined
+(Font)              using `TU/lmr/m/n' instead on input line 366.
+
+(c:/texlive/2026/texmf-dist/tex/latex/l3backend/l3backend-xetex.def
+File: l3backend-xetex.def 2025-10-09 L3 backend support: XeTeX
+\g__graphics_track_int=\count275
+\g__pdfannot_backend_int=\count276
+\g__pdfannot_backend_link_int=\count277
+) (d:/A_IntroDL/latex/temp/slides/part_01/slide-01.aux)
+\openout1 = `slide-01.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 366.
+LaTeX Font Info:    ... okay on input line 366.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 366.
+LaTeX Font Info:    ... okay on input line 366.
+LaTeX Font Info:    Checking defaults for OT1/lcmss/m/n on input line 366.
+LaTeX Font Info:    ... okay on input line 366.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 366.
+LaTeX Font Info:    ... okay on input line 366.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 366.
+LaTeX Font Info:    ... okay on input line 366.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 366.
+LaTeX Font Info:    ... okay on input line 366.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 366.
+LaTeX Font Info:    ... okay on input line 366.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 366.
+LaTeX Font Info:    ... okay on input line 366.
+ [0
+
+]
+d:/A_IntroDL/latex/slides/part_01/slide-01.tex:369: Undefined control sequence.
+l.369 \makecover
+                
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+d:/A_IntroDL/latex/slides/part_01/slide-01.tex:372: Undefined control sequence.
+l.372 \textpage
+               {核心知识点脉络}[
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+Missing character: There is no 核 (U+6838) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 心 (U+5FC3) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 知 (U+77E5) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 识 (U+8BC6) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 点 (U+70B9) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 脉 (U+8109) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 络 (U+7EDC) in font [lmroman17-regular]:mapping=tex-text;!
+LaTeX Font Info:    Trying to load font information for OML+lcmm on input line 374.
+(c:/texlive/2026/texmf-dist/tex/latex/base/omllcmm.fd
+File: omllcmm.fd 2023/12/02 v2.2f Standard LaTeX slide font definitions
+)
+LaTeX Font Info:    Trying to load font information for OMS+lcmsy on input line 374.
+ (c:/texlive/2026/texmf-dist/tex/latex/base/omslcmsy.fd
+File: omslcmsy.fd 2023/12/02 v2.2f Standard LaTeX slide font definitions
+)
+LaTeX Font Info:    Trying to load font information for OMX+lcmex on input line 374.
+ (c:/texlive/2026/texmf-dist/tex/latex/base/omxlcmex.fd
+File: omxlcmex.fd 2023/12/02 v2.2f Standard LaTeX slide font definitions
+)
+LaTeX Font Info:    External font `cmex10 at17.28pt' loaded for size
+(Font)              <19.907> on input line 374.
+LaTeX Font Info:    External font `cmex10 at17.28pt' loaded for size
+(Font)              <16.59> on input line 374.
+LaTeX Font Info:    External font `cmex10 at17.28pt' loaded for size
+(Font)              <13.82> on input line 374.
+
+
+LaTeX Font Warning: Font shape `TU/lcmss/bx/n' undefined
+(Font)              using `TU/lcmss/m/n' instead on input line 374.
+
+Missing character: There is no 动 (U+52A8) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 态 (U+6001) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 图 (U+56FE) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 静 (U+9759) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 态 (U+6001) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 图 (U+56FE) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no ： (U+FF1A) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 与 (U+4E0E) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 架 (U+67B6) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 构 (U+6784) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 演 (U+6F14) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 进 (U+8FDB) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 路 (U+8DEF) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 线 (U+7EBF) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 机 (U+673A) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 制 (U+5236) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no ： (U+FF1A) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 前 (U+524D) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 向 (U+5411) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 传 (U+4F20) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 播 (U+64AD) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 与 (U+4E0E) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 反 (U+53CD) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 向 (U+5411) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 传 (U+4F20) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 播 (U+64AD) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 的 (U+7684) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 内 (U+5185) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 存 (U+5B58) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 复 (U+590D) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 用 (U+7528) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 设 (U+8BBE) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 计 (U+8BA1) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 算 (U+7B97) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 子 (U+5B50) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 调 (U+8C03) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 度 (U+5EA6) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 优 (U+4F18) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 化 (U+5316) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no ： (U+FF1A) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 融 (U+878D) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 合 (U+5408) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 机 (U+673A) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 制 (U+5236) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 与 (U+4E0E) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 显 (U+663E) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 存 (U+5B58) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 墙 (U+5899) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 瓶 (U+74F6) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 颈 (U+9888) in font [lmroman17-regular]:mapping=tex-text;!
+
+d:/A_IntroDL/latex/slides/part_01/slide-01.tex:379: LaTeX Error: Environment block undefined.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.379     \begin{block}
+                       {核心结论}
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+Missing character: There is no 核 (U+6838) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 心 (U+5FC3) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 结 (U+7ED3) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 论 (U+8BBA) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 纵 (U+7EB5) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 向 (U+5411) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 比 (U+6BD4) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 拥 (U+62E5) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 有 (U+6709) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 更 (U+66F4) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 充 (U+5145) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 足 (U+8DB3) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 的 (U+7684) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 正 (U+6B63) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 文 (U+6587) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 行 (U+884C) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 高 (U+9AD8) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no ， (U+FF0C) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 极 (U+6781) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 其 (U+5176) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 适 (U+9002) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 合 (U+5408) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 在 (U+5728) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 上 (U+4E0A) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 进 (U+8FDB) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 行 (U+884C) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 横 (U+6A2A) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 屏 (U+5C4F) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 阅 (U+9605) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 读 (U+8BFB) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 与 (U+4E0E) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 公 (U+516C) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 式 (U+5F0F) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 推 (U+63A8) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 导 (U+5BFC) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 演 (U+6F14) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 示 (U+793A) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 。 (U+3002) in font [lmroman17-regular]:mapping=tex-text;!
+
+d:/A_IntroDL/latex/slides/part_01/slide-01.tex:381: LaTeX Error: \begin{document} ended by \end{block}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.381     \end{block}
+                     
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+d:/A_IntroDL/latex/slides/part_01/slide-01.tex:385: Undefined control sequence.
+l.385 \leftimage
+                {计算图求导机制示例}{example-image-a}[0.95][
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+Missing character: There is no 计 (U+8BA1) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 算 (U+7B97) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 图 (U+56FE) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 求 (U+6C42) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 导 (U+5BFC) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 机 (U+673A) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 制 (U+5236) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 示 (U+793A) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 例 (U+4F8B) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 架 (U+67B6) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 构 (U+6784) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 特 (U+7279) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 性 (U+6027) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 解 (U+89E3) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 析 (U+6790) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 拓 (U+62D3) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 扑 (U+6251) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 无 (U+65E0) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 环 (U+73AF) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 图 (U+56FE) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 遍 (U+904D) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 历 (U+5386) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 。 (U+3002) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 链 (U+94FE) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 式 (U+5F0F) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 法 (U+6CD5) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 则 (U+5219) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 伴 (U+4F34) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 随 (U+968F) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 变 (U+53D8) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 量 (U+91CF) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 记 (U+8BB0) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 录 (U+5F55) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 。 (U+3002) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 显 (U+663E) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 存 (U+5B58) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 自 (U+81EA) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 动 (U+52A8) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 回 (U+56DE) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 收 (U+6536) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 与 (U+4E0E) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 引 (U+5F15) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 用 (U+7528) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 计 (U+8BA1) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 数 (U+6570) in font [lmroman17-regular]:mapping=tex-text;!
+Missing character: There is no 。 (U+3002) in font [lmroman17-regular]:mapping=tex-text;!
+[0] (d:/A_IntroDL/latex/temp/slides/part_01/slide-01.aux)
+ ***********
+LaTeX2e <2025-11-01>
+L3 programming layer <2026-01-19>
+ ***********
+
+
+LaTeX Font Warning: Some font shapes were not available, defaults substituted.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 543 strings out of 468168
+ 11346 string characters out of 5436524
+ 428411 words of memory out of 5000000
+ 29331 multiletter control sequences out of 15000+600000
+ 630698 words of font info for 51 fonts, out of 8000000 for 9000
+ 1348 hyphenation exceptions out of 8191
+ 32i,5n,39p,191b,161s stack positions out of 10000i,1000n,20000p,200000b,200000s
+
+Output written on d:/A_IntroDL/latex/temp/slides/part_01/slide-01.xdv (2 pages, 3280 bytes).

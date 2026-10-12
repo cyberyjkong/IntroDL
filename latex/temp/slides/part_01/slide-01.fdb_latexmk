@@ -1,0 +1,31 @@
+# Fdb version 4
+["xdvipdfmx"] 1791086608.02179 "d:/A_IntroDL/latex/temp/slides/part_01/slide-01.xdv" "slide-01.pdf" "slide-01" 1791086608.72777 0
+  "d:/A_IntroDL/latex/temp/slides/part_01/slide-01.xdv" 1791086888 3280 7a69e0b9757684e521cf0d8a8219d9b1 "xelatex"
+  (generated)
+  "slide-01.pdf"
+  (rewritten before read)
+["xelatex"] 1791086887.17215 "d:/A_IntroDL/latex/slides/part_01/slide-01.tex" "d:/A_IntroDL/latex/temp/slides/part_01/slide-01.xdv" "slide-01" 1791086888.10828 2
+  "c:/texlive/2026/texmf-dist/fonts/map/fontname/texfonts.map" 1783782652 3524 cb3e574dea2d1052e39280babc910dc8 ""
+  "c:/texlive/2026/texmf-dist/fonts/tfm/public/cm/cmex10.tfm" 1783782033 992 662f679a0b3d2d53c1b94050fdaa3f50 ""
+  "c:/texlive/2026/texmf-dist/fonts/tfm/public/cm/cmmi8.tfm" 1783782033 1520 eccf95517727cb11801f4f1aee3a21b4 ""
+  "c:/texlive/2026/texmf-dist/fonts/tfm/public/cm/cmsy8.tfm" 1783782033 1120 8b7d695260f3cff42e636090a8002094 ""
+  "c:/texlive/2026/texmf-dist/fonts/tfm/public/latex-fonts/lcmss8.tfm" 1783783207 1304 1598d5b71f642bd52c4e6e889ecdeabe ""
+  "c:/texlive/2026/texmf-dist/tex/latex/base/omllcmm.fd" 1783783189 2242 9aa1f4a5f0a0f3f903ecdc25a321a98b ""
+  "c:/texlive/2026/texmf-dist/tex/latex/base/omslcmsy.fd" 1783783189 2246 30d72a11a7d71fae579ae24d9bd3a09f ""
+  "c:/texlive/2026/texmf-dist/tex/latex/base/omxlcmex.fd" 1783783189 2149 a44ed1002b66f478f27daacc3294312f ""
+  "c:/texlive/2026/texmf-dist/tex/latex/base/ot1lcmss.fd" 1783783189 2997 3da54930d595b8f36fd2c12f80e30ae2 ""
+  "c:/texlive/2026/texmf-dist/tex/latex/base/sfonts.def" 1783783189 1600 3b51f3a193c84cda31a39e493649d561 ""
+  "c:/texlive/2026/texmf-dist/tex/latex/base/slides.cls" 1783783189 16728 7dfb632bc03fd377f58e5de819fcdea8 ""
+  "c:/texlive/2026/texmf-dist/tex/latex/base/slides.def" 1783783189 18238 72607727ead265b839dfa23457998701 ""
+  "c:/texlive/2026/texmf-dist/tex/latex/l3backend/l3backend-xetex.def" 1783783164 32682 e8e9b6eadc6ea167c7d41a9120ebbad7 ""
+  "c:/texlive/2026/texmf-dist/web2c/texmf.cnf" 1783781496 43630 e9fa012910491fe5ae08a72c3c2997a7 ""
+  "c:/texlive/2026/texmf-var/web2c/xetex/xelatex.fmt" 1783785600 5948913 ad65100bbd0860f0c52bbf31ba09c75e ""
+  "c:/texlive/2026/texmf.cnf" 1783785361 713 e69b156964470283e0530f5060668171 ""
+  "d:/A_IntroDL/latex/slides/part_01/slide-01.tex" 1791086886 10495 33a35975bf450157de742f6d4d474ebe ""
+  "d:/A_IntroDL/latex/temp/slides/part_01/slide-01.aux" 1791086888 32 044b7f8fc9779af7531264e0c5c84b6d "xelatex"
+  "slide-01.tex" 1791086886 10495 33a35975bf450157de742f6d4d474ebe ""
+  (generated)
+  "d:/A_IntroDL/latex/temp/slides/part_01/slide-01.aux"
+  "d:/A_IntroDL/latex/temp/slides/part_01/slide-01.log"
+  "d:/A_IntroDL/latex/temp/slides/part_01/slide-01.xdv"
+  (rewritten before read)

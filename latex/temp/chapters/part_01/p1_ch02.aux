@@ -1,0 +1,113 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {chapter}{\numberline {2}反向传播算法}{12}{chapter.2}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{toc}{\contentsline {section}{\numberline {2.1}损失函数}{12}{section.2.1}\protected@file@percent }
+\def\@LN@column{1}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {section}{\numberline {2.2}激活函数}{14}{section.2.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2.1}{\ignorespaces 采用阶跃函数作为激活函数的多层感知机模型。节点内的$f$代表阶跃函数，它将神经元的线性输入$z$转换为阶跃输出（$h$或$y$）。}}{14}{figure.caption.10}\protected@file@percent }
+\newlabel{fig:mlp_step_function}{{2.1}{14}{采用阶跃函数作为激活函数的多层感知机模型。节点内的$f$代表阶跃函数，它将神经元的线性输入$z$转换为阶跃输出（$h$或$y$）。}{figure.caption.10}{}}
+\newlabel{fig:mlp_step_function@cref}{{[figure][1][2]2.1}{[1][14][]14}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.2}{\ignorespaces 阶跃函数及其导数示意图。左图为阶跃函数$f(x)$，在$x=0$处发生单位跳变；右图为其导数$f'(x)$，在$x \neq  0$的区域恒为零，在$x=0$处无定义。}}{14}{figure.caption.11}\protected@file@percent }
+\newlabel{fig:step_function}{{2.2}{14}{阶跃函数及其导数示意图。左图为阶跃函数$f(x)$，在$x=0$处发生单位跳变；右图为其导数$f'(x)$，在$x \neq 0$的区域恒为零，在$x=0$处无定义。}{figure.caption.11}{}}
+\newlabel{fig:step_function@cref}{{[figure][2][2]2.2}{[1][14][]14}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.3}{\ignorespaces Sigmoid函数及其导数示意图。左图为Sigmoid函数$f(x)$，呈现平滑的S形曲线，输出范围限制在0到1之间；右图为其导数$f'(x)$，在整个定义域内连续且可导。}}{15}{figure.caption.12}\protected@file@percent }
+\newlabel{fig:sigmoid}{{2.3}{15}{Sigmoid函数及其导数示意图。左图为Sigmoid函数$f(x)$，呈现平滑的S形曲线，输出范围限制在0到1之间；右图为其导数$f'(x)$，在整个定义域内连续且可导。}{figure.caption.12}{}}
+\newlabel{fig:sigmoid@cref}{{[figure][3][2]2.3}{[1][15][]15}{}{}{}}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {section}{\numberline {2.3}反向传播算法}{16}{section.2.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2.4}{\ignorespaces 采用Sigmoid函数作为激活函数的多层感知机模型。节点内的$\sigma (\cdot )$代表Sigmoid函数，它将神经元的线性输入$z$平滑转换为非线性输出（$h$或$y$），保证了模型在整个定义域内的连续可导性。}}{16}{figure.caption.13}\protected@file@percent }
+\newlabel{fig:mlp}{{2.4}{16}{采用Sigmoid函数作为激活函数的多层感知机模型。节点内的$\sigma (\cdot )$代表Sigmoid函数，它将神经元的线性输入$z$平滑转换为非线性输出（$h$或$y$），保证了模型在整个定义域内的连续可导性。}{figure.caption.13}{}}
+\newlabel{fig:mlp@cref}{{[figure][4][2]2.4}{[1][16][]16}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lot}{\contentsline {table}{\numberline {2.1}{\ignorespaces 采用Sigmoid激活函数的异或问题预测结果}}{17}{table.caption.14}\protected@file@percent }
+\newlabel{tab:xor_sigmoid_wrong_params}{{2.1}{17}{采用Sigmoid激活函数的异或问题预测结果}{table.caption.14}{}}
+\newlabel{tab:xor_sigmoid_wrong_params@cref}{{[table][1][2]2.1}{[1][17][]17}{}{}{}}
+\def\@LN@column{1}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.5}{\ignorespaces 多层感知机的前向传播与反向传播示意图。上排为前向前向传播：输入经隐藏层、输出层逐层算出损失$L$；下排为反向传播：梯度自$L$沿计算路径反方向回传至输入。图中高亮表示本步已激活的节点与连接，半透明部分表示尚未涉及。}}{19}{figure.caption.15}\protected@file@percent }
+\newlabel{fig:bp}{{2.5}{19}{多层感知机的前向传播与反向传播示意图。上排为前向前向传播：输入经隐藏层、输出层逐层算出损失$L$；下排为反向传播：梯度自$L$沿计算路径反方向回传至输入。图中高亮表示本步已激活的节点与连接，半透明部分表示尚未涉及。}{figure.caption.15}{}}
+\newlabel{fig:bp@cref}{{[figure][5][2]2.5}{[1][19][]19}{}{}{}}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {section}{\numberline {2.4}梯度下降算法}{20}{section.2.4}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2.6}{\ignorespaces 损失函数曲线与梯度下降示意图。横轴为参数$\theta $，纵轴为损失$\mathcal  {L}(\theta )$，$\theta _0$处虚线切线的斜率即该点梯度$\partial \mathcal  {L}/\partial \theta $。}}{20}{figure.caption.16}\protected@file@percent }
+\newlabel{fig:loss_function}{{2.6}{20}{损失函数曲线与梯度下降示意图。横轴为参数$\theta $，纵轴为损失$\mathcal {L}(\theta )$，$\theta _0$处虚线切线的斜率即该点梯度$\partial \mathcal {L}/\partial \theta $。}{figure.caption.16}{}}
+\newlabel{fig:loss_function@cref}{{[figure][6][2]2.6}{[1][20][]20}{}{}{}}
+\def\@LN@column{1}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {section}{\numberline {2.5}计算图与自动微分}{22}{section.2.5}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2.7}{\ignorespaces 采用Sigmoid函数作为激活函数的多层感知机模型。节点内的$\sigma (\cdot )$代表Sigmoid函数，它将神经元的线性输入$z$平滑转换为非线性输出（$h$或$y$），保证了模型在整个定义域内的连续可导性。}}{22}{figure.caption.17}\protected@file@percent }
+\newlabel{fig:mlp_repeat}{{2.7}{22}{采用Sigmoid函数作为激活函数的多层感知机模型。节点内的$\sigma (\cdot )$代表Sigmoid函数，它将神经元的线性输入$z$平滑转换为非线性输出（$h$或$y$），保证了模型在整个定义域内的连续可导性。}{figure.caption.17}{}}
+\newlabel{fig:mlp_repeat@cref}{{[figure][7][2]2.7}{[1][22][]22}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.8}{\ignorespaces 多层感知机模型的计算图。图中节点表示输入、参数、偏置与基本运算（$\times $、$\Sigma $、$\sigma $），虚线框标出各个神经元。}}{23}{figure.caption.18}\protected@file@percent }
+\newlabel{fig:computational_graph}{{2.8}{23}{多层感知机模型的计算图。图中节点表示输入、参数、偏置与基本运算（$\times $、$\Sigma $、$\sigma $），虚线框标出各个神经元。}{figure.caption.18}{}}
+\newlabel{fig:computational_graph@cref}{{[figure][8][2]2.8}{[1][22][]23}{}{}{}}
+\def\@LN@column{1}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {section}{\numberline {2.6}万能逼近定理}{25}{section.2.6}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2.9}{\ignorespaces 复杂连续函数图像。图中蓝色曲线为目标函数$f(x)$，由整体趋势叠加高频振荡构成。}}{25}{figure.caption.19}\protected@file@percent }
+\newlabel{fig:complex_function_2d}{{2.9}{25}{复杂连续函数图像。图中蓝色曲线为目标函数$f(x)$，由整体趋势叠加高频振荡构成。}{figure.caption.19}{}}
+\newlabel{fig:complex_function_2d@cref}{{[figure][9][2]2.9}{[1][25][]25}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.10}{\ignorespaces Sigmoid网络对目标函数的逼近效果对比。左图隐藏层含8个神经元，右图含36个神经元；红色曲线为网络输出$\hat  {f}(x)$，蓝色曲线为目标函数$f(x)$。}}{26}{figure.caption.20}\protected@file@percent }
+\newlabel{fig:sigmoid_approx_2d}{{2.10}{26}{Sigmoid网络对目标函数的逼近效果对比。左图隐藏层含8个神经元，右图含36个神经元；红色曲线为网络输出$\hat {f}(x)$，蓝色曲线为目标函数$f(x)$。}{figure.caption.20}{}}
+\newlabel{fig:sigmoid_approx_2d@cref}{{[figure][10][2]2.10}{[1][26][]26}{}{}{}}
+\@setckpt{./chapters/part_01/p1_ch02}{
+\setcounter{page}{27}
+\setcounter{equation}{0}
+\setcounter{enumi}{0}
+\setcounter{enumii}{0}
+\setcounter{enumiii}{0}
+\setcounter{enumiv}{0}
+\setcounter{footnote}{1}
+\setcounter{mpfootnote}{0}
+\setcounter{part}{1}
+\setcounter{chapter}{2}
+\setcounter{section}{6}
+\setcounter{subsection}{0}
+\setcounter{subsubsection}{0}
+\setcounter{paragraph}{0}
+\setcounter{subparagraph}{0}
+\setcounter{figure}{10}
+\setcounter{table}{1}
+\setcounter{FancyVerbLine}{0}
+\setcounter{linenumber}{1}
+\setcounter{LN@truepage}{32}
+\setcounter{FancyVerbWriteLine}{0}
+\setcounter{FancyVerbBufferLine}{0}
+\setcounter{FV@TrueTabGroupLevel}{0}
+\setcounter{FV@TrueTabCounter}{0}
+\setcounter{FV@HighlightLinesStart}{0}
+\setcounter{FV@HighlightLinesStop}{0}
+\setcounter{FancyVerbLineBreakLast}{0}
+\setcounter{FV@BreakBufferDepth}{0}
+\setcounter{parentequation}{0}
+\setcounter{float@type}{16}
+\setcounter{caption@flags}{2}
+\setcounter{continuedfloat}{0}
+\setcounter{subfigure}{0}
+\setcounter{subtable}{0}
+\setcounter{LT@tables}{0}
+\setcounter{LT@chunks}{0}
+\setcounter{nlinenum}{0}
+\setcounter{lstnumber}{1}
+\setcounter{tcbbreakpart}{1}
+\setcounter{tcblayer}{0}
+\setcounter{tcolorbox@number}{28}
+\setcounter{tcbrastercolumn}{1}
+\setcounter{tcbrasterrow}{1}
+\setcounter{tcbrasternum}{1}
+\setcounter{tcbraster}{0}
+\setcounter{tcblisting}{0}
+\setcounter{section@level}{0}
+\setcounter{Item}{0}
+\setcounter{Hfootnote}{4}
+\setcounter{Hy@AnnotLevel}{0}
+\setcounter{bookmark@seq@number}{15}
+\setcounter{lstlisting}{0}
+}

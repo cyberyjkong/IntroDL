@@ -1,0 +1,124 @@
+% !TEX root = ../main.tex
+
+% ============================================================
+% chapter-00.tex - 封面与前言页 (优化点缀版)
+% ============================================================
+
+\makeatletter
+
+% ============================================================
+% 1. 封面页 (Cover Page)
+% ============================================================
+\begin{titlepage}
+    \thispagestyle{empty}
+    \setcounter{page}{0}
+
+    % --- 背景点缀 (TikZ) ---
+    \begin{tikzpicture}[remember picture, overlay]
+        % 左侧装饰色条 (呼应封底)
+        \fill[purple!85!black] (current page.north west) rectangle ([xshift=1.2cm]current page.south west);
+    \end{tikzpicture}
+
+    \centering
+    \vspace*{1cm}
+    
+    % --- 标题框 (增加悬浮感和细节) ---
+    \begin{tcolorbox}[
+        enhanced,
+        width=0.8\textwidth,       % 宽度适中
+        colback=white,             % 纯白背景
+        colframe=purple!90!black,  % 深紫色边框
+        boxrule=1.5pt,             % 边框线条
+        arc=10pt,                  % 圆角
+        top=25pt, bottom=25pt,     % 上下留白
+        left=20pt, right=20pt,
+        halign=center,             % 内容居中
+    ]
+
+        % 主标题
+        {\fontsize{24pt}{40pt}\selectfont\bfseries\color{black}\@title\par}
+        
+        \vspace{0.4cm}
+        
+        % 卷号 + 副标题
+        {\fontsize{16pt}{24pt}\selectfont\color{gray}\itshape \mySubtitle \par}
+        % % 卷号 + 副标题
+        % {\fontsize{16pt}{24pt}\selectfont\kaishu\color{gray} 卷\textrm{I}：\mySubtitle \par}
+    \end{tcolorbox}
+    % -----------------------------------------
+
+    \vfill 
+
+    % 插图
+    \includegraphics[width=0.6\textwidth]{./figures/front_cover/cover.pdf}
+
+    \vfill 
+
+    % --- 底部信息区 ---
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        {\large\bfseries\color{black!80} \@author \ 著 \par}
+        \vspace{0.3cm} 
+        {\small\sffamily\color{gray}
+        VERSION: \myVersion \quad | \quad DATE: \@date \par}
+    \end{minipage}
+    
+    \vspace{1cm} 
+\end{titlepage}
+
+% ============================================================
+% 2. 使用说明页
+% ============================================================
+% ============================================================
+% 2. 使用说明页 (关于本书)
+% ============================================================
+\begin{titlepage}
+    \thispagestyle{empty}
+    \setcounter{page}{0}
+    
+    \centering
+    \vspace*{2.5cm}
+
+    \begin{tcolorbox}[
+        enhanced,
+        width=0.88\textwidth,
+        colback=white,
+        colframe=purple!75!black,
+        boxrule=1pt,
+        arc=8pt,
+        left=25pt, right=25pt, top=30pt, bottom=25pt,
+        title={\Large\bfseries\color{white} 关于本书},
+        colbacktitle=purple!85!black,
+        attach boxed title to top center={yshift=-4mm},
+        boxed title style={sharp corners=south, arc=3pt, boxrule=0.5pt}
+    ]
+        \centering
+        \vspace{0.2cm}
+        
+        \begin{minipage}{\textwidth}
+            \small\color{black!80}
+            \setlength{\parskip}{0.85em}
+            \setlength{\parindent}{2em}
+            
+            本书《\@title》（\mySubtitle）目前仍处于\textbf{撰写阶段}。由于本人平时有本职工作，所以只能利用业余时间推进，目前编写进度大概每月3到4个章节。\par
+            
+            本书的整体知识脉络为：\textbf{神经网络基础知识 $\longrightarrow$ 卷积神经网络 $\longrightarrow$ 自然语言处理 $\longrightarrow$ 大语言模型}。后续将视情况逐步补充ViT、GAN、Diffusion等相关主题。\par
+            
+            本书的文稿将\textbf{优先在小红书平台同步发布}（账号：\@author）。与此同时，全书的 \LaTeX\ 源码会同步开源至 GitHub；因整理开源不易，插图会附带水印，希望大家理解与包涵。相关的代码实现目前计划等全书完结后再统一整理，之后视情况也可能会录制配套的教学讲解与代码实践视频。\par
+            
+            本资料目前仅供个人学习与交流使用，未经许可请勿用于任何商业用途。感谢您的理解与支持！
+        \end{minipage}
+    \end{tcolorbox}
+
+    \vfill
+    
+    {\footnotesize\color{gray}\setlength{\parskip}{0.4em}
+        本书处于撰写阶段 $\cdot$ 内容持续更新中 \par
+        版权所有 \copyright\ 2026 \@author \par
+    }
+    \vspace{1cm}
+\end{titlepage}
+
+\makeatother
+\setcounter{page}{1}
+\cleardoublepage

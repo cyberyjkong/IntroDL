@@ -1,0 +1,138 @@
+% !TEX root = ../main.tex
+
+\makeatletter
+
+% ============================================================
+% 1. 倒数第二页：拙作求赏 (Penultimate Page)
+% ============================================================
+\clearpage
+\cleardoublepage
+\thispagestyle{empty}
+\pagestyle{empty}
+
+\begin{center}
+    \vspace*{2.5cm}
+    
+    \begin{tcolorbox}[
+        enhanced,
+        width=0.88\textwidth,
+        colback=white,
+        colframe=purple!75!black,
+        boxrule=1pt,
+        arc=8pt,
+        % drop fuzzy shadow,
+        left=25pt, right=25pt, top=30pt, bottom=30pt,
+        title={\Large\bfseries\color{white}支持与赞赏},
+        colbacktitle=purple!85!black,
+        attach boxed title to top center={yshift=-4mm},
+        boxed title style={sharp corners=south, arc=3pt, boxrule=0.5pt}
+    ]
+        \centering
+        \vspace{0.2cm}
+        
+        \begin{minipage}{\textwidth}
+            \small\color{black!80}
+            \setlength{\parskip}{1.2em}
+            \centering
+            
+            本书整理与编写历时良久，实属不易。\\
+            如果书中的内容对您的学习或工作有所帮助，欢迎扫码支持一下作者。
+            
+            \textbf{您的支持是持续创作与更新的最大动力：}
+            \par
+            \vspace{0.5cm}
+
+            \begin{minipage}{0.45\textwidth}
+                \centering
+                \begin{tcolorbox}[enhanced, colback=white, colframe=gray!20, boxrule=0.5pt, arc=3pt, width=0.8\textwidth]
+                    \includegraphics[width=\textwidth]{figures/back_cover/wechat_pay.png}
+                \end{tcolorbox}
+                \vspace{2mm}
+                {\footnotesize\color{gray} 微信扫码}
+            \end{minipage}
+            \hfill
+            \begin{minipage}{0.45\textwidth}
+                \centering
+                \begin{tcolorbox}[enhanced, colback=white, colframe=gray!20, boxrule=0.5pt, arc=3pt, width=0.8\textwidth]
+                    \includegraphics[width=\textwidth]{figures/back_cover/ali_pay.png}
+                \end{tcolorbox}
+                \vspace{2mm}
+                {\footnotesize\color{gray} 支付宝扫码}
+            \end{minipage}
+        \end{minipage}
+    \end{tcolorbox}
+\end{center}
+
+\vfill
+\begin{center}
+    {\color{gray!60}\rule{0.4\textwidth}{0.4pt}}\\
+    {\small\color{gray!80} 感谢您的阅读与支持！}
+\end{center}
+
+% ============================================================
+% 2. 最后一页：封底
+% ============================================================
+\clearpage
+\thispagestyle{empty}
+\ifodd\value{page}\hbox{}\newpage\thispagestyle{empty}\fi
+
+\nopagecolor \pagecolor{white}
+
+\begin{tikzpicture}[remember picture, overlay]
+    % 1. 左侧装饰色条
+    \fill[purple!85!black] (current page.north east) rectangle ([xshift=-1.2cm]current page.south east);
+
+    % 2. 页面中心内容 (图片保持不变)
+    \node[anchor=center] at ([xshift=-0.6cm, yshift=1.5cm]current page.center) {
+        \begin{minipage}{0.8\textwidth}
+            \centering
+            % 神经网络图形
+            \begin{tikzpicture}[x=1.5cm, y=0.8cm, >=stealth]
+                \foreach \m [count=\i] in {3,4,3} {
+                    \foreach \j in {1,...,\m}
+                        \node [circle, fill=purple!60, minimum size=4pt, inner sep=0pt] (layer-\i-\j) at (\i,-\j+0.5*\m) {};
+                }
+                \foreach \i [count=\ni] in {1,2} {
+                    \foreach \j in {1,...,3} {
+                        \foreach \k in {1,...,4} {
+                            \ifnum \i=1 \draw [purple!20, thin] (layer-1-\j) -- (layer-2-\k); \fi
+                        }
+                    }
+                }
+                \foreach \j in {1,...,4} {
+                    \foreach \k in {1,...,3} {
+                        \draw [purple!20, thin] (layer-2-\j) -- (layer-3-\k);
+                    }
+                }
+            \end{tikzpicture}
+            
+            \vspace{1.2cm}
+            % 主标题 (中文)
+            {\fontsize{24pt}{30pt}\selectfont\bfseries\color{black!85} \@title} \\
+            \vspace{0.6cm}
+            
+            % 装饰线
+            {\color{purple!70}\rule{2.5cm}{1.2pt}} \\
+            \vspace{0.6cm}
+            
+            % 寄语
+            {\small\itshape\color{black!60} Keep Exploring, Keep Learning.}
+        \end{minipage}
+    };
+    
+    % 3. 底部版权信息 (修正版)
+    \node[anchor=south west] at ([xshift=1.5cm, yshift=1.5cm]current page.south west) {
+        \begin{minipage}{0.4\textwidth}
+            \raggedright
+            \color{gray!80}
+            \fontsize{9pt}{12pt}\selectfont
+            {\bfseries\color{black!60} \@author} \ 著 \\
+            \vspace{0.1cm}
+            \textit{Personal Study Notes} \\
+            \today
+        \end{minipage}
+    };
+\end{tikzpicture}
+
+\clearpage
+\makeatother

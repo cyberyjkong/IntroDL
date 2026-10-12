@@ -1,0 +1,110 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {chapter}{\numberline {3}神经网络优化算法}{27}{chapter.3}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.1}{\ignorespaces 凸函数的损失曲面。曲面呈平滑的“U型碗”形态，任何局部极小值均为全局最小值。}}{27}{figure.caption.21}\protected@file@percent }
+\newlabel{fig:convex_landscape}{{3.1}{27}{凸函数的损失曲面。曲面呈平滑的“U型碗”形态，任何局部极小值均为全局最小值。}{figure.caption.21}{}}
+\newlabel{fig:convex_landscape@cref}{{[figure][1][3]3.1}{[1][27][]27}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.2}{\ignorespaces 非凸函数的损失曲面。曲面拓扑结构复杂，充斥着局部极小值、鞍点与高曲率区域。}}{27}{figure.caption.22}\protected@file@percent }
+\newlabel{fig:nonconvex_landscape}{{3.2}{27}{非凸函数的损失曲面。曲面拓扑结构复杂，充斥着局部极小值、鞍点与高曲率区域。}{figure.caption.22}{}}
+\newlabel{fig:nonconvex_landscape@cref}{{[figure][2][3]3.2}{[1][27][]27}{}{}{}}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {section}{\numberline {3.1}学习率}{28}{section.3.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3.3}{\ignorespaces 学习率过大与过小的对比。左图学习率过大，参数在损失曲线两侧震荡甚至发散，无法收敛；右图学习率过小，参数步长极小，向局部最小值的收敛极其缓慢。}}{28}{figure.caption.23}\protected@file@percent }
+\newlabel{fig:learning_rate_bad}{{3.3}{28}{学习率过大与过小的对比。左图学习率过大，参数在损失曲线两侧震荡甚至发散，无法收敛；右图学习率过小，参数步长极小，向局部最小值的收敛极其缓慢。}{figure.caption.23}{}}
+\newlabel{fig:learning_rate_bad@cref}{{[figure][3][3]3.3}{[1][28][]28}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.4}{\ignorespaces 经典马鞍面$z = x^2 - y^2$。曲面沿$x$轴方向向上弯曲、沿$y$轴方向向下弯曲，形似马鞍。红点为鞍点：该处梯度为零，既非局部极小值也非局部极大值。}}{29}{figure.caption.24}\protected@file@percent }
+\newlabel{fig:saddle_landscape}{{3.4}{29}{经典马鞍面$z = x^2 - y^2$。曲面沿$x$轴方向向上弯曲、沿$y$轴方向向下弯曲，形似马鞍。红点为鞍点：该处梯度为零，既非局部极小值也非局部极大值。}{figure.caption.24}{}}
+\newlabel{fig:saddle_landscape@cref}{{[figure][4][3]3.4}{[1][28][]29}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.5}{\ignorespaces 合理设置学习率下的梯度下降轨迹。在远离全局最小值时采用较大学习率，参数得以快速下降并越过较浅的局部极小值（local minimum）；当接近全局最小值时逐渐减小学习率，避免在谷底附近震荡，最终平稳、精确地收敛至全局最小值（global minimum）。}}{29}{figure.caption.25}\protected@file@percent }
+\newlabel{fig:learning_rate_good}{{3.5}{29}{合理设置学习率下的梯度下降轨迹。在远离全局最小值时采用较大学习率，参数得以快速下降并越过较浅的局部极小值（local minimum）；当接近全局最小值时逐渐减小学习率，避免在谷底附近震荡，最终平稳、精确地收敛至全局最小值（global minimum）。}{figure.caption.25}{}}
+\newlabel{fig:learning_rate_good@cref}{{[figure][5][3]3.5}{[1][29][]29}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.6}{\ignorespaces 余弦函数$y=\cos (x)$在区间$[0,\pi ]$上的图像。曲线自$(0,1)$单调递减，于$x=\pi /2$处过零，最终到达$(\pi ,-1)$，且两端斜率为零。}}{30}{figure.caption.26}\protected@file@percent }
+\newlabel{fig:cosine}{{3.6}{30}{余弦函数$y=\cos (x)$在区间$[0,\pi ]$上的图像。曲线自$(0,1)$单调递减，于$x=\pi /2$处过零，最终到达$(\pi ,-1)$，且两端斜率为零。}{figure.caption.26}{}}
+\newlabel{fig:cosine@cref}{{[figure][6][3]3.6}{[1][30][]30}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.7}{\ignorespaces 学习率预热和余弦退火的学习率调度示意图。前$T_{\text  {warm}}$个epoch内学习率从$0$线性升至$\eta _{\max }$，随后按余弦曲线平滑衰减至$\eta _{\min }$，两段在$t=T_{\text  {warm}}$处连续衔接。}}{31}{figure.caption.27}\protected@file@percent }
+\newlabel{fig:warmup}{{3.7}{31}{学习率预热和余弦退火的学习率调度示意图。前$T_{\text {warm}}$个epoch内学习率从$0$线性升至$\eta _{\max }$，随后按余弦曲线平滑衰减至$\eta _{\min }$，两段在$t=T_{\text {warm}}$处连续衔接。}{figure.caption.27}{}}
+\newlabel{fig:warmup@cref}{{[figure][7][3]3.7}{[1][31][]31}{}{}{}}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {section}{\numberline {3.2}批量策略}{32}{section.3.2}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.8}{\ignorespaces BGD、SGD与Mini-batch三种梯度下降轨迹在损失等高线图上的对比图。等高线由外向内递减、中心为极小值点。}}{33}{figure.caption.28}\protected@file@percent }
+\newlabel{fig:comparison_of_batching_strategies}{{3.8}{33}{BGD、SGD与Mini-batch三种梯度下降轨迹在损失等高线图上的对比图。等高线由外向内递减、中心为极小值点。}{figure.caption.28}{}}
+\newlabel{fig:comparison_of_batching_strategies@cref}{{[figure][8][3]3.8}{[1][33][]33}{}{}{}}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {section}{\numberline {3.3}动量法}{34}{section.3.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3.9}{\ignorespaces 病态曲率损失面（左）及其上的SGD参数优化轨迹（右）。左图等高线围成狭窄且弯曲的谷，垂直谷方向的曲率与梯度远大于沿谷方向；右图中SGD的更新步因此在谷壁之间来回横跳，难以沿谷方向向极小值点（白色圆圈）有效推进。}}{34}{figure.caption.29}\protected@file@percent }
+\newlabel{fig:ill_conditioned}{{3.9}{34}{病态曲率损失面（左）及其上的SGD参数优化轨迹（右）。左图等高线围成狭窄且弯曲的谷，垂直谷方向的曲率与梯度远大于沿谷方向；右图中SGD的更新步因此在谷壁之间来回横跳，难以沿谷方向向极小值点（白色圆圈）有效推进。}{figure.caption.29}{}}
+\newlabel{fig:ill_conditioned@cref}{{[figure][9][3]3.9}{[1][34][]34}{}{}{}}
+\def\@LN@column{1}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.10}{\ignorespaces 病态曲率损失面（左）与使用动量法的参数优化轨迹（右）。在窄而弯的谷地形上，动量法通过速度项累积历史梯度，抵消横向震荡并叠加沿谷推进；轨迹仅在初期轻微过冲，随后即沿谷底平滑收敛至极小值点（白色圆圈）。}}{36}{figure.caption.30}\protected@file@percent }
+\newlabel{fig:ill_conditioned_sovled}{{3.10}{36}{病态曲率损失面（左）与使用动量法的参数优化轨迹（右）。在窄而弯的谷地形上，动量法通过速度项累积历史梯度，抵消横向震荡并叠加沿谷推进；轨迹仅在初期轻微过冲，随后即沿谷底平滑收敛至极小值点（白色圆圈）。}{figure.caption.30}{}}
+\newlabel{fig:ill_conditioned_sovled@cref}{{[figure][10][3]3.10}{[1][35][]36}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3.4}自适应学习率算法}{36}{section.3.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4.1}AdaGrad}{36}{subsection.3.4.1}\protected@file@percent }
+\def\@LN@column{1}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4.2}RMSProp}{38}{subsection.3.4.2}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4.3}Adam}{39}{subsection.3.4.3}\protected@file@percent }
+\def\@LN@column{1}
+\@setckpt{./chapters/part_01/p1_ch03}{
+\setcounter{page}{41}
+\setcounter{equation}{0}
+\setcounter{enumi}{0}
+\setcounter{enumii}{0}
+\setcounter{enumiii}{0}
+\setcounter{enumiv}{0}
+\setcounter{footnote}{4}
+\setcounter{mpfootnote}{0}
+\setcounter{part}{1}
+\setcounter{chapter}{3}
+\setcounter{section}{4}
+\setcounter{subsection}{3}
+\setcounter{subsubsection}{0}
+\setcounter{paragraph}{0}
+\setcounter{subparagraph}{0}
+\setcounter{figure}{10}
+\setcounter{table}{0}
+\setcounter{FancyVerbLine}{0}
+\setcounter{linenumber}{1}
+\setcounter{LN@truepage}{48}
+\setcounter{FancyVerbWriteLine}{0}
+\setcounter{FancyVerbBufferLine}{0}
+\setcounter{FV@TrueTabGroupLevel}{0}
+\setcounter{FV@TrueTabCounter}{0}
+\setcounter{FV@HighlightLinesStart}{0}
+\setcounter{FV@HighlightLinesStop}{0}
+\setcounter{FancyVerbLineBreakLast}{0}
+\setcounter{FV@BreakBufferDepth}{0}
+\setcounter{parentequation}{0}
+\setcounter{float@type}{16}
+\setcounter{caption@flags}{2}
+\setcounter{continuedfloat}{0}
+\setcounter{subfigure}{0}
+\setcounter{subtable}{0}
+\setcounter{LT@tables}{0}
+\setcounter{LT@chunks}{0}
+\setcounter{nlinenum}{0}
+\setcounter{lstnumber}{1}
+\setcounter{tcbbreakpart}{1}
+\setcounter{tcblayer}{0}
+\setcounter{tcolorbox@number}{38}
+\setcounter{tcbrastercolumn}{1}
+\setcounter{tcbrasterrow}{1}
+\setcounter{tcbrasternum}{1}
+\setcounter{tcbraster}{0}
+\setcounter{tcblisting}{0}
+\setcounter{section@level}{0}
+\setcounter{Item}{0}
+\setcounter{Hfootnote}{8}
+\setcounter{Hy@AnnotLevel}{0}
+\setcounter{bookmark@seq@number}{23}
+\setcounter{lstlisting}{0}
+}

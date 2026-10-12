@@ -1,0 +1,102 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {chapter}{\numberline {7}深层卷积网络}{88}{chapter.7}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{toc}{\contentsline {section}{\numberline {7.1}AlexNet}{88}{section.7.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {7.1}{\ignorespaces AlexNet网络架构（原始论文的双GPU画法）。上下两排为两张GPU上并行计算的卷积分支，跨分支的连线表示GPU之间的特征传递，末端汇合到全连接层并输出1000个类别。}}{88}{figure.caption.61}\protected@file@percent }
+\newlabel{fig:alexnet}{{7.1}{88}{AlexNet网络架构（原始论文的双GPU画法）。上下两排为两张GPU上并行计算的卷积分支，跨分支的连线表示GPU之间的特征传递，末端汇合到全连接层并输出1000个类别。}{figure.caption.61}{}}
+\newlabel{fig:alexnet@cref}{{[figure][1][7]7.1}{[1][88][]88}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {7.2}{\ignorespaces AlexNet网络架构（单GPU）。将双GPU分支合并为单条计算链：$224\times 224\times 3$输入经5个卷积层与3个最大池化层逐层提取特征，末端由4096、4096两个全连接层映射到1000类输出。}}{89}{figure.caption.62}\protected@file@percent }
+\newlabel{fig:alexnet_single_gpu}{{7.2}{89}{AlexNet网络架构（单GPU）。将双GPU分支合并为单条计算链：$224\times 224\times 3$输入经5个卷积层与3个最大池化层逐层提取特征，末端由4096、4096两个全连接层映射到1000类输出。}{figure.caption.62}{}}
+\newlabel{fig:alexnet_single_gpu@cref}{{[figure][2][7]7.2}{[1][89][]89}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7.3}{\ignorespaces AlexNet卷积层与池化层的重绘。改用与LeNet一致的特征图堆叠画法，逐层标出通道数与空间尺寸，便于直观对照各层的输入输出形状。}}{89}{figure.caption.63}\protected@file@percent }
+\newlabel{fig:alexnet_single}{{7.3}{89}{AlexNet卷积层与池化层的重绘。改用与LeNet一致的特征图堆叠画法，逐层标出通道数与空间尺寸，便于直观对照各层的输入输出形状。}{figure.caption.63}{}}
+\newlabel{fig:alexnet_single@cref}{{[figure][3][7]7.3}{[1][89][]89}{}{}{}}
+\def\@LN@column{1}
+\def\@LN@column{1}
+\def\@LN@column{1}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {section}{\numberline {7.2}VGG}{93}{section.7.2}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {7.4}{\ignorespaces 感受野的堆叠效应。红、蓝框链展示末端单个位置（右端粉格）的感受野逐层向回映射：每回退一层，覆盖区域就扩大一圈。两层$3\times 3$卷积堆叠后覆盖原始输入的$5\times 5$区域（上排），三层堆叠后扩大为$7\times 7$（下排），即堆叠小卷积核可获得与大卷积核相同的有效感受野。}}{94}{figure.caption.64}\protected@file@percent }
+\newlabel{fig:vgg_receptive_field}{{7.4}{94}{感受野的堆叠效应。红、蓝框链展示末端单个位置（右端粉格）的感受野逐层向回映射：每回退一层，覆盖区域就扩大一圈。两层$3\times 3$卷积堆叠后覆盖原始输入的$5\times 5$区域（上排），三层堆叠后扩大为$7\times 7$（下排），即堆叠小卷积核可获得与大卷积核相同的有效感受野。}{figure.caption.64}{}}
+\newlabel{fig:vgg_receptive_field@cref}{{[figure][4][7]7.4}{[1][94][]94}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {7.5}{\ignorespaces VGG-16网络架构。13个$3\times 3$卷积（后接ReLU）与5个最大池化层交替堆叠，通道数逐级翻倍（64、128、256、512），空间尺寸随每次池化减半（224、112、56、28、14），最终压缩为$7\times 7\times 512$；末端经两个4096维全连接层与Softmax输出类别概率。}}{95}{figure.caption.65}\protected@file@percent }
+\newlabel{fig:vggnet}{{7.5}{95}{VGG-16网络架构。13个$3\times 3$卷积（后接ReLU）与5个最大池化层交替堆叠，通道数逐级翻倍（64、128、256、512），空间尺寸随每次池化减半（224、112、56、28、14），最终压缩为$7\times 7\times 512$；末端经两个4096维全连接层与Softmax输出类别概率。}{figure.caption.65}{}}
+\newlabel{fig:vggnet@cref}{{[figure][5][7]7.5}{[1][95][]95}{}{}{}}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {section}{\numberline {7.3}GoogLeNet}{96}{section.7.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {7.6}{\ignorespaces Inception模块基本结构。同一张输入特征图同时送入四条并行分支：$1\times 1$卷积、$3\times 3$卷积、$5\times 5$卷积与$3\times 3$最大池化；四条分支的输出保持相同的空间尺寸，再沿通道维度拼接（concatenate），合并为一张新的输出特征图。}}{96}{figure.caption.66}\protected@file@percent }
+\newlabel{fig:inception}{{7.6}{96}{Inception模块基本结构。同一张输入特征图同时送入四条并行分支：$1\times 1$卷积、$3\times 3$卷积、$5\times 5$卷积与$3\times 3$最大池化；四条分支的输出保持相同的空间尺寸，再沿通道维度拼接（concatenate），合并为一张新的输出特征图。}{figure.caption.66}{}}
+\newlabel{fig:inception@cref}{{[figure][6][7]7.6}{[1][96][]96}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {7.7}{\ignorespaces $1\times 1$卷积示意图。卷积核的空间尺寸仅为$1\times 1$（图中红框柱），不观察空间邻域，只在每个空间位置对全部$M$个通道做加权求和，完成跨通道的信息组合；输出特征图的空间尺寸保持$H\times W$不变，仅通道数由$M$变为$N$。}}{97}{figure.caption.67}\protected@file@percent }
+\newlabel{fig:11_convolution}{{7.7}{97}{$1\times 1$卷积示意图。卷积核的空间尺寸仅为$1\times 1$（图中红框柱），不观察空间邻域，只在每个空间位置对全部$M$个通道做加权求和，完成跨通道的信息组合；输出特征图的空间尺寸保持$H\times W$不变，仅通道数由$M$变为$N$。}{figure.caption.67}{}}
+\newlabel{fig:11_convolution@cref}{{[figure][7][7]7.7}{[1][97][]97}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {7.8}{\ignorespaces Inception模块完整结构。与图\ref {fig:inception}相比，$3\times 3$和$5\times 5$分支前各加$1\times 1$卷积压缩通道，$3\times 3$最大池化后也加$1\times 1$卷积控制输出通道；四分支输出沿通道拼接。该设计保持多尺度并行特征提取的同时，显著降低了参数量与计算量，且$1\times 1$卷积兼具跨通道融合与非线性变换作用。}}{98}{figure.caption.68}\protected@file@percent }
+\newlabel{fig:inception_module}{{7.8}{98}{Inception模块完整结构。与图\ref {fig:inception}相比，$3\times 3$和$5\times 5$分支前各加$1\times 1$卷积压缩通道，$3\times 3$最大池化后也加$1\times 1$卷积控制输出通道；四分支输出沿通道拼接。该设计保持多尺度并行特征提取的同时，显著降低了参数量与计算量，且$1\times 1$卷积兼具跨通道融合与非线性变换作用。}{figure.caption.68}{}}
+\newlabel{fig:inception_module@cref}{{[figure][8][7]7.8}{[1][98][]98}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {7.9}{\ignorespaces GoogLeNet整体结构。网络堆叠9个Inception模块，并在适当位置插入步长为2的最大池化，使分辨率按$224\to 112\to 56\to 28\to 14\to 7$降低、通道数增加；中部引入两个辅助分类器缓解梯度消失，末端用全局平均池化取代全连接层，将$7\times 7\times 1024$特征图直接送入softmax分类。}}{99}{figure.caption.69}\protected@file@percent }
+\newlabel{fig:googlenet}{{7.9}{99}{GoogLeNet整体结构。网络堆叠9个Inception模块，并在适当位置插入步长为2的最大池化，使分辨率按$224\to 112\to 56\to 28\to 14\to 7$降低、通道数增加；中部引入两个辅助分类器缓解梯度消失，末端用全局平均池化取代全连接层，将$7\times 7\times 1024$特征图直接送入softmax分类。}{figure.caption.69}{}}
+\newlabel{fig:googlenet@cref}{{[figure][9][7]7.9}{[1][99][]99}{}{}{}}
+\def\@LN@column{1}
+\@setckpt{./chapters/part_02/p2_ch03}{
+\setcounter{page}{101}
+\setcounter{equation}{0}
+\setcounter{enumi}{9}
+\setcounter{enumii}{0}
+\setcounter{enumiii}{0}
+\setcounter{enumiv}{0}
+\setcounter{footnote}{8}
+\setcounter{mpfootnote}{0}
+\setcounter{part}{2}
+\setcounter{chapter}{7}
+\setcounter{section}{3}
+\setcounter{subsection}{0}
+\setcounter{subsubsection}{0}
+\setcounter{paragraph}{0}
+\setcounter{subparagraph}{0}
+\setcounter{figure}{9}
+\setcounter{table}{0}
+\setcounter{FancyVerbLine}{0}
+\setcounter{linenumber}{1}
+\setcounter{LN@truepage}{108}
+\setcounter{FancyVerbWriteLine}{0}
+\setcounter{FancyVerbBufferLine}{0}
+\setcounter{FV@TrueTabGroupLevel}{0}
+\setcounter{FV@TrueTabCounter}{0}
+\setcounter{FV@HighlightLinesStart}{0}
+\setcounter{FV@HighlightLinesStop}{0}
+\setcounter{FancyVerbLineBreakLast}{0}
+\setcounter{FV@BreakBufferDepth}{0}
+\setcounter{parentequation}{0}
+\setcounter{float@type}{16}
+\setcounter{caption@flags}{2}
+\setcounter{continuedfloat}{0}
+\setcounter{subfigure}{0}
+\setcounter{subtable}{0}
+\setcounter{LT@tables}{0}
+\setcounter{LT@chunks}{0}
+\setcounter{nlinenum}{0}
+\setcounter{lstnumber}{1}
+\setcounter{tcbbreakpart}{1}
+\setcounter{tcblayer}{0}
+\setcounter{tcolorbox@number}{57}
+\setcounter{tcbrastercolumn}{1}
+\setcounter{tcbrasterrow}{1}
+\setcounter{tcbrasternum}{1}
+\setcounter{tcbraster}{0}
+\setcounter{tcblisting}{0}
+\setcounter{section@level}{0}
+\setcounter{Item}{36}
+\setcounter{Hfootnote}{26}
+\setcounter{Hy@AnnotLevel}{0}
+\setcounter{bookmark@seq@number}{52}
+\setcounter{lstlisting}{0}
+}

@@ -1,0 +1,111 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {chapter}{\numberline {13}LSTM和GRU}{167}{chapter.13}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{toc}{\contentsline {section}{\numberline {13.1}门控机制}{167}{section.13.1}\protected@file@percent }
+\def\@LN@column{1}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {13.1}{\ignorespaces 门控机制示意图。当前输入$x_t$与上一时刻的隐藏状态$h_{t-1}$拼接后，经过线性层和Sigmoid激活函数生成门向量$g_t$。门向量通过逐元素乘法$\odot $调节旧隐藏状态中各分量的保留程度：门值接近$1$时，对应分量基本保留；门值接近$0$时，对应分量受到显著抑制。}}{169}{figure.caption.117}\protected@file@percent }
+\newlabel{fig:gate_mechanism}{{13.1}{169}{门控机制示意图。当前输入$x_t$与上一时刻的隐藏状态$h_{t-1}$拼接后，经过线性层和Sigmoid激活函数生成门向量$g_t$。门向量通过逐元素乘法$\odot $调节旧隐藏状态中各分量的保留程度：门值接近$1$时，对应分量基本保留；门值接近$0$时，对应分量受到显著抑制。}{figure.caption.117}{}}
+\newlabel{fig:gate_mechanism@cref}{{[figure][1][13]13.1}{[1][169][]169}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {13.2}{\ignorespaces 门控加法示意图。旧记忆$m_{t-1}$经过门向量$g_t$逐元素调节后，与新写入的信息增量$\Delta _t$相加，得到更新后的记忆状态$m_t$。其中，门向量控制旧记忆各分量的保留程度，而$\Delta _t$表示本次更新引入的新信息。}}{170}{figure.caption.118}\protected@file@percent }
+\newlabel{fig:gate_addition}{{13.2}{170}{门控加法示意图。旧记忆$m_{t-1}$经过门向量$g_t$逐元素调节后，与新写入的信息增量$\Delta _t$相加，得到更新后的记忆状态$m_t$。其中，门向量控制旧记忆各分量的保留程度，而$\Delta _t$表示本次更新引入的新信息。}{figure.caption.118}{}}
+\newlabel{fig:gate_addition@cref}{{[figure][2][13]13.2}{[1][170][]170}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {13.3}{\ignorespaces 普通RNN与门控加法的状态更新方式对比。左：普通RNN将旧隐藏状态$h_{t-1}$与当前输入$x_t$分别进行线性变换，再将变换结果与偏置相加，经过非线性激活函数得到$h_t$；右：门控加法通过门向量$g_t$逐元素调节旧记忆$m_{t-1}$，再加上新信息增量$\Delta _t$，得到更新后的记忆状态$m_t$，从而为旧记忆提供一条更直接的传递通路。}}{170}{figure.caption.119}\protected@file@percent }
+\newlabel{fig:gate_and_rnn}{{13.3}{170}{普通RNN与门控加法的状态更新方式对比。左：普通RNN将旧隐藏状态$h_{t-1}$与当前输入$x_t$分别进行线性变换，再将变换结果与偏置相加，经过非线性激活函数得到$h_t$；右：门控加法通过门向量$g_t$逐元素调节旧记忆$m_{t-1}$，再加上新信息增量$\Delta _t$，得到更新后的记忆状态$m_t$，从而为旧记忆提供一条更直接的传递通路。}{figure.caption.119}{}}
+\newlabel{fig:gate_and_rnn@cref}{{[figure][3][13]13.3}{[1][170][]170}{}{}{}}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {section}{\numberline {13.2}LSTM}{171}{section.13.2}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {13.4}{\ignorespaces RNN与新单元的外部接口对比。左：RNN仅一条水平状态线，$h_{t-1}$进、$h_t$出兼作记忆；右：新单元将状态拆为双通道，上方长期记忆$c_{t-1}\to c_t$，下方隐藏状态$h_{t-1}\to h_t$；两者外部输入$x_t$均从底部进入。}}{172}{figure.caption.120}\protected@file@percent }
+\newlabel{fig:lstm_blackbox}{{13.4}{172}{RNN与新单元的外部接口对比。左：RNN仅一条水平状态线，$h_{t-1}$进、$h_t$出兼作记忆；右：新单元将状态拆为双通道，上方长期记忆$c_{t-1}\to c_t$，下方隐藏状态$h_{t-1}\to h_t$；两者外部输入$x_t$均从底部进入。}{figure.caption.120}{}}
+\newlabel{fig:lstm_blackbox@cref}{{[figure][4][13]13.4}{[1][172][]172}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {13.5}{\ignorespaces 新单元的整体结构。顶部主线传递长期细胞状态$c_{t-1}\to c_t$；下方设三个门控：遗忘门筛选旧记忆，输入门写入新信息，融合后向右更新为$c_t$；最终经输出门向下产生短期隐藏状态$h_t$。}}{172}{figure.caption.121}\protected@file@percent }
+\newlabel{fig:lstm_cell_overview}{{13.5}{172}{新单元的整体结构。顶部主线传递长期细胞状态$c_{t-1}\to c_t$；下方设三个门控：遗忘门筛选旧记忆，输入门写入新信息，融合后向右更新为$c_t$；最终经输出门向下产生短期隐藏状态$h_t$。}{figure.caption.121}{}}
+\newlabel{fig:lstm_cell_overview@cref}{{[figure][5][13]13.5}{[1][172][]172}{}{}{}}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {subsection}{\numberline {13.2.1}遗忘门}{173}{subsection.13.2.1}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {subsection}{\numberline {13.2.2}输入门与候选记忆}{174}{subsection.13.2.2}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {13.6}{\ignorespaces 细胞状态更新$c_t=f_t\odot c_{t-1}+i_t\odot \tilde  c_t$的数据流。更新由两条支路相加而成：“留旧”支路中旧状态$c_{t-1}$与遗忘门$f_t$逐分量相乘被筛选，“写新”支路中候选记忆$\tilde  c_t$与输入门$i_t$逐分量相乘被筛选。所有门与候选层的输入均为拼接向量$[h_{t-1},x_t]$。这种门控加法避免了矩阵对记忆的整体改写，为梯度沿细胞状态顺畅回传奠定了基础。}}{175}{figure.caption.122}\protected@file@percent }
+\newlabel{fig:cell_update}{{13.6}{175}{细胞状态更新$c_t=f_t\odot c_{t-1}+i_t\odot \tilde c_t$的数据流。更新由两条支路相加而成：“留旧”支路中旧状态$c_{t-1}$与遗忘门$f_t$逐分量相乘被筛选，“写新”支路中候选记忆$\tilde c_t$与输入门$i_t$逐分量相乘被筛选。所有门与候选层的输入均为拼接向量$[h_{t-1},x_t]$。这种门控加法避免了矩阵对记忆的整体改写，为梯度沿细胞状态顺畅回传奠定了基础。}{figure.caption.122}{}}
+\newlabel{fig:cell_update@cref}{{[figure][6][13]13.6}{[1][175][]175}{}{}{}}
+\def\@LN@column{1}
+\def\@LN@column{1}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {subsection}{\numberline {13.2.3}输出门}{178}{subsection.13.2.3}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {13.7}{\ignorespaces LSTM单元内部结构。顶部主线传递细胞状态$c_{t-1}\to c_t$，底部传递隐藏状态$h_{t-1}\to h_t$；所有门控与候选层均以拼接向量$[h_{t-1},x_t]$为输入。遗忘门$f_t$筛选旧记忆，输入门$i_t$与候选记忆$\tilde  c_t$结合写入主线，完成更新$c_t=f_t\odot c_{t-1}+i_t\odot \tilde  c_t$；最后状态经$\tanh $激活并由输出门$o_t$筛选，产生新的$h_t$。}}{179}{figure.caption.123}\protected@file@percent }
+\newlabel{fig:lstm_cell}{{13.7}{179}{LSTM单元内部结构。顶部主线传递细胞状态$c_{t-1}\to c_t$，底部传递隐藏状态$h_{t-1}\to h_t$；所有门控与候选层均以拼接向量$[h_{t-1},x_t]$为输入。遗忘门$f_t$筛选旧记忆，输入门$i_t$与候选记忆$\tilde c_t$结合写入主线，完成更新$c_t=f_t\odot c_{t-1}+i_t\odot \tilde c_t$；最后状态经$\tanh $激活并由输出门$o_t$筛选，产生新的$h_t$。}{figure.caption.123}{}}
+\newlabel{fig:lstm_cell@cref}{{[figure][7][13]13.7}{[1][179][]179}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {13.8}{\ignorespaces RNN与LSTM单元结构对比。左：RNN单元仅一条状态线，$x_t$与$h_{t-1}$经$W_{xh}$、$W_{hh}$加权后与偏置相加、过激活得$h_t$，共两个权重矩阵。右：LSTM单元有细胞状态$c_{t-1}\to c_t$与隐藏状态$h_{t-1}\to h_t$两条状态线，内含遗忘门、输入门、候选层、输出门四个部件，均以$[h_{t-1},x_t]$为输入；遗忘门筛选旧细胞状态，输入门与候选层写入新信息得$c_t$，输出门与$\tanh (c_t)$相乘得$h_t$，共四个权重矩阵。}}{180}{figure.caption.124}\protected@file@percent }
+\newlabel{fig:lstm_vs_rnn}{{13.8}{180}{RNN与LSTM单元结构对比。左：RNN单元仅一条状态线，$x_t$与$h_{t-1}$经$W_{xh}$、$W_{hh}$加权后与偏置相加、过激活得$h_t$，共两个权重矩阵。右：LSTM单元有细胞状态$c_{t-1}\to c_t$与隐藏状态$h_{t-1}\to h_t$两条状态线，内含遗忘门、输入门、候选层、输出门四个部件，均以$[h_{t-1},x_t]$为输入；遗忘门筛选旧细胞状态，输入门与候选层写入新信息得$c_t$，输出门与$\tanh (c_t)$相乘得$h_t$，共四个权重矩阵。}{figure.caption.124}{}}
+\newlabel{fig:lstm_vs_rnn@cref}{{[figure][8][13]13.8}{[1][179][]180}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {13.3}GRU}{180}{section.13.3}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {subsection}{\numberline {13.3.1}重置门}{181}{subsection.13.3.1}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {subsection}{\numberline {13.3.2}更新门}{182}{subsection.13.3.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {13.9}{\ignorespaces GRU单元的内部结构。与LSTM不同，GRU不再单独维护细胞状态，而是通过隐藏状态传递和更新信息。重置门$r_t$控制历史信息参与候选状态计算的程度，得到候选状态$\tilde  h_t$；更新门$z_t$控制旧状态的保留比例，并通过$1-z_t$调节候选状态的权重，最终得到$h_t=z_t\odot h_{t-1}+(1-z_t)\odot \tilde  h_t$。两道门均以$[h_{t-1},x_t]$为输入。}}{182}{figure.caption.125}\protected@file@percent }
+\newlabel{fig:gru_cell}{{13.9}{182}{GRU单元的内部结构。与LSTM不同，GRU不再单独维护细胞状态，而是通过隐藏状态传递和更新信息。重置门$r_t$控制历史信息参与候选状态计算的程度，得到候选状态$\tilde h_t$；更新门$z_t$控制旧状态的保留比例，并通过$1-z_t$调节候选状态的权重，最终得到$h_t=z_t\odot h_{t-1}+(1-z_t)\odot \tilde h_t$。两道门均以$[h_{t-1},x_t]$为输入。}{figure.caption.125}{}}
+\newlabel{fig:gru_cell@cref}{{[figure][9][13]13.9}{[1][182][]182}{}{}{}}
+\def\@LN@column{1}
+\@setckpt{./chapters/part_03/p3_ch03}{
+\setcounter{page}{184}
+\setcounter{equation}{0}
+\setcounter{enumi}{11}
+\setcounter{enumii}{0}
+\setcounter{enumiii}{0}
+\setcounter{enumiv}{0}
+\setcounter{footnote}{1}
+\setcounter{mpfootnote}{0}
+\setcounter{part}{3}
+\setcounter{chapter}{13}
+\setcounter{section}{3}
+\setcounter{subsection}{2}
+\setcounter{subsubsection}{0}
+\setcounter{paragraph}{0}
+\setcounter{subparagraph}{0}
+\setcounter{figure}{9}
+\setcounter{table}{0}
+\setcounter{FancyVerbLine}{0}
+\setcounter{linenumber}{1}
+\setcounter{LN@truepage}{191}
+\setcounter{FancyVerbWriteLine}{0}
+\setcounter{FancyVerbBufferLine}{0}
+\setcounter{FV@TrueTabGroupLevel}{0}
+\setcounter{FV@TrueTabCounter}{0}
+\setcounter{FV@HighlightLinesStart}{0}
+\setcounter{FV@HighlightLinesStop}{0}
+\setcounter{FancyVerbLineBreakLast}{0}
+\setcounter{FV@BreakBufferDepth}{0}
+\setcounter{parentequation}{0}
+\setcounter{float@type}{16}
+\setcounter{caption@flags}{2}
+\setcounter{continuedfloat}{0}
+\setcounter{subfigure}{0}
+\setcounter{subtable}{0}
+\setcounter{LT@tables}{0}
+\setcounter{LT@chunks}{0}
+\setcounter{nlinenum}{0}
+\setcounter{lstnumber}{1}
+\setcounter{tcbbreakpart}{1}
+\setcounter{tcblayer}{0}
+\setcounter{tcolorbox@number}{91}
+\setcounter{tcbrastercolumn}{1}
+\setcounter{tcbrasterrow}{1}
+\setcounter{tcbrasternum}{1}
+\setcounter{tcbraster}{0}
+\setcounter{tcblisting}{0}
+\setcounter{section@level}{0}
+\setcounter{Item}{47}
+\setcounter{Hfootnote}{44}
+\setcounter{Hy@AnnotLevel}{0}
+\setcounter{bookmark@seq@number}{96}
+\setcounter{lstlisting}{0}
+}

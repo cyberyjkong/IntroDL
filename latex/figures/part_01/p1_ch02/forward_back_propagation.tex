@@ -1,0 +1,90 @@
+\documentclass[border=10pt]{standalone}
+\usepackage{tikz}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usetikzlibrary{arrows.meta}
+
+% 颜色：高亮 = 本步已激活；未计算 = 白底浅灰边
+\definecolor{hiLine}{RGB}{52,58,143}
+\definecolor{hiFill}{RGB}{199,203,243}
+\definecolor{loLine}{RGB}{150,150,150}
+
+\newif\ifback
+
+% \mlp{方向 f/b}{输入}{隐层}{输出}{损失}：1=本步点亮，0=灰（透明度0.3）
+\newcommand{\mlp}[5]{%
+  \pgfmathtruncatemacro{\eih}{min(#2,#3)}%
+  \pgfmathtruncatemacro{\ehy}{min(#3,#4)}%
+  \pgfmathtruncatemacro{\eyl}{min(#4,#5)}%
+  % ★ 修掉 ifback bug：把 #1 存进宏再比较，否则 \ifx 永远为假
+  \def\dirarg{#1}\def\dirtest{b}\ifx\dirarg\dirtest\backtrue\else\backfalse\fi
+  % 颜色
+  \def\cINPline{\ifnum#2=1 hiLine\else loLine\fi}%
+  \def\cINPfill{\ifnum#2=1 hiFill\else gray!8\fi}%
+  \def\cHIDline{\ifnum#3=1 hiLine\else loLine\fi}%
+  \def\cHIDfill{\ifnum#3=1 hiFill\else gray!8\fi}%
+  \def\cOUTline{\ifnum#4=1 hiLine\else loLine\fi}%
+  \def\cOUTfill{\ifnum#4=1 hiFill\else gray!8\fi}%
+  \def\cLOSline{\ifnum#5=1 hiLine\else loLine\fi}%
+  \def\cLOSfill{\ifnum#5=1 hiFill\else gray!8\fi}%
+  \def\cEIH{\ifnum\eih=1 hiLine\else loLine\fi}%
+  \def\cEHY{\ifnum\ehy=1 hiLine\else loLine\fi}%
+  \def\cEYL{\ifnum\eyl=1 hiLine\else loLine\fi}%
+  % ★ 透明度：激活=1.0，未激活=0.3（淡但仍可见）
+  \def\oINP{\ifnum#2=1 1.0\else 0.3\fi}%
+  \def\oHID{\ifnum#3=1 1.0\else 0.3\fi}%
+  \def\oOUT{\ifnum#4=1 1.0\else 0.3\fi}%
+  \def\oLOS{\ifnum#5=1 1.0\else 0.3\fi}%
+  \def\oEIH{\ifnum\eih=1 1.0\else 0.3\fi}%
+  \def\oEHY{\ifnum\ehy=1 1.0\else 0.3\fi}%
+  \def\oEYL{\ifnum\eyl=1 1.0\else 0.3\fi}%
+  \begin{tikzpicture}[
+      >={Stealth[length=4pt]}, line width=0.7pt, font=\normalsize,
+      x=0.6cm, y=0.6cm,
+      inp/.style={circle, draw=\cINPline, fill=\cINPfill, minimum size=0.8cm,  inner sep=0pt, opacity=\oINP},
+      hid/.style={circle, draw=\cHIDline, fill=\cHIDfill, minimum size=1.5cm,  inner sep=0.5pt, opacity=\oHID},
+      outp/.style={circle, draw=\cOUTline, fill=\cOUTfill, minimum size=1.5cm, inner sep=0.5pt, opacity=\oOUT},
+      los/.style={circle, draw=\cLOSline, fill=\cLOSfill, minimum size=0.7cm,  inner sep=0pt, opacity=\oLOS},
+    ]
+    % ---- 节点：前向 z→σ→h，反向 h→σ'→z ----
+    \node[inp]  (x1) at (0, 1.5)  {$x_1$};
+    \node[inp]  (x2) at (0,-1.5)  {$x_2$};
+    \node[hid]  (h1) at (3.1, 2.6) {\ifback $z_1\!\overset{\sigma'(\cdot)}{\leftarrow}\!h_1$\else $z_1\!\overset{\sigma(\cdot)}{\rightarrow}\!h_1$\fi};
+    \node[hid]  (h2) at (3.1,-2.6) {\ifback $z_2\!\overset{\sigma'(\cdot)}{\leftarrow}\!h_2$\else $z_2\!\overset{\sigma(\cdot)}{\rightarrow}\!h_2$\fi};
+    \node[outp] (y)  at (6.9, 0)   {\ifback $z_3\!\overset{\sigma'(\cdot)}{\leftarrow}\!y$\else  $z_3\!\overset{\sigma(\cdot)}{\rightarrow}\!y$\fi};
+    \node[los]  (L)  at (9.6, 0)   {$L$};
+
+    % ---- 连接边：前向顺指，反向倒指（带透明度）----
+    \ifback
+      \foreach \i in {x1,x2}
+        \foreach \j in {h1,h2}
+          \draw[\cEIH, ->, opacity=\oEIH] (\j) -- (\i);
+      \foreach \j in {h1,h2}
+        \draw[\cEHY, ->, opacity=\oEHY] (y) -- (\j);
+      \draw[\cEYL, ->, opacity=\oEYL] (L) -- (y);
+    \else
+      \foreach \i in {x1,x2}
+        \foreach \j in {h1,h2}
+          \draw[\cEIH, ->, opacity=\oEIH] (\i) -- (\j);
+      \foreach \j in {h1,h2}
+        \draw[\cEHY, ->, opacity=\oEHY] (\j) -- (y);
+      \draw[\cEYL, ->, opacity=\oEYL] (y) -- (L);
+    \fi
+
+    % ---- 偏置箭头（颜色与透明度跟随目标节点）----
+    \draw[\cHIDline, ->, opacity=\oHID] (3.1, 0.25)  -- (h1) node[midway, right, black] {$b_1$};
+    \draw[\cHIDline, ->, opacity=\oHID] (3.1,-0.25)  -- (h2) node[midway, right, black] {$b_2$};
+    \draw[\cOUTline, ->, opacity=\oOUT] (4.4, 0)     -- (y)  node[pos=0, left,   black] {$b_3$};
+  \end{tikzpicture}}
+
+\begin{document}
+\begin{tabular}{@{}c@{\hspace{12pt}}c@{\hspace{12pt}}c@{}}
+  \multicolumn{3}{c}{\normalsize\textbf{Forward Propagation}} \\
+  \addlinespace[6pt]
+  \mlp{f}{1}{0}{0}{0} & \mlp{f}{1}{1}{0}{0} & \mlp{f}{1}{1}{1}{1} \\
+  \addlinespace[16pt]
+  \multicolumn{3}{c}{\normalsize\textbf{Back Propagation}} \\
+  \addlinespace[6pt]
+  \mlp{b}{0}{0}{1}{1} & \mlp{b}{0}{1}{1}{1} & \mlp{b}{1}{1}{1}{1} \\
+\end{tabular}
+\end{document}

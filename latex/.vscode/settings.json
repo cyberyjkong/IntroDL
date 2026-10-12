@@ -1,0 +1,45 @@
+{
+  // 1. 设置 LaTeX 插件的主输出目录（保持 %DIR% 不变，确保 PDF 生成在当前 tex 文件旁边）
+  "latex-workshop.latex.outDir": "%DIR%",
+  
+  // 2. 视觉隐藏
+  "files.exclude": {
+    "**/*.synctex.gz": true
+  },
+
+  // 3. 核心编译规则
+  "latex-workshop.latex.tools": [
+    {
+      "name": "latexmk (xelatex)",
+      "command": "latexmk",
+      "args": [
+        "-synctex=1",
+        "-interaction=nonstopmode",
+        "-file-line-error",
+        "-xelatex",
+        "-emulate-aux-dir",       
+        // 【核心修改点】添加 /%RELATIVE_DIR% 
+        // 这会在 temp 目录下自动按原工作区结构建立子文件夹
+        // 例如：temp/figures/part_01/p1_ch01
+        "-auxdir=%WORKSPACE_FOLDER%/temp/%RELATIVE_DIR%", 
+        // 保持原样：将最终的 .pdf 留在当前正在编译的文件所在目录
+        "-outdir=%DIR%",          
+        "%DOC%"
+      ]
+    }
+  ],
+  
+  // 4. 默认编译配方
+  "latex-workshop.latex.recipes": [
+    {
+      "name": "XeLaTeX (编译中文首选)",
+      "tools": [
+        "latexmk (xelatex)"
+      ]
+    }
+  ],
+
+  // 禁止插件把 main.tex 焊死为主文档。
+  // 这样当你的光标在独立的图表 .tex 文件中时，插件能识别它为一个独立项目并进行编译。
+  "latex-workshop.latex.rootFile.doNotSaveCache": true
+}

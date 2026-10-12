@@ -1,0 +1,114 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {chapter}{\numberline {14}Seq2Seq}{184}{chapter.14}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{toc}{\contentsline {section}{\numberline {14.1}从单序列建模到序列转换}{184}{section.14.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {14.1}{\ignorespaces RNN 的基本单元与两种典型的序列连接方式。左图展示了带输出层的 RNN 单元：当前输入 $x_t$ 与上一时刻隐藏状态 $h_{t-1}$ 融合得到 $h_t$，并经过输出层产生 $y_t$。这是构建复杂网络的基本积木。中图展示了多对一（Many-to-one）结构：序列 $x_1, \dots  , x_T$ 依次输入，隐藏状态逐步更新，最终仅在序列末尾输出一个结果 $y$。这种结构将变长序列压缩为固定维度的表示（Representation），常用于文本分类或情感分析。右图展示了同步多对多（Synchronous many-to-many）结构：每个时间步都有输入和输出，输入序列与输出序列等长且逐个对齐，常用于词性标注、命名实体识别等序列标注任务。通过复用同一个 RNN 单元并改变其连接方式，我们可以灵活地处理不同类型的序列任务。}}{184}{figure.caption.126}\protected@file@percent }
+\newlabel{fig:rnn_structures}{{14.1}{184}{RNN 的基本单元与两种典型的序列连接方式。左图展示了带输出层的 RNN 单元：当前输入 $x_t$ 与上一时刻隐藏状态 $h_{t-1}$ 融合得到 $h_t$，并经过输出层产生 $y_t$。这是构建复杂网络的基本积木。中图展示了多对一（Many-to-one）结构：序列 $x_1, \dots , x_T$ 依次输入，隐藏状态逐步更新，最终仅在序列末尾输出一个结果 $y$。这种结构将变长序列压缩为固定维度的表示（Representation），常用于文本分类或情感分析。右图展示了同步多对多（Synchronous many-to-many）结构：每个时间步都有输入和输出，输入序列与输出序列等长且逐个对齐，常用于词性标注、命名实体识别等序列标注任务。通过复用同一个 RNN 单元并改变其连接方式，我们可以灵活地处理不同类型的序列任务。}{figure.caption.126}{}}
+\newlabel{fig:rnn_structures@cref}{{[figure][1][14]14.1}{[1][184][]184}{}{}{}}
+\def\@LN@column{1}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {14.2}{\ignorespaces 同步多对多与异步多对多结构的对比。左图为同步多对多（Synchronous many-to-many）：输入 $x_1,\dots  ,x_T$ 与输出 $y_1,\dots  ,y_T$ 等长且逐个对齐，每个时间步用一条竖直箭头连接，对应词性标注这类读一个、出一个的任务。右图为异步多对多（Asynchronous many-to-many，如机器翻译）：源序列（我喜欢吃又大又红的苹果，11 个字）与目标序列（I like to eat big red apples，7 个词）长度明显不等；图中用虚线连接真正有语义对应关系的词（如苹果对apples、喜欢对like），这些虚线相互交叉，无法排成整齐的一一对应。该图的核心目的是通过对比说明：异步任务同时打破了同步结构的两个前提——等长与逐位置对齐，因此一边读一边写的同步结构不适用于序列转换，必须把读入与写出解耦。}}{186}{figure.caption.127}\protected@file@percent }
+\newlabel{fig:seq2seq_mismatch}{{14.2}{186}{同步多对多与异步多对多结构的对比。左图为同步多对多（Synchronous many-to-many）：输入 $x_1,\dots ,x_T$ 与输出 $y_1,\dots ,y_T$ 等长且逐个对齐，每个时间步用一条竖直箭头连接，对应词性标注这类读一个、出一个的任务。右图为异步多对多（Asynchronous many-to-many，如机器翻译）：源序列（我喜欢吃又大又红的苹果，11 个字）与目标序列（I like to eat big red apples，7 个词）长度明显不等；图中用虚线连接真正有语义对应关系的词（如苹果对apples、喜欢对like），这些虚线相互交叉，无法排成整齐的一一对应。该图的核心目的是通过对比说明：异步任务同时打破了同步结构的两个前提——等长与逐位置对齐，因此一边读一边写的同步结构不适用于序列转换，必须把读入与写出解耦。}{figure.caption.127}{}}
+\newlabel{fig:seq2seq_mismatch@cref}{{[figure][2][14]14.2}{[1][185][]186}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {14.3}{\ignorespaces 跨序列映射：编码器--解码器（Seq2Seq）结构示意。图中左半部分画编码器（Encoder），一个 RNN/LSTM 依次读入源序列 $x_1,\ldots  ,x_T$，把信息压缩进最终状态 $h_T$；右半部分画解码器（Decoder），另一个 RNN/LSTM 以 $h_T$ 为起点，逐步生成目标序列 $y_1,\ldots  ,y_S$。解码器部分画出明显的自回归箭头：每生成一个词 $y_t$，就有一条弧线将其喂回作为下一步的输入。中间用一条粗箭头表示编码器把最终状态递给解码器。图中特意标注输入长度 $T$ 与输出长度 $S$ 可以不同（例如 $T=4, S=5$）。该图用于说明把一个序列映射成另一个序列的跨序列映射思想。}}{187}{figure.caption.128}\protected@file@percent }
+\newlabel{fig:encoder_decoder}{{14.3}{187}{跨序列映射：编码器--解码器（Seq2Seq）结构示意。图中左半部分画编码器（Encoder），一个 RNN/LSTM 依次读入源序列 $x_1,\ldots ,x_T$，把信息压缩进最终状态 $h_T$；右半部分画解码器（Decoder），另一个 RNN/LSTM 以 $h_T$ 为起点，逐步生成目标序列 $y_1,\ldots ,y_S$。解码器部分画出明显的自回归箭头：每生成一个词 $y_t$，就有一条弧线将其喂回作为下一步的输入。中间用一条粗箭头表示编码器把最终状态递给解码器。图中特意标注输入长度 $T$ 与输出长度 $S$ 可以不同（例如 $T=4, S=5$）。该图用于说明把一个序列映射成另一个序列的跨序列映射思想。}{figure.caption.128}{}}
+\newlabel{fig:encoder_decoder@cref}{{[figure][3][14]14.3}{[1][186][]187}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {14.2}Encoder}{187}{section.14.2}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {14.4}{\ignorespaces 编码器沿时间方向展开的示意图。图底部源序列的词向量 $x_1, x_2, \dots  , x_T$ 依次进入结构相同的 RNN 单元；初始状态 $h_0$ 从最左侧进入，隐藏状态 $h_1, h_2, \dots  , h_T$ 沿水平方向逐步向右传递；每个单元上标注同一组参数 $W_{xh}$、$W_{hh}$、$b$，表示参数共享；最右侧的最终状态 $h_T$ 用高亮颜色标出，并注明它将作为整句的总结被交给下一个模块。图中单元画为普通RNN，亦可替换为 LSTM / GRU 单元而不改变结构含义。该图的核心目的是展示编码器只读不写的角色：读入过程中不产生任何输出，直到读完最后一个词，才把全部信息浓缩进 $h_T$。}}{188}{figure.caption.129}\protected@file@percent }
+\newlabel{fig:seq2seq_encoder}{{14.4}{188}{编码器沿时间方向展开的示意图。图底部源序列的词向量 $x_1, x_2, \dots , x_T$ 依次进入结构相同的 RNN 单元；初始状态 $h_0$ 从最左侧进入，隐藏状态 $h_1, h_2, \dots , h_T$ 沿水平方向逐步向右传递；每个单元上标注同一组参数 $W_{xh}$、$W_{hh}$、$b$，表示参数共享；最右侧的最终状态 $h_T$ 用高亮颜色标出，并注明它将作为整句的总结被交给下一个模块。图中单元画为普通RNN，亦可替换为 LSTM / GRU 单元而不改变结构含义。该图的核心目的是展示编码器只读不写的角色：读入过程中不产生任何输出，直到读完最后一个词，才把全部信息浓缩进 $h_T$。}{figure.caption.129}{}}
+\newlabel{fig:seq2seq_encoder@cref}{{[figure][4][14]14.4}{[1][187][]188}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {14.3}Context Vector}{188}{section.14.3}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {14.5}{\ignorespaces 变长序列被压缩成固定长度上下文向量的示意图。图左侧并列画两个长度不同的输入例子：一个只有 3 个词的短句，和一个用省略号表示的长句；两者各自经过自己的编码器链，最终状态都汇入中间一个尺寸完全相同的小方块，标注 $c = h_T \in \mathbb  {R}^{n_h}$。图右侧用文字或刻度强调：无论输入多长，$c$ 的维度 $n_h$ 始终不变。}}{189}{figure.caption.130}\protected@file@percent }
+\newlabel{fig:seq2seq_context}{{14.5}{189}{变长序列被压缩成固定长度上下文向量的示意图。图左侧并列画两个长度不同的输入例子：一个只有 3 个词的短句，和一个用省略号表示的长句；两者各自经过自己的编码器链，最终状态都汇入中间一个尺寸完全相同的小方块，标注 $c = h_T \in \mathbb {R}^{n_h}$。图右侧用文字或刻度强调：无论输入多长，$c$ 的维度 $n_h$ 始终不变。}{figure.caption.130}{}}
+\newlabel{fig:seq2seq_context@cref}{{[figure][5][14]14.5}{[1][189][]189}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {14.4}Decoder}{189}{section.14.4}\protected@file@percent }
+\def\@LN@column{1}
+\def\@LN@column{1}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {14.6}{\ignorespaces 解码器自回归生成过程的展开示意图。最左侧，来自编码器的上下文向量 $c$ 作为初始隐藏状态 $s_0$ 进入第一个解码器单元；图底部依次是每一步的输入：先是启动符号$\langle \mathrm  {SOS}\rangle $，随后是上一步生成的词 $y_1, y_2, \dots  $ 的向量；每个单元上方经classifier + softmax 产生该步输出 $y_1, y_2, \dots  $；每个输出都画一条弧形箭头喂回下一个单元的输入端，表示自回归；最后一个单元输出结束符号 $\langle \mathrm  {EOS}\rangle $，生成在此终止。图中以具体例子标注整条生成链$\langle \mathrm  {SOS}\rangle \to \text  {I} \to \text  {like} \to \text  {apples} \to \langle \mathrm  {EOS}\rangle $。该图的核心目的是展示：解码器以 $c$ 为起点重新开始，逐词生成，且输出长度由模型通过 $\langle \mathrm  {EOS}\rangle $ 自行决定。}}{192}{figure.caption.131}\protected@file@percent }
+\newlabel{fig:seq2seq_decoder}{{14.6}{192}{解码器自回归生成过程的展开示意图。最左侧，来自编码器的上下文向量 $c$ 作为初始隐藏状态 $s_0$ 进入第一个解码器单元；图底部依次是每一步的输入：先是启动符号$\langle \mathrm {SOS}\rangle $，随后是上一步生成的词 $y_1, y_2, \dots $ 的向量；每个单元上方经classifier + softmax 产生该步输出 $y_1, y_2, \dots $；每个输出都画一条弧形箭头喂回下一个单元的输入端，表示自回归；最后一个单元输出结束符号 $\langle \mathrm {EOS}\rangle $，生成在此终止。图中以具体例子标注整条生成链$\langle \mathrm {SOS}\rangle \to \text {I} \to \text {like} \to \text {apples} \to \langle \mathrm {EOS}\rangle $。该图的核心目的是展示：解码器以 $c$ 为起点重新开始，逐词生成，且输出长度由模型通过 $\langle \mathrm {EOS}\rangle $ 自行决定。}{figure.caption.131}{}}
+\newlabel{fig:seq2seq_decoder@cref}{{[figure][6][14]14.6}{[1][191][]192}{}{}{}}
+\def\@LN@column{1}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {section}{\numberline {14.5}Encoder-Decoder 完整结构}{194}{section.14.5}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {14.7}{\ignorespaces Seq2Seq（编码器--解码器）完整架构图。上半部分为编码器：源序列 $x_1, \dots  , x_T$ 依次进入，隐藏状态 $h_0, h_1, \dots  , h_T$ 向右传递；下半部分为解码器：其初始隐藏状态由编码器最终状态 $h_T$（即 $c$）经一条跨越上下两半的箭头提供；解码器的输入依次为 $\langle s \rangle $（即 $\langle \mathrm  {SOS}\rangle $）与 $y_1, \dots  , y_{S-1}$，输出为 $y_1, \dots  , y_S$，每步配有classifier + softmax。图中明确标注：编码器与解码器各自拥有一套参数，互不共享；输入长度 $T$ 与输出长度 $S$ 可以不同。单元画为普通 RNN 以与第 2 章衔接，实践中通常替换为 LSTM / GRU 而框架不变。}}{195}{figure.caption.132}\protected@file@percent }
+\newlabel{fig:seq2seq_full}{{14.7}{195}{Seq2Seq（编码器--解码器）完整架构图。上半部分为编码器：源序列 $x_1, \dots , x_T$ 依次进入，隐藏状态 $h_0, h_1, \dots , h_T$ 向右传递；下半部分为解码器：其初始隐藏状态由编码器最终状态 $h_T$（即 $c$）经一条跨越上下两半的箭头提供；解码器的输入依次为 $\langle s \rangle $（即 $\langle \mathrm {SOS}\rangle $）与 $y_1, \dots , y_{S-1}$，输出为 $y_1, \dots , y_S$，每步配有classifier + softmax。图中明确标注：编码器与解码器各自拥有一套参数，互不共享；输入长度 $T$ 与输出长度 $S$ 可以不同。单元画为普通 RNN 以与第 2 章衔接，实践中通常替换为 LSTM / GRU 而框架不变。}{figure.caption.132}{}}
+\newlabel{fig:seq2seq_full@cref}{{[figure][7][14]14.7}{[1][194][]195}{}{}{}}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {section}{\numberline {14.6}Teacher Forcing}{196}{section.14.6}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {14.8}{\ignorespaces 训练时两种输入方式的对比。左半为喂自己的预测：第一步把 \unhbox \voidb@x \hspace  {0.2em}{\color  {inlineRed}\ttfamily  \fontsize  {9.5pt}{9pt}\selectfont  I}\futurelet \@let@token \let \next \hspace  {0.2em}\next  错猜成\unhbox \voidb@x \hspace  {0.2em}{\color  {inlineRed}\ttfamily  \fontsize  {9.5pt}{9pt}\selectfont  He}\futurelet \@let@token \let \next \hspace  {0.2em}\next ，这个错误词被喂回作为第二步输入，此后每一步的输入都被污染，错误沿时间步逐步累积，用红色高亮标出污染的传递链。右半为 Teacher Forcing：无论每一步模型输出什么（输出用浅色虚线画出），下一步的输入始终用粗绿色箭头送入目标序列中的真词，依次为$\langle \mathrm  {SOS}\rangle $、\unhbox \voidb@x \hspace  {0.2em}{\color  {inlineRed}\ttfamily  \fontsize  {9.5pt}{9pt}\selectfont  I}\futurelet \@let@token \let \next \hspace  {0.2em}\next 、\unhbox \voidb@x \hspace  {0.2em}{\color  {inlineRed}\ttfamily  \fontsize  {9.5pt}{9pt}\selectfont  like}\futurelet \@let@token \let \next \hspace  {0.2em}\next 、\unhbox \voidb@x \hspace  {0.2em}{\color  {inlineRed}\ttfamily  \fontsize  {9.5pt}{9pt}\selectfont  apples}\futurelet \@let@token \let \next \hspace  {0.2em}\next ；每一步的输出与对应的真词比较并计算损失。图中应明确标出输入序列 = 目标序列右移一位、开头补$\langle \mathrm  {SOS}\rangle $的错位对应关系。该图的核心目的是展示 Teacher Forcing 如何在训练阶段切断误差累积，让每一步都站在正确历史上学习。}}{197}{figure.caption.133}\protected@file@percent }
+\newlabel{fig:seq2seq_teacher_forcing}{{14.8}{197}{训练时两种输入方式的对比。左半为喂自己的预测：第一步把 \texttt {I} 错猜成\texttt {He}，这个错误词被喂回作为第二步输入，此后每一步的输入都被污染，错误沿时间步逐步累积，用红色高亮标出污染的传递链。右半为 Teacher Forcing：无论每一步模型输出什么（输出用浅色虚线画出），下一步的输入始终用粗绿色箭头送入目标序列中的真词，依次为$\langle \mathrm {SOS}\rangle $、\texttt {I}、\texttt {like}、\texttt {apples}；每一步的输出与对应的真词比较并计算损失。图中应明确标出输入序列 = 目标序列右移一位、开头补$\langle \mathrm {SOS}\rangle $的错位对应关系。该图的核心目的是展示 Teacher Forcing 如何在训练阶段切断误差累积，让每一步都站在正确历史上学习。}{figure.caption.133}{}}
+\newlabel{fig:seq2seq_teacher_forcing@cref}{{[figure][8][14]14.8}{[1][196][]197}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {14.7}Seq2Seq 的训练与推理}{197}{section.14.7}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {14.9}{\ignorespaces 训练与推理阶段解码器输入来源的对比。上半为训练阶段：解码器每一步的输入都是绿色的真实标签，历史始终正确；由于输入序列已整体预先确定，沿时间链一次前向传播即可算出整句损失，训练稳定。下半为推理阶段：没有真实标签可用，解码器每一步的输入只能是蓝色标注的、模型自己上一步生成的词；若某一步生成了错误的词（用红色高亮），这个错误会进入后续所有步骤的输入历史，而推理时没有任何纠正机制，错误可能逐步累积。两半图之间用醒目的 $\neq  $ 符号连接，强调 Training $\neq  $ Inference。该图的核心目的是直观呈现 Teacher Forcing 造成的训练--推理不一致（暴露偏差）：训练时见正确历史，推理时见自己的历史。}}{198}{figure.caption.134}\protected@file@percent }
+\newlabel{fig:seq2seq_train_infer}{{14.9}{198}{训练与推理阶段解码器输入来源的对比。上半为训练阶段：解码器每一步的输入都是绿色的真实标签，历史始终正确；由于输入序列已整体预先确定，沿时间链一次前向传播即可算出整句损失，训练稳定。下半为推理阶段：没有真实标签可用，解码器每一步的输入只能是蓝色标注的、模型自己上一步生成的词；若某一步生成了错误的词（用红色高亮），这个错误会进入后续所有步骤的输入历史，而推理时没有任何纠正机制，错误可能逐步累积。两半图之间用醒目的 $\neq $ 符号连接，强调 Training $\neq $ Inference。该图的核心目的是直观呈现 Teacher Forcing 造成的训练--推理不一致（暴露偏差）：训练时见正确历史，推理时见自己的历史。}{figure.caption.134}{}}
+\newlabel{fig:seq2seq_train_infer@cref}{{[figure][9][14]14.9}{[1][198][]198}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {14.8}Seq2Seq的核心瓶颈}{198}{section.14.8}\protected@file@percent }
+\def\@LN@column{1}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {14.10}{\ignorespaces 固定向量瓶颈与 Attention 的伏笔。图左侧画编码器读入一个较长的源句子（例如 10 个词），从每个词出发的众多箭头拥挤地汇入中间一个画成沙漏颈部的狭窄通道，通道上标注 $c$，并用红色文字注明句子越长，瓶颈越吃力，早期信息越容易丢失。图右侧画解码器：它生成第 1 个词、第 10 个词时依赖的都是同一个固定不变的 $c$，用两条指向同一方块 $c$ 的箭头强调一成不变。图旁另画一个虚线对照网络：解码器在生成每个词时，直接伸出若干条粗细不同的连线回看编码器的全部隐藏状态$h_1, \dots  , h_T$，连线粗细表示关注程度，用绿色标注动态查阅，表示打破瓶颈的设想——即Attention 机制。该图的核心目的是让读者意识到把所有信息压进一个固定向量是 Seq2Seq 的根本局限，并为下一章引出注意力机制做好直观铺垫。}}{200}{figure.caption.135}\protected@file@percent }
+\newlabel{fig:seq2seq_bottleneck}{{14.10}{200}{固定向量瓶颈与 Attention 的伏笔。图左侧画编码器读入一个较长的源句子（例如 10 个词），从每个词出发的众多箭头拥挤地汇入中间一个画成沙漏颈部的狭窄通道，通道上标注 $c$，并用红色文字注明句子越长，瓶颈越吃力，早期信息越容易丢失。图右侧画解码器：它生成第 1 个词、第 10 个词时依赖的都是同一个固定不变的 $c$，用两条指向同一方块 $c$ 的箭头强调一成不变。图旁另画一个虚线对照网络：解码器在生成每个词时，直接伸出若干条粗细不同的连线回看编码器的全部隐藏状态$h_1, \dots , h_T$，连线粗细表示关注程度，用绿色标注动态查阅，表示打破瓶颈的设想——即Attention 机制。该图的核心目的是让读者意识到把所有信息压进一个固定向量是 Seq2Seq 的根本局限，并为下一章引出注意力机制做好直观铺垫。}{figure.caption.135}{}}
+\newlabel{fig:seq2seq_bottleneck@cref}{{[figure][10][14]14.10}{[1][199][]200}{}{}{}}
+\@setckpt{./chapters/part_03/p3_ch04}{
+\setcounter{page}{201}
+\setcounter{equation}{0}
+\setcounter{enumi}{11}
+\setcounter{enumii}{0}
+\setcounter{enumiii}{0}
+\setcounter{enumiv}{0}
+\setcounter{footnote}{0}
+\setcounter{mpfootnote}{0}
+\setcounter{part}{3}
+\setcounter{chapter}{14}
+\setcounter{section}{8}
+\setcounter{subsection}{0}
+\setcounter{subsubsection}{0}
+\setcounter{paragraph}{0}
+\setcounter{subparagraph}{0}
+\setcounter{figure}{10}
+\setcounter{table}{0}
+\setcounter{FancyVerbLine}{0}
+\setcounter{linenumber}{1}
+\setcounter{LN@truepage}{208}
+\setcounter{FancyVerbWriteLine}{0}
+\setcounter{FancyVerbBufferLine}{0}
+\setcounter{FV@TrueTabGroupLevel}{0}
+\setcounter{FV@TrueTabCounter}{0}
+\setcounter{FV@HighlightLinesStart}{0}
+\setcounter{FV@HighlightLinesStop}{0}
+\setcounter{FancyVerbLineBreakLast}{0}
+\setcounter{FV@BreakBufferDepth}{0}
+\setcounter{parentequation}{0}
+\setcounter{float@type}{16}
+\setcounter{caption@flags}{2}
+\setcounter{continuedfloat}{0}
+\setcounter{subfigure}{0}
+\setcounter{subtable}{0}
+\setcounter{LT@tables}{0}
+\setcounter{LT@chunks}{0}
+\setcounter{nlinenum}{0}
+\setcounter{lstnumber}{1}
+\setcounter{tcbbreakpart}{1}
+\setcounter{tcblayer}{0}
+\setcounter{tcolorbox@number}{91}
+\setcounter{tcbrastercolumn}{1}
+\setcounter{tcbrasterrow}{1}
+\setcounter{tcbrasternum}{1}
+\setcounter{tcbraster}{0}
+\setcounter{tcblisting}{0}
+\setcounter{section@level}{0}
+\setcounter{Item}{47}
+\setcounter{Hfootnote}{44}
+\setcounter{Hy@AnnotLevel}{0}
+\setcounter{bookmark@seq@number}{105}
+\setcounter{lstlisting}{0}
+}

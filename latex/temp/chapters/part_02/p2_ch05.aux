@@ -1,0 +1,105 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {chapter}{\numberline {9}卷积结构的改进}{110}{chapter.9}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{lof}{\contentsline {figure}{\numberline {9.1}{\ignorespaces 标准卷积操作：填充$P=1$的输入$H\times W\times M$上，$K\times K\times M$卷积核（共$N$个）在感受野（红框）处逐元素相乘求和、逐位置滑动，得输出$H\times W\times N$。}}{110}{figure.caption.78}\protected@file@percent }
+\newlabel{fig:convolution}{{9.1}{110}{标准卷积操作：填充$P=1$的输入$H\times W\times M$上，$K\times K\times M$卷积核（共$N$个）在感受野（红框）处逐元素相乘求和、逐位置滑动，得输出$H\times W\times N$。}{figure.caption.78}{}}
+\newlabel{fig:convolution@cref}{{[figure][1][9]9.1}{[1][110][]110}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {9.1}分组卷积}{110}{section.9.1}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {9.2}{\ignorespaces 分组卷积示意图（$G=3$）。输入$5\times 5\times 24$按通道均分3组，各组独立卷积（核$3\times 3\times 8$、各$N/3$个）得$5\times 5\times N/3$，再沿通道拼接为$5\times 5\times N$。}}{111}{figure.caption.79}\protected@file@percent }
+\newlabel{fig:group}{{9.2}{111}{分组卷积示意图（$G=3$）。输入$5\times 5\times 24$按通道均分3组，各组独立卷积（核$3\times 3\times 8$、各$N/3$个）得$5\times 5\times N/3$，再沿通道拼接为$5\times 5\times N$。}{figure.caption.79}{}}
+\newlabel{fig:group@cref}{{[figure][2][9]9.2}{[1][111][]111}{}{}{}}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {section}{\numberline {9.2}深度可分离卷积}{112}{section.9.2}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {9.3}{\ignorespaces 深度卷积（Depthwise Convolution），即分组数$G=M$的分组卷积。输入$H\times W\times M$的每个通道单独成组，各用一个$K\times K$卷积核独立卷积（共$M$个核），只提取本通道的空间特征；各组输出沿通道拼接后仍为$H\times W\times M$，通道之间没有任何信息交互。}}{113}{figure.caption.80}\protected@file@percent }
+\newlabel{fig:depthwise}{{9.3}{113}{深度卷积（Depthwise Convolution），即分组数$G=M$的分组卷积。输入$H\times W\times M$的每个通道单独成组，各用一个$K\times K$卷积核独立卷积（共$M$个核），只提取本通道的空间特征；各组输出沿通道拼接后仍为$H\times W\times M$，通道之间没有任何信息交互。}{figure.caption.80}{}}
+\newlabel{fig:depthwise@cref}{{[figure][3][9]9.3}{[1][112][]113}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {9.4}{\ignorespaces 逐点卷积（Pointwise Convolution），即$1\times 1$卷积。$N$个$1\times 1\times M$卷积核只作用于单个空间位置（红框柱），对全部$M$个通道做线性组合；空间尺寸保持$H\times W$不变，通道数由$M$变为$N$。}}{113}{figure.caption.81}\protected@file@percent }
+\newlabel{fig:pointwise}{{9.4}{113}{逐点卷积（Pointwise Convolution），即$1\times 1$卷积。$N$个$1\times 1\times M$卷积核只作用于单个空间位置（红框柱），对全部$M$个通道做线性组合；空间尺寸保持$H\times W$不变，通道数由$M$变为$N$。}{figure.caption.81}{}}
+\newlabel{fig:pointwise@cref}{{[figure][4][9]9.4}{[1][113][]113}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {9.5}{\ignorespaces 深度可分离卷积（Depthwise Separable Convolution）。左半为深度卷积：每个通道独立卷积、提取空间特征，拼接得中间特征图$H\times W\times M$；右半为逐点卷积：$N$个$1\times 1\times M$核跨通道重新组合，输出$H\times W\times N$。原本一步完成的空间提取与通道融合被拆为两步。}}{114}{figure.caption.82}\protected@file@percent }
+\newlabel{fig:depthwise_separable}{{9.5}{114}{深度可分离卷积（Depthwise Separable Convolution）。左半为深度卷积：每个通道独立卷积、提取空间特征，拼接得中间特征图$H\times W\times M$；右半为逐点卷积：$N$个$1\times 1\times M$核跨通道重新组合，输出$H\times W\times N$。原本一步完成的空间提取与通道融合被拆为两步。}{figure.caption.82}{}}
+\newlabel{fig:depthwise_separable@cref}{{[figure][5][9]9.5}{[1][113][]114}{}{}{}}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {section}{\numberline {9.3}空洞卷积}{115}{section.9.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {9.6}{\ignorespaces 空洞卷积的感受野。深绿格为9个采样点，红框为感受野：膨胀率$d=1$时感受野为$3\times 3$；$d=2$时采样点间隔拉开、感受野扩至$5\times 5$；$d=3$时达$7\times 7$。采样点数始终不变，感受野随$d$增大而扩大。}}{115}{figure.caption.83}\protected@file@percent }
+\newlabel{fig:receptive_field}{{9.6}{115}{空洞卷积的感受野。深绿格为9个采样点，红框为感受野：膨胀率$d=1$时感受野为$3\times 3$；$d=2$时采样点间隔拉开、感受野扩至$5\times 5$；$d=3$时达$7\times 7$。采样点数始终不变，感受野随$d$增大而扩大。}{figure.caption.83}{}}
+\newlabel{fig:receptive_field@cref}{{[figure][6][9]9.6}{[1][115][]115}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {9.7}{\ignorespaces 空洞卷积的具体操作（$3\times 3$核、$d=2$）。左图红框为$5\times 5$感受野，其中9个深绿采样点与中图核的9个深紫权重逐元素相乘并求和（底部算式），其余位置被跳过；结果24落入右图输出特征图（$6\times 6$）的左上高亮格。}}{116}{figure.caption.84}\protected@file@percent }
+\newlabel{fig:dilated}{{9.7}{116}{空洞卷积的具体操作（$3\times 3$核、$d=2$）。左图红框为$5\times 5$感受野，其中9个深绿采样点与中图核的9个深紫权重逐元素相乘并求和（底部算式），其余位置被跳过；结果24落入右图输出特征图（$6\times 6$）的左上高亮格。}{figure.caption.84}{}}
+\newlabel{fig:dilated@cref}{{[figure][7][9]9.7}{[1][116][]116}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {9.8}{\ignorespaces 标准卷积与空洞卷积对比（输入均为$10\times 10$）。上排$3\times 3$标准卷积的红框为连续$3\times 3$感受野，输出$8\times 8$；下排$d=2$空洞卷积的9个采样点分散于$5\times 5$区域，输出$6\times 6$。两排红框同处右下角同一位置，高亮格为对应的输出值；采样点数相同，空洞卷积覆盖范围更大。}}{117}{figure.caption.85}\protected@file@percent }
+\newlabel{fig:dilated_example}{{9.8}{117}{标准卷积与空洞卷积对比（输入均为$10\times 10$）。上排$3\times 3$标准卷积的红框为连续$3\times 3$感受野，输出$8\times 8$；下排$d=2$空洞卷积的9个采样点分散于$5\times 5$区域，输出$6\times 6$。两排红框同处右下角同一位置，高亮格为对应的输出值；采样点数相同，空洞卷积覆盖范围更大。}{figure.caption.85}{}}
+\newlabel{fig:dilated_example@cref}{{[figure][8][9]9.8}{[1][116][]117}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {9.4}Squeeze-and-Excitation}{117}{section.9.4}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {9.9}{\ignorespaces 通道重要性随输入变化。卷积输出的4个通道分别对应不同类型的特征（胡须、毛发纹理、窗户、车轮）：输入为猫时，胡须与毛发纹理通道权重大；输入为车时，窗户与车轮通道权重大。}}{117}{figure.caption.86}\protected@file@percent }
+\newlabel{fig:channel}{{9.9}{117}{通道重要性随输入变化。卷积输出的4个通道分别对应不同类型的特征（胡须、毛发纹理、窗户、车轮）：输入为猫时，胡须与毛发纹理通道权重大；输入为车时，窗户与车轮通道权重大。}{figure.caption.86}{}}
+\newlabel{fig:channel@cref}{{[figure][9][9]9.9}{[1][117][]117}{}{}{}}
+\def\@LN@column{1}
+\def\@LN@column{1}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {9.10}{\ignorespaces Squeeze-and-Excitation模块。Squeeze对每个通道做全局平均池化，将$H\times W\times C$特征图压缩为$1\times 1\times C$的通道描述；Excitation经全连接生成$C$个通道权重（彩色条）；最后权重与原始特征图逐通道相乘（$\ast $），重标定各通道强度，输出仍为$H\times W\times C$。}}{120}{figure.caption.87}\protected@file@percent }
+\newlabel{fig:se}{{9.10}{120}{Squeeze-and-Excitation模块。Squeeze对每个通道做全局平均池化，将$H\times W\times C$特征图压缩为$1\times 1\times C$的通道描述；Excitation经全连接生成$C$个通道权重（彩色条）；最后权重与原始特征图逐通道相乘（$\ast $），重标定各通道强度，输出仍为$H\times W\times C$。}{figure.caption.87}{}}
+\newlabel{fig:se@cref}{{[figure][10][9]9.10}{[1][120][]120}{}{}{}}
+\def\@LN@column{1}
+\@setckpt{./chapters/part_02/p2_ch05}{
+\setcounter{page}{122}
+\setcounter{equation}{0}
+\setcounter{enumi}{9}
+\setcounter{enumii}{0}
+\setcounter{enumiii}{0}
+\setcounter{enumiv}{0}
+\setcounter{footnote}{3}
+\setcounter{mpfootnote}{0}
+\setcounter{part}{2}
+\setcounter{chapter}{9}
+\setcounter{section}{4}
+\setcounter{subsection}{0}
+\setcounter{subsubsection}{0}
+\setcounter{paragraph}{0}
+\setcounter{subparagraph}{0}
+\setcounter{figure}{10}
+\setcounter{table}{0}
+\setcounter{FancyVerbLine}{0}
+\setcounter{linenumber}{1}
+\setcounter{LN@truepage}{129}
+\setcounter{FancyVerbWriteLine}{0}
+\setcounter{FancyVerbBufferLine}{0}
+\setcounter{FV@TrueTabGroupLevel}{0}
+\setcounter{FV@TrueTabCounter}{0}
+\setcounter{FV@HighlightLinesStart}{0}
+\setcounter{FV@HighlightLinesStop}{0}
+\setcounter{FancyVerbLineBreakLast}{0}
+\setcounter{FV@BreakBufferDepth}{0}
+\setcounter{parentequation}{0}
+\setcounter{float@type}{16}
+\setcounter{caption@flags}{2}
+\setcounter{continuedfloat}{0}
+\setcounter{subfigure}{0}
+\setcounter{subtable}{0}
+\setcounter{LT@tables}{0}
+\setcounter{LT@chunks}{0}
+\setcounter{nlinenum}{0}
+\setcounter{lstnumber}{1}
+\setcounter{tcbbreakpart}{1}
+\setcounter{tcblayer}{0}
+\setcounter{tcolorbox@number}{68}
+\setcounter{tcbrastercolumn}{1}
+\setcounter{tcbrasterrow}{1}
+\setcounter{tcbrasternum}{1}
+\setcounter{tcbraster}{0}
+\setcounter{tcblisting}{0}
+\setcounter{section@level}{0}
+\setcounter{Item}{36}
+\setcounter{Hfootnote}{33}
+\setcounter{Hy@AnnotLevel}{0}
+\setcounter{bookmark@seq@number}{61}
+\setcounter{lstlisting}{0}
+}

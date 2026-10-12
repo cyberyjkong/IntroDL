@@ -1,0 +1,115 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\@writefile{toc}{\contentsline {chapter}{\numberline {5}卷积神经网络}{59}{chapter.5}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{toc}{\contentsline {section}{\numberline {5.1}全连接的局限性}{59}{section.5.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5.1}{\ignorespaces MNIST手写数字图片示例（数字7）。}}{59}{figure.caption.42}\protected@file@percent }
+\newlabel{fig:mnist_7}{{5.1}{59}{MNIST手写数字图片示例（数字7）。}{figure.caption.42}{}}
+\newlabel{fig:mnist_7@cref}{{[figure][1][5]5.1}{[1][59][]59}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.2}{\ignorespaces 全连接网络处理手写数字的结构示意图。左侧$28\times 28$图像被展平为784维输入向量，随后依次送入两个隐藏层（分别含512和256个神经元），最终由10个输出节点给出各类别得分。}}{60}{figure.caption.43}\protected@file@percent }
+\newlabel{fig:fcn}{{5.2}{60}{全连接网络处理手写数字的结构示意图。左侧$28\times 28$图像被展平为784维输入向量，随后依次送入两个隐藏层（分别含512和256个神经元），最终由10个输出节点给出各类别得分。}{figure.caption.43}{}}
+\newlabel{fig:fcn@cref}{{[figure][2][5]5.2}{[1][60][]60}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.3}{\ignorespaces 图像展平操作示意图（为便于可视化，此处以$10\times 10$图像为例）。上方为二维像素矩阵，经展平操作后按行首尾相接排列成下方的一维向量；红色竖线标出原图像各行在一维向量中的对应位置。展平后，像素数值保持不变，但原有的二维空间结构不再被显式表示。}}{61}{figure.caption.44}\protected@file@percent }
+\newlabel{fig:flatten}{{5.3}{61}{图像展平操作示意图（为便于可视化，此处以$10\times 10$图像为例）。上方为二维像素矩阵，经展平操作后按行首尾相接排列成下方的一维向量；红色竖线标出原图像各行在一维向量中的对应位置。展平后，像素数值保持不变，但原有的二维空间结构不再被显式表示。}{figure.caption.44}{}}
+\newlabel{fig:flatten@cref}{{[figure][3][5]5.3}{[1][61][]61}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.4}{\ignorespaces 平移导致一维向量发生剧变（为便于可视化，此处以$10\times 10$图像为例）。与\cref  {fig:flatten}对照：数字7仅向左上方平移了几个像素，但展平后的一维向量中已有大量元素的取值发生显著改变。}}{61}{figure.caption.45}\protected@file@percent }
+\newlabel{fig:translate}{{5.4}{61}{平移导致一维向量发生剧变（为便于可视化，此处以$10\times 10$图像为例）。与\cref {fig:flatten}对照：数字7仅向左上方平移了几个像素，但展平后的一维向量中已有大量元素的取值发生显著改变。}{figure.caption.45}{}}
+\newlabel{fig:translate@cref}{{[figure][4][5]5.4}{[1][61][]61}{}{}{}}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {section}{\numberline {5.2}卷积操作}{62}{section.5.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5.5}{\ignorespaces 数字7的局部特征。红色方框标出识别时关注的局部区域，如顶部横杠、拐角与斜杠走向。}}{62}{figure.caption.46}\protected@file@percent }
+\newlabel{fig:mnist_7_local}{{5.5}{62}{数字7的局部特征。红色方框标出识别时关注的局部区域，如顶部横杠、拐角与斜杠走向。}{figure.caption.46}{}}
+\newlabel{fig:mnist_7_local@cref}{{[figure][5][5]5.5}{[1][62][]62}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.6}{\ignorespaces 一次卷积操作。红框标出$3\times 3$感受野，其像素值与卷积核（中）对应位置的权重逐元素相乘并求和，得到右侧单个特征响应值。}}{62}{figure.caption.47}\protected@file@percent }
+\newlabel{fig:once_convolution_}{{5.6}{62}{一次卷积操作。红框标出$3\times 3$感受野，其像素值与卷积核（中）对应位置的权重逐元素相乘并求和，得到右侧单个特征响应值。}{figure.caption.47}{}}
+\newlabel{fig:once_convolution_@cref}{{[figure][6][5]5.6}{[1][62][]62}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.7}{\ignorespaces 完整的卷积操作（步长为1）。卷积核自左上角起逐位置滑动，红框为当前感受野；每滑到一个位置便计算一个响应值填入右侧特征图，直至遍历全图、得到完整的$8\times 8$输出。}}{63}{figure.caption.48}\protected@file@percent }
+\newlabel{fig:full_convolution}{{5.7}{63}{完整的卷积操作（步长为1）。卷积核自左上角起逐位置滑动，红框为当前感受野；每滑到一个位置便计算一个响应值填入右侧特征图，直至遍历全图、得到完整的$8\times 8$输出。}{figure.caption.48}{}}
+\newlabel{fig:full_convolution@cref}{{[figure][7][5]5.7}{[1][63][]63}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.8}{\ignorespaces 多通道卷积操作。输入为6个通道的特征图（$10\times 10\times 6$），卷积核相应地含6个通道片（$3\times 3\times 6$），红框为跨通道的感受野。计算时先在每个通道内做$3\times 3$卷积、各得一个标量（下方逐通道展开），再将6个标量跨通道求和（加偏置），得到输出特征图（$8\times 8$）上的单个响应值。}}{64}{figure.caption.49}\protected@file@percent }
+\newlabel{fig:multi_channel_convolution}{{5.8}{64}{多通道卷积操作。输入为6个通道的特征图（$10\times 10\times 6$），卷积核相应地含6个通道片（$3\times 3\times 6$），红框为跨通道的感受野。计算时先在每个通道内做$3\times 3$卷积、各得一个标量（下方逐通道展开），再将6个标量跨通道求和（加偏置），得到输出特征图（$8\times 8$）上的单个响应值。}{figure.caption.49}{}}
+\newlabel{fig:multi_channel_convolution@cref}{{[figure][8][5]5.8}{[1][64][]64}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.9}{\ignorespaces 多卷积核的多通道卷积操作。输入为$10\times 10\times 6$的特征图；3个彼此独立的$3\times 3\times 6$卷积核各自完成一次跨通道卷积，分别产出一张$8\times 8$的单通道特征图；3张特征图堆叠在一起，最终形成$8\times 8\times 3$的多通道输出。}}{65}{figure.caption.50}\protected@file@percent }
+\newlabel{fig:multi_channel_output}{{5.9}{65}{多卷积核的多通道卷积操作。输入为$10\times 10\times 6$的特征图；3个彼此独立的$3\times 3\times 6$卷积核各自完成一次跨通道卷积，分别产出一张$8\times 8$的单通道特征图；3张特征图堆叠在一起，最终形成$8\times 8\times 3$的多通道输出。}{figure.caption.50}{}}
+\newlabel{fig:multi_channel_output@cref}{{[figure][9][5]5.9}{[1][64][]65}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.10}{\ignorespaces 零填充示意图。为防止特征图尺寸缩小，在输入图像边缘填充零值，从而保持特征图尺寸不变。}}{65}{figure.caption.51}\protected@file@percent }
+\newlabel{fig:padding}{{5.10}{65}{零填充示意图。为防止特征图尺寸缩小，在输入图像边缘填充零值，从而保持特征图尺寸不变。}{figure.caption.51}{}}
+\newlabel{fig:padding@cref}{{[figure][10][5]5.10}{[1][65][]65}{}{}{}}
+\def\@LN@column{1}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {section}{\numberline {5.3}池化操作}{67}{section.5.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5.11}{\ignorespaces 最大池化操作示意图（$2\times 2$窗口、步长2）。红框为当前池化窗口，窗口内像素的最大值被填入右侧输出特征图的对应位置；窗口以步长2滑遍全图后，$10\times 10$的输入被下采样为$5\times 5$的输出。}}{67}{figure.caption.52}\protected@file@percent }
+\newlabel{fig:pooling}{{5.11}{67}{最大池化操作示意图（$2\times 2$窗口、步长2）。红框为当前池化窗口，窗口内像素的最大值被填入右侧输出特征图的对应位置；窗口以步长2滑遍全图后，$10\times 10$的输入被下采样为$5\times 5$的输出。}{figure.caption.52}{}}
+\newlabel{fig:pooling@cref}{{[figure][11][5]5.11}{[1][67][]67}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.12}{\ignorespaces 最大池化与平均池化的对比（均为$2\times 2$窗口、步长$2$）。最大池化取每个窗口内的最大值，以保留局部最强响应；平均池化则取窗口内所有元素的平均值，因而输出更加平滑。}}{68}{figure.caption.53}\protected@file@percent }
+\newlabel{fig:pooling_comparison}{{5.12}{68}{最大池化与平均池化的对比（均为$2\times 2$窗口、步长$2$）。最大池化取每个窗口内的最大值，以保留局部最强响应；平均池化则取窗口内所有元素的平均值，因而输出更加平滑。}{figure.caption.53}{}}
+\newlabel{fig:pooling_comparison@cref}{{[figure][12][5]5.12}{[1][68][]68}{}{}{}}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {section}{\numberline {5.4}全连接}{69}{section.5.4}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {section}{\numberline {5.5}LeNet-5}{70}{section.5.5}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5.13}{\ignorespaces LeNet-5网络结构示意图。$32\times 32$输入经“卷积—下采样”交替堆叠（C1/S2、C3/S4）逐步提取特征，末端由全连接层C5（120）、F6（84）映射到10个类别输出。}}{70}{figure.caption.54}\protected@file@percent }
+\newlabel{fig:lenet}{{5.13}{70}{LeNet-5网络结构示意图。$32\times 32$输入经“卷积—下采样”交替堆叠（C1/S2、C3/S4）逐步提取特征，末端由全连接层C5（120）、F6（84）映射到10个类别输出。}{figure.caption.54}{}}
+\newlabel{fig:lenet@cref}{{[figure][13][5]5.13}{[1][70][]70}{}{}{}}
+\def\@LN@column{1}
+\@setckpt{./chapters/part_02/p2_ch01}{
+\setcounter{page}{72}
+\setcounter{equation}{0}
+\setcounter{enumi}{6}
+\setcounter{enumii}{0}
+\setcounter{enumiii}{0}
+\setcounter{enumiv}{0}
+\setcounter{footnote}{2}
+\setcounter{mpfootnote}{0}
+\setcounter{part}{2}
+\setcounter{chapter}{5}
+\setcounter{section}{5}
+\setcounter{subsection}{0}
+\setcounter{subsubsection}{0}
+\setcounter{paragraph}{0}
+\setcounter{subparagraph}{0}
+\setcounter{figure}{13}
+\setcounter{table}{0}
+\setcounter{FancyVerbLine}{0}
+\setcounter{linenumber}{1}
+\setcounter{LN@truepage}{79}
+\setcounter{FancyVerbWriteLine}{0}
+\setcounter{FancyVerbBufferLine}{0}
+\setcounter{FV@TrueTabGroupLevel}{0}
+\setcounter{FV@TrueTabCounter}{0}
+\setcounter{FV@HighlightLinesStart}{0}
+\setcounter{FV@HighlightLinesStop}{0}
+\setcounter{FancyVerbLineBreakLast}{0}
+\setcounter{FV@BreakBufferDepth}{0}
+\setcounter{parentequation}{0}
+\setcounter{float@type}{16}
+\setcounter{caption@flags}{2}
+\setcounter{continuedfloat}{0}
+\setcounter{subfigure}{0}
+\setcounter{subtable}{0}
+\setcounter{LT@tables}{0}
+\setcounter{LT@chunks}{0}
+\setcounter{nlinenum}{0}
+\setcounter{lstnumber}{1}
+\setcounter{tcbbreakpart}{1}
+\setcounter{tcblayer}{0}
+\setcounter{tcolorbox@number}{49}
+\setcounter{tcbrastercolumn}{1}
+\setcounter{tcbrasterrow}{1}
+\setcounter{tcbrasternum}{1}
+\setcounter{tcbraster}{0}
+\setcounter{tcblisting}{0}
+\setcounter{section@level}{0}
+\setcounter{Item}{14}
+\setcounter{Hfootnote}{18}
+\setcounter{Hy@AnnotLevel}{0}
+\setcounter{bookmark@seq@number}{38}
+\setcounter{lstlisting}{0}
+}

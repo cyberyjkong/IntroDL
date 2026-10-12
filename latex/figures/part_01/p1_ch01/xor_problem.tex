@@ -1,0 +1,26 @@
+\documentclass[border=8pt]{standalone}
+\usepackage{tikz}
+\definecolor{myred}{RGB}{190,60,45}    % 砖红色
+\definecolor{myblue}{RGB}{40,105,215}  % 蓝色
+\tikzset{
+  dot/.style={circle, fill=#1, inner sep=1.6pt},
+}
+\begin{document}
+\begin{tikzpicture}[x=4cm, y=4cm, line width=0.8pt, >=stealth]
+  % 坐标轴
+  \draw[->] (-0.62,0) -- (1.8,0) node[below=3pt, font=\large] {$x_1$};
+  \draw[->] (0,-0.5)  -- (0,1.5) node[right=3pt, font=\large] {$x_2$};
+
+  % 四个点
+  \node[dot=myred]  at (0,0) {};
+  \node[dot=myblue] at (1,0) {};
+  \node[dot=myblue] at (0,1) {};
+  \node[dot=myred]  at (1,1) {};
+
+  % 标注：同侧的标签用完全相同的锚点和偏移，保证对齐
+  \node[myred,  below right, font=\large] at (0.04,-0.04) {$(0,0)$};
+  \node[myblue, below right, font=\large] at (1.04,-0.04) {$(1,0)$};
+  \node[myblue, right,       font=\large] at (0.04, 0.94) {$(0,1)$};
+  \node[myred,  right,       font=\large] at (1.04, 0.94) {$(1,1)$};
+\end{tikzpicture}
+\end{document}
