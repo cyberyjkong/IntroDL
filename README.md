@@ -6,6 +6,7 @@
   <img src="https://img.shields.io/badge/Author-偷书的孔乙己-purple?style=flat-square" alt="Author" />
   <img src="https://img.shields.io/badge/License-Personal%20Study%20Only-green?style=flat-square" alt="License" />
 </p>
+
 ## 📌 关于本书
 
 本书是一份由个人编写的深度学习入门教程，旨在系统梳理知识脉络，希望能够对对深度学习、人工智能以及大语言模型感兴趣的朋友有所帮助。
