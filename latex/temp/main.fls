@@ -653,6 +653,15 @@ INPUT ./figures/part_01/p1_ch03/ill_conditioned.pdf
 INPUT ./figures/part_01/p1_ch03/ill_conditioned_sovled.pdf
 INPUT ./figures/part_01/p1_ch03/ill_conditioned_sovled.pdf
 INPUT ./figures/part_01/p1_ch03/ill_conditioned_sovled.pdf
+INPUT ./chapters/back_cover.tex
+INPUT ./chapters/back_cover.tex
+INPUT ./chapters/back_cover.tex
+INPUT ./figures/back_cover/wechat_pay.png
+INPUT ./figures/back_cover/wechat_pay.png
+INPUT ./figures/back_cover/wechat_pay.png
+INPUT ./figures/back_cover/ali_pay.png
+INPUT ./figures/back_cover/ali_pay.png
+INPUT ./figures/back_cover/ali_pay.png
 INPUT temp/main.aux
 INPUT temp/./chapters/part_01/p1_ch01.aux
 INPUT temp/./chapters/part_01/p1_ch01.aux

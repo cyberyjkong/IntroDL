@@ -1,10 +1,10 @@
 # Fdb version 4
-["xdvipdfmx"] 1792318501.67319 "temp/main.xdv" "main.pdf" "main" 1792318512.40446 0
-  "temp/main.xdv" 1792318501 785276 4c5db282ea1c7f6265c801433880102e "xelatex"
+["xdvipdfmx"] 1792319498.49826 "temp/main.xdv" "main.pdf" "main" 1792319509.86526 0
+  "temp/main.xdv" 1792319498 814248 0be92a1e46d461a3fcb7ddddf4fd0cf8 "xelatex"
   (generated)
   "main.pdf"
   (rewritten before read)
-["xelatex"] 1792318498.15708 "d:/A_IntroDL/latex/main.tex" "temp/main.xdv" "main" 1792318512.38723 0
+["xelatex"] 1792319494.91264 "d:/A_IntroDL/latex/main.tex" "temp/main.xdv" "main" 1792319509.85535 0
   "c:/texlive/2026/texmf-dist/fonts/map/fontname/texfonts.map" 1783782652 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "c:/texlive/2026/texmf-dist/fonts/tfm/adobe/zapfding/pzdr.tfm" 1783785337 1528 7e12f4c0fcf5a072cebdcfbfc610f54c ""
   "c:/texlive/2026/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy5.tfm" 1783781569 1120 1e8878807317373affa7f7bba4cf2f6a ""
@@ -295,12 +295,15 @@
   "c:/texlive/2026/texmf-dist/web2c/texmf.cnf" 1783781496 43630 e9fa012910491fe5ae08a72c3c2997a7 ""
   "c:/texlive/2026/texmf-var/web2c/xetex/xelatex.fmt" 1783785600 5948913 ad65100bbd0860f0c52bbf31ba09c75e ""
   "c:/texlive/2026/texmf.cnf" 1783785361 713 e69b156964470283e0530f5060668171 ""
+  "chapters/back_cover.tex" 1792318194 4868 b43115bd4d869128d423957d7c2b237f ""
   "chapters/front_cover.tex" 1792028549 4581 4c6136b4593bf36fdd75de66c50c7118 ""
   "chapters/part_01/p1_ch01.tex" 1789815356 21654 301acf37e17ab73983e49076b7d9cd6b ""
   "chapters/part_01/p1_ch02.tex" 1789023675 38979 79141377ff4c0f60d610ac23060012d4 ""
   "chapters/part_01/p1_ch03.tex" 1789257736 39147 774066f83bb9d3ca0d44c7096215b7d0 ""
   "chapters/preface.tex" 1788772052 3179 58704ed184346a09c5e0a5a8ee421351 ""
-  "d:/A_IntroDL/latex/main.tex" 1792318494 1620 e4b3cfe6cd7f02ae6af00694e3d53b95 ""
+  "d:/A_IntroDL/latex/main.tex" 1792319488 1614 c741504b8d52a61c445ebfd7c15466c5 ""
+  "figures/back_cover/ali_pay.png" 1791766601 156175 1e74945c0ff41a16c3f47291184f4d9f ""
+  "figures/back_cover/wechat_pay.png" 1791766575 201714 6870de95bf729d5864386ecaf6121ac2 ""
   "figures/front_cover/cover.pdf" 1786365292 1119048 5a56b05016dfc71e54d3a969bd984748 ""
   "figures/part_01/p1_ch01/mlp_with_activation.pdf" 1788836436 8911 fbed101dc66bf5cc44a59b9428219129 ""
   "figures/part_01/p1_ch01/mlp_without_activation.pdf" 1785901418 6009 ff079c38ccd844f7ed89dbe0246f3d42 ""
@@ -326,13 +329,13 @@
   "figures/part_01/p1_ch03/nonconvex_landscape.pdf" 1789009789 2900327 53ab016e10ce8e942c309ffe2e88f50d ""
   "figures/part_01/p1_ch03/saddle_landscape.pdf" 1789009789 1057603 3a8636cbac6cdd0bf86c342e067fbc40 ""
   "figures/part_01/p1_ch03/warmup.pdf" 1789178018 21218 ba55c6ecffcebe75ce882a14410b12c3 ""
-  "main.tex" 1792318494 1620 e4b3cfe6cd7f02ae6af00694e3d53b95 ""
-  "temp/./chapters/part_01/p1_ch01.aux" 1792318500 7070 903f737ea9b762472a3cf9e86588632f "xelatex"
-  "temp/./chapters/part_01/p1_ch02.aux" 1792318501 9810 7e47fc0f5ea147c3427eda4805e6c1f6 "xelatex"
-  "temp/./chapters/part_01/p1_ch03.aux" 1792318501 9729 3e375f8556f10d4e1e1bebfa3883b3c0 "xelatex"
-  "temp/main.aux" 1792318501 837 063ccc634fb751e6d62f27c5c391437a "xelatex"
-  "temp/main.out" 1792318501 2762 cf80614452c6949babaa173e066d7373 "xelatex"
-  "temp/main.toc" 1792318501 1810 a7b32c1d9f9592f4d2d1f4de39b386bd "xelatex"
+  "main.tex" 1792319488 1614 c741504b8d52a61c445ebfd7c15466c5 ""
+  "temp/./chapters/part_01/p1_ch01.aux" 1792319497 7070 903f737ea9b762472a3cf9e86588632f "xelatex"
+  "temp/./chapters/part_01/p1_ch02.aux" 1792319497 9810 7e47fc0f5ea147c3427eda4805e6c1f6 "xelatex"
+  "temp/./chapters/part_01/p1_ch03.aux" 1792319498 9729 3e375f8556f10d4e1e1bebfa3883b3c0 "xelatex"
+  "temp/main.aux" 1792319498 945 b60068ca3191bc37265d7ac639084c6e "xelatex"
+  "temp/main.out" 1792319498 2762 cf80614452c6949babaa173e066d7373 "xelatex"
+  "temp/main.toc" 1792319498 1810 a7b32c1d9f9592f4d2d1f4de39b386bd "xelatex"
   "template.cls" 1791100565 34948 35c9dd03eb2f47fbc43f0bd354006243 ""
   (generated)
   "temp/./chapters/part_01/p1_ch01.aux"

@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026) (preloaded format=xelatex 2026.7.11)  18 OCT 2026 18:14
+This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026) (preloaded format=xelatex 2026.7.11)  18 OCT 2026 18:31
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1593,7 +1593,21 @@ Underfull \vbox (badness 2027) has occurred while \output is active []
  [38]
 Underfull \vbox (badness 2671) has occurred while \output is active []
 
- [39]) [40] (temp/main.aux (temp/./chapters/part_01/p1_ch01.aux) (temp/./chapters/part_01/p1_ch02.aux) (temp/./chapters/part_01/p1_ch03.aux))
+ [39]) [40] (./chapters/back_cover.tex
+File: figures/back_cover/wechat_pay.png Graphic file (type bmp)
+<figures/back_cover/wechat_pay.png>
+File: figures/back_cover/ali_pay.png Graphic file (type bmp)
+<figures/back_cover/ali_pay.png>
+ [41
+\def\@LN@column{1}
+
+
+
+
+
+] [42
+
+]) (temp/main.aux (temp/./chapters/part_01/p1_ch01.aux) (temp/./chapters/part_01/p1_ch02.aux) (temp/./chapters/part_01/p1_ch03.aux))
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2022/08/05>
@@ -1602,12 +1616,12 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: CF80614452C6949BABAA173E066D7373;2762.
  ) 
 Here is how much of TeX's memory you used:
- 51625 strings out of 468168
- 1298942 string characters out of 5436524
+ 51827 strings out of 468168
+ 1304111 string characters out of 5436524
  1825898 words of memory out of 5000000
- 79426 multiletter control sequences out of 15000+600000
- 650872 words of font info for 203 fonts, out of 8000000 for 9000
+ 79618 multiletter control sequences out of 15000+600000
+ 650888 words of font info for 205 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 108i,17n,131p,1081b,1321s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 108i,17n,131p,1081b,1679s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on temp/main.xdv (46 pages, 785276 bytes).
+Output written on temp/main.xdv (48 pages, 814248 bytes).
