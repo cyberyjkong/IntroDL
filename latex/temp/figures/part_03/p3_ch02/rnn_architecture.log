@@ -1,10 +1,10 @@
-This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026) (preloaded format=xelatex 2026.7.11)  9 OCT 2026 21:12
+This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026) (preloaded format=xelatex 2026.7.15)  15 OCT 2026 14:44
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**d:/A_IntroDL/latex/figures/part_03/p3_ch02/rnn_architecture.tex
-(d:/A_IntroDL/latex/figures/part_03/p3_ch02/rnn_architecture.tex
+**f:/A_IntroDL/latex/figures/part_03/p3_ch02/rnn_architecture.tex
+(f:/A_IntroDL/latex/figures/part_03/p3_ch02/rnn_architecture.tex
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
 (c:/texlive/2026/texmf-dist/tex/latex/standalone/standalone.cls
@@ -334,7 +334,7 @@ File: l3backend-xetex.def 2025-10-09 L3 backend support: XeTeX
 \g__graphics_track_int=\count316
 \g__pdfannot_backend_int=\count317
 \g__pdfannot_backend_link_int=\count318
-) (d:/A_IntroDL/latex/temp/figures/part_03/p3_ch02/rnn_architecture.aux)
+) (f:/A_IntroDL/latex/temp/figures/part_03/p3_ch02/rnn_architecture.aux)
 \openout1 = `rnn_architecture.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 17.
@@ -355,7 +355,7 @@ LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 17.
 LaTeX Font Info:    ... okay on input line 17.
  [1
 
-] (d:/A_IntroDL/latex/temp/figures/part_03/p3_ch02/rnn_architecture.aux)
+] (f:/A_IntroDL/latex/temp/figures/part_03/p3_ch02/rnn_architecture.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
@@ -364,10 +364,10 @@ L3 programming layer <2026-01-19>
 Here is how much of TeX's memory you used:
  13123 strings out of 468168
  272487 string characters out of 5436524
- 696303 words of memory out of 5000000
+ 696302 words of memory out of 5000000
  41631 multiletter control sequences out of 15000+600000
  630480 words of font info for 54 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  102i,7n,107p,477b,663s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on d:/A_IntroDL/latex/temp/figures/part_03/p3_ch02/rnn_architecture.xdv (1 page, 41780 bytes).
+Output written on f:/A_IntroDL/latex/temp/figures/part_03/p3_ch02/rnn_architecture.xdv (1 page, 41776 bytes).

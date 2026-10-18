@@ -1,9 +1,9 @@
-PWD d:/A_IntroDL/latex/figures/part_03/p3_ch02
+PWD f:/A_IntroDL/latex/figures/part_03/p3_ch02
 INPUT c:/texlive/2026/texmf.cnf
 INPUT c:/texlive/2026/texmf-dist/web2c/texmf.cnf
 INPUT c:/texlive/2026/texmf-var/web2c/xetex/xelatex.fmt
-INPUT d:/A_IntroDL/latex/figures/part_03/p3_ch02/rnn_architecture.tex
-OUTPUT d:/A_IntroDL/latex/temp/figures/part_03/p3_ch02/rnn_architecture.log
+INPUT f:/A_IntroDL/latex/figures/part_03/p3_ch02/rnn_architecture.tex
+OUTPUT f:/A_IntroDL/latex/temp/figures/part_03/p3_ch02/rnn_architecture.log
 INPUT c:/texlive/2026/texmf-dist/tex/latex/standalone/standalone.cls
 INPUT c:/texlive/2026/texmf-dist/tex/latex/standalone/standalone.cls
 INPUT c:/texlive/2026/texmf-dist/tex/latex/tools/shellesc.sty
@@ -161,10 +161,10 @@ INPUT c:/texlive/2026/texmf-dist/tex/generic/pgf/libraries/pgflibraryarrows.meta
 INPUT c:/texlive/2026/texmf-dist/tex/generic/pgf/libraries/pgflibraryarrows.meta.code.tex
 INPUT c:/texlive/2026/texmf-dist/tex/latex/l3backend/l3backend-xetex.def
 INPUT c:/texlive/2026/texmf-dist/tex/latex/l3backend/l3backend-xetex.def
-INPUT d:/A_IntroDL/latex/temp/figures/part_03/p3_ch02/rnn_architecture.aux
-INPUT d:/A_IntroDL/latex/temp/figures/part_03/p3_ch02/rnn_architecture.aux
-INPUT d:/A_IntroDL/latex/temp/figures/part_03/p3_ch02/rnn_architecture.aux
-OUTPUT d:/A_IntroDL/latex/temp/figures/part_03/p3_ch02/rnn_architecture.aux
+INPUT f:/A_IntroDL/latex/temp/figures/part_03/p3_ch02/rnn_architecture.aux
+INPUT f:/A_IntroDL/latex/temp/figures/part_03/p3_ch02/rnn_architecture.aux
+INPUT f:/A_IntroDL/latex/temp/figures/part_03/p3_ch02/rnn_architecture.aux
+OUTPUT f:/A_IntroDL/latex/temp/figures/part_03/p3_ch02/rnn_architecture.aux
 INPUT c:/texlive/2026/texmf-dist/fonts/map/fontname/texfonts.map
 INPUT c:/texlive/2026/texmf-dist/fonts/tfm/public/cm/cmr8.tfm
 INPUT c:/texlive/2026/texmf-dist/fonts/tfm/public/cm/cmr6.tfm
@@ -176,5 +176,5 @@ INPUT c:/texlive/2026/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm
 INPUT c:/texlive/2026/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm
 INPUT c:/texlive/2026/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm
 INPUT c:/texlive/2026/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm
-OUTPUT d:/A_IntroDL/latex/temp/figures/part_03/p3_ch02/rnn_architecture.xdv
-INPUT d:/A_IntroDL/latex/temp/figures/part_03/p3_ch02/rnn_architecture.aux
+OUTPUT f:/A_IntroDL/latex/temp/figures/part_03/p3_ch02/rnn_architecture.xdv
+INPUT f:/A_IntroDL/latex/temp/figures/part_03/p3_ch02/rnn_architecture.aux

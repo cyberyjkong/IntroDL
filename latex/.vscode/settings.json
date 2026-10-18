@@ -2,10 +2,10 @@
   // 1. 设置 LaTeX 插件的主输出目录（保持 %DIR% 不变，确保 PDF 生成在当前 tex 文件旁边）
   "latex-workshop.latex.outDir": "%DIR%",
   
-  // 2. 视觉隐藏
-  "files.exclude": {
-    "**/*.synctex.gz": true
-  },
+  // // 2. 视觉隐藏
+  // "files.exclude": {
+  //   "**/*.synctex.gz": true
+  // },
 
   // 3. 核心编译规则
   "latex-workshop.latex.tools": [

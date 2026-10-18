@@ -14,4 +14,12 @@
 \contentsline {section}{\numberline {2.4}梯度下降算法}{20}{section.2.4}%
 \contentsline {section}{\numberline {2.5}计算图与自动微分}{22}{section.2.5}%
 \contentsline {section}{\numberline {2.6}万能逼近定理}{25}{section.2.6}%
+\contentsline {chapter}{\numberline {3}神经网络优化算法}{27}{chapter.3}%
+\contentsline {section}{\numberline {3.1}学习率}{28}{section.3.1}%
+\contentsline {section}{\numberline {3.2}批量策略}{32}{section.3.2}%
+\contentsline {section}{\numberline {3.3}动量法}{34}{section.3.3}%
+\contentsline {section}{\numberline {3.4}自适应学习率算法}{36}{section.3.4}%
+\contentsline {subsection}{\numberline {3.4.1}AdaGrad}{36}{subsection.3.4.1}%
+\contentsline {subsection}{\numberline {3.4.2}RMSProp}{38}{subsection.3.4.2}%
+\contentsline {subsection}{\numberline {3.4.3}Adam}{39}{subsection.3.4.3}%
 \contentsfinish 

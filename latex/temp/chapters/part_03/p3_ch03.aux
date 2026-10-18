@@ -55,8 +55,12 @@
 \newlabel{fig:gru_cell}{{13.9}{182}{GRU单元的内部结构。与LSTM不同，GRU不再单独维护细胞状态，而是通过隐藏状态传递和更新信息。重置门$r_t$控制历史信息参与候选状态计算的程度，得到候选状态$\tilde h_t$；更新门$z_t$控制旧状态的保留比例，并通过$1-z_t$调节候选状态的权重，最终得到$h_t=z_t\odot h_{t-1}+(1-z_t)\odot \tilde h_t$。两道门均以$[h_{t-1},x_t]$为输入。}{figure.caption.125}{}}
 \newlabel{fig:gru_cell@cref}{{[figure][9][13]13.9}{[1][182][]182}{}{}{}}
 \def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {13.10}{\ignorespaces GRU单元的两种画法。两图结构相同，仅更新门约定不同：左图中$z_t$与旧状态$h_{t-1}$相乘、$(1-z_t)$与候选状态$\tilde  h_t$相乘，对应$h_t=z_t\odot h_{t-1}+(1-z_t)\odot \tilde  h_t$；右图相反，$z_t$乘$\tilde  h_t$、$(1-z_t)$乘$h_{t-1}$，对应$h_t=(1-z_t)\odot h_{t-1}+z_t\odot \tilde  h_t$。其余部件（重置门$r_t$、候选层$\tanh $）两图一致。}}{183}{figure.caption.126}\protected@file@percent }
+\newlabel{fig:gru_cell_version}{{13.10}{183}{GRU单元的两种画法。两图结构相同，仅更新门约定不同：左图中$z_t$与旧状态$h_{t-1}$相乘、$(1-z_t)$与候选状态$\tilde h_t$相乘，对应$h_t=z_t\odot h_{t-1}+(1-z_t)\odot \tilde h_t$；右图相反，$z_t$乘$\tilde h_t$、$(1-z_t)$乘$h_{t-1}$，对应$h_t=(1-z_t)\odot h_{t-1}+z_t\odot \tilde h_t$。其余部件（重置门$r_t$、候选层$\tanh $）两图一致。}{figure.caption.126}{}}
+\newlabel{fig:gru_cell_version@cref}{{[figure][10][13]13.10}{[1][183][]183}{}{}{}}
+\def\@LN@column{1}
 \@setckpt{./chapters/part_03/p3_ch03}{
-\setcounter{page}{184}
+\setcounter{page}{185}
 \setcounter{equation}{0}
 \setcounter{enumi}{11}
 \setcounter{enumii}{0}
@@ -71,11 +75,11 @@
 \setcounter{subsubsection}{0}
 \setcounter{paragraph}{0}
 \setcounter{subparagraph}{0}
-\setcounter{figure}{9}
+\setcounter{figure}{10}
 \setcounter{table}{0}
 \setcounter{FancyVerbLine}{0}
 \setcounter{linenumber}{1}
-\setcounter{LN@truepage}{191}
+\setcounter{LN@truepage}{192}
 \setcounter{FancyVerbWriteLine}{0}
 \setcounter{FancyVerbBufferLine}{0}
 \setcounter{FV@TrueTabGroupLevel}{0}
@@ -96,7 +100,7 @@
 \setcounter{lstnumber}{1}
 \setcounter{tcbbreakpart}{1}
 \setcounter{tcblayer}{0}
-\setcounter{tcolorbox@number}{91}
+\setcounter{tcolorbox@number}{93}
 \setcounter{tcbrastercolumn}{1}
 \setcounter{tcbrasterrow}{1}
 \setcounter{tcbrasternum}{1}

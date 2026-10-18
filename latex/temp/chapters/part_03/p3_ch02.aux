@@ -53,14 +53,14 @@
 \def\@LN@column{1}
 \@writefile{toc}{\contentsline {section}{\numberline {12.5}RNN的局限}{162}{section.12.5}\protected@file@percent }
 \def\@LN@column{1}
-\@writefile{lof}{\contentsline {figure}{\numberline {12.11}{\ignorespaces Sigmoid、ReLU和tanh激活函数的对比：左为Sigmoid，中为ReLU，右为tanh。}}{163}{figure.caption.114}\protected@file@percent }
-\newlabel{fig:rnn_activation}{{12.11}{163}{Sigmoid、ReLU和tanh激活函数的对比：左为Sigmoid，中为ReLU，右为tanh。}{figure.caption.114}{}}
-\newlabel{fig:rnn_activation@cref}{{[figure][11][12]12.11}{[1][162][]163}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {12.11}{\ignorespaces Sigmoid、ReLU与tanh激活函数对比：左、中、右依次为三者，上排为函数曲线及公式，下排为对应导数曲线及公式。Sigmoid输出$(0,1)$、导数峰值仅0.25；ReLU负半轴为0、正半轴线性；tanh输出$(-1,1)$、零中心、导数峰值1。}}{163}{figure.caption.114}\protected@file@percent }
+\newlabel{fig:activation_comparison}{{12.11}{163}{Sigmoid、ReLU与tanh激活函数对比：左、中、右依次为三者，上排为函数曲线及公式，下排为对应导数曲线及公式。Sigmoid输出$(0,1)$、导数峰值仅0.25；ReLU负半轴为0、正半轴线性；tanh输出$(-1,1)$、零中心、导数峰值1。}{figure.caption.114}{}}
+\newlabel{fig:activation_comparison@cref}{{[figure][11][12]12.11}{[1][162][]163}{}{}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {12.5.1}梯度消失与梯度爆炸}{163}{subsection.12.5.1}\protected@file@percent }
 \def\@LN@column{1}
 \@writefile{lof}{\contentsline {figure}{\numberline {12.12}{\ignorespaces 梯度消失与梯度爆炸示意图。横轴表示从当前时刻向更早时间步追溯的距离，纵轴表示梯度大小。随着反向传播经过的时间步增加，梯度可能逐渐衰减至接近$0$，也可能不断放大。前者使模型难以学习较早输入对当前预测的影响，后者则可能导致参数更新不稳定。两种现象都源于梯度在时间维度上的反复连乘。}}{164}{figure.caption.115}\protected@file@percent }
 \newlabel{fig:gradient_magnitude}{{12.12}{164}{梯度消失与梯度爆炸示意图。横轴表示从当前时刻向更早时间步追溯的距离，纵轴表示梯度大小。随着反向传播经过的时间步增加，梯度可能逐渐衰减至接近$0$，也可能不断放大。前者使模型难以学习较早输入对当前预测的影响，后者则可能导致参数更新不稳定。两种现象都源于梯度在时间维度上的反复连乘。}{figure.caption.115}{}}
-\newlabel{fig:gradient_magnitude@cref}{{[figure][12][12]12.12}{[1][163][]164}{}{}{}}
+\newlabel{fig:gradient_magnitude@cref}{{[figure][12][12]12.12}{[1][164][]164}{}{}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {12.5.2}长期依赖问题}{164}{subsection.12.5.2}\protected@file@percent }
 \def\@LN@column{1}
 \@writefile{lof}{\contentsline {figure}{\numberline {12.13}{\ignorespaces 长期依赖问题的示意图。短距离依赖（例如相邻两个词之间的关联）信息传递短、几乎不衰减，模型容易学到；而长距离依赖（句首的法国和句末的填空）要穿过很多时间步、严重衰减，模型几乎学不到。}}{165}{figure.caption.116}\protected@file@percent }

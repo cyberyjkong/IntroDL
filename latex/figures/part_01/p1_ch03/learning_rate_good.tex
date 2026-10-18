@@ -1,0 +1,50 @@
+\documentclass[border=10pt]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta}
+\definecolor{myred}{RGB}{190,60,45}
+
+%======== 整体右移量：和前两张图保持一致，只改这一个数即可 ========
+\newcommand{\xoff}{2.5}
+
+%======== 损失函数（定义不变，画图时横坐标统一 +\xoff）========
+\pgfmathdeclarefunction{L}{1}{%
+  \pgfmathparse{0.01*(#1-4)^4 + 1.4*exp(-(#1-4)*(#1-4)/3) - 0.15*(#1-4)}}
+
+\begin{document}
+\begin{tikzpicture}[x=0.6cm, y=0.8cm, >=stealth, line width=0.8pt, font=\large,
+    garr/.style={myred, ->, >={Stealth[length=5pt, width=4pt]}, line width=0.8pt}]
+
+  % 坐标轴（x 轴左端只留一点尾巴，曲线不再穿过 y 轴）
+  \draw[->] (-1.2,0) -- (13.2,0) node[below right] {$\theta$};
+  \draw[->] (0,-0.6) -- (0,7.9)  node[above right] {$L(\theta)$};
+
+  % 损失曲线（黑色）
+  \draw[black, line width=1pt, domain=-1:9.3, samples=200]
+        plot ({\xoff+\x}, {L(\x)});
+
+  % 两个极小：黑点 + 虚线垂直落到 x 轴 + 轴上小刻度 + 轴下标签
+  % （线的样式与 lr_small 图完全一致；字号 footnotesize 也与它一致）
+  \fill[black] ({\xoff+2},{L(2)})     circle (2.5pt);
+  \fill[black] ({\xoff+6.3},{L(6.3)}) circle (2.5pt);
+
+  % 左：局部极小
+  \draw[dashed,gray,thin] ({\xoff+2},{L(2)}) -- ({\xoff+2},0);
+  \draw[gray,thin]        ({\xoff+2},0.12)  -- ({\xoff+2},0);
+  \node[font=\footnotesize,anchor=north] at ({\xoff+2},-0.15) {local minimum};
+
+  % 右：全局极小
+  \draw[dashed,gray,thin] ({\xoff+6.3},{L(6.3)}) -- ({\xoff+6.3},0);
+  \draw[gray,thin]        ({\xoff+6.3},0.12)    -- ({\xoff+6.3},0);
+  \node[font=\footnotesize,anchor=north] at ({\xoff+6.3},-0.15) {global minimum};
+
+  % ---- 学习率合适：同一起点，8 步翻过小山包，收敛到全局最小 ----
+  % 落脚点（9 个点 = 8 步）
+  \foreach \t in {0.30,1.25,2.10,2.90,3.65,4.40,5.10,5.75,6.30}
+    \fill[myred] ({\xoff+\t},{L(\t)}) circle (2pt);
+
+  % 更新箭头
+  \foreach \a/\b in {0.30/1.25, 1.25/2.10, 2.10/2.90, 2.90/3.65,
+                     3.65/4.40, 4.40/5.10, 5.10/5.75, 5.75/6.30}
+    \draw[garr] ({\xoff+\a},{L(\a)}) -- ({\xoff+\b},{L(\b)});
+\end{tikzpicture}
+\end{document}

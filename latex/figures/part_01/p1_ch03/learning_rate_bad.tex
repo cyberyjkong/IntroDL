@@ -1,0 +1,72 @@
+\documentclass[border=10pt]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta}
+\definecolor{myred}{RGB}{190,60,45}
+
+%======== 整体右移量：想让曲线离 y 轴更远，只改这一个数 ========
+\newcommand{\xoff}{2.5}
+
+%======== 损失函数（定义不变，画图时横坐标统一 +\xoff）========
+\pgfmathdeclarefunction{L}{1}{%
+  \pgfmathparse{0.01*(#1-4)^4 + 1.4*exp(-(#1-4)*(#1-4)/3) - 0.15*(#1-4)}}
+
+\begin{document}
+\begin{tikzpicture}[
+    x=0.6cm, y=0.8cm, >=stealth, line width=0.8pt, font=\large,
+    uarr/.style={myred,->,>={Stealth[length=7pt,width=5pt]},line width=0.9pt},
+    sarr/.style={myred,->,>={Stealth[length=3.5pt,width=2.8pt]},line width=0.7pt}
+  ]
+
+  %=================== (a) 学习率过大：震荡 → 发散 ===================
+  \begin{scope}
+    \draw[->] (-1.2,0) -- (13.2,0) node[below right]{$\theta$};
+    \draw[->] (0,-0.6) -- (0,7.9)  node[above right]{$L(\theta)$};
+
+    \draw[black,line width=1pt,domain=-1:9.3,samples=200]
+          plot ({\xoff+\x},{L(\x)});
+
+    \fill[myred] ({\xoff+0.3},{L(0.3)})  circle (2.5pt);
+    \fill[myred] ({\xoff+8.3},{L(8.3)})  circle (2.5pt);
+    \fill[myred] ({\xoff-0.5},{L(-0.5)}) circle (2.5pt);
+    \fill[myred] ({\xoff+9.1},{L(9.1)})  circle (2.5pt);
+
+    \draw[uarr] ({\xoff+0.3},{L(0.3)})  -- ({\xoff+8.3},{L(8.3)});
+    \draw[uarr] ({\xoff+8.3},{L(8.3)})  -- ({\xoff-0.5},{L(-0.5)});
+    \draw[uarr] ({\xoff-0.5},{L(-0.5)}) -- ({\xoff+9.1},{L(9.1)});
+    \draw[uarr] ({\xoff+9.1},{L(9.1)})  -- ({\xoff-1.2},7.6); % 飞出定义域 = 发散
+
+    \node[font=\large\bfseries] at (6,-1.5) {Learning rate too large};
+    \node[font=\normalsize,text=myred] at (6,-2.4) {oscillation $\rightarrow$ divergence};
+  \end{scope}
+
+  %=================== (b) 学习率过小：碎步 → 收敛极慢 ===================
+  \begin{scope}[xshift=10.6cm]
+    \draw[->] (-1.2,0) -- (13.2,0) node[below right]{$\theta$};
+    \draw[->] (0,-0.6) -- (0,7.9)  node[above right]{$L(\theta)$};
+
+    \draw[black,line width=1pt,domain=-1:9.3,samples=200]
+          plot ({\xoff+\x},{L(\x)});
+
+    % 局部极小：黑点 → 虚线垂直落到 x 轴 → 轴上刻度 → 轴下标签（全部对齐 θ*）
+    \fill[black] ({\xoff+2},{L(2)}) circle (2.5pt);
+    \draw[dashed,gray,thin] ({\xoff+2},{L(2)}) -- ({\xoff+2},0);
+    \draw[gray,thin]        ({\xoff+2},0.12)  -- ({\xoff+2},0);
+    \node[font=\footnotesize,anchor=north]
+          at ({\xoff+2},-0.15) {local minimum $\theta^{*}$};
+
+    % 15 个落脚点
+    \foreach \t in {0.30,0.52,0.71,0.87,1.00,1.11,1.20,1.27,1.33,1.38,
+                    1.42,1.45,1.48,1.51,1.54}
+      \fill[myred] ({\xoff+\t},{L(\t)}) circle (1.6pt);
+
+    % 14 个小碎步箭头
+    \foreach \a/\b in {0.30/0.52,0.52/0.71,0.71/0.87,0.87/1.00,1.00/1.11,
+                       1.11/1.20,1.20/1.27,1.27/1.33,1.33/1.38,1.38/1.42,
+                       1.42/1.45,1.45/1.48,1.48/1.51,1.51/1.54}
+      \draw[sarr] ({\xoff+\a},{L(\a)}) -- ({\xoff+\b},{L(\b)});
+
+    \node[font=\large\bfseries] at (6,-1.5) {Learning rate too small};
+    \node[font=\normalsize,text=myred] at (6,-2.4) {tiny steps $\rightarrow$ very slow};
+  \end{scope}
+\end{tikzpicture}
+\end{document}

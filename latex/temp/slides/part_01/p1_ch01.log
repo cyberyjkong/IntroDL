@@ -1,10 +1,10 @@
-This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026) (preloaded format=xelatex 2026.7.11)  4 OCT 2026 15:33
+This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026) (preloaded format=xelatex 2026.7.15)  15 OCT 2026 10:40
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**d:/A_IntroDL/latex/slides/part_01/p1_ch01.tex
-(d:/A_IntroDL/latex/slides/part_01/p1_ch01.tex
+**f:/A_IntroDL/latex/slides/part_01/p1_ch01.tex
+(f:/A_IntroDL/latex/slides/part_01/p1_ch01.tex
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
 (../slides.cls
@@ -888,7 +888,9 @@ File: pgfmodulematrix.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 \tikz@expandcount=\count396
  (c:/texlive/2026/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarytopaths.code.tex
 File: tikzlibrarytopaths.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-))))
+))) (c:/texlive/2026/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarycalc.code.tex
+File: tikzlibrarycalc.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+))
 
 Package fontspec Info: 
 (fontspec)             Could not resolve font "Microsoft YaHei Bold/I" (it
@@ -915,7 +917,7 @@ Package fontspec Info:
 (fontspec)             - 'bold italic' (b/it) with NFSS spec.: <->"Microsoft
 (fontspec)             YaHei/BI/OT:script=hani;language=dflt;"
 
- (d:/A_IntroDL/latex/temp/slides/part_01/p1_ch01.aux)
+ (f:/A_IntroDL/latex/temp/slides/part_01/p1_ch01.aux)
 \openout1 = `p1_ch01.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 8.
@@ -974,7 +976,7 @@ LaTeX Font Info:    ... okay on input line 8.
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 Package hyperref Info: Link coloring OFF on input line 8.
-(d:/A_IntroDL/latex/temp/slides/part_01/p1_ch01.out) (d:/A_IntroDL/latex/temp/slides/part_01/p1_ch01.out)
+(f:/A_IntroDL/latex/temp/slides/part_01/p1_ch01.out) (f:/A_IntroDL/latex/temp/slides/part_01/p1_ch01.out)
 \@outlinefile=\write5
 \openout5 = `p1_ch01.out'.
 
@@ -1093,96 +1095,97 @@ LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
 (Font)                  TU/lmss/b/n --> TU/lmss/b/n on input line 8.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
 (Font)                  TU/lmtt/b/n --> TU/lmtt/b/n on input line 8.
- (d:/A_IntroDL/latex/temp/slides/part_01/p1_ch01.nav) [1
+ (f:/A_IntroDL/latex/temp/slides/part_01/p1_ch01.nav) [1
 
 ]
-LaTeX Font Info:    Trying to load font information for U+msa on input line 37.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 38.
  (c:/texlive/2026/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 37.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 38.
  (c:/texlive/2026/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Font shape `TU/lmss/m/it' in size <10.95> not available
-(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 37.
+(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 38.
 LaTeX Font Info:    Font shape `TU/lmss/m/it' in size <8> not available
-(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 37.
+(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 38.
 LaTeX Font Info:    Font shape `TU/lmss/m/it' in size <6> not available
-(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 37.
+(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 38.
 LaTeX Font Info:    Font shape `TU/lmss/m/it' in size <10> not available
-(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 37.
+(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 38.
 LaTeX Font Info:    Font shape `TU/lmss/m/it' in size <7> not available
-(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 37.
+(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 38.
 LaTeX Font Info:    Font shape `TU/lmss/m/it' in size <5> not available
-(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 37.
+(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 38.
+LaTeX Font Info:    Font shape `TU/lmss/b/n' in size <10> not available
+(Font)              Font shape `TU/lmss/bx/n' tried instead on input line 38.
+LaTeX Font Info:    Font shape `TU/lmss/b/n' in size <7> not available
+(Font)              Font shape `TU/lmss/bx/n' tried instead on input line 38.
+LaTeX Font Info:    Font shape `TU/lmss/b/n' in size <5> not available
+(Font)              Font shape `TU/lmss/bx/n' tried instead on input line 38.
+LaTeX Font Info:    Font shape `TU/lmss/b/it' in size <10> not available
+(Font)              Font shape `TU/lmss/bx/it' tried instead on input line 38.
+LaTeX Font Info:    Font shape `TU/lmss/bx/it' in size <10> not available
+(Font)              Font shape `TU/lmss/bx/sl' tried instead on input line 38.
+LaTeX Font Info:    Font shape `TU/lmss/b/it' in size <7> not available
+(Font)              Font shape `TU/lmss/bx/it' tried instead on input line 38.
+LaTeX Font Info:    Font shape `TU/lmss/bx/it' in size <7> not available
+(Font)              Font shape `TU/lmss/bx/sl' tried instead on input line 38.
+LaTeX Font Info:    Font shape `TU/lmss/b/it' in size <5> not available
+(Font)              Font shape `TU/lmss/bx/it' tried instead on input line 38.
+LaTeX Font Info:    Font shape `TU/lmss/bx/it' in size <5> not available
+(Font)              Font shape `TU/lmss/bx/sl' tried instead on input line 38.
 LaTeX Font Info:    Font shape `TU/lmss/b/n' in size <10.95> not available
-(Font)              Font shape `TU/lmss/bx/n' tried instead on input line 37.
+(Font)              Font shape `TU/lmss/bx/n' tried instead on input line 38.
 LaTeX Font Info:    Font shape `TU/lmss/b/n' in size <8> not available
-(Font)              Font shape `TU/lmss/bx/n' tried instead on input line 37.
+(Font)              Font shape `TU/lmss/bx/n' tried instead on input line 38.
 LaTeX Font Info:    Font shape `TU/lmss/b/n' in size <6> not available
-(Font)              Font shape `TU/lmss/bx/n' tried instead on input line 37.
+(Font)              Font shape `TU/lmss/bx/n' tried instead on input line 38.
 LaTeX Font Info:    Font shape `TU/lmss/b/it' in size <10.95> not available
-(Font)              Font shape `TU/lmss/bx/it' tried instead on input line 37.
+(Font)              Font shape `TU/lmss/bx/it' tried instead on input line 38.
 LaTeX Font Info:    Font shape `TU/lmss/bx/it' in size <10.95> not available
-(Font)              Font shape `TU/lmss/bx/sl' tried instead on input line 37.
+(Font)              Font shape `TU/lmss/bx/sl' tried instead on input line 38.
 LaTeX Font Info:    Font shape `TU/lmss/b/it' in size <8> not available
-(Font)              Font shape `TU/lmss/bx/it' tried instead on input line 37.
+(Font)              Font shape `TU/lmss/bx/it' tried instead on input line 38.
 LaTeX Font Info:    Font shape `TU/lmss/bx/it' in size <8> not available
-(Font)              Font shape `TU/lmss/bx/sl' tried instead on input line 37.
+(Font)              Font shape `TU/lmss/bx/sl' tried instead on input line 38.
 LaTeX Font Info:    Font shape `TU/lmss/b/it' in size <6> not available
-(Font)              Font shape `TU/lmss/bx/it' tried instead on input line 37.
+(Font)              Font shape `TU/lmss/bx/it' tried instead on input line 38.
 LaTeX Font Info:    Font shape `TU/lmss/bx/it' in size <6> not available
-(Font)              Font shape `TU/lmss/bx/sl' tried instead on input line 37.
+(Font)              Font shape `TU/lmss/bx/sl' tried instead on input line 38.
  [2
 
 ]
-
-Package fontspec Info: 
-(fontspec)             Could not resolve font "FangSong/BI" (it probably
-(fontspec)             doesn't exist).
-
-
-Package fontspec Info: 
-(fontspec)             Could not resolve font "FangSong/B" (it probably
-(fontspec)             doesn't exist).
-
-
-Package fontspec Info: 
-(fontspec)             Could not resolve font "FangSong/I" (it probably
-(fontspec)             doesn't exist).
-
-
-Package fontspec Info: 
-(fontspec)             Font family 'FangSong(0)' created for font 'FangSong'
-(fontspec)             with options [Script={CJK}].
-(fontspec)              
-(fontspec)              This font family consists of the following NFSS
-(fontspec)             series/shapes:
-(fontspec)              
-(fontspec)             - 'normal' (m/n) with NFSS spec.:
-(fontspec)             <->"FangSong/OT:script=hani;language=dflt;"
-
 File: ../../figures/part_01/p1_ch01/neuron.pdf Graphic file (type pdf)
 <use ../../figures/part_01/p1_ch01/neuron.pdf>
  [3
 
 ]
-File: ../../figures/part_01/p1_ch01/neuron.pdf Graphic file (type pdf)
-<use ../../figures/part_01/p1_ch01/neuron.pdf>
+File: ../../figures/part_01/p1_ch01/perceptron_boundary.pdf Graphic file (type pdf)
+<use ../../figures/part_01/p1_ch01/perceptron_boundary.pdf>
  [4
 
 ]
-File: ../../figures/part_01/p1_ch01/neuron.pdf Graphic file (type pdf)
-<use ../../figures/part_01/p1_ch01/neuron.pdf>
+File: ../../figures/part_01/p1_ch01/xor_problem.pdf Graphic file (type pdf)
+<use ../../figures/part_01/p1_ch01/xor_problem.pdf>
  [5
 
 ]
-File: ../../figures/part_01/p1_ch01/neuron.pdf Graphic file (type pdf)
-<use ../../figures/part_01/p1_ch01/neuron.pdf>
+File: ../../figures/part_01/p1_ch01/mlp_without_activation.pdf Graphic file (type pdf)
+<use ../../figures/part_01/p1_ch01/mlp_without_activation.pdf>
  [6
 
-] [7
+]
+File: ../../figures/part_01/p1_ch01/mlp_with_activation.pdf Graphic file (type pdf)
+<use ../../figures/part_01/p1_ch01/mlp_with_activation.pdf>
+
+Overfull \vbox (8.79251pt too high) detected at line 102
+ []
+
+[7
+
+] [8
 
 ]
 \tf@nav=\write6
@@ -1194,7 +1197,7 @@ File: ../../figures/part_01/p1_ch01/neuron.pdf Graphic file (type pdf)
 \tf@snm=\write8
 \openout8 = `p1_ch01.snm'.
 
- (d:/A_IntroDL/latex/temp/slides/part_01/p1_ch01.aux)
+ (f:/A_IntroDL/latex/temp/slides/part_01/p1_ch01.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2022/07/14>
@@ -1203,12 +1206,12 @@ Package rerunfilecheck Info: File `p1_ch01.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 29990 strings out of 468168
- 668156 string characters out of 5436524
- 1057039 words of memory out of 5000000
- 58062 multiletter control sequences out of 15000+600000
- 639395 words of font info for 148 fonts, out of 8000000 for 9000
+ 30321 strings out of 468168
+ 683187 string characters out of 5436524
+ 1063567 words of memory out of 5000000
+ 58387 multiletter control sequences out of 15000+600000
+ 642152 words of font info for 157 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 142i,14n,137p,455b,617s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 142i,14n,137p,455b,636s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on d:/A_IntroDL/latex/temp/slides/part_01/p1_ch01.xdv (7 pages, 26248 bytes).
+Output written on f:/A_IntroDL/latex/temp/slides/part_01/p1_ch01.xdv (8 pages, 48684 bytes).

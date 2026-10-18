@@ -1,0 +1,45 @@
+\documentclass[border=10pt]{standalone}
+\usepackage{tikz}
+\usepackage{amsmath}
+\definecolor{myred}{RGB}{190,60,45}
+
+% cos(x) 在 [0, π] 上的图像（风格对齐 sigmoid 图）
+\newcommand{\cosfig}{%
+\begin{tikzpicture}[x=1.6cm, y=1.8cm, >=stealth, line width=0.8pt, font=\large, baseline=(origin)]
+  \coordinate (origin) at (0,0);
+  % 坐标轴
+  \draw[->] (-0.6,0) -- (3.6,0)  node[below right] {$x$};
+  \draw[->] (0,-1.4) -- (0,1.4)  node[above right] {$y$};
+  % y 轴刻度（短线 + 左侧数字，样式同 sigmoid 图）
+  \draw (0,1)  -- ++(-2.5pt,0);
+  \draw (0,-1) -- ++(-2.5pt,0);
+  \node[left, xshift=-3pt] at (0,1)  {$1$};
+  \node[left, xshift=-3pt] at (0,-1) {$-1$};
+  % x 轴刻度：π/2 与 π（直接用 pi 常量，不再写 1.5708/3.1416）
+  \draw (pi/2,2pt) -- ++(0,-4pt);
+  \draw (pi,2pt)   -- ++(0,-4pt);
+  \node[below, yshift=-3pt] at (pi/2,0) {$\frac{\pi}{2}$};
+  \node[below, yshift=-3pt, xshift=6pt] at (pi,0) {$\pi$}; % 对齐刻度且让开垂直虚线
+  % 参考虚线：y=±1 值域框 + x=π 垂直线（脚踩 x 轴）
+  \draw[myred!60, dashed] (0,1)  -- (pi,1);
+  \draw[myred!60, dashed] (0,-1) -- (pi,-1);
+  \draw[myred!60, dashed] (pi,0) -- (pi,1);
+  \draw[myred!60, dashed] (pi,0) -- (pi,-1);
+  % cos 曲线（pgf 的 cos 吃角度，用 deg() 转换）
+  \draw[myred, line width=1pt, domain=0:pi, samples=200, smooth]
+        plot (\x, {cos(deg(\x))});
+  % 三个关键点：(0,1)、(π/2,0)、(π,-1)
+  \fill[myred] (0,1)    circle (2pt);
+  \fill[myred] (0,-1)    circle (2pt);
+  \fill[myred] (pi/2,0) circle (2pt);
+  \fill[myred] (pi,1)  circle (2pt);
+  \fill[myred] (pi,-1)  circle (2pt);
+  \node[below left] at (-0.05,-0.02) {$O$};
+\end{tikzpicture}}
+
+\begin{document}
+\begin{tabular}{c}
+  \cosfig \\[14pt]
+  $\displaystyle y=\cos(x),\quad 0\le x\le \pi$
+\end{tabular}
+\end{document}

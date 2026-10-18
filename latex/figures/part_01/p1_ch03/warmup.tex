@@ -1,0 +1,60 @@
+\documentclass[border=10pt]{standalone}
+\usepackage{tikz}
+\usepackage{amsmath}   % 图里 \text 仍需要，保留
+\definecolor{myred}{RGB}{190,60,45}
+
+%======== 画图数值设定（只影响图形比例）========
+\newcommand{\Tw}{2}        % warmup  epoch 数
+\newcommand{\T}{12}        % 总 epoch 数（= T_max）
+\newcommand{\etamax}{1.5}  % 1 太低、2 太高，取 1.5
+\newcommand{\etamin}{0.1}  % η_min 画在多高
+
+%======== 整条调度曲线（warmup 线性段 + 余弦段，供离散点取值）========
+% pgf 的 cos 吃角度，故 π·(t-Tw)/(T-Tw) 写成 180·(t-Tw)/(T-Tw)
+\pgfmathdeclarefunction{eta}{1}{%
+  \pgfmathparse{ifthenelse(#1<=\Tw,
+      \etamax*#1/\Tw,
+      \etamin+0.5*(\etamax-\etamin)*(1+cos((#1-\Tw)/(\T-\Tw)*180)))}}
+
+% Warmup + Cosine Annealing 图（风格对齐 sigmoid / cos 图）
+\newcommand{\warmfig}{%
+\begin{tikzpicture}[x=0.55cm, y=1.8cm, >=stealth, line width=0.8pt, font=\large, baseline=(origin)]
+  \coordinate (origin) at (0,0);
+  % 坐标轴
+  \draw[->] (-0.7,0)  -- (13.4,0) node[below right] {$t$ (epoch)};
+  \draw[->] (0,-0.15) -- (0,1.9)  node[above right] {$\eta_t$};
+  % y 轴刻度（短线 + 左侧标签）
+  \draw (0,\etamax) -- ++(-2.5pt,0);
+  \draw (0,\etamin) -- ++(-2.5pt,0);
+  \node[left, xshift=-3pt] at (0,\etamax) {$\eta_{\max}$};
+  \node[left, xshift=-3pt] at (0,\etamin) {$\eta_{\min}$};
+  % x 轴刻度：T_warm 与 T_max
+  \draw (\Tw,2pt) -- ++(0,-4pt);
+  \draw (\T,2pt)  -- ++(0,-4pt);
+  \node[below, yshift=-3pt] at (\Tw,0) {$T_{\text{warm}}$};
+  \node[below, yshift=-3pt] at (\T,0)  {$T_{\max}$};
+  % 参考虚线：η_max 水平线、η_min 水平线、两条垂直线（脚踩 x 轴）
+  \draw[myred!60, dashed] (0,\etamax)  -- (\Tw,\etamax);
+  \draw[myred!60, dashed] (\Tw,0)      -- (\Tw,\etamax);
+  \draw[myred!60, dashed] (0,\etamin)  -- (\T,\etamin);
+  \draw[myred!60, dashed] (\T,0)       -- (\T,\etamin);
+  % 第一段：线性 warmup
+  \draw[myred, line width=1pt] (0,0) -- (\Tw,\etamax);
+  % 第二段：余弦退火（与第一段在峰值处连续）
+  \draw[myred, line width=1pt, domain=\Tw:\T, samples=150, smooth]
+        plot (\x, {eta(\x)});
+  % 每个 epoch 的实际取值（离散点）
+  \foreach \t in {0,...,\T}
+    \fill[myred] (\t,{eta(\t)}) circle (1.6pt);
+  % 峰值 / 终点强调
+  \fill[myred] (\Tw,\etamax) circle (2.5pt);
+  \fill[myred] (\T,\etamin)  circle (2.5pt);
+  % 两个阶段的英文小标注
+  \node[font=\small, anchor=west] at (0.1,1.7) {Warmup (linear)};
+  \node[font=\small, anchor=west] at (6.6,0.9) {Cosine annealing};
+  \node[below left] at (-0.05,-0.02) {$O$};
+\end{tikzpicture}}
+
+\begin{document}
+\warmfig
+\end{document}
