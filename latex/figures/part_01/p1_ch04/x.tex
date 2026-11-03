@@ -1,0 +1,43 @@
+\documentclass[border=10pt]{standalone}
+\usepackage{tikz}
+\usepackage{amsmath}
+\definecolor{myred}{RGB}{190,60,45}
+
+% 左图：y = x
+\newcommand{\idfig}{%
+\begin{tikzpicture}[x=2.2cm, y=1.8cm, >=stealth, line width=0.8pt, font=\large, baseline=(origin)]
+  \draw[->] (-1.5,0) -- (1.5,0)   node[below right] {$x$};
+  \draw[->] (0,-0.6) -- (0,1.8)   node[above right] {$y$};
+  \coordinate (origin) at (0,0);
+  % y 轴刻度
+  \draw (0,1) -- ++(-0.08,0);
+  % y = x：在轴范围内画满（下端到 -0.6 为止）
+  \draw[myred, line width=1pt] (-0.6,-0.6) -- (1.5,1.5);
+  \node[left] at (-0.06,1) {$1$};
+  \node[below right] at (0.03,-0.08) {$O$};   % 对角线穿左下，O 挪右下
+  \fill[myred] (0,0) circle (2.5pt);          % 实心
+\end{tikzpicture}}
+
+% 右图：导数 y' = 1
+\newcommand{\idderivfig}{%
+\begin{tikzpicture}[x=2.2cm, y=1.8cm, >=stealth, line width=0.8pt, font=\large, baseline=(origin)]
+  \draw[->] (-1.5,0) -- (1.5,0)   node[below right] {$x$};
+  \draw[->] (0,-0.6) -- (0,1.8)   node[above right] {$y'$};
+  \coordinate (origin) at (0,0);
+  % y 轴刻度
+  \draw (0,1) -- ++(-0.08,0);
+  % 导数恒为 1：水平贯穿线
+  \draw[myred, line width=1pt] (-1.5,1) -- (1.5,1);
+  \fill[myred] (0,1) circle (2.5pt);          % 实心
+  \node[left] at (-0.06,1.18) {$1$};          % 上移，避开贯穿线
+  \node[below left] at (-0.03,-0.08) {$O$};
+\end{tikzpicture}}
+
+\begin{document}
+\begin{tabular}{c@{\qquad}c}
+  \idfig & \idderivfig \\[30pt]
+  $\displaystyle f(x)=x$
+  &
+  $\displaystyle f'(x)=1$
+\end{tabular}
+\end{document}

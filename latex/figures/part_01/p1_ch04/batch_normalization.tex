@@ -1,0 +1,77 @@
+\documentclass[border=10pt]{standalone}
+\usepackage{tikz}
+\usepackage{amsmath}
+\usetikzlibrary{arrows.meta}
+
+%======== 配色（沿用你定的这套）========
+\definecolor{bnIn}{RGB}{52,118,196}     % 原始批次
+\definecolor{bnNorm}{RGB}{46,150,86}    % 标准化后
+\definecolor{bnOut}{RGB}{226,138,42}    % 缩放平移后
+\definecolor{bnGray}{RGB}{150,150,150}  % 参考线 / 同样本连线
+
+%======== 小提琴半宽（抽成函数，宏里不再重复写 exp）========
+\pgfmathdeclarefunction{vwidth}{3}{%
+  \pgfmathparse{1.1*exp(-((#1-#2)^2)/(2*#3*#3))}}
+
+%======== 小提琴形（竖直钟形）========
+\newcommand{\violin}[6]{% X, 中心, 尺度, 颜色, 下界, 上界
+  \fill[#4, fill opacity=0.13]
+    plot[domain=#5:#6, samples=60, variable=\y] ({#1 + vwidth(\y,#2,#3)}, \y) --
+    plot[domain=#6:#5, samples=60, variable=\y] ({#1 - vwidth(\y,#2,#3)}, \y) -- cycle;
+  \draw[#4!75, line width=0.9pt]
+    plot[domain=#5:#6, samples=60, variable=\y] ({#1 + vwidth(\y,#2,#3)}, \y) --
+    plot[domain=#6:#5, samples=60, variable=\y] ({#1 - vwidth(\y,#2,#3)}, \y) -- cycle;
+}
+
+\begin{document}
+\begin{tikzpicture}[x=1cm, y=0.8cm, >=stealth, line width=0.8pt,
+    formula/.style={fill=white, inner sep=2pt, font=\small},
+    spread/.style={fill=white, inner sep=1pt, font=\small},
+    conn/.style={bnGray!80, line width=0.5pt, -{Stealth[length=2.5pt,width=2pt]}},
+  ]
+
+  %================ 三根竖直值轴 =================
+  \foreach \X/\lab in {0/{x_i}, 6/{\hat{x}_i}, 12/{y_i}}{
+    \draw[->, draw=black!80] (\X,-2.6) -- (\X,5.4);
+    \node[font=\large] at (\X,5.75) {$\lab$};
+  }
+
+  %================ 参考线：零线 + 两阶段均值线 =================
+  \draw[bnGray, dashed, thin] (-2.2,0) -- (14.2,0);
+  \node[spread, anchor=east] at (-2.3,0) {$0$};
+  \draw[bnIn!70, dashed, thin] (-1.2,2.64) -- (1.2,2.64);
+  \node[spread, anchor=west] at (1.45,2.64) {$\mu_B$};
+  \draw[bnOut!70, dashed, thin] (10.8,1.2) -- (13.2,1.2);
+  \node[spread, anchor=west] at (13.45,1.2) {$\beta$};
+
+  %================ 尺度双向箭头：σ_B → 1 → γ =================
+  \draw[{Stealth[length=3pt,width=2.5pt]}-{Stealth[length=3pt,width=2.5pt]}, bnIn!70,  thin]
+        (-1.6,1.44) -- (-1.6,3.84);
+  \node[spread, anchor=east] at (-1.75,2.64) {$\sigma_B$};
+  \draw[{Stealth[length=3pt,width=2.5pt]}-{Stealth[length=3pt,width=2.5pt]}, bnNorm!70, thin]
+        (4.4,-1) -- (4.4,1);
+  \node[spread, anchor=east] at (4.25,0) {$1$};
+  \draw[{Stealth[length=3pt,width=2.5pt]}-{Stealth[length=3pt,width=2.5pt]}, bnOut!70,  thin]
+        (10.4,0.6) -- (10.4,1.8);
+  \node[spread, anchor=east] at (10.25,1.2) {$\gamma$};
+
+  %================ 同样本连线 + 三阶段样本点（一个循环全画完）================
+  \foreach \ya/\yb/\yc in {
+      0.8/-1.53/0.28,  1.5/-0.95/0.63,  2.1/-0.45/0.93,  2.6/-0.04/1.18,
+      3.2/ 0.46/1.48,  3.8/ 0.96/1.78,  4.5/ 1.55/2.13}{
+    \draw[conn] (0,\ya) -- (6,\yb) -- (12,\yc);
+    \fill[bnIn]   (0,\ya)  circle (2pt);
+    \fill[bnNorm] (6,\yb)  circle (2pt);
+    \fill[bnOut]  (12,\yc) circle (2pt);
+  }
+
+  %================ 三阶段的小提琴（分布形状）================
+  \violin{0}{2.64}{1.2}{bnIn}{-0.6}{5.2}     % 原始：中心 μ_B、尺度 σ_B
+  \violin{6}{0}{1.0}{bnNorm}{-2.4}{2.4}      % 标准化：零均值、单位方差
+  \violin{12}{1.2}{0.6}{bnOut}{-0.7}{3.1}    % 输出：中心 β、尺度 γ
+
+  %================ 两个操作公式（轴间上方）================
+  \node[formula] at (3,4.6) {$\hat{x}_i=\dfrac{x_i-\mu_B}{\sqrt{\sigma_B^2+\epsilon}}$};
+  \node[formula] at (9,4.6) {$y_i=\gamma\hat{x}_i+\beta$};
+\end{tikzpicture}
+\end{document}

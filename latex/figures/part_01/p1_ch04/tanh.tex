@@ -1,0 +1,50 @@
+\documentclass[border=10pt]{standalone}
+\usepackage{tikz}
+\usepackage{amsmath}
+\definecolor{myred}{RGB}{190,60,45}
+
+% 左图：tanh
+\newcommand{\tanhfig}{%
+\begin{tikzpicture}[x=1.1cm, y=1.8cm, >=stealth, line width=0.8pt, font=\large, baseline=(origin)]
+  \draw[->] (-3,0) -- (3,0)      node[below right] {$x$};
+  \draw[->] (0,-1.5) -- (0,1.5)  node[above right] {$y$};
+  \coordinate (origin) at (0,0);
+  % y 轴刻度
+  \draw (0,1)  -- ++(-0.1,0);
+  \draw (0,-1) -- ++(-0.1,0);
+  % 渐近线 y=±1
+  \draw[myred!60, dashed] (-3,1)  -- (3,1);
+  \draw[myred!60, dashed] (-3,-1) -- (3,-1);
+  % tanh 曲线
+  \draw[myred, line width=1pt, domain=-3:3, samples=150]
+        plot (\x, {(exp(2*\x)-1)/(exp(2*\x)+1)});
+  \fill[myred] (0,0) circle (2.5pt);
+  \node[left] at (-0.0,1.15)  {$1$};    % 上移避虚线
+  \node[left] at (-0.0,-0.85) {$-1$};   % 上移避虚线
+  \node[below right] at (0.03,-0.08) {$O$};
+\end{tikzpicture}}
+
+% 右图：导数 1-tanh^2
+\newcommand{\tanhderivfig}{%
+\begin{tikzpicture}[x=1.1cm, y=1.8cm, >=stealth, line width=0.8pt, font=\large, baseline=(origin)]
+  \draw[->] (-3,0) -- (3,0)      node[below right] {$x$};
+  \draw[->] (0,-1.5) -- (0,1.5)  node[above right] {$y'$};
+  \coordinate (origin) at (0,0);
+  % y 轴刻度
+  \draw (0,1) -- ++(-0.1,0);
+  % 导数曲线：钟形，峰值 1
+  \draw[myred, line width=1pt, domain=-3:3, samples=150]
+        plot (\x, {1-((exp(2*\x)-1)/(exp(2*\x)+1))^2});
+  \fill[myred] (0,1) circle (2.5pt);
+  \node[left] at (-0.0,1.15) {$1$};
+  \node[below left] at (-0.03,-0.08) {$O$};
+\end{tikzpicture}}
+
+\begin{document}
+\begin{tabular}{c@{\qquad}c}
+  \tanhfig & \tanhderivfig \\[30pt]
+  $\displaystyle f(x)=\tanh(x)=\frac{e^{x}-e^{-x}}{e^{x}+e^{-x}}$
+  &
+  $\displaystyle f'(x)=1-\tanh^{2}(x)$
+\end{tabular}
+\end{document}

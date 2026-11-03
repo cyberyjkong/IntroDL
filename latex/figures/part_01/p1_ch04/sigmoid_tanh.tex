@@ -1,0 +1,54 @@
+\documentclass[border=10pt]{standalone}
+\usepackage{tikz}
+\usepackage{amsmath}
+\definecolor{myred}{RGB}{190,60,45}
+
+% 左图：sigmoid + [-1,1] 浅灰线性区
+\newcommand{\sigbandfig}{%
+\begin{tikzpicture}[x=1.1cm, y=1.8cm, >=stealth, line width=0.8pt, font=\large, baseline=(origin)]
+  % ① 最底层：浅灰线性区（先画，谁也不遮）
+  \fill[gray!10] (-1,0) rectangle (1,1);
+  % ② 坐标轴、刻度、渐近线（压在灰上面）
+  \draw[->] (-3,0) -- (3,0)     node[below right] {$x$};
+  \draw[->] (0,-1.5) -- (0,1.5) node[above right] {$y$};
+  \coordinate (origin) at (0,0);
+  \draw (0,1)   -- ++(-0.1,0);
+  \draw (0,0.5) -- ++(-0.1,0);
+  \draw[myred!60, dashed] (-3,1) -- (3,1);
+  % ③ 红色函数线（最上层）
+  \draw[myred, line width=1pt, domain=-3:3, samples=150]
+        plot (\x, {1/(1+exp(-\x))});
+  \node[left] at (-0.12,1.12)  {$1$};
+  \node[left] at (-0.12,0.62)  {$0.5$};
+  \node[below left] at (-0.06,-0.08) {$O$};
+\end{tikzpicture}}
+
+% 右图：tanh + [-1,1] 浅灰线性区
+\newcommand{\tanhbandfig}{%
+\begin{tikzpicture}[x=1.1cm, y=1.8cm, >=stealth, line width=0.8pt, font=\large, baseline=(origin)]
+  % ① 最底层：浅灰线性区
+  \fill[gray!10] (-1,-1) rectangle (1,1);
+  % ② 坐标轴、刻度、渐近线
+  \draw[->] (-3,0) -- (3,0)     node[below right] {$x$};
+  \draw[->] (0,-1.5) -- (0,1.5) node[above right] {$y$};
+  \coordinate (origin) at (0,0);
+  \draw (0,1)  -- ++(-0.1,0);
+  \draw (0,-1) -- ++(-0.1,0);
+  \draw[myred!60, dashed] (-3,1)  -- (3,1);
+  \draw[myred!60, dashed] (-3,-1) -- (3,-1);
+  % ③ 红色函数线
+  \draw[myred, line width=1pt, domain=-3:3, samples=150]
+        plot (\x, {(exp(2*\x)-1)/(exp(2*\x)+1)});
+  \node[left] at (-0.12,1.12)  {$1$};
+  \node[left] at (-0.12,-0.88) {$-1$};
+  \node[below right] at (0.03,-0.08) {$O$};
+\end{tikzpicture}}
+
+\begin{document}
+\begin{tabular}{c@{\qquad}c}
+  \sigbandfig & \tanhbandfig \\[30pt]
+  $\displaystyle f(x)=\frac{1}{1+e^{-x}}$
+  &
+  $\displaystyle f(x)=\tanh(x)=\frac{e^{x}-e^{-x}}{e^{x}+e^{-x}}$
+\end{tabular}
+\end{document}

@@ -1,0 +1,46 @@
+\documentclass[border=10pt]{standalone}
+\usepackage{tikz}
+\usepackage{amsmath}
+\definecolor{myred}{RGB}{190,60,45}
+
+% 左图：ReLU
+\newcommand{\relufig}{%
+\begin{tikzpicture}[x=2.2cm, y=1.8cm, >=stealth, line width=0.8pt, font=\large, baseline=(origin)]
+  \draw[->] (-1.5,0) -- (1.5,0)   node[below right] {$x$};
+  \draw[->] (0,-0.6) -- (0,1.8)   node[above right] {$y$};
+  \coordinate (origin) at (0,0);
+  % y 轴刻度
+  \draw (0,1) -- ++(-0.08,0);
+  % ReLU：左水平段 + 斜率 1 射线
+  \draw[myred, line width=1pt] (-1.5,0) -- (0,0);
+  \draw[myred, line width=1pt] (0,0) -- (1.5,1.5);
+  \fill[myred] (0,0) circle (2.5pt);          % 拐点（连续，实心）
+  \node[left] at (-0.06,1) {$1$};
+  \node[below left] at (-0.03,-0.08) {$O$};
+\end{tikzpicture}}
+
+% 右图：导数
+\newcommand{\reluderivfig}{%
+\begin{tikzpicture}[x=2.2cm, y=1.8cm, >=stealth, line width=0.8pt, font=\large, baseline=(origin)]
+  \draw[->] (-1.5,0) -- (1.5,0)   node[below right] {$x$};
+  \draw[->] (0,-0.6) -- (0,1.8)   node[above right] {$y'$};
+  \coordinate (origin) at (0,0);
+  % y 轴刻度
+  \draw (0,1) -- ++(-0.08,0);
+  % 导数：左 0 右 1，x=0 处无定义 → 两端都空心
+  \draw[myred, line width=1pt] (-1.5,0) -- (0,0);
+  \draw[myred, line width=1pt] (0,1) -- (1.5,1);
+  \draw[myred, fill=white, line width=1pt] (0,0) circle (2.5pt);
+  \draw[myred, fill=white, line width=1pt] (0,1) circle (2.5pt);
+  \node[left] at (-0.06,1) {$1$};
+  \node[below left] at (-0.03,-0.08) {$O$};
+\end{tikzpicture}}
+
+\begin{document}
+\begin{tabular}{c@{\qquad}c}
+  \relufig & \reluderivfig \\[30pt]
+  $\displaystyle f(x)=\begin{cases}0, & x<0\\ x, & x\ge 0\end{cases}$
+  &
+  $\displaystyle f'(x)=\begin{cases}0, & x<0\\ 1, & x>0\end{cases}$
+\end{tabular}
+\end{document}

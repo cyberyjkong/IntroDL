@@ -22,4 +22,19 @@
 \contentsline {subsection}{\numberline {3.4.1}AdaGrad}{36}{subsection.3.4.1}%
 \contentsline {subsection}{\numberline {3.4.2}RMSProp}{38}{subsection.3.4.2}%
 \contentsline {subsection}{\numberline {3.4.3}Adam}{39}{subsection.3.4.3}%
+\contentsline {chapter}{\numberline {4}神经网络训练与泛化}{41}{chapter.4}%
+\contentsline {section}{\numberline {4.1}梯度消失}{42}{section.4.1}%
+\contentsline {section}{\numberline {4.2}梯度爆炸}{47}{section.4.2}%
+\contentsline {section}{\numberline {4.3}批量归一化}{48}{section.4.3}%
+\contentsline {section}{\numberline {4.4}过拟合与正则化}{50}{section.4.4}%
+\contentsline {subsection}{\numberline {4.4.1}L1与L2正则化}{51}{subsection.4.4.1}%
+\contentsline {subsection}{\numberline {4.4.2}Dropout}{53}{subsection.4.4.2}%
+\contentsline {subsection}{\numberline {4.4.3}Early Stopping}{54}{subsection.4.4.3}%
+\contentsline {part}{II\hspace {1em}卷积神经网络}{57}{part.2}%
+\contentsline {chapter}{\numberline {5}卷积神经网络}{59}{chapter.5}%
+\contentsline {section}{\numberline {5.1}全连接的局限性}{59}{section.5.1}%
+\contentsline {section}{\numberline {5.2}卷积操作}{62}{section.5.2}%
+\contentsline {section}{\numberline {5.3}池化操作}{67}{section.5.3}%
+\contentsline {section}{\numberline {5.4}全连接}{69}{section.5.4}%
+\contentsline {section}{\numberline {5.5}LeNet-5}{70}{section.5.5}%
 \contentsfinish 
