@@ -1,0 +1,285 @@
+% !TEX root = ../../main.tex*
+
+\chapter{卷积结构的改进}
+
+ResNet可以做到152层，DenseNet则能达到264层。网络已经足够深了，现在，我们回到卷积操作本身，看看卷积结构还能不能进一步改进。
+
+\begin{figure}[H]
+    \boxedimage[width=0.75\textwidth]{figures/part_02/p2_ch05/convolution.pdf}
+    \caption{标准卷积操作：填充$P=1$的输入$H\times W\times M$上，$K\times K\times M$卷积核（共$N$个）在感受野（红框）处逐元素相乘求和、逐位置滑动，得输出$H\times W\times N$。}
+    \label{fig:convolution}
+\end{figure}
+
+我们先回顾一下标准卷积的基本操作。如\cref{fig:convolution}所示，假设输入特征图大小为$H\times W\times M$，其中$H$和$W$表示空间尺寸，$M$表示输入通道数。现在使用$N$个大小为$K\times K\times M$的卷积核进行卷积。以常见的$3\times3$卷积为例，设置步长$s=1$、填充$p=1$，可以保持输出特征图的空间尺寸不变，因此得到大小为$H\times W\times N$的输出特征图。
+
+一共有$N$个卷积核，所以整个卷积层的参数量为$K^2MN$。在计算过程中，每个卷积核需要在特征图的$H\times W$个空间位置上进行计算，而每个位置都需要完成$K^2M$次乘加操作。因此，整个卷积层的计算量大致为：
+$$
+H\cdot W\cdot K^2\cdot M\cdot N
+$$
+可以看到，标准卷积的计算量与空间尺寸、卷积核大小、输入通道数和输出通道数都有关。
+
+\section{分组卷积}
+
+我们首先介绍\textbf{分组卷积（Grouped Convolution）}。其实，AlexNet原始架构（\cref{fig:alexnet}）就采用了分组卷积。当时单块GPU的显存不足以容纳整个网络，Alex Krizhevsky便将部分卷积层的输入和输出通道划分成两组，分别交由两块GPU进行计算，这种将通道分组、分别进行卷积的方式，就是分组卷积。不过，当时我们主要关注AlexNet的整体结构及其历史意义，因此没有展开介绍这一细节，而是将其改成了单GPU版本进行讲解。现在，我们正式来看一下分组卷积是如何工作的。
+
+假设输入特征图大小为$H\times W\times M$，其中$M$表示输入通道数，使用$N$个大小为$K\times K$的卷积核进行卷积，得到大小为$H\times W\times N$的输出特征图。现在将输入通道和输出通道分别划分为$G$组，每组包含$\frac{M}{G}$个输入通道和$\frac{N}{G}$个输出通道。每一组只使用对应的输入通道进行卷积，不同组之间彼此独立。由于每个输出通道只需要处理本组的$\frac{M}{G}$个输入通道，因此每个卷积核的大小变为$K\times K\times\frac{M}{G}$。$G$组分别完成卷积后，再将各组得到的输出特征图沿通道维度进行拼接，最终仍然得到大小为$H\times W\times N$的输出特征图。也就是说，分组卷积并没有改变输出特征图的通道总数，而是将原本一次完整的卷积计算拆分成$G$组规模更小、彼此独立的卷积计算。
+
+现在，我们计算一下分组卷积的参数量和计算量。每组包含$\frac{N}{G}$个卷积核，每个卷积核的大小为$K\times K\times\frac{M}{G}$，因此单组的参数量为$K^2\frac{M}{G}\frac{N}{G}$。共有$G$组，所以整个卷积层的参数量为：
+$$
+G\times K^2\frac{M}{G}\frac{N}{G}=\frac{K^2MN}{G}
+$$
+与原来的$K^2MN$相比，分组卷积的参数量降低为原来的$\frac{1}{G}$。计算量也是如此。对于每个空间位置，每个输出通道只需要处理本组的$\frac{M}{G}$个输入通道，因此需要进行$K^2\frac{M}{G}$次乘加操作。每组有$\frac{N}{G}$个输出通道，整个特征图共有$H\times W$个空间位置，同时共有$G$组，因此整个卷积层的计算量为
+$$
+H\cdot W\cdot K^2\cdot\frac{MN}{G}
+$$
+相比原来的$H\cdot W\cdot K^2\cdot M\cdot N$，计算量同样降低为原来的$\frac{1}{G}$。
+
+\begin{figure}[H]
+    \boxedimage[width=0.95\textwidth]{figures/part_02/p2_ch05/group.pdf}
+    \caption{分组卷积示意图（$G=3$）。输入$5\times 5\times 24$按通道均分3组，各组独立卷积（核$3\times 3\times 8$、各$N/3$个）得$5\times 5\times N/3$，再沿通道拼接为$5\times 5\times N$。}
+    \label{fig:group}
+\end{figure}
+
+我们来看一个具体的例子，如\cref{fig:group}所示，假设输入特征图大小为$5\times5\times24$，使用$N$个$3\times3$的卷积核进行卷积。设置步长$s=1$、填充$p=1$，因此输出特征图的空间尺寸仍保持为$5\times5$。在标准卷积中，每个卷积核都需要同时处理全部24个输入通道，因此每个卷积核的实际大小为$3\times3\times24$。一共有$N$个卷积核，所以参数量为：
+$$
+3\times3\times24\times N=216N
+$$
+卷积核需要在输出特征图的$5\times5$个空间位置上进行计算，因此整个卷积层的计算量大致为：
+$$
+5\times5\times3\times3\times24\times N=5400N
+$$
+现在采用$G=3$的分组卷积。24个输入通道被平均分成3组，每组包含8个通道；$N$个输出通道也被分成3组，每组产生$\frac{N}{3}$个输出通道。这样，每组中的卷积核只需要处理本组的8个输入通道，因此每个卷积核的大小变为$3\times3\times8$。对于其中一组，参数量为$3\times3\times8\times\frac{N}{3}$，3组的总参数量为：
+$$
+3\times3\times3\times8\times\frac{N}{3}=72N
+$$
+与标准卷积的$216N$相比，分组卷积的参数量降低为原来的$\frac{1}{3}$。由于输出特征图仍然为$5\times5$，因此计算量为：
+$$
+5\times5\times3\times3\times8\times N=1800N.
+$$
+与标准卷积的$5400N$相比，计算量同样降低为原来的$\frac{1}{3}$。
+
+可以看到，分组卷积并没有减少输出特征图的总通道数，最终仍然得到$N$个输出通道，它真正改变的是输入通道与输出通道之间的连接方式。在标准卷积过程中，每个输出通道都与全部输入通道相连接，而分组之后，每个输出通道只与本组的输入通道相连接。通过减少这种连接，分组卷积可以在不改变输出通道数的情况下，同时降低参数量和计算量。不过，这种设计也带来了相应的代价：不同组之间无法直接进行信息交互，第1组的输出只能利用第1组输入的信息，第2组的输出也只能利用第2组输入的信息，原本可以在一次卷积中完成的跨通道信息融合，被限制在了各自的组内。因此，分组卷积实际上是在计算效率和信息交互之间进行权衡：通过减少通道之间的连接，降低参数量和计算量，但同时牺牲了部分通道之间的信息交互能力。
+
+\section{深度可分离卷积}
+
+既然分组卷积可以减少参数量和计算量，且分组数$G$越大，每组需要处理的通道数就越少，计算量也越低。那么我们不妨大胆一点：直接把分组数增加到最大，让每个输入通道单独成为一组，会发生什么？
+
+假设输入特征图大小为$H\times W\times M$。当$G=M$时，每组只包含一个输入通道。此时，每个输入通道都单独使用一个$K\times K$卷积核进行卷积，不再与其他通道共同参与计算。这就是\textbf{深度卷积（Depthwise Convolution）}。如\cref{fig:depthwise}所示，输入特征图的$M$个通道分别进行卷积，每个通道对应一个$K\times K$卷积核，因此一共需要$M$个卷积核。这样一来，每个通道都可以独立提取自己的空间特征，但不同通道之间完全没有信息交互。
+
+\begin{figure}[H]
+    \boxedimage[width=0.95\textwidth, trim=0 0 0 0, clip]{figures/part_02/p2_ch05/depthwise.pdf}
+    \caption{深度卷积（Depthwise Convolution），即分组数$G=M$的分组卷积。输入$H\times W\times M$的每个通道单独成组，各用一个$K\times K$卷积核独立卷积（共$M$个核），只提取本通道的空间特征；各组输出沿通道拼接后仍为$H\times W\times M$，通道之间没有任何信息交互。}
+    \label{fig:depthwise}
+\end{figure}
+
+那不同通道之间的信息该如何融合呢？我们之前介绍过，$1\times1$卷积不会改变特征图的空间尺寸，却可以在通道维度上对特征进行重新组合。如\cref{fig:pointwise}所示，我们可以使用$N$个$1\times1$卷积核，对$M$个输入通道进行线性组合，从而得到$N$个输出通道。由于这种卷积只作用于单个空间位置，因此$1\times1$卷积也被称为\textbf{逐点卷积（Pointwise Convolution）}。
+
+\begin{figure}[H]
+    \boxedimage[width=0.75\textwidth, trim=0 0 0 0, clip]{figures/part_02/p2_ch05/pointwise.pdf}
+    \caption{逐点卷积（Pointwise Convolution），即$1\times 1$卷积。$N$个$1\times 1\times M$卷积核只作用于单个空间位置（红框柱），对全部$M$个通道做线性组合；空间尺寸保持$H\times W$不变，通道数由$M$变为$N$。}
+    \label{fig:pointwise}
+\end{figure}
+
+这样一来，原本由标准卷积同时完成的空间特征提取和通道信息融合，就可以被拆分成两个步骤：
+$$
+\text{标准卷积}\quad\Longrightarrow\quad\text{Depthwise Conv}\quad+\quad\text{Pointwise Conv}
+$$
+第一步使用Depthwise Conv，负责在每个通道内部提取空间特征；第二步使用Pointwise Conv，负责在通道之间重新组合这些特征。两者结合起来，就得到了\textbf{深度可分离卷积（Depthwise Separable Convolution）}\footnote{深度可分离卷积的思想可追溯至Laurent Sifre博士于2014年在巴黎综合理工学院完成的博士论文《Rigid-Motion Scattering for Image Classification》。不过，该博士论文目前尚未检索到公开可访问的PDF链接；arXiv上可检索到的是同作者2014年发表的论文\href{https://arxiv.org/abs/1403.1687}{\textit{Rigid-motion scattering for texture classification}}，二者并非同一篇文献，但后者同样阐述了深度可分离卷积的思想。}，如\cref{fig:depthwise_separable}所示。
+
+\begin{figure}[H]
+    \boxedimage[width=0.95\textwidth, trim=0 0 0 0, clip]{figures/part_02/p2_ch05/depthwise_separable.pdf}
+    \caption{深度可分离卷积（Depthwise Separable Convolution）。左半为深度卷积：每个通道独立卷积、提取空间特征，拼接得中间特征图$H\times W\times M$；右半为逐点卷积：$N$个$1\times 1\times M$核跨通道重新组合，输出$H\times W\times N$。原本一步完成的空间提取与通道融合被拆为两步。}
+    \label{fig:depthwise_separable}
+\end{figure}
+
+接下来，我们计算一下深度可分离卷积的计算量。假设输入特征图大小为$H\times W\times M$，输出通道数为$N$，卷积核大小为$K\times K$。对于标准卷积，我们之前算过，计算量为：
+$$
+H\cdot W\cdot K^2\cdot M\cdot N
+$$
+对于Depthwise Conv，每个输入通道只需要使用一个$K\times K$卷积核进行卷积，因此一共需要$M$个卷积核。每个空间位置需要进行$K^2$次乘加操作，所以计算量为：
+$$
+H\cdot W\cdot K^2\cdot M
+$$
+接下来，Pointwise Conv使用$N$个$1\times1$卷积核，将$M$个输入通道映射为$N$个输出通道。对于每个空间位置，都需要进行$M\cdot N$次乘加操作，因此计算量为：
+$$
+H\cdot W\cdot M\cdot N
+$$
+所以，深度可分离卷积的总计算量为：
+$$
+H\cdot W\cdot K^2\cdot M+H\cdot W\cdot M\cdot N
+$$
+与标准卷积相比，深度可分离卷积的计算量为前者的：
+$$
+\frac{H\cdot W\cdot K^2\cdot M+H\cdot W\cdot M\cdot N}
+{H\cdot W\cdot K^2\cdot M\cdot N}
+=
+\frac{1}{N}+\frac{1}{K^2}
+$$
+对于最常见的$3\times3$卷积，这一比例为：
+$$
+\frac{1}{N}+\frac{1}{9}
+$$
+当输出通道数$N$较大时，$\frac{1}{N}$会变得很小，因此整体比例接近$\frac{1}{9}$。将空间特征提取与通道信息混合拆分为两个步骤，深度可分离卷积能够在保持这两种能力的同时，大幅降低卷积操作的计算量。
+
+2017年，Google在论文\href{https://openaccess.thecvf.com/content_cvpr_2017/papers/Chollet_Xception_Deep_Learning_CVPR_2017_paper.pdf}{\textit{Xception: Deep Learning with Depthwise Separable Convolutions}}中提出了Xception网络，其核心思想是使用深度可分离卷积替代Inception模块中的卷积结构，将空间特征提取与通道信息混合进一步分离。Xception在ImageNet上的Top-5错误率为5.5\%，表现出了很强的图像分类能力。同年，Google又在论文\href{https://arxiv.org/abs/1704.04861}{\textit{MobileNets: Efficient Convolutional Neural Networks for Mobile Vision Applications}}中提出了面向移动端和嵌入式设备的MobileNet。MobileNet以深度可分离卷积作为网络的主体，将普通卷积拆分为Depthwise Conv和Pointwise Conv，仅第一层仍采用普通卷积。在ImageNet上，MobileNet的Top-5错误率为10.5\%，同时整个模型仅有约4.2M个参数，其中$\mathrm{M}$表示百万（Million）。作为对比，将MobileNet中的深度可分离卷积全部替换为普通卷积后，Top-5错误率可降至9.4\%，但参数量也随之增加到约29.3M。由此可以看出，深度可分离卷积能够在保持较好分类性能的同时，有效降低模型的参数量和计算量。
+
+\section{空洞卷积}
+
+计算量降低之后，我们可以进一步思考：卷积的感受野能不能扩大？以$3\times3$卷积为例，它每次只能观察局部的$3\times3$区域。如果希望网络看到更大的范围，一个直接的办法就是堆叠更多卷积层。例如，连续使用两个$3\times3$卷积，第二层的一个神经元就可以间接看到输入中的$5\times5$区域；继续堆叠，感受野还会进一步扩大，但同时也会带来额外的计算开销。另一种办法是直接增大卷积核，例如使用$5\times5$甚至$7\times7$的卷积，但卷积核越大，参数量和计算量也会随之增加。
+
+那么，有没有一种方法，能够既保持$3\times3$卷积核的大小，又获得更大的感受野？是的，钱我不想付，货我又想要。
+
+我们可以换一个思路。卷积核本身仍然是$3\times3$，但没有规定它的9个采样位置必须紧紧挨在一起。如果把相邻采样点之间的距离拉开一些，让卷积核“跳着”采样，会发生什么？如\cref{fig:receptive_field}所示，一个普通的$3\times3$卷积会连续采样一个$3\times3$区域；当采样间隔扩大为2时，9个采样点分布在一个$5\times5$的区域中；当采样间隔扩大为3时，则可以覆盖一个$7\times7$的区域。
+
+\begin{figure}[H]
+    \boxedimage[width=0.95\textwidth, trim=0 {0.03\height} 0 {0.03\height}, clip]{figures/part_02/p2_ch05/receptive_field.pdf}
+    \caption{空洞卷积的感受野。深绿格为9个采样点，红框为感受野：膨胀率$d=1$时感受野为$3\times 3$；$d=2$时采样点间隔拉开、感受野扩至$5\times 5$；$d=3$时达$7\times 7$。采样点数始终不变，感受野随$d$增大而扩大。}
+    \label{fig:receptive_field}
+\end{figure}
+
+这就是\textbf{空洞卷积（Dilated Convolution）}的基本思想\footnote{空洞卷积的思想可追溯至1989年，M. Holschneider等人在小波分析（信号处理领域）中提出的“à trous”算法，论文为\href{https://doi.org/10.1007/978-3-642-75988-8_28}{\textit{A Real-Time Algorithm for Signal Analysis with the Help of the Wavelet Transform}}。2015年，Fisher Yu和Vladlen Koltun在论文\href{https://arxiv.org/abs/1511.07122}{\textit{Multi-Scale Context Aggregation by Dilated Convolutions}}中将这一思想系统用于卷积神经网络，并使用了“Dilated Convolution”这一术语。}：不改变卷积核的参数数量，而是扩大卷积核采样点之间的间隔，从而扩大感受野。采样点之间的间隔由\textbf{空洞率（Dilation Rate）}$d$控制。对于大小为$K\times K$的卷积核，空洞率为$d$时，其实际覆盖范围，也就是有效感受野大小为：
+$$
+K_{\mathrm{eff}}=K+(K-1)(d-1)
+$$
+对于最常见的$3\times3$卷积，当$d=1$时，有效感受野为$3\times3$；当$d=2$时，有效感受野扩大为$5\times5$；当$d=3$时，则扩大为$7\times7$。
+
+空洞卷积的具体操作如\cref{fig:dilated}所示。可以看到，卷积仍然是将采样位置上的元素分别相乘，再将结果相加，计算方式并没有改变。变化的只是采样点之间的间隔。因此，卷积核本身的大小并没有改变，无论空洞率$d$取1、2还是3，$3\times3$卷积始终只有9个可学习参数，参数量也不会因为感受野扩大而增加。在输入和输出特征图尺寸相同的情况下，每个输出位置参与计算的采样点数量也没有改变，因此计算量与普通$3\times3$卷积相同。
+
+\begin{figure}[H]
+    \boxedimage[width=0.75\textwidth, trim=0 {0.04\height} 0 {0.04\height}, clip]{figures/part_02/p2_ch05/dilated.pdf}
+    \caption{空洞卷积的具体操作（$3\times 3$核、$d=2$）。左图红框为$5\times 5$感受野，其中9个深绿采样点与中图核的9个深紫权重逐元素相乘并求和（底部算式），其余位置被跳过；结果24落入右图输出特征图（$6\times 6$）的左上高亮格。}
+    \label{fig:dilated}
+\end{figure}
+
+不过，随着空洞率$d$增大，卷积核的有效覆盖范围也会随之扩大。如果不增加相应的填充，输出特征图的空间尺寸就会减小。对于输入尺寸为$H\times W$、卷积核大小为$K\times K$、步长为$s$、填充为$p$、空洞率为$d$的卷积，输出特征图的空间尺寸为：
+$$
+H_{\mathrm{out}} = \left\lfloor \frac{H+2p-d(K-1)-1}{s}+1 \right\rfloor \qquad W_{\mathrm{out}} = \left\lfloor \frac{W+2p-d(K-1)-1}{s}+1 \right\rfloor
+$$
+
+我们来看一个具体的例子。如\cref{fig:dilated_example}所示，以之前的数字7为例，假设输入特征图大小为$10\times10$。首先使用$3\times3$的标准卷积，设置步长$s=1$、填充$p=0$，此时输出特征图大小为$8\times8$。如果将其改为空洞率$d=2$的空洞卷积，在步长和填充保持不变的情况下，有效卷积核大小扩大为$5\times5$，因此输出特征图大小变为$6\times6$。可以看到，虽然采样点之间存在间隔，但卷积仍然能够提取数字7中的横线特征，同时获得更大的感受野。
+
+\begin{figure}[H]
+    \boxedimage[width=0.6\textwidth, trim=0 0 0 0, clip]{figures/part_02/p2_ch05/dilated_example.pdf}
+    \caption{标准卷积与空洞卷积对比（输入均为$10\times 10$）。上排$3\times 3$标准卷积的红框为连续$3\times 3$感受野，输出$8\times 8$；下排$d=2$空洞卷积的9个采样点分散于$5\times 5$区域，输出$6\times 6$。两排红框同处右下角同一位置，高亮格为对应的输出值；采样点数相同，空洞卷积覆盖范围更大。}
+    \label{fig:dilated_example}
+\end{figure}
+
+当然，空洞卷积也并非没有代价。当空洞率过大时，采样点之间会出现越来越大的间隔，卷积核可能跳过一些重要的局部信息。因此，在实际网络中通常需要合理设置空洞率，或者采用不同空洞率的卷积进行组合，在扩大感受野的同时保留足够的局部信息。空洞卷积在许多需要扩大感受野的视觉任务中都有应用，后续章节中，我们还将进一步使用这一操作。
+
+\section{Squeeze-and-Excitation}
+
+\begin{figure}[H]
+    \boxedimage[width=0.95\textwidth, trim=0 0 0 0, clip]{figures/part_02/p2_ch05/channel.pdf}
+    \caption{通道重要性随输入变化。卷积输出的4个通道分别对应不同类型的特征（胡须、毛发纹理、窗户、车轮）：输入为猫时，胡须与毛发纹理通道权重大；输入为车时，窗户与车轮通道权重大。}
+    \label{fig:channel}
+\end{figure}
+
+除了计算量和感受野，卷积还有一个重要维度：通道。那么，通道之间能不能进一步优化呢？假设经过一个卷积层后，得到大小为$H\times W\times C$的特征图，其中$C$表示通道数。如\cref{fig:channel}所示，不同通道通常对应着不同类型的特征，而对于不同的输入，这些特征的重要程度也可能不同。那么，能不能让网络根据当前输入，自动判断哪些通道更加重要，并对不同通道进行有区别的处理呢？
+
+一个直接的想法是，为不同通道分配不同的权重。假设卷积层的输出为：
+$$
+X\in\mathbb{R}^{H\times W\times C}
+$$
+记第$c$个通道为$x_c\in\mathbb{R}^{H\times W}$，我们希望根据其重要程度对它进行重新调整：
+$$
+\widetilde{x}_c=s_cx_c,
+$$
+其中$s_c$表示第$c$个通道的权重。那么，这些权重$s_1,s_2,\ldots,s_C$又应该如何得到？
+
+最简单的办法，是直接为每个通道设置一个可学习的参数。但这样得到的权重在训练完成后就是固定的，与当前输入无关。我们真正需要的是一组随输入变化的权重，也就是说，需要根据当前特征图$X$动态生成$s$。那么，如何根据当前特征图判断每个通道的重要程度呢？我们并不需要知道一个通道具体在哪些位置产生了响应，而更关心它在当前输入下的整体表现。因此，我们可以压缩每个通道的空间信息，只保留一个能够代表其整体响应的数值。
+
+对于第$c$个通道$x_c$，其对应的特征图为：
+$$
+x_c=\begin{bmatrix}
+x_c(1,1) & x_c(1,2) & \cdots & x_c(1,W)\\
+x_c(2,1) & x_c(2,2) & \cdots & x_c(2,W)\\
+\vdots & \vdots & \ddots & \vdots\\
+x_c(H,1) & x_c(H,2) & \cdots & x_c(H,W)
+\end{bmatrix}
+$$
+我们可以直接对特征图中的所有元素求平均，得到一个能够代表该通道整体响应的数值：
+$$
+z_c=\frac{1}{HW}\sum_{i=1}^{H}\sum_{j=1}^{W}x_c(i,j)
+$$
+对全部$C$个通道进行相同处理后，可以得到一个长度为$C$的向量：
+$$
+z=[z_1,z_2,\ldots,z_C]\in\mathbb{R}^{C}
+$$
+这样，原来的$H\times W\times C$特征图就被压缩成了一个$C$维向量，空间位置信息被聚合，而每个通道的整体响应被保留下来。这个操作被称为\textbf{Squeeze}\footnote{Squeeze操作在数学上就是对每个通道进行全局平均池化（Global Average Pooling）。}。
+
+现在，我们已经得到了每个通道的整体响应$z$，接下来就需要根据$z$判断各个通道的重要程度。一个通道的重要性不能只由自身的响应决定，还可能与其他通道的状态有关，因此我们需要让不同通道之间进行信息交互。
+
+一个直接的办法是使用全连接层。假设有$C=4$个通道，Squeeze之后得到向量$z=[z_1,z_2,z_3,z_4]$。我们希望得到4个对应的通道权重，那么可以使用一个$4\rightarrow4$的全连接层。例如，第1个输出可以写成：
+$$
+a_1=w_{11}z_1+w_{12}z_2+w_{13}z_3+w_{14}z_4+b_1
+$$
+第2个输出则为：
+$$
+a_2=w_{21}z_1+w_{22}z_2+w_{23}z_3+w_{24}z_4+b_2
+$$
+其他输出也以同样的方式计算。可以看到，每一个输出都同时利用了4个通道的信息，因此一个通道最终得到的输出不仅取决于自身，还可以参考其他通道的状态，这样就实现了通道之间的信息交互。
+
+写成矩阵形式，就是：
+$$
+a=Wz+b
+$$
+其中$W\in\mathbb{R}^{C\times C}$。因此，这个全连接层包含$C^2$个权重参数。当通道数较大时，这样的参数量也会随之增加。我们其实只是希望学习不同通道之间的关系，并不需要始终在完整的$C$维空间中进行计算。因此，可以先将$z$压缩到较低维度，再恢复到原来的维度：
+$$
+C\rightarrow\frac{C}{r}\rightarrow C
+$$
+其中$r$称为\textbf{缩减率（Reduction Ratio）}。通过这种瓶颈结构，可以在减少参数量的同时完成通道之间的信息交互。
+
+实际操作中，这个$C\rightarrow\frac{C}{r}\rightarrow C$的过程由两个全连接层组成。第一个全连接层负责将$C$维的通道描述向量压缩到$\frac{C}{r}$维，并通过ReLU激活函数进行非线性变换：
+$$
+u=\delta(W_1z+b_1)
+$$
+其中$W_1\in\mathbb{R}^{\frac{C}{r}\times C}$，$b_1\in\mathbb{R}^{\frac{C}{r}}$，$\delta(\cdot)$表示ReLU激活函数。这样，原来的$C$个通道信息被压缩成一个$\frac{C}{r}$维的紧凑表示。接着，第二个全连接层将这个低维表示重新映射回$C$维，并通过Sigmoid函数得到每个通道对应的权重：
+\begin{gather*}
+a = W_2 u + b_2 \\
+s = \sigma(a)
+\end{gather*}
+其中$W_2\in\mathbb{R}^{C\times\frac{C}{r}}$，$b_2\in\mathbb{R}^{C}$，$\sigma(\cdot)$表示Sigmoid函数。最终得到
+$$
+s=[s_1,s_2,\ldots,s_C]
+\qquad s_c\in(0,1)
+$$
+其中，$s_c$表示第$c$个通道的权重。由于$s$是根据当前输入经过Squeeze得到的通道描述$z$计算得到的，因此它会随输入的变化而变化，从而实现对不同输入进行自适应的通道加权。从$z$生成$s$的这一过程，就是\textbf{Excitation}。
+
+\begin{orangeBox}{为什么使用两个不同的激活函数？}
+Excitation部分由两个全连接层组成：
+$$
+\text{FC}_1\rightarrow\text{ReLU}\rightarrow\text{FC}_2\rightarrow\text{Sigmoid}
+$$
+这里使用两种不同的激活函数，是因为两个位置承担的任务不同。
+
+第一个全连接层将$C$维通道描述压缩到$\frac{C}{r}$维，主要作用是学习不同通道之间的关系。如果两个全连接层之间没有非线性激活函数，那么它们连续进行的仍然只是线性变换，两个线性变换可以合并成一个线性变换，模型的表达能力就会受到限制。因此，在第一个全连接层后加入ReLU，使网络能够学习更加复杂的非线性通道关系。例如，某个通道的重要程度可能不仅取决于自身的响应，还可能取决于多个通道组合后的结果。ReLU在这里负责引入非线性，帮助网络学习通道之间的关系。
+
+第二个全连接层将$\frac{C}{r}$维表示恢复到$C$维，输出的就是每个通道对应的权重。因此，这里的重点不再是增加表达能力，而是将输出变成适合作为缩放系数的数值。Sigmoid可以将任意实数映射到$(0,1)$：
+$$
+s_c=\sigma(a_c)\in(0,1).
+$$
+这样得到的$s_c$可以直接与原始特征$x_c$相乘：
+$$
+\widetilde{x}_c=s_cx_c.
+$$
+此时，$s_c$可以直观地看作一个软门控系数：$s_c$接近1时，保留该通道的大部分信息；$s_c$接近0时，则抑制该通道。因此，Sigmoid在这里负责将学习到的通道关系转换为可用于特征重标定的权重。
+
+所以，两种激活函数的分工可以简单概括为：ReLU负责“学”，Sigmoid负责“控”。前者提供非线性表达能力，后者将输出约束到$(0,1)$范围内，从而形成通道的软门控。
+\end{orangeBox}
+
+如\cref{fig:se}所示，Squeeze-and-Excitation模块的完整流程可以概括为：首先通过\textbf{Squeeze}对每个通道进行全局平均池化，将$H\times W\times C$的特征图压缩为$C$维通道描述；然后通过\textbf{Excitation}学习不同通道之间的关系，并根据当前输入生成$C$个通道权重。最后，将得到的权重重新作用于原始特征图，对不同通道的特征进行自适应调整：
+$$
+X\rightarrow\text{Squeeze}\rightarrow z\rightarrow\text{Excitation}\rightarrow s\rightarrow\text{Feature Recalibration}\rightarrow\widetilde{X}
+$$
+
+\begin{figure}[H]
+    \boxedimage[width=0.95\textwidth, trim=0 0 0 0, clip]{figures/part_02/p2_ch05/se.pdf}
+    \caption{Squeeze-and-Excitation模块。Squeeze对每个通道做全局平均池化，将$H\times W\times C$特征图压缩为$1\times 1\times C$的通道描述；Excitation经全连接生成$C$个通道权重（彩色条）；最后权重与原始特征图逐通道相乘（$\ast$），重标定各通道强度，输出仍为$H\times W\times C$。}
+    \label{fig:se}
+\end{figure}
+
+其中，Squeeze负责提取每个通道的全局信息，Excitation负责根据这些信息生成通道权重，Feature Recalibration则利用这些权重重新调整各通道的特征强度。这样，网络就可以根据当前输入，自适应地突出更加重要的通道，同时抑制相对不重要的通道。
+
+\begin{quote}
+    至此，我们已经学习了一些经典的卷积网络，也了解了卷积结构的改进。不过，目前介绍的这些网络主要用于图像分类。接下来，我们将跳出分类任务，看看卷积神经网络如何应用于更加丰富的视觉任务。
+\end{quote}

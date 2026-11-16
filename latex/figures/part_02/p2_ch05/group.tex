@@ -1,0 +1,278 @@
+% \documentclass[border=15pt]{standalone}
+% \usepackage{tikz,amsmath}
+% \usetikzlibrary{arrows.meta,decorations.pathreplacing}
+
+% % ========== 配色方案 ==========
+% \definecolor{hidFill}{RGB}{199,203,243}
+% \definecolor{hidLine}{RGB}{52,58,143}
+% \definecolor{inFill}{RGB}{183,224,177}
+% \definecolor{inLine}{RGB}{32,102,32}
+% \definecolor{outFill}{RGB}{243,199,199}
+% \definecolor{outLine}{RGB}{143,52,52}
+
+% \begin{document}
+% \begin{tikzpicture}[
+%     font=\small, line join=round,
+%     every node/.style={inner sep=0pt, outer sep=0pt, align=center}
+%   ]
+
+%   % ========== 通用 3D 堆叠切片宏 ==========
+%   % #1: x, #2: y, #3: 网格格数, #4: 单元格尺寸, #5: 颜色前缀, #6: 叠加层数, #7: 层间深度步长
+%   \newcommand{\stackbox}[7]{%
+%     \foreach \k in {#6,...,1}{%
+%       \pgfmathtruncatemacro{\op}{round(100 - (55 * \k / #6))}%
+%       \fill[#5Fill!\op, draw=#5Line, line width=.35pt]
+%             ({#1+#7*\k},{#2+#7*\k}) rectangle ++(#3*#4,#3*#4);
+%     }
+%     \fill[#5Fill] (#1,#2) rectangle ++(#3*#4,#3*#4);
+%     \draw[step=#4, #5Line!60, line width=.35pt, shift={(#1,#2)}] (0,0) grid (#3*#4,#3*#4);
+%     \draw[#5Line, thick] (#1,#2) rectangle ++(#3*#4,#3*#4);
+%   }
+
+%   % ========== 红色 3D 感受野/卷积立体框宏 ==========
+%   % #1: x, #2: y, #3: 宽, #4: 高, #5: 深度偏移
+%   \newcommand{\prism}[5]{%
+%     \draw[outLine, dashed, line width=.7pt]
+%           (#1+#5,#2+#5) rectangle (#1+#5+#3,#2+#5+#4);
+%     \draw[outLine, line width=1.1pt]
+%           (#1+#5,#2+#5+#4) -- (#1+#5+#3,#2+#5+#4);
+%     \draw[outLine, dashed, line width=.7pt]
+%           (#1,#2)--(#1+#5,#2+#5) (#1+#3,#2)--(#1+#3+#5,#2+#5);
+%     \draw[outLine, line width=1.1pt] (#1,#2) rectangle (#1+#3,#2+#4);
+%     \draw[outLine, line width=1.1pt]
+%           (#1,#2+#4)--(#1+#5,#2+#5+#4) (#1+#3,#2+#4)--(#1+#3+#5,#2+#5+#4);
+%   }
+
+%   % 1. 左侧：总输入特征图 (7x7x24)
+%   \stackbox{-5.4}{-1.225}{7}{0.35}{in}{10}{0.08}
+%   \prism{-5.4}{0.175}{1.05}{1.05}{0.8}
+%   \node[align=center] at (-4.0, -2.1) {\textbf{Input Feature Map}\\$H\times W\times C_{in}$\\($7\times 7\times 24$)};
+
+%   % 加长后的 Split 箭头与说明文字 (指向左侧大花括号尖端)
+%   \draw[->, >=Stealth, line width=1.2pt, inLine] (-2.0, 0) -- (-0.5, 0);
+%   \node[above, font=\bfseries\footnotesize, inLine] at (-1.4, 0.18) {Split\\($g=3$)};
+
+%   % 2. 左侧大花括号（开口向右，紧凑包裹三组分支，无多余箭头）
+%   \draw[inLine, line width=1.2pt, decorate, decoration={brace, amplitude=12pt}]
+%        (-0.05, -5.3) -- (-0.05, 5.3);
+
+%   % 3. 中间三组卷积分支
+%   \foreach \Y/\grp in {4.6/1, 0.0/2, -4.6/3}{
+%     % 分组标题
+%     \node[font=\bfseries\small, hidLine] at (1.6, \Y + 1.9) {Group \grp};
+
+%     % (1) 分组输入切片 7x7
+%     \stackbox{0.4}{\Y - 1.225}{7}{0.35}{in}{5}{0.09}
+%     \prism{0.4}{\Y + 0.175}{1.05}{1.05}{0.45}
+%     \node[font=\scriptsize] at (1.6, \Y - 1.6) {$7\times 7\times 8$};
+
+%     % (2) 卷积符号 *
+%     \node[font=\LARGE] at (3.85, \Y) {$\ast$};
+
+%     % (3) 紫色卷积核组 (每组画2个核，中间为 \cdots 与倍数)
+%     % 核 1 (上)
+%     \stackbox{4.4}{\Y + 0.45}{3}{0.28}{hid}{5}{0.09}
+%     \prism{4.4}{\Y + 0.45}{0.84}{0.84}{0.45}
+
+%     % 中间省略号与倍数
+%     \node[font=\large] at (4.82, \Y + 0.2) {$\cdots$};
+%     \node[font=\scriptsize, anchor=west] at (5.45, \Y - 1.2) {$\times \frac{N}{3}$};
+
+%     % 核 2 (下)
+%     \stackbox{4.4}{\Y - 1.29}{3}{0.28}{hid}{5}{0.09}
+%     \node[font=\scriptsize] at (4.82, \Y - 1.65) {$3\times 3\times 8$};
+
+%     % (4) 等号 =
+%     \node[font=\LARGE] at (6.7, \Y) {$=$};
+
+%     % (5) 分组输出切片 5x5 (已去除指向右花括号的箭头)
+%     \stackbox{7.3}{\Y - 0.875}{5}{0.35}{out}{5}{0.09}
+%     % 左上角高亮输出单元
+%     \fill[outLine!40] (7.3, \Y + 0.525) rectangle ++(0.35, 0.35);
+%     \draw[outLine, line width=1pt] (7.3, \Y + 0.525) rectangle ++(0.35, 0.35);
+%     \node[font=\scriptsize] at (8.15, \Y - 1.3) {$5\times 5\times \frac{N}{3}$};
+%   }
+
+%   % 4. 右侧大花括号（开口向左，紧贴三组输出，无多余箭头）
+%   \draw[outLine, line width=1.2pt, decorate, decoration={brace, amplitude=12pt}]
+%        (9.9, 5.3) -- (9.9, -5.3);
+
+%   % 从右花括号尖端指向 Concat 模块的箭头
+%   \draw[->, >=Stealth, line width=1.2pt, outLine] (10.4, 0) -- (11.0, 0);
+
+%   % Concat 处理节点
+%   \node[draw=outLine, fill=outFill!30, rounded corners=3pt, line width=1pt,
+%         inner sep=5pt, font=\bfseries\small, text=outLine] (concat) at (11.8, 0) {Concat};
+
+%   % 从 Concat 指向最终总输出图的箭头
+%   \draw[->, >=Stealth, line width=1.2pt, outLine] (concat.east) -- (13.3, 0);
+
+%   % 5. 最右侧：合并后的最终输出特征图 (5x5x24)
+%   \stackbox{13.6}{-0.875}{5}{0.35}{out}{10}{0.08}
+%   % 对应的合成高亮输出像素点
+%   \fill[outLine!40] (13.6, 0.525) rectangle ++(0.35, 0.35);
+%   \draw[outLine, line width=1pt] (13.6, 0.525) rectangle ++(0.35, 0.35);
+%   \node[align=center] at (14.5, -2.1) {\textbf{Output Feature Map}\\$H'\times W'\times C_{out}$\\($5\times 5\times N$)};
+
+% \end{tikzpicture}
+% \end{document}
+\documentclass[border=15pt]{standalone}
+\usepackage{tikz,amsmath}
+\usetikzlibrary{arrows.meta,decorations.pathreplacing}
+
+% ========== 配色方案 ==========
+\definecolor{hidFill}{RGB}{199,203,243}
+\definecolor{hidLine}{RGB}{52,58,143}
+\definecolor{inFill}{RGB}{183,224,177}       % 真实特征图绿色
+\definecolor{inLine}{RGB}{32,102,32}
+\definecolor{outFill}{RGB}{243,199,199}
+\definecolor{outLine}{RGB}{143,52,52}
+\definecolor{padFill}{RGB}{228,244,226}     % 浅浅绿色填充 (Padding)
+\definecolor{padLine}{RGB}{120,170,120}     % padding 网格与虚线边框色 (柔和草绿)
+
+\begin{document}
+\begin{tikzpicture}[
+    font=\small, line join=round,
+    every node/.style={inner sep=0pt, outer sep=0pt, align=center}
+  ]
+
+  % ========== 通用 3D 堆叠切片宏 (无 Padding) ==========
+  % #1: x, #2: y, #3: 网格格数, #4: 单元格尺寸, #5: 颜色前缀, #6: 叠加层数, #7: 层间深度步长
+  \newcommand{\stackbox}[7]{%
+    \foreach \k in {#6,...,1}{%
+      \pgfmathtruncatemacro{\op}{round(100 - (55 * \k / #6))}%
+      \fill[#5Fill!\op, draw=#5Line, line width=.35pt]
+            ({#1+#7*\k},{#2+#7*\k}) rectangle ++(#3*#4,#3*#4);
+    }
+    \fill[#5Fill] (#1,#2) rectangle ++(#3*#4,#3*#4);
+    \draw[step=#4, #5Line!60, line width=.35pt, shift={(#1,#2)}] (0,0) grid (#3*#4,#3*#4);
+    \draw[#5Line, thick] (#1,#2) rectangle ++(#3*#4,#3*#4);
+  }
+
+  % ========== 带 Padding 的 3D 堆叠切片宏 ==========
+  % #1: x, #2: y, #3: 内层真实数据格数, #4: 每格尺寸, #5: 颜色前缀, #6: 叠加层数, #7: 深度步长, #8: padding圈数
+  \newcommand{\stackboxpad}[8]{%
+    \pgfmathtruncatemacro{\totgrid}{#3 + 2*#8}
+    \pgfmathsetmacro{\totdim}{\totgrid * #4}
+    \pgfmathsetmacro{\indim}{#3 * #4}
+    \pgfmathsetmacro{\padoff}{#8 * #4}
+    % --- 背后叠加层 (从后往前绘制) ---
+    \foreach \k in {#6,...,1}{%
+      \pgfmathtruncatemacro{\op}{round(100 - (55 * \k / #6))}%
+      % 背后 padding 浅浅绿色底色
+      \fill[padFill!\op, draw=padLine, line width=.35pt]
+            ({#1+#7*\k},{#2+#7*\k}) rectangle ++(\totdim,\totdim);
+      % 背后 真实特征图区域
+      \fill[#5Fill!\op, draw=#5Line, line width=.35pt]
+            ({#1+#7*\k+\padoff},{#2+#7*\k+\padoff}) rectangle ++(\indim,\indim);
+    }
+    % --- 正面层 ---
+    % 1. 正面 padding 底色与虚线网格
+    \fill[padFill] (#1,#2) rectangle ++(\totdim,\totdim);
+    \draw[step=#4, padLine!70, dashed, line width=.35pt, shift={(#1,#2)}] (0,0) grid (\totdim,\totdim);
+    % 2. 正面 真实数据特征图底色与实线网格
+    \fill[#5Fill] ({#1+\padoff},{#2+\padoff}) rectangle ++(\indim,\indim);
+    \draw[step=#4, #5Line!60, line width=.35pt, shift={({#1+\padoff},{#2+\padoff})}] (0,0) grid (\indim,\indim);
+    % 3. 边框：内层特征图实线框，外圈 padding 虚线框
+    \draw[#5Line, thick] ({#1+\padoff},{#2+\padoff}) rectangle ++(\indim,\indim);
+    \draw[padLine, thick, dashed] (#1,#2) rectangle ++(\totdim,\totdim);
+    % 4. 正面 padding 单元格填入 0
+    \pgfmathtruncatemacro{\lastidx}{\totgrid-1}
+    \foreach \ix in {0,...,\lastidx}{%
+      \node[font=\fontsize{5}{6}\selectfont, text=padLine!90] at ({#1+(\ix+0.5)*#4}, {#2+0.5*#4}) {0};
+      \node[font=\fontsize{5}{6}\selectfont, text=padLine!90] at ({#1+(\ix+0.5)*#4}, {#2+(\lastidx+0.5)*#4}) {0};
+    }
+    \pgfmathtruncatemacro{\midend}{\lastidx-1}
+    \foreach \iy in {1,...,\midend}{%
+      \node[font=\fontsize{5}{6}\selectfont, text=padLine!90] at ({#1+0.5*#4}, {#2+(\iy+0.5)*#4}) {0};
+      \node[font=\fontsize{5}{6}\selectfont, text=padLine!90] at ({#1+(\lastidx+0.5)*#4}, {#2+(\iy+0.5)*#4}) {0};
+    }
+  }
+
+  % ========== 红色 3D 感受野/卷积立体框宏 ==========
+  % #1: x, #2: y, #3: 宽, #4: 高, #5: 深度偏移
+  \newcommand{\prism}[5]{%
+    \draw[outLine, dashed, line width=.7pt]
+          (#1+#5,#2+#5) rectangle (#1+#5+#3,#2+#5+#4);
+    \draw[outLine, line width=1.1pt]
+          (#1+#5,#2+#5+#4) -- (#1+#5+#3,#2+#5+#4);
+    \draw[outLine, dashed, line width=.7pt]
+          (#1,#2)--(#1+#5,#2+#5) (#1+#3,#2)--(#1+#3+#5,#2+#5);
+    \draw[outLine, line width=1.1pt] (#1,#2) rectangle (#1+#3,#2+#4);
+    \draw[outLine, line width=1.1pt]
+          (#1,#2+#4)--(#1+#5,#2+#5+#4) (#1+#3,#2+#4)--(#1+#3+#5,#2+#5+#4);
+  }
+
+  % 1. 左侧：总输入特征图 (内层 5x5 + Padding 1 = 7x7x24)
+  \stackboxpad{-5.4}{-1.225}{5}{0.35}{in}{10}{0.08}{1}
+  \prism{-5.4}{0.175}{1.05}{1.05}{0.8}
+  \node[align=center] at (-4.0, -2.15) {\textbf{Input Feature Map}\\$H\times W\times C_{in}$\\($5\times 5\times 24$)};
+
+  % 加长后的 Split 箭头与说明文字 (指向左侧大花括号尖端)
+  \draw[->, >=Stealth, line width=1.2pt, inLine] (-2.0, 0) -- (-0.5, 0);
+  \node[above, font=\bfseries\footnotesize, inLine] at (-1.4, 0.18) {Split\\($g=3$)};
+
+  % 2. 左侧大花括号（开口向右，紧凑包裹三组分支）
+  \draw[inLine, line width=1.2pt, decorate, decoration={brace, amplitude=12pt}]
+       (-0.05, -5.3) -- (-0.05, 5.3);
+
+  % 3. 中间三组卷积分支
+  \foreach \Y/\grp in {4.6/1, 0.0/2, -4.6/3}{
+    % 分组标题
+    \node[font=\bfseries\small, hidLine] at (1.6, \Y + 1.9) {Group \grp};
+
+    % (1) 分组输入切片 (内层 5x5 + Padding 1 = 7x7x8)
+    \stackboxpad{0.4}{\Y - 1.225}{5}{0.35}{in}{5}{0.09}{1}
+    \prism{0.4}{\Y + 0.175}{1.05}{1.05}{0.45}
+    \node[font=\scriptsize] at (1.6, \Y - 1.65) {$5\times 5\times 8$};
+
+    % (2) 卷积符号 *
+    \node[font=\LARGE] at (3.85, \Y) {$\ast$};
+
+    % (3) 紫色卷积核组 (每组画2个核，中间为 \cdots 与倍数)
+    % 核 1 (上)
+    \stackbox{4.4}{\Y + 0.45}{3}{0.28}{hid}{5}{0.09}
+    \prism{4.4}{\Y + 0.45}{0.84}{0.84}{0.45}
+
+    % 中间省略号与倍数
+    \node[font=\large] at (4.82, \Y + 0.2) {$\cdots$};
+    \node[font=\scriptsize, anchor=west] at (5.45, \Y - 1.2) {$\times \frac{N}{3}$};
+
+    % 核 2 (下)
+    \stackbox{4.4}{\Y - 1.29}{3}{0.28}{hid}{5}{0.09}
+    \node[font=\scriptsize] at (4.82, \Y - 1.65) {$3\times 3\times 8$};
+
+    % (4) 等号 =
+    \node[font=\LARGE] at (6.7, \Y) {$=$};
+
+    % (5) 分组输出切片 5x5
+    \stackbox{7.3}{\Y - 0.875}{5}{0.35}{out}{5}{0.09}
+    % 左上角高亮输出单元
+    \fill[outLine!40] (7.3, \Y + 0.525) rectangle ++(0.35, 0.35);
+    \draw[outLine, line width=1pt] (7.3, \Y + 0.525) rectangle ++(0.35, 0.35);
+    \node[font=\scriptsize] at (8.15, \Y - 1.3) {$5\times 5\times \frac{N}{3}$};
+  }
+
+  % 4. 右侧大花括号（开口向左，紧贴三组输出）
+  \draw[outLine, line width=1.2pt, decorate, decoration={brace, amplitude=12pt}]
+       (9.9, 5.3) -- (9.9, -5.3);
+
+  % 从右花括号尖端指向 Concat 模块的箭头
+  \draw[->, >=Stealth, line width=1.2pt, outLine] (10.4, 0) -- (11.0, 0);
+
+  % Concat 处理节点
+  \node[draw=outLine, fill=outFill!30, rounded corners=3pt, line width=1pt,
+        inner sep=5pt, font=\bfseries\small, text=outLine] (concat) at (11.8, 0) {Concat};
+
+  % 从 Concat 指向最终总输出图的箭头
+  \draw[->, >=Stealth, line width=1.2pt, outLine] (concat.east) -- (13.3, 0);
+
+  % 5. 最右侧：合并后的最终输出特征图 (5x5xN)
+  \stackbox{13.6}{-0.875}{5}{0.35}{out}{10}{0.08}
+  % 对应的合成高亮输出像素点
+  \fill[outLine!40] (13.6, 0.525) rectangle ++(0.35, 0.35);
+  \draw[outLine, line width=1pt] (13.6, 0.525) rectangle ++(0.35, 0.35);
+  \node[align=center] at (14.5, -2.1) {\textbf{Output Feature Map}\\$H\times W\times C_{out}$\\($5\times 5\times N$)};
+
+\end{tikzpicture}
+\end{document}

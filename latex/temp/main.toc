@@ -27,9 +27,9 @@
 \contentsline {section}{\numberline {4.2}梯度爆炸}{47}{section.4.2}%
 \contentsline {section}{\numberline {4.3}批量归一化}{48}{section.4.3}%
 \contentsline {section}{\numberline {4.4}过拟合与正则化}{50}{section.4.4}%
-\contentsline {subsection}{\numberline {4.4.1}L1与L2正则化}{51}{subsection.4.4.1}%
-\contentsline {subsection}{\numberline {4.4.2}Dropout}{53}{subsection.4.4.2}%
-\contentsline {subsection}{\numberline {4.4.3}Early Stopping}{54}{subsection.4.4.3}%
+\contentsline {subsection}{\numberline {4.4.1}L1与L2正则化}{52}{subsection.4.4.1}%
+\contentsline {subsection}{\numberline {4.4.2}Dropout}{54}{subsection.4.4.2}%
+\contentsline {subsection}{\numberline {4.4.3}Early Stopping}{55}{subsection.4.4.3}%
 \contentsline {part}{II\hspace {1em}卷积神经网络}{57}{part.2}%
 \contentsline {chapter}{\numberline {5}卷积神经网络}{59}{chapter.5}%
 \contentsline {section}{\numberline {5.1}全连接的局限性}{59}{section.5.1}%
@@ -37,4 +37,35 @@
 \contentsline {section}{\numberline {5.3}池化操作}{67}{section.5.3}%
 \contentsline {section}{\numberline {5.4}全连接}{69}{section.5.4}%
 \contentsline {section}{\numberline {5.5}LeNet-5}{70}{section.5.5}%
+\contentsline {chapter}{\numberline {6}卷积网络的训练}{72}{chapter.6}%
+\contentsline {section}{\numberline {6.1}分类损失函数}{72}{section.6.1}%
+\contentsline {section}{\numberline {6.2}反向传播}{74}{section.6.2}%
+\contentsline {subsection}{\numberline {6.2.1}池化层的反向传播}{74}{subsection.6.2.1}%
+\contentsline {subsection}{\numberline {6.2.2}卷积层的反向传播}{75}{subsection.6.2.2}%
+\contentsline {section}{\numberline {6.3}卷积的统一理解}{79}{section.6.3}%
+\contentsline {subsection}{\numberline {6.3.1}结构化线性变换}{79}{subsection.6.3.1}%
+\contentsline {subsection}{\numberline {6.3.2}矩阵视角}{82}{subsection.6.3.2}%
+\contentsline {subsection}{\numberline {6.3.3}平移等变与平移不变}{83}{subsection.6.3.3}%
+\contentsline {subsection}{\numberline {6.3.4}反向传播再理解与过渡}{85}{subsection.6.3.4}%
+\contentsline {chapter}{\numberline {7}深层卷积网络}{88}{chapter.7}%
+\contentsline {section}{\numberline {7.1}AlexNet}{88}{section.7.1}%
+\contentsline {section}{\numberline {7.2}VGG}{93}{section.7.2}%
+\contentsline {section}{\numberline {7.3}GoogLeNet}{96}{section.7.3}%
+\contentsline {chapter}{\numberline {8}残差连接与密集连接}{101}{chapter.8}%
+\contentsline {section}{\numberline {8.1}退化问题}{101}{section.8.1}%
+\contentsline {section}{\numberline {8.2}残差连接}{102}{section.8.2}%
+\contentsline {section}{\numberline {8.3}密集连接}{106}{section.8.3}%
+\contentsline {chapter}{\numberline {9}卷积结构的改进}{110}{chapter.9}%
+\contentsline {section}{\numberline {9.1}分组卷积}{110}{section.9.1}%
+\contentsline {section}{\numberline {9.2}深度可分离卷积}{112}{section.9.2}%
+\contentsline {section}{\numberline {9.3}空洞卷积}{115}{section.9.3}%
+\contentsline {section}{\numberline {9.4}Squeeze-and-Excitation}{117}{section.9.4}%
+\contentsline {chapter}{\numberline {10}语义分割}{122}{chapter.10}%
+\contentsline {section}{\numberline {10.1}全卷积神经网络}{122}{section.10.1}%
+\contentsline {subsection}{\numberline {10.1.1}$1\times 1$卷积}{123}{subsection.10.1.1}%
+\contentsline {subsection}{\numberline {10.1.2}上采样与转置卷积}{124}{subsection.10.1.2}%
+\contentsline {subsection}{\numberline {10.1.3}跳跃连接}{126}{subsection.10.1.3}%
+\contentsline {section}{\numberline {10.2}U-Net}{128}{section.10.2}%
+\contentsline {section}{\numberline {10.3}ASPP}{130}{section.10.3}%
+\contentsline {section}{\numberline {10.4}DeepLab}{131}{section.10.4}%
 \contentsfinish 

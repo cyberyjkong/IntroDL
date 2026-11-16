@@ -219,10 +219,10 @@
 % ============================================================
 % --- Part (部分) ---
 \titleformat{\part}[display]
-  {\normalfont\fontChapter\color{blue}\centering}     % 样式: 居中、蓝色、大字
+  {\normalfont\fontChapter\color{purple}\centering}     % 样式: 居中、蓝色、大字
   {第\,\thepart\,部分}          % 标签
   {0pt}                         % 标签与标题间距
-  {\fontChapter\color{blue}}  % 标题内容样式
+  {\fontChapter\color{purple}}  % 标题内容样式
 
 % --- Chapter (章) ---
 \titleformat{\chapter}[hang]

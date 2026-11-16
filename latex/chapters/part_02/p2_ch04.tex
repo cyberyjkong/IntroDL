@@ -1,0 +1,222 @@
+% !TEX root = ../../main.tex
+
+\chapter{残差连接与密集连接}
+
+LeNet8层，AlexNet11层，VGG16层，GoogLeNet22层。似乎网络越深，性能就越好。那么，我们是不是可以把网络做到50层、100层，甚至200层？
+
+\section{退化问题}
+
+在真正设计更深的网络之前，我们先做一个简单的思想实验。假设现在已经有一个训练良好的20层网络，我们希望在它的基础上继续增加深度，构建一个56层网络。那么，这个更深的网络，至少应该达到什么水平？从理论上看，56层网络至少不应该比20层网络更差。因为我们完全可以把原来20层网络的结构直接保留下来，再让新增的36层全部实现恒等映射，即满足$f(x)=x$，把前面传来的信息原封不动地传递下去。这样一来，整个56层网络的输出就可以与原来的20层网络完全一致。也就是说，即使新增的36层什么都不做，56层网络理论上也应该至少能够达到20层网络的水平，更何况这些新增层还应该能够进一步学习有用的特征（希望如此）。
+
+然而，理想很美好，现实很糟糕。当我们真正构建并训练一个56层的普通卷积网络时，结果往往如\cref{fig:degradation}所示：56层网络的训练误差反而比20层网络还要高。
+
+\begin{figure}[H]
+    \boxedimage[width=0.95\textwidth]{figures/part_02/p2_ch04/degradation.pdf}
+    \caption{退化问题。左、右两图分别为训练误差与测试误差随epochs的变化曲线：56层网络（红）始终高于20层网络（蓝）。连训练误差都更高，说明性能退化并非过拟合所致，而是更深的网络本身难以优化。}
+    \label{fig:degradation}
+\end{figure}
+
+需要注意的是，这并不是我们之前讨论过的过拟合问题。过拟合通常表现为训练误差较低、测试误差较高，也就是模型在训练集上表现很好，却难以泛化到新的数据。而\cref{fig:degradation}中出现的现象是：随着网络加深，训练误差本身反而越来越高。也就是说，更深的网络甚至连训练集都没有拟合好。这种现象被称为\textbf{退化问题（Degradation Problem）}\footnote{何恺明等人在论文\href{https://www.cv-foundation.org/openaccess/content_cvpr_2016/papers/He_Deep_Residual_Learning_CVPR_2016_paper.pdf}{\textit{Deep Residual Learning for Image Recognition}}中系统讨论了这一现象，并将其称为退化问题。}。
+
+这就出现了一个很有意思的矛盾。前面我们已经知道，56层网络的前20层完全可以使用原来20层网络已经学到的参数，后面的36层则全部实现恒等映射。这样一来，56层网络的输出就能够与原来的20层网络完全一致。既然这样一个简单的解明明存在，为什么实际训练时却得不到呢？也就是说，网络加深之后，真正变得困难的不是“能不能表示”，而是“能不能训练到”。
+
+其中一个重要原因来自深层网络中的信息与梯度传播。普通网络是一层接一层地变换特征，网络越深，特征需要经历的卷积和非线性变换就越多。如果后面新增的层没有学到有用的变换，反而不断改变前面已经提取出的特征，那么这些变化就可能逐层累积，使最终得到的表示逐渐偏离理想结果。另一方面，在反向传播过程中，梯度需要反向穿过更多层，在连续传递的过程中也更容易发生衰减，使浅层参数越来越难获得有效的更新信号。也就是说，网络越深，前向的特征传递和反向的梯度传播都会变得更加困难。
+
+\section{残差连接}
+
+随着网络不断加深，特征需要经历的卷积和非线性变换就越多，前面已经提取出的信息也可能在不断变换中逐渐偏离原来的表示。既然如此，能不能给网络留一条直接传递输入的路径，让输入不必经过每一层的变换，而是可以直接到达后面？这样，输入就多了一条不经过中间变换的传播路径，可以尽可能保留下来。这条路径就称为残差连接（Residual Connection），也叫跳跃连接（Skip Connection）。如\cref{fig:residual}所示，它将输入直接传递到后面的加法节点，与主路的输出进行融合。
+
+\begin{figure}[H]
+    \boxedimage[width=0.25\textwidth]{figures/part_02/p2_ch04/residual.pdf}
+    \caption{残差连接示意图。输入$x$分为两路：主路经过层变换得到$\mathcal{F}(x)$，旁路（跳跃连接）将$x$不经任何变换直接传递；二者在加法节点相加，输出$y=\mathcal{F}(x)+x$。}
+    \label{fig:residual}
+\end{figure}
+
+在普通网络中，我们通过若干层卷积和激活，直接将输入$x$变换为目标输出$H(x)$。而加入残差连接后，输入$x$可以沿着旁路直接传到输出端，而主路仍然通过卷积和激活对输入进行特征变换，并将变换后的结果与旁路中的$x$相加：
+$$
+y=x+\mathcal{F}(x)
+$$
+如果整个模块最终需要实现的目标映射是$H(x)$，那么从数学上可以将其写成：
+$$
+H(x)=x+\mathcal{F}(x)
+$$
+因此有：
+$$
+\mathcal{F}(x)=H(x)-x
+$$
+这里的$\mathcal{F}(x)$表示目标映射$H(x)$与输入$x$之间的差异，也就是\textbf{残差（Residual）}\footnote{在统计学中，残差（Residual）通常表示实际值与预测值之间的差异。}，因此这种学习方式被称为\textbf{残差学习（Residual Learning）}，对应的基本模块则称为\textbf{残差块（Residual Block）}。基于这种残差块构建的深层卷积网络则被称为\textbf{ResNet（Residual Network，残差网络）}\footnote{2015年，何恺明等人在论文\href{https://www.cv-foundation.org/openaccess/content_cvpr_2016/papers/He_Deep_Residual_Learning_CVPR_2016_paper.pdf}{\textit{Deep Residual Learning for Image Recognition}}中提出了残差学习方法，并基于残差块构建了ResNet。}。
+
+那么，一个实际的残差块中，主路究竟应该放哪些操作呢？由于我们处理的是图像数据，因此最直接的做法就是使用卷积和激活函数进行特征变换，即让主路经过一次卷积和ReLU操作：
+$$
+\mathcal{F}(x)=\operatorname{ReLU}(\operatorname{Conv}(x)).
+$$
+但这有一个问题。由于ReLU的输出始终满足$\mathcal{F}(x)\geq0$，因此残差相加后有：
+$$
+y=x+\mathcal{F}(x)\geq x.
+$$
+这意味着残差分支只能对$x$进行正向修正，无法进行负向调整。而实际的特征变换既可能需要增强某些特征，也可能需要抑制某些特征。所以，送入加法节点的残差不能被限制为非负值。
+
+那我们可以在ReLU后面再接一个卷积操作。这样，第二个卷积的输出就不再受到ReLU的非负约束，可以同时进行正向和负向的修正。
+$$
+y=\operatorname{ReLU}\left(x+\operatorname{Conv}_2\left(\operatorname{ReLU}\left(\operatorname{Conv}_1(x)\right)\right)\right).
+$$
+
+\begin{figure}[H]
+    \boxedimage[width=0.3\textwidth]{figures/part_02/p2_ch04/residual_basic.pdf}
+    \caption{ResNet基本残差块（ResNet-18/34）：两个$3\times 3$卷积串联为主路，与恒等跳跃连接相加后经ReLU输出。}
+    \label{fig:residual_basic}
+\end{figure}
+
+如\cref{fig:residual_basic}所示，这就是最基本的残差块（Basic Block）。它通过两个$3\times3$卷积完成主路的特征变换，同时利用跳跃连接保留输入$x$。
+
+但如果继续把网络做深，特征图的通道数会逐渐增加，例如64$\to$128$\to$256$\to$512。此时如果仍直接使用两个$3\times3$卷积，计算量会迅速增长。对于卷积层，其计算量大致与
+$$
+H\cdot W\cdot k^2\cdot C_{\mathrm{in}}\cdot C_{\mathrm{out}}
+$$
+成正比。其中$H$和$W$是特征图的空间尺寸，$k$是卷积核大小，$C_{\mathrm{in}}$和$C_{\mathrm{out}}$分别是输入和输出通道数。
+
+那能不能先把通道数降下来，再进行$3\times3$卷积呢？我们前面已经介绍过，$1\times1$卷积可以在不改变特征图空间尺寸的情况下调整通道数（如\cref{fig:11_convolution}所示）。因此，我们可以先用一个$1\times1$卷积将256个通道压缩到64个通道，再在这个较低维的特征空间中使用$3\times3$卷积进行特征提取，最后再通过另一个$1\times1$卷积将64个通道恢复到256个通道：
+$$
+256\xrightarrow{1\times1}64\xrightarrow{3\times3}64\xrightarrow{1\times1}256
+$$
+如\cref{fig:residual_bottleneck}所示，这种“降维$\rightarrow$卷积$\rightarrow$升维”的结构被称为\textbf{瓶颈残差块（Bottleneck Residual Block）}。之所以称为“瓶颈”，是因为通道数先从高维压缩到低维，再恢复到高维，中间的低维部分就像瓶子的“细颈”。其中，中间的$3\times3$卷积只需要在较低的64个通道中进行计算，因此相比直接在256个通道上使用$3\times3$卷积，可以显著降低计算量。
+
+\begin{figure}[H]
+    \boxedimage[width=0.3\textwidth]{figures/part_02/p2_ch04/residual_bottleneck.pdf}
+    \caption{ResNet瓶颈残差块（ResNet-50/101/152）：$1\times 1$降维、$3\times 3$卷积、$1\times 1$升维串联为主路，与恒等跳跃连接相加后经ReLU输出。}
+    \label{fig:residual_bottleneck}
+\end{figure}
+
+当然，残差相加还有一个前提：输入$x$与主路输出$\mathcal{F}(x)$必须具有相同的维度。但在实际网络中，进入不同阶段时，特征图的空间分辨率和通道数通常都会发生变化。例如，一个残差块可能将$28\times28\times128$的特征图变成$14\times14\times256$，此时输入$x$就无法直接与$\mathcal{F}(x)$相加。我们可以在跳跃连接上增加一个$1\times1$卷积，并通过设置合适的步长和输出通道数，对输入$x$进行投影，使其与主路输出的尺寸保持一致：
+$$
+y=\mathcal{F}(x)+W_sx.
+$$
+其中，$W_s$主要用于维度对齐，使跳跃连接的输出与主路$\mathcal{F}(x)$具有相同的空间尺寸和通道数。当输入和输出维度本来就一致时，则不需要额外的卷积，直接使用原始的$x$即可。
+
+有了这些残差块，我们就可以进一步将它们堆叠成完整的ResNet。如\cref{fig:resnet}所示，以经典的ResNet-34为例，输入首先经过一个$7\times7$卷积（步长为2）和一个$3\times3$最大池化，将$224\times224$的输入压缩到$56\times56$；随后进入四个阶段，每个阶段由若干个残差块组成。随着网络向后推进，空间分辨率逐步减半，而通道数不断增加：
+$$
+64\rightarrow128\rightarrow256\rightarrow512.
+$$
+经过四个阶段后，特征图变为$7\times7\times512$，再通过全局平均池化压缩为512维向量，最后通过全连接层完成分类。
+
+\begin{figure}[H]
+    \boxedimage[width=0.95\textwidth]{figures/part_02/p2_ch04/resnet.pdf}
+    \caption{ResNet-34整体架构。输入经$7\times 7$卷积（64通道、步长2）与$3\times 3$池化（步长2）后，进入通道数依次为64、128、256、512的四个阶段，分别含3、4、6、3个基本残差块；每个阶段的首块以步长2降采样、其跳跃连接为投影连接（虚线弧），其余跳跃连接为恒等连接（实线弧）；末端经平均池化输出。}
+    \label{fig:resnet}
+\end{figure}
+
+通过改变残差块的数量和结构，可以得到不同深度的ResNet。ResNet-18和ResNet-34使用基本残差块，四个阶段分别堆叠$[2,2,2,2]$和$[3,4,6,3]$个残差块；ResNet-50、ResNet-101和ResNet-152则采用瓶颈残差块，对应的堆叠方式分别为$[3,4,6,3]$、$[3,4,23,3]$和$[3,8,36,3]$。当阶段之间发生空间尺寸或通道数变化时，跳跃连接上的$1\times1$卷积负责完成维度对齐。在ImageNet的ILSVRC 2015中，ResNet取得了图像分类任务的冠军，其中集成模型的Top-5错误率达到$3.57\%$，展现出了非常出色的分类性能，也体现了残差连接在构建和训练深层卷积网络方面的有效性。
+
+\begin{orangeBox}{残差连接如何帮助梯度传播}
+普通深层网络中，梯度需要经过一层又一层的卷积和激活函数向前传播。随着网络不断加深，参与连续相乘的导数越来越多，梯度也就更容易发生衰减。残差块则通过跳跃连接，为梯度增加了一条不经过主路变换的直接传播路径。对于一个残差块：
+$$
+y=\mathcal{F}(x)+x
+$$
+设损失函数为$\mathcal{L}$，根据链式法则有：
+$$
+\frac{\partial \mathcal{L}}{\partial x} = \frac{\partial \mathcal{L}}{\partial y} \left(\frac{\partial \mathcal{F}}{\partial x}+1\right)
+$$
+展开得到：
+$$
+\frac{\partial \mathcal{L}}{\partial x}=\frac{\partial \mathcal{L}}{\partial y}\frac{\partial \mathcal{F}}{\partial x}+\frac{\partial \mathcal{L}}{\partial y}
+$$
+其中第二项$\frac{\partial \mathcal{L}}{\partial y}$来自跳跃连接。它不需要经过主路中的卷积和激活，因此即使主路上的梯度在传播过程中逐渐衰减，仍然有一部分梯度可以沿着跳跃连接直接传回前面的网络。
+
+因此，残差连接不仅让输入可以绕过中间层直接向后传递，也让梯度拥有了一条更加直接的反向传播路径。正是这种对前向信息和反向梯度传播方式的改变，使得深层网络能够得到更加有效的训练。
+\end{orangeBox}
+
+\section{密集连接}
+
+我们首先区分\textbf{相加（Addition）}和\textbf{拼接（Concatenation）}的区别：相加是将对应位置的特征逐元素相加，输出的通道数保持不变；而拼接则是沿通道维度将不同特征连接起来，原来的特征都会被完整保留下来。如\cref{fig:add_concat}所示。
+
+\begin{figure}[H]
+    \boxedimage[width=0.95\textwidth]{figures/part_02/p2_ch04/add_concat.pdf}
+    \caption{相加与拼接两种特征融合方式。上排为逐元素相加：两特征图对应位置数值相加，输出通道数保持不变；下排为通道拼接：沿通道维首尾相接，输出通道数为$6+6=12$。两种方式的空间尺寸均保持不变。}
+    \label{fig:add_concat}
+\end{figure}
+
+残差连接可以为网络中的信息和梯度增加一条跨层传播的路径。在残差连接中，原始特征$x$与经过主路变换后的特征$\mathcal{F}(x)$通过相加进行融合：
+$$
+y=x+\mathcal{F}(x)
+$$
+但相加之后，两部分特征已经融合成了一个新的表示，后面的网络无法再分别访问原始的$x$和变换后的$\mathcal{F}(x)$。那么，能不能把这种“相加”换成“拼接”，也就是不立即融合这两部分特征，而是将它们都保留下来，让后面的层继续直接使用？这个想法就是\textbf{密集连接（Dense Connection）}的核心：通过拼接保留不同层的特征，并将这些特征直接传递给后面的网络。
+
+\begin{figure}[H]
+    \boxedimage[width=0.95\textwidth, trim=0 0 0 {0.15\height}, clip]{figures/part_02/p2_ch04/dense_block.pdf}
+    \caption{密集连接示意图。第$l$层直接接收前面所有层的输出，并将这些特征沿通道维度拼接后作为当前层的输入。随着层数增加，后面的层可以同时利用浅层提取的基础特征和深层提取的高级特征。}
+    \label{fig:dense_block}
+\end{figure}
+
+如\cref{fig:dense_block}所示，这就是密集连接的基本结构。以第$l$层为例，它不再只接收第$l-1$层的输出，而是将前面所有层得到的特征沿通道维度拼接起来，再送入当前层进行新的特征变换。因此，第$l$层可以表示为
+$$
+x_l=H_l\left([x_0,x_1,\cdots,x_{l-1}]\right)
+$$
+其中$[\,\cdot\,]$表示沿通道维度进行拼接。这样，越靠后的层能够使用的历史特征就越多，而浅层提取的基础特征也可以一直传递到后面的网络。
+
+为了更直观地理解这种连接方式，我们进一步看一个具体的例子。如\cref{fig:dense}所示，假设输入$x_0$包含$k=4$个通道，并且每一层只新增4个特征图。那么第一层接收4个输入通道，并产生4个新的特征图；拼接后得到8个通道，作为第二层的输入；第二层再产生4个新的特征图，拼接后通道数增加到12。按照同样的方式继续连接，经过第4层后，输出通道数就达到20。也就是说，在密集连接中，每一层都只负责产生少量新的特征，而前面已经得到的特征则继续保留下来，并与新特征一起传递给后面的层。这种设计一方面实现了特征复用（Feature Reuse），另一方面也带来了一个明显的问题：随着层数增加，特征图的通道数会不断增长。
+
+\begin{figure}[H]
+    \boxedimage[width=0.95\textwidth]{figures/part_02/p2_ch04/dense.pdf}
+    \caption{密集连接中的特征复用与通道增长示意。以增长率$k=4$为例，初始输入包含4个通道，每经过一层新增4个特征图，并与之前的所有特征沿通道维度拼接，通道数依次增加为$4\rightarrow8\rightarrow12\rightarrow16\rightarrow20$。}
+    \label{fig:dense}
+\end{figure}
+
+假设初始输入包含$k_0$个通道，每一层新增$k$个特征图，那么经过$l$层之后，输出通道数为：
+$$
+k_0+l\cdot k
+$$
+这里的$k$就是\textbf{增长率（Growth Rate）}，表示每一层新增的特征图数量。可以看到，密集连接并不是让每一层都学习大量新的特征，而是控制每层只增加少量特征，再通过密集连接不断复用前面已经提取出的信息。
+
+到这里，我们已经了解了密集连接的基本思想：前面的特征不再经过相加被立即融合，而是通过拼接完整地保留下来，并持续传递给后面的层。基于这种密集连接方式构建的卷积神经网络，就称为\textbf{DenseNet（Densely Connected Convolutional Networks，密集连接卷积网络）}\footnote{2016年，Gao Huang等人在论文\href{https://arxiv.org/abs/1608.06993}{\textit{Densely Connected Convolutional Networks}}中提出了密集连接方法，并基于密集连接构建了DenseNet。}。
+
+不过，还有一个问题：\cref{fig:dense}中的$H_l$究竟应该进行什么操作？由于我们处理的是图像数据，一个自然的选择仍然是卷积操作。这里采用的一个重要设计是：先进行批量归一化（Batch Normalization, BN），再经过ReLU激活，最后进行$3\times3$卷积：
+$$
+H_l(\cdot)=\operatorname{Conv}_{3\times3}\left(\operatorname{ReLU}\left(\operatorname{BN}(\cdot)\right)\right)
+$$
+
+\begin{orangeBox}{为什么这么设计？}
+在前面的卷积神经网络中，更常见的操作顺序是：
+$$
+\text{Conv}\rightarrow\text{BN}\rightarrow\text{ReLU}
+$$
+这种结构称为\textbf{后激活（Post-activation）}：先通过卷积完成特征变换，再通过BN调整特征分布，最后使用ReLU引入非线性。与之不同，DenseNet采用的是：
+$$
+\text{BN}\rightarrow\text{ReLU}\rightarrow\text{Conv}
+$$
+也就是把归一化和激活放到了卷积之前，这种结构称为\textbf{预激活（Pre-activation）}。
+
+这种设计并不是DenseNet随意选择的。2016年，何恺明等人在论文\href{https://arxiv.org/abs/1603.05027}{\textit{Identity Mappings in Deep Residual Networks}}中系统研究了残差网络中的恒等映射，并提出了预激活结构。研究表明，将BN和ReLU放到卷积之前，有助于改善深层残差网络的优化以及梯度的传播。DenseNet借鉴了这一设计，并将其用于每一层的特征变换。
+
+那么，为什么这种顺序适合密集连接呢？首先，DenseNet中当前层接收到的不是上一层单独的输出，而是前面所有层特征的拼接：
+$$
+[x_0,x_1,\cdots,x_{l-1}]
+$$
+这些特征来自不同深度，经过不同的变换。先通过BN对拼接后的特征进行归一化，再经过ReLU引入非线性，可以让卷积层接收到更加规整的输入，有利于后续的特征提取。
+
+更重要的是，在预激活结构中，卷积层的输出可以直接作为新的特征$x_l$保存下来，并参与后续的拼接，而不需要再经过额外的BN和ReLU。后面的层在使用这些特征时，再对拼接后的输入统一进行BN和ReLU处理：
+$$
+[x_0,\cdots,x_{l-1}]\rightarrow\text{BN}\rightarrow\text{ReLU}\rightarrow\text{Conv}\rightarrow x_l
+$$
+这样，当前层负责生成新的特征，而后面的层在使用这些特征时再进行归一化和非线性变换，特征生成与特征传递之间的关系更加清晰。
+
+因此，$H_l$的基本流程可以概括为：
+$$
+\text{BN}\rightarrow\text{ReLU}\rightarrow3\times3\text{ Conv}
+$$
+而随着网络不断加深，$H_l$接收到的特征越来越多，输入通道数也会逐渐增加，直接使用$3\times3$卷积的计算量随之增大。为了降低计算开销，可以在$3\times3$卷积之前加入一个$1\times1$卷积，先对通道数进行压缩，再进行$3\times3$卷积。此时，$H_l$的流程为：
+$$
+\text{BN}\rightarrow\text{ReLU}\rightarrow1\times1\text{ Conv} \rightarrow\text{BN}\rightarrow\text{ReLU}\rightarrow3\times3\text{ Conv}
+$$
+\end{orangeBox}
+
+不过，一个Dense Block内部只负责不断提取和复用特征，并不会主动降低特征图的空间分辨率。随着网络不断向后推进，我们仍然需要逐步压缩空间尺寸，同时控制通道数。因此，不同Dense Block之间还需要加入\textbf{Transition Layer（过渡层）}。典型的过渡层由$1\times1$卷积和$2\times2$平均池化组成：$1\times1$卷积用于调整通道数，平均池化则将空间分辨率减半。
+
+于是，一个完整的DenseNet就可以由多个Dense Block和Transition Layer交替堆叠而成：
+$$
+\text{Dense Block}\rightarrow\text{Transition Layer}\rightarrow\text{Dense Block}\rightarrow\text{Transition Layer}\rightarrow\cdots
+$$
+以经典的DenseNet-121为例，网络包含4个Dense Block，分别由$[6,12,24,16]$个特征变换层组成，不同Block之间通过Transition Layer连接。随着网络不断向后推进，空间分辨率逐步降低，而每个Dense Block内部则不断复用前面已经提取出的特征。
+
+\begin{quote}
+    至此，我们已经学习了如何通过残差连接和密集连接，使卷积神经网络能够训练得更加深层。那么，回到卷积操作本身，卷积还能进一步改进吗？
+\end{quote}

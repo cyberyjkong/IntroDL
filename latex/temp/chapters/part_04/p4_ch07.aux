@@ -1,0 +1,115 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {chapter}{\numberline {7}提示与上下文学习}{91}{chapter.7}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{toc}{\contentsline {section}{\numberline {7.1}提示的组成}{91}{section.7.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {7.1}{\ignorespaces 同一条评论放在两种前缀里。上方直接输入原句，后面可以继续评论；下方给出任务和一个待填的标签字段。紫色部分是提供给模型的文字，红色部分是可能续写的文字。}}{91}{figure.caption.69}\protected@file@percent }
+\newlabel{fig:p4_prompt_raw_goal}{{7.1}{91}{同一条评论放在两种前缀里。上方直接输入原句，后面可以继续评论；下方给出任务和一个待填的标签字段。紫色部分是提供给模型的文字，红色部分是可能续写的文字。}{figure.caption.69}{}}
+\newlabel{fig:p4_prompt_raw_goal@cref}{{[figure][1][7]7.1}{[1][91][]91}{}{}{}}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {section}{\numberline {7.2}零样本与少样本学习}{92}{section.7.2}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {7.2}{\ignorespaces 同一待评评论前的示例区域。绿色区域保留任务与待分类项，紫色区域逐次加入有答案的记录。每一行都在待答的\unhbox \voidb@x \hspace  {0.2em}{\color  {inlineRed}\ttfamily  \fontsize  {9.5pt}{9pt}\selectfont  Label:}\futurelet \@let@token \let \next \hspace  {0.2em}\next 后开始生成。}}{93}{figure.caption.70}\protected@file@percent }
+\newlabel{fig:p4_prompt_examples}{{7.2}{93}{同一待评评论前的示例区域。绿色区域保留任务与待分类项，紫色区域逐次加入有答案的记录。每一行都在待答的\texttt {Label:}后开始生成。}{figure.caption.70}{}}
+\newlabel{fig:p4_prompt_examples@cref}{{[figure][2][7]7.2}{[1][93][]93}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {7.3}{\ignorespaces 保持待分类评论不变，逐次增加示例或格式要求。沿示例列和格式列往下看，可以找出本轮改动的输入字段。}}{94}{figure.caption.71}\protected@file@percent }
+\newlabel{fig:p4_prompt_controlled}{{7.3}{94}{保持待分类评论不变，逐次增加示例或格式要求。沿示例列和格式列往下看，可以找出本轮改动的输入字段。}{figure.caption.71}{}}
+\newlabel{fig:p4_prompt_controlled@cref}{{[figure][3][7]7.3}{[1][93][]94}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7.4}{\ignorespaces 待答的Label位置可以读取此前各字段。方框各代表一段词元，连线表示可见关系。实际权重仍由Query和Key的分数决定。}}{94}{figure.caption.72}\protected@file@percent }
+\newlabel{fig:p4_prompt_attention}{{7.4}{94}{待答的Label位置可以读取此前各字段。方框各代表一段词元，连线表示可见关系。实际权重仍由Query和Key的分数决定。}{figure.caption.72}{}}
+\newlabel{fig:p4_prompt_attention@cref}{{[figure][4][7]7.4}{[1][94][]94}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {7.5}{\ignorespaces 两个共享首个词元的标签。边上是当前前缀下的条件概率，最右端是包含结束标记的路径乘积。其他候选分支省略。}}{95}{figure.caption.73}\protected@file@percent }
+\newlabel{fig:p4_prompt_label_paths}{{7.5}{95}{两个共享首个词元的标签。边上是当前前缀下的条件概率，最右端是包含结束标记的路径乘积。其他候选分支省略。}{figure.caption.73}{}}
+\newlabel{fig:p4_prompt_label_paths@cref}{{[figure][5][7]7.5}{[1][95][]95}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {7.6}{\ignorespaces 交换标签名称后的还原。上排A表示正面，下排B表示正面。两次比较先读提示定义，再把生成的字符映射回同一套类别。}}{96}{figure.caption.74}\protected@file@percent }
+\newlabel{fig:p4_prompt_label_mapping}{{7.6}{96}{交换标签名称后的还原。上排A表示正面，下排B表示正面。两次比较先读提示定义，再把生成的字符映射回同一套类别。}{figure.caption.74}{}}
+\newlabel{fig:p4_prompt_label_mapping@cref}{{[figure][6][7]7.6}{[1][96][]96}{}{}{}}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {section}{\numberline {7.3}上下文预算}{97}{section.7.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {7.7}{\ignorespaces 示意上下文预算。任务、待分类项和两个示例占53个提示词元，另给生成保留8个位置。再加入第三个示例会超出64词元的总预算。}}{97}{figure.caption.75}\protected@file@percent }
+\newlabel{fig:p4_prompt_budget}{{7.7}{97}{示意上下文预算。任务、待分类项和两个示例占53个提示词元，另给生成保留8个位置。再加入第三个示例会超出64词元的总预算。}{figure.caption.75}{}}
+\newlabel{fig:p4_prompt_budget@cref}{{[figure][7][7]7.7}{[1][97][]97}{}{}{}}
+\def\@LN@column{1}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {7.8}{\ignorespaces 删减提示时保留哪个预测位置。橙色框是最后一个有效字段，虚线框中的文字没有送入模型。中间从末尾裁掉标签字段后，程序实际上读到了评论末尾的分布。}}{99}{figure.caption.76}\protected@file@percent }
+\newlabel{fig:p4_prompt_cutoff}{{7.8}{99}{删减提示时保留哪个预测位置。橙色框是最后一个有效字段，虚线框中的文字没有送入模型。中间从末尾裁掉标签字段后，程序实际上读到了评论末尾的分布。}{figure.caption.76}{}}
+\newlabel{fig:p4_prompt_cutoff@cref}{{[figure][8][7]7.8}{[1][98][]99}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {7.4}提示效果评估}{99}{section.7.4}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {7.9}{\ignorespaces 示意评估结果。同一批8条评论上分别记录类别正确、格式合法与两项同时满足。最后一列不是前两列相加，而是逐条取交集。}}{100}{figure.caption.77}\protected@file@percent }
+\newlabel{fig:p4_prompt_evaluation}{{7.9}{100}{示意评估结果。同一批8条评论上分别记录类别正确、格式合法与两项同时满足。最后一列不是前两列相加，而是逐条取交集。}{figure.caption.77}{}}
+\newlabel{fig:p4_prompt_evaluation@cref}{{[figure][9][7]7.9}{[1][99][]100}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {7.10}{\ignorespaces 四条教学记录在添加格式要求前后的输出。橙色表示符合预期，紫色为类别可读但格式不符，红色为标签错误。第3条在两个版本中都判错。}}{101}{figure.caption.78}\protected@file@percent }
+\newlabel{fig:p4_prompt_audit_rows}{{7.10}{101}{四条教学记录在添加格式要求前后的输出。橙色表示符合预期，紫色为类别可读但格式不符，红色为标签错误。第3条在两个版本中都判错。}{figure.caption.78}{}}
+\newlabel{fig:p4_prompt_audit_rows@cref}{{[figure][10][7]7.10}{[1][100][]101}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {7.11}{\ignorespaces 两版提示在同一批8条教学记录上的输出。P和N代表类别，加号代表答案后还有文字。红色标出类别错误，紫色标出只有格式错误的输出。}}{102}{figure.caption.79}\protected@file@percent }
+\newlabel{fig:p4_prompt_eval_full}{{7.11}{102}{两版提示在同一批8条教学记录上的输出。P和N代表类别，加号代表答案后还有文字。红色标出类别错误，紫色标出只有格式错误的输出。}{figure.caption.79}{}}
+\newlabel{fig:p4_prompt_eval_full@cref}{{[figure][11][7]7.11}{[1][101][]102}{}{}{}}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {section}{\numberline {7.5}上下文学习与微调}{103}{section.7.5}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {7.12}{\ignorespaces 提示与监督微调改变的部位。上方两次请求改的是当前前缀，复用同一份模型参数；下方的带标签样本经过损失和梯度更新后，后续请求使用更新后的参数。}}{103}{figure.caption.80}\protected@file@percent }
+\newlabel{fig:p4_prompt_parameters}{{7.12}{103}{提示与监督微调改变的部位。上方两次请求改的是当前前缀，复用同一份模型参数；下方的带标签样本经过损失和梯度更新后，后续请求使用更新后的参数。}{figure.caption.80}{}}
+\newlabel{fig:p4_prompt_parameters@cref}{{[figure][12][7]7.12}{[1][103][]103}{}{}{}}
+\def\@LN@column{1}
+\def\@LN@column{1}
+\@setckpt{chapters/part_04/p4_ch07}{
+\setcounter{page}{106}
+\setcounter{equation}{0}
+\setcounter{enumi}{0}
+\setcounter{enumii}{0}
+\setcounter{enumiii}{0}
+\setcounter{enumiv}{0}
+\setcounter{footnote}{2}
+\setcounter{mpfootnote}{0}
+\setcounter{part}{1}
+\setcounter{chapter}{7}
+\setcounter{section}{5}
+\setcounter{subsection}{0}
+\setcounter{subsubsection}{0}
+\setcounter{paragraph}{0}
+\setcounter{subparagraph}{0}
+\setcounter{figure}{12}
+\setcounter{table}{0}
+\setcounter{FancyVerbLine}{0}
+\setcounter{linenumber}{1}
+\setcounter{LN@truepage}{105}
+\setcounter{FancyVerbWriteLine}{0}
+\setcounter{FancyVerbBufferLine}{0}
+\setcounter{FV@TrueTabGroupLevel}{0}
+\setcounter{FV@TrueTabCounter}{0}
+\setcounter{FV@HighlightLinesStart}{0}
+\setcounter{FV@HighlightLinesStop}{0}
+\setcounter{FancyVerbLineBreakLast}{0}
+\setcounter{FV@BreakBufferDepth}{0}
+\setcounter{parentequation}{0}
+\setcounter{float@type}{16}
+\setcounter{caption@flags}{2}
+\setcounter{continuedfloat}{0}
+\setcounter{subfigure}{0}
+\setcounter{subtable}{0}
+\setcounter{LT@tables}{0}
+\setcounter{LT@chunks}{0}
+\setcounter{nlinenum}{0}
+\setcounter{lstnumber}{1}
+\setcounter{tcbbreakpart}{1}
+\setcounter{tcblayer}{0}
+\setcounter{tcolorbox@number}{15}
+\setcounter{tcbrastercolumn}{1}
+\setcounter{tcbrasterrow}{1}
+\setcounter{tcbrasternum}{1}
+\setcounter{tcbraster}{0}
+\setcounter{tcblisting}{0}
+\setcounter{section@level}{0}
+\setcounter{Item}{0}
+\setcounter{Hfootnote}{18}
+\setcounter{Hy@AnnotLevel}{0}
+\setcounter{bookmark@seq@number}{46}
+\setcounter{lstlisting}{0}
+}

@@ -1,0 +1,109 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {chapter}{\numberline {19}BERT}{261}{chapter.19}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{lof}{\contentsline {figure}{\numberline {19.1}{\ignorespaces 预训练与微调的整体流程。模型首先利用大规模无标注语料学习通用语言知识，再将预训练参数迁移到不同任务，并结合标注数据和任务头进行微调。}}{261}{figure.caption.168}\protected@file@percent }
+\newlabel{fig:pretrain_finetune}{{19.1}{261}{预训练与微调的整体流程。模型首先利用大规模无标注语料学习通用语言知识，再将预训练参数迁移到不同任务，并结合标注数据和任务头进行微调。}{figure.caption.168}{}}
+\newlabel{fig:pretrain_finetune@cref}{{[figure][1][19]19.1}{[1][261][]261}{}{}{}}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {section}{\numberline {19.1}BERT架构}{262}{section.19.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {19.2}{\ignorespaces 双向上下文建模示意图。以bank为例，通过自注意力机制同时关联左右两侧的Token，并利用deposit和money等上下文信息理解其含义。}}{262}{figure.caption.169}\protected@file@percent }
+\newlabel{fig:bidirection}{{19.2}{262}{双向上下文建模示意图。以bank为例，通过自注意力机制同时关联左右两侧的Token，并利用deposit和money等上下文信息理解其含义。}{figure.caption.169}{}}
+\newlabel{fig:bidirection@cref}{{[figure][2][19]19.2}{[1][262][]262}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {19.3}{\ignorespaces 多层Transformer Encoder的堆叠结构。输入序列依次经过多个编码器层，最终得到各Token对应的上下文表示。}}{263}{figure.caption.170}\protected@file@percent }
+\newlabel{fig:bert_encoder_stack}{{19.3}{263}{多层Transformer Encoder的堆叠结构。输入序列依次经过多个编码器层，最终得到各Token对应的上下文表示。}{figure.caption.170}{}}
+\newlabel{fig:bert_encoder_stack@cref}{{[figure][3][19]19.3}{[1][263][]263}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {19.4}{\ignorespaces 句子对的输入格式。两个句子经过分词后，利用\unhbox \voidb@x \hspace  {0.2em}{\color  {inlineRed}\ttfamily  \fontsize  {9.5pt}{9pt}\selectfont  [CLS]}\futurelet \@let@token \let \hspace  {0.2em}\hspace  {0.2em}\hspace  {0.2em}和\unhbox \voidb@x \hspace  {0.2em}{\color  {inlineRed}\ttfamily  \fontsize  {9.5pt}{9pt}\selectfont  [SEP]}\futurelet \@let@token \let \hspace  {0.2em}\hspace  {0.2em}\hspace  {0.2em}构建统一的Token序列，再通过词表映射为对应的Token ID。}}{264}{figure.caption.171}\protected@file@percent }
+\newlabel{fig:bert_sentence_pair}{{19.4}{264}{句子对的输入格式。两个句子经过分词后，利用\texttt {[CLS]}和\texttt {[SEP]}构建统一的Token序列，再通过词表映射为对应的Token ID。}{figure.caption.171}{}}
+\newlabel{fig:bert_sentence_pair@cref}{{[figure][4][19]19.4}{[1][264][]264}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {19.5}{\ignorespaces BERT输入表示的构建过程。每个Token对应的输入向量由Token Embedding、Position Embedding和Segment Embedding相加得到。}}{265}{figure.caption.172}\protected@file@percent }
+\newlabel{fig:bert_input_representation}{{19.5}{265}{BERT输入表示的构建过程。每个Token对应的输入向量由Token Embedding、Position Embedding和Segment Embedding相加得到。}{figure.caption.172}{}}
+\newlabel{fig:bert_input_representation@cref}{{[figure][5][19]19.5}{[1][265][]265}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {19.6}{\ignorespaces BERT整体架构。输入Token经嵌入层和多层Transformer Encoder处理，得到双向上下文表示。其中，\unhbox \voidb@x \hspace  {0.2em}{\color  {inlineRed}\ttfamily  \fontsize  {9.5pt}{9pt}\selectfont  [CLS]}\futurelet \@let@token \let \hspace  {0.2em}\hspace  {0.2em}\hspace  {0.2em}用于序列级分类，其余Token的输出可用于序列标注等任务。}}{266}{figure.caption.173}\protected@file@percent }
+\newlabel{fig:bert}{{19.6}{266}{BERT整体架构。输入Token经嵌入层和多层Transformer Encoder处理，得到双向上下文表示。其中，\texttt {[CLS]}用于序列级分类，其余Token的输出可用于序列标注等任务。}{figure.caption.173}{}}
+\newlabel{fig:bert@cref}{{[figure][6][19]19.6}{[1][266][]266}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {19.2}MLM \& NSP}{266}{section.19.2}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {subsection}{\numberline {19.2.1}MLM}{267}{subsection.19.2.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {19.7}{\ignorespaces MLM的预测过程。模型利用双向自注意力机制提取上下文信息，并通过被遮盖位置的隐藏状态预测原始Token。}}{267}{figure.caption.174}\protected@file@percent }
+\newlabel{fig:bert_mlm_example}{{19.7}{267}{MLM的预测过程。模型利用双向自注意力机制提取上下文信息，并通过被遮盖位置的隐藏状态预测原始Token。}{figure.caption.174}{}}
+\newlabel{fig:bert_mlm_example@cref}{{[figure][7][19]19.7}{[1][267][]267}{}{}{}}
+\def\@LN@column{1}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {subsection}{\numberline {19.2.2}NSP}{269}{subsection.19.2.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {19.8}{\ignorespaces 句子间关系的预测过程。模型将句子$A$和句子$B$组成统一的输入序列，并通过Segment Embedding区分两个句子。经过多层Transformer Encoder的双向自注意力计算后，模型利用\unhbox \voidb@x \hspace  {0.2em}{\color  {inlineRed}\ttfamily  \fontsize  {9.5pt}{9pt}\selectfont  [CLS]}\futurelet \@let@token \let \hspace  {0.2em}\hspace  {0.2em}\hspace  {0.2em}位置的隐藏状态，通过分类层预测\unhbox \voidb@x \hspace  {0.2em}{\color  {inlineRed}\ttfamily  \fontsize  {9.5pt}{9pt}\selectfont  IsNext}\futurelet \@let@token \let \hspace  {0.2em}\hspace  {0.2em}\hspace  {0.2em}和\unhbox \voidb@x \hspace  {0.2em}{\color  {inlineRed}\ttfamily  \fontsize  {9.5pt}{9pt}\selectfont  NotNext}\futurelet \@let@token \let \hspace  {0.2em}\hspace  {0.2em}\hspace  {0.2em}的概率，从而判断句子$B$是否为句子$A$的真实后续内容。}}{269}{figure.caption.175}\protected@file@percent }
+\newlabel{fig:bert_nsp_example}{{19.8}{269}{句子间关系的预测过程。模型将句子$A$和句子$B$组成统一的输入序列，并通过Segment Embedding区分两个句子。经过多层Transformer Encoder的双向自注意力计算后，模型利用\texttt {[CLS]}位置的隐藏状态，通过分类层预测\texttt {IsNext}和\texttt {NotNext}的概率，从而判断句子$B$是否为句子$A$的真实后续内容。}{figure.caption.175}{}}
+\newlabel{fig:bert_nsp_example@cref}{{[figure][8][19]19.8}{[1][269][]269}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {19.9}{\ignorespaces BERT的联合预训练过程。输入序列经过共享的Transformer Encoder后，得到各个Token对应的上下文表示。模型分别利用\unhbox \voidb@x \hspace  {0.2em}{\color  {inlineRed}\ttfamily  \fontsize  {9.5pt}{9pt}\selectfont  [CLS]}\futurelet \@let@token \let \hspace  {0.2em}\hspace  {0.2em}\hspace  {0.2em}位置的隐藏状态预测句子间关系，以及被遮盖位置的隐藏状态预测原始Token，从而完成NSP和MLM两个任务，并通过两项损失共同更新模型参数。}}{270}{figure.caption.176}\protected@file@percent }
+\newlabel{fig:bert_pretraining_pipeline}{{19.9}{270}{BERT的联合预训练过程。输入序列经过共享的Transformer Encoder后，得到各个Token对应的上下文表示。模型分别利用\texttt {[CLS]}位置的隐藏状态预测句子间关系，以及被遮盖位置的隐藏状态预测原始Token，从而完成NSP和MLM两个任务，并通过两项损失共同更新模型参数。}{figure.caption.176}{}}
+\newlabel{fig:bert_pretraining_pipeline@cref}{{[figure][9][19]19.9}{[1][270][]270}{}{}{}}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {section}{\numberline {19.3}模型微调}{271}{section.19.3}\protected@file@percent }
+\def\@LN@column{1}
+\def\@LN@column{1}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {19.10}{\ignorespaces BERT在不同下游任务中的微调方式。三种任务均以预训练BERT为基础，通过不同的任务头完成预测。其中，文本分类利用\unhbox \voidb@x \hspace  {0.2em}{\color  {inlineRed}\ttfamily  \fontsize  {9.5pt}{9pt}\selectfont  [CLS]}\futurelet \@let@token \let \hspace  {0.2em}\hspace  {0.2em}\hspace  {0.2em}位置的隐藏状态预测序列类别，序列标注利用各Token的隐藏状态预测对应标签，抽取式问答则根据文章中各位置的隐藏状态预测答案的起始和结束位置。}}{274}{figure.caption.177}\protected@file@percent }
+\newlabel{fig:bert_finetune_tasks}{{19.10}{274}{BERT在不同下游任务中的微调方式。三种任务均以预训练BERT为基础，通过不同的任务头完成预测。其中，文本分类利用\texttt {[CLS]}位置的隐藏状态预测序列类别，序列标注利用各Token的隐藏状态预测对应标签，抽取式问答则根据文章中各位置的隐藏状态预测答案的起始和结束位置。}{figure.caption.177}{}}
+\newlabel{fig:bert_finetune_tasks@cref}{{[figure][10][19]19.10}{[1][274][]274}{}{}{}}
+\def\@LN@column{1}
+\@setckpt{./chapters/part_03/p3_ch09}{
+\setcounter{page}{276}
+\setcounter{equation}{0}
+\setcounter{enumi}{11}
+\setcounter{enumii}{0}
+\setcounter{enumiii}{0}
+\setcounter{enumiv}{0}
+\setcounter{footnote}{2}
+\setcounter{mpfootnote}{0}
+\setcounter{part}{3}
+\setcounter{chapter}{19}
+\setcounter{section}{3}
+\setcounter{subsection}{0}
+\setcounter{subsubsection}{0}
+\setcounter{paragraph}{0}
+\setcounter{subparagraph}{0}
+\setcounter{figure}{10}
+\setcounter{table}{0}
+\setcounter{FancyVerbLine}{0}
+\setcounter{linenumber}{1}
+\setcounter{LN@truepage}{285}
+\setcounter{FancyVerbWriteLine}{0}
+\setcounter{FancyVerbBufferLine}{0}
+\setcounter{FV@TrueTabGroupLevel}{0}
+\setcounter{FV@TrueTabCounter}{0}
+\setcounter{FV@HighlightLinesStart}{0}
+\setcounter{FV@HighlightLinesStop}{0}
+\setcounter{FancyVerbLineBreakLast}{0}
+\setcounter{FV@BreakBufferDepth}{0}
+\setcounter{parentequation}{0}
+\setcounter{float@type}{16}
+\setcounter{caption@flags}{2}
+\setcounter{continuedfloat}{0}
+\setcounter{subfigure}{0}
+\setcounter{subtable}{0}
+\setcounter{LT@tables}{0}
+\setcounter{LT@chunks}{0}
+\setcounter{nlinenum}{0}
+\setcounter{lstnumber}{1}
+\setcounter{tcbbreakpart}{1}
+\setcounter{tcblayer}{0}
+\setcounter{tcolorbox@number}{103}
+\setcounter{tcbrastercolumn}{1}
+\setcounter{tcbrasterrow}{1}
+\setcounter{tcbrasternum}{1}
+\setcounter{tcbraster}{0}
+\setcounter{tcblisting}{0}
+\setcounter{section@level}{0}
+\setcounter{Item}{47}
+\setcounter{Hfootnote}{55}
+\setcounter{Hy@AnnotLevel}{0}
+\setcounter{bookmark@seq@number}{133}
+\setcounter{lstlisting}{0}
+}

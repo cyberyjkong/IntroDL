@@ -1,0 +1,115 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {chapter}{\numberline {5}大语言模型预训练}{61}{chapter.5}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{toc}{\contentsline {section}{\numberline {5.1}预训练数据构建}{61}{section.5.1}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.1}{\ignorespaces 打包后第一个窗口的输入与右移标签。颜色区分文档，橙框标出跨文档的预测对。若要求文档完全隔离，既要屏蔽右侧文档读取左侧文档的注意力，也要忽略橙框对应的标签。}}{62}{figure.caption.44}\protected@file@percent }
+\newlabel{fig:p4_document_pack}{{5.1}{62}{打包后第一个窗口的输入与右移标签。颜色区分文档，橙框标出跨文档的预测对。若要求文档完全隔离，既要屏蔽右侧文档读取左侧文档的注意力，也要忽略橙框对应的标签。}{figure.caption.44}{}}
+\newlabel{fig:p4_document_pack@cref}{{[figure][1][5]5.1}{[1][61][]62}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.2}{\ignorespaces 两个文档拼在一起后的两种可见范围。行是Query，列是Key，虚线标记文档边界。橙色区域为普通因果掩码中允许的跨文档访问，隔离式打包会将其屏蔽。}}{63}{figure.caption.45}\protected@file@percent }
+\newlabel{fig:p4_packing_visibility}{{5.2}{63}{两个文档拼在一起后的两种可见范围。行是Query，列是Key，虚线标记文档边界。橙色区域为普通因果掩码中允许的跨文档访问，隔离式打包会将其屏蔽。}{figure.caption.45}{}}
+\newlabel{fig:p4_packing_visibility@cref}{{[figure][2][5]5.2}{[1][62][]63}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.3}{\ignorespaces 按窗口组织的训练样本。各窗口分别列出输入和被监督的下一项，横线表示忽略。第一行的位置4有真实输入但没有有效目标，第二行后三个位置是填充。}}{64}{figure.caption.46}\protected@file@percent }
+\newlabel{fig:p4_training_target_grid}{{5.3}{64}{按窗口组织的训练样本。各窗口分别列出输入和被监督的下一项，横线表示忽略。第一行的位置4有真实输入但没有有效目标，第二行后三个位置是填充。}{figure.caption.46}{}}
+\newlabel{fig:p4_training_target_grid@cref}{{[figure][3][5]5.3}{[1][64][]64}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.2}损失与参数更新}{64}{section.5.2}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.4}{\ignorespaces 生成式预训练的一次更新。上方把语料制成输入和右移标签，前向传播得到词表分数；下方用有效标签计算损失，通过反向传播取得梯度，再更新同一个GPT的参数。验证批次走虚线，只记录损失。}}{65}{figure.caption.47}\protected@file@percent }
+\newlabel{fig:p4_pretrain_loop}{{5.4}{65}{生成式预训练的一次更新。上方把语料制成输入和右移标签，前向传播得到词表分数；下方用有效标签计算损失，通过反向传播取得梯度，再更新同一个GPT的参数。验证批次走虚线，只记录损失。}{figure.caption.47}{}}
+\newlabel{fig:p4_pretrain_loop@cref}{{[figure][4][5]5.4}{[1][65][]65}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.5}{\ignorespaces 学习率调度与一次参数更新。左图示意两步Warmup后采用余弦衰减；右图给出一次更新中梯度、裁剪和优化器的先后关系。}}{66}{figure.caption.48}\protected@file@percent }
+\newlabel{fig:p4_train_schedule}{{5.5}{66}{学习率调度与一次参数更新。左图示意两步Warmup后采用余弦衰减；右图给出一次更新中梯度、裁剪和优化器的先后关系。}{figure.caption.48}{}}
+\newlabel{fig:p4_train_schedule@cref}{{[figure][5][5]5.5}{[1][65][]66}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.3}验证与规模规律}{66}{section.5.3}\protected@file@percent }
+\def\@LN@column{1}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.6}{\ignorespaces 相同目标词元数下的两种批次。两种方案每步各监督4096个词元，较长的窗口会产生更多因果位置对。数值只统计逻辑可见的Query与Key配对。}}{68}{figure.caption.49}\protected@file@percent }
+\newlabel{fig:p4_training_budget_pairs}{{5.6}{68}{相同目标词元数下的两种批次。两种方案每步各监督4096个词元，较长的窗口会产生更多因果位置对。数值只统计逻辑可见的Query与Key配对。}{figure.caption.49}{}}
+\newlabel{fig:p4_training_budget_pairs@cref}{{[figure][6][5]5.6}{[1][68][]68}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.4}FlashAttention}{68}{section.5.4}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.7}{\ignorespaces 同一注意力计算的两种中间量存放方式。上方将分数和权重写到HBM再读取，下方在片上更新每行的统计量，只写回所需结果。}}{69}{figure.caption.50}\protected@file@percent }
+\newlabel{fig:p4_flash_memory_path}{{5.7}{69}{同一注意力计算的两种中间量存放方式。上方将分数和权重写到HBM再读取，下方在片上更新每行的统计量，只写回所需结果。}{figure.caption.50}{}}
+\newlabel{fig:p4_flash_memory_path@cref}{{[figure][7][5]5.7}{[1][68][]69}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.8}{\ignorespaces 一行注意力的片上更新。上支把第一块的指数和与加权和换到新的最大值$m'=\ln 2$下，下支在同一尺度上计算第二块的贡献。两条支路合并，才得到新的分母、分子和整行输出。}}{70}{figure.caption.51}\protected@file@percent }
+\newlabel{fig:p4_flash_blocks}{{5.8}{70}{一行注意力的片上更新。上支把第一块的指数和与加权和换到新的最大值$m'=\ln 2$下，下支在同一尺度上计算第二块的贡献。两条支路合并，才得到新的分母、分子和整行输出。}{figure.caption.51}{}}
+\newlabel{fig:p4_flash_blocks@cref}{{[figure][8][5]5.8}{[1][69][]70}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.9}{\ignorespaces 长度6的因果注意力按每块2个位置划分。绿色块可完整计算，灰色块跳过，橙色对角块只保留块内三角区域。右侧展开最后一个对角块。}}{71}{figure.caption.52}\protected@file@percent }
+\newlabel{fig:p4_flash_causal_tiles}{{5.9}{71}{长度6的因果注意力按每块2个位置划分。绿色块可完整计算，灰色块跳过，橙色对角块只保留块内三角区域。右侧展开最后一个对角块。}{figure.caption.52}{}}
+\newlabel{fig:p4_flash_causal_tiles@cref}{{[figure][9][5]5.9}{[1][71][]71}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.10}{\ignorespaces 以8个位置分为两块。第二个Query块先吸收历史块，再吸收自己的对角块。两次访问共用同一组行状态，只在合并完可见Key后计算输出。}}{72}{figure.caption.53}\protected@file@percent }
+\newlabel{fig:p4_flash_tile_states}{{5.10}{72}{以8个位置分为两块。第二个Query块先吸收历史块，再吸收自己的对角块。两次访问共用同一组行状态，只在合并完可见Key后计算输出。}{figure.caption.53}{}}
+\newlabel{fig:p4_flash_tile_states@cref}{{[figure][10][5]5.10}{[1][72][]72}{}{}{}}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {section}{\numberline {5.5}训练效率优化}{73}{section.5.5}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5.11}{\ignorespaces 两个有效词元数不同的小批合成一次更新。第一小批留下梯度，第二小批继续累加；损失的总归一化按50个有效词元计算。}}{73}{figure.caption.54}\protected@file@percent }
+\newlabel{fig:p4_train_accumulate}{{5.11}{73}{两个有效词元数不同的小批合成一次更新。第一小批留下梯度，第二小批继续累加；损失的总归一化按50个有效词元计算。}{figure.caption.54}{}}
+\newlabel{fig:p4_train_accumulate@cref}{{[figure][11][5]5.11}{[1][73][]73}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.12}{\ignorespaces 一个小批次中，只有6个目标参加平均。若词表上的分数相等，每项损失都是$ln16$。将填充项置零以后仍按8格平均，会错误地缩小损失。}}{74}{figure.caption.55}\protected@file@percent }
+\newlabel{fig:p4_train_first_batch_check}{{5.12}{74}{一个小批次中，只有6个目标参加平均。若词表上的分数相等，每项损失都是$ln16$。将填充项置零以后仍按8格平均，会错误地缩小损失。}{figure.caption.55}{}}
+\newlabel{fig:p4_train_first_batch_check@cref}{{[figure][12][5]5.12}{[1][73][]74}{}{}{}}
+\def\@LN@column{1}
+\@setckpt{chapters/part_04/p4_ch05}{
+\setcounter{page}{76}
+\setcounter{equation}{0}
+\setcounter{enumi}{0}
+\setcounter{enumii}{0}
+\setcounter{enumiii}{0}
+\setcounter{enumiv}{0}
+\setcounter{footnote}{3}
+\setcounter{mpfootnote}{0}
+\setcounter{part}{1}
+\setcounter{chapter}{5}
+\setcounter{section}{5}
+\setcounter{subsection}{0}
+\setcounter{subsubsection}{0}
+\setcounter{paragraph}{0}
+\setcounter{subparagraph}{0}
+\setcounter{figure}{12}
+\setcounter{table}{0}
+\setcounter{FancyVerbLine}{0}
+\setcounter{linenumber}{1}
+\setcounter{LN@truepage}{75}
+\setcounter{FancyVerbWriteLine}{0}
+\setcounter{FancyVerbBufferLine}{0}
+\setcounter{FV@TrueTabGroupLevel}{0}
+\setcounter{FV@TrueTabCounter}{0}
+\setcounter{FV@HighlightLinesStart}{0}
+\setcounter{FV@HighlightLinesStop}{0}
+\setcounter{FancyVerbLineBreakLast}{0}
+\setcounter{FV@BreakBufferDepth}{0}
+\setcounter{parentequation}{0}
+\setcounter{float@type}{16}
+\setcounter{caption@flags}{2}
+\setcounter{continuedfloat}{0}
+\setcounter{subfigure}{0}
+\setcounter{subtable}{0}
+\setcounter{LT@tables}{0}
+\setcounter{LT@chunks}{0}
+\setcounter{nlinenum}{0}
+\setcounter{lstnumber}{1}
+\setcounter{tcbbreakpart}{1}
+\setcounter{tcblayer}{0}
+\setcounter{tcolorbox@number}{5}
+\setcounter{tcbrastercolumn}{1}
+\setcounter{tcbrasterrow}{1}
+\setcounter{tcbrasternum}{1}
+\setcounter{tcbraster}{0}
+\setcounter{tcblisting}{0}
+\setcounter{section@level}{0}
+\setcounter{Item}{0}
+\setcounter{Hfootnote}{13}
+\setcounter{Hy@AnnotLevel}{0}
+\setcounter{bookmark@seq@number}{35}
+\setcounter{lstlisting}{0}
+}

@@ -1,0 +1,105 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {chapter}{\numberline {17}Transformer Encoder}{231}{chapter.17}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{lof}{\contentsline {figure}{\numberline {17.1}{\ignorespaces Transformer架构图。模型由编码器和解码器组成，二者均由$N$个结构相同的网络层堆叠而成。编码器以多头自注意力和前馈网络提取输入上下文特征；解码器结合编码器输出，再逐步地生成目标序列。}}{231}{figure.caption.153}\protected@file@percent }
+\newlabel{fig:transformer}{{17.1}{231}{Transformer架构图。模型由编码器和解码器组成，二者均由$N$个结构相同的网络层堆叠而成。编码器以多头自注意力和前馈网络提取输入上下文特征；解码器结合编码器输出，再逐步地生成目标序列。}{figure.caption.153}{}}
+\newlabel{fig:transformer@cref}{{[figure][1][17]17.1}{[1][231][]231}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {17.2}{\ignorespaces Transformer序列计算展开图。$PE$为位置编码，$MHA$为多头注意力。左侧编码器通过自注意力与前馈网络提取输入特征；右侧解码器结合Masked MHA与Cross MHA，经线性层预测下一词。黄色虚线表示推理阶段的自回归生成，即逐步将生成词作为下一步输入直至结束。}}{232}{figure.caption.154}\protected@file@percent }
+\newlabel{fig:transformer_seq2seq}{{17.2}{232}{Transformer序列计算展开图。$PE$为位置编码，$MHA$为多头注意力。左侧编码器通过自注意力与前馈网络提取输入特征；右侧解码器结合Masked MHA与Cross MHA，经线性层预测下一词。黄色虚线表示推理阶段的自回归生成，即逐步将生成词作为下一步输入直至结束。}{figure.caption.154}{}}
+\newlabel{fig:transformer_seq2seq@cref}{{[figure][2][17]17.2}{[1][232][]232}{}{}{}}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {section}{\numberline {17.1}位置编码}{233}{section.17.1}\protected@file@percent }
+\def\@LN@column{1}
+\def\@LN@column{1}
+\def\@LN@column{1}
+\def\@LN@column{1}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {17.3}{\ignorespaces 正弦余弦位置编码的旋转变换示意图。左右两图展示不同起始位置下的向量变化。对于同一组维度，相同的位置间隔$k$对应相同的旋转角度$\Delta \theta =\omega _i k$，说明这一变换只与相对距离有关，而不依赖位置。}}{238}{figure.caption.155}\protected@file@percent }
+\newlabel{fig:positional_encoding}{{17.3}{238}{正弦余弦位置编码的旋转变换示意图。左右两图展示不同起始位置下的向量变化。对于同一组维度，相同的位置间隔$k$对应相同的旋转角度$\Delta \theta =\omega _i k$，说明这一变换只与相对距离有关，而不依赖位置。}{figure.caption.155}{}}
+\newlabel{fig:positional_encoding@cref}{{[figure][3][17]17.3}{[1][238][]238}{}{}{}}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {section}{\numberline {17.2}多头自注意力机制}{239}{section.17.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {17.4}{\ignorespaces 多头注意力机制的整体结构。输入Query、Key和Value经过多组独立的线性变换，分别送入不同的注意力头计算，再将各头输出拼接并进行线性变换，得到最终结果。}}{239}{figure.caption.156}\protected@file@percent }
+\newlabel{fig:mha}{{17.4}{239}{多头注意力机制的整体结构。输入Query、Key和Value经过多组独立的线性变换，分别送入不同的注意力头计算，再将各头输出拼接并进行线性变换，得到最终结果。}{figure.caption.156}{}}
+\newlabel{fig:mha@cref}{{[figure][4][17]17.4}{[1][239][]239}{}{}{}}
+\def\@LN@column{1}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {17.5}{\ignorespaces 多头注意力机制的矩阵计算流程。输入经过Query、Key和Value投影，再沿特征维度划分为多个注意力头。各头通过Query和Key计算注意力分数，经缩放与Softmax归一化得到权重，并对Value加权求和。最后，将各头输出拼接，通过输出投影矩阵$W^O$进行线性变换，得到与输入维度一致的结果。}}{241}{figure.caption.157}\protected@file@percent }
+\newlabel{fig:multi_head_attention}{{17.5}{241}{多头注意力机制的矩阵计算流程。输入经过Query、Key和Value投影，再沿特征维度划分为多个注意力头。各头通过Query和Key计算注意力分数，经缩放与Softmax归一化得到权重，并对Value加权求和。最后，将各头输出拼接，通过输出投影矩阵$W^O$进行线性变换，得到与输入维度一致的结果。}{figure.caption.157}{}}
+\newlabel{fig:multi_head_attention@cref}{{[figure][5][17]17.5}{[1][240][]241}{}{}{}}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {section}{\numberline {17.3}Add \& Norm}{242}{section.17.3}\protected@file@percent }
+\def\@LN@column{1}
+\def\@LN@column{1}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {17.6}{\ignorespaces BN与LN的归一化方式对比。输入张量包含批次（Batch）、序列长度（Sequence Length）和特征（Feature）三个维度，彩色区域表示计算均值和方差时所涉及的数据范围。BN固定特征维度，在不同样本和序列位置之间计算统计量；LN则固定样本和序列位置，沿特征维度独立计算均值和方差。}}{245}{figure.caption.158}\protected@file@percent }
+\newlabel{fig:layernorm}{{17.6}{245}{BN与LN的归一化方式对比。输入张量包含批次（Batch）、序列长度（Sequence Length）和特征（Feature）三个维度，彩色区域表示计算均值和方差时所涉及的数据范围。BN固定特征维度，在不同样本和序列位置之间计算统计量；LN则固定样本和序列位置，沿特征维度独立计算均值和方差。}{figure.caption.158}{}}
+\newlabel{fig:layernorm@cref}{{[figure][6][17]17.6}{[1][245][]245}{}{}{}}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {section}{\numberline {17.4}前馈神经网络}{246}{section.17.4}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {17.7}{\ignorespaces 前馈神经网络的结构示意图。输入序列中的每个位置分别经过两个全连接层及ReLU激活函数，特征维度由512扩展至2048，再映射回512。各位置独立计算并共享相同的网络参数，最终输出矩阵与输入保持相同的形状。}}{247}{figure.caption.159}\protected@file@percent }
+\newlabel{fig:feed_forward}{{17.7}{247}{前馈神经网络的结构示意图。输入序列中的每个位置分别经过两个全连接层及ReLU激活函数，特征维度由512扩展至2048，再映射回512。各位置独立计算并共享相同的网络参数，最终输出矩阵与输入保持相同的形状。}{figure.caption.159}{}}
+\newlabel{fig:feed_forward@cref}{{[figure][7][17]17.7}{[1][247][]247}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {17.8}{\ignorespaces Transformer Encoder结构图。输入序列经过词嵌入和位置编码后，依次通过$N$个结构相同的编码器层。每层包含多头自注意力和前馈神经网络两个子层，并分别经过Add \& Norm处理，最终得到包含上下文信息的序列表示$H$。}}{248}{figure.caption.160}\protected@file@percent }
+\newlabel{fig:transformer_encoder}{{17.8}{248}{Transformer Encoder结构图。输入序列经过词嵌入和位置编码后，依次通过$N$个结构相同的编码器层。每层包含多头自注意力和前馈神经网络两个子层，并分别经过Add \& Norm处理，最终得到包含上下文信息的序列表示$H$。}{figure.caption.160}{}}
+\newlabel{fig:transformer_encoder@cref}{{[figure][8][17]17.8}{[1][248][]248}{}{}{}}
+\@setckpt{./chapters/part_03/p3_ch07}{
+\setcounter{page}{249}
+\setcounter{equation}{0}
+\setcounter{enumi}{11}
+\setcounter{enumii}{0}
+\setcounter{enumiii}{0}
+\setcounter{enumiv}{0}
+\setcounter{footnote}{2}
+\setcounter{mpfootnote}{0}
+\setcounter{part}{3}
+\setcounter{chapter}{17}
+\setcounter{section}{4}
+\setcounter{subsection}{0}
+\setcounter{subsubsection}{0}
+\setcounter{paragraph}{0}
+\setcounter{subparagraph}{0}
+\setcounter{figure}{8}
+\setcounter{table}{0}
+\setcounter{FancyVerbLine}{0}
+\setcounter{linenumber}{1}
+\setcounter{LN@truepage}{258}
+\setcounter{FancyVerbWriteLine}{0}
+\setcounter{FancyVerbBufferLine}{0}
+\setcounter{FV@TrueTabGroupLevel}{0}
+\setcounter{FV@TrueTabCounter}{0}
+\setcounter{FV@HighlightLinesStart}{0}
+\setcounter{FV@HighlightLinesStop}{0}
+\setcounter{FancyVerbLineBreakLast}{0}
+\setcounter{FV@BreakBufferDepth}{0}
+\setcounter{parentequation}{0}
+\setcounter{float@type}{16}
+\setcounter{caption@flags}{2}
+\setcounter{continuedfloat}{0}
+\setcounter{subfigure}{0}
+\setcounter{subtable}{0}
+\setcounter{LT@tables}{0}
+\setcounter{LT@chunks}{0}
+\setcounter{nlinenum}{0}
+\setcounter{lstnumber}{1}
+\setcounter{tcbbreakpart}{1}
+\setcounter{tcblayer}{0}
+\setcounter{tcolorbox@number}{99}
+\setcounter{tcbrastercolumn}{1}
+\setcounter{tcbrasterrow}{1}
+\setcounter{tcbrasternum}{1}
+\setcounter{tcbraster}{0}
+\setcounter{tcblisting}{0}
+\setcounter{section@level}{0}
+\setcounter{Item}{47}
+\setcounter{Hfootnote}{52}
+\setcounter{Hy@AnnotLevel}{0}
+\setcounter{bookmark@seq@number}{122}
+\setcounter{lstlisting}{0}
+}

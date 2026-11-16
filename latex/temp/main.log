@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026) (preloaded format=xelatex 2026.7.11)  3 NOV 2026 21:08
+This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026) (preloaded format=xelatex 2026.7.11)  16 NOV 2026 20:16
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1165,7 +1165,7 @@ Package cleveref Info: include cross-reference names in hyperlinks on input line
 Package cleveref Info: include cross-reference names in hyperlinks on input line 7852.
 )
 ==> First Aid for cleveref.sty applied!
-) (temp/main.aux (temp/./chapters/part_01/p1_ch01.aux) (temp/./chapters/part_01/p1_ch02.aux) (temp/./chapters/part_01/p1_ch03.aux) (temp/./chapters/part_01/p1_ch04.aux) (temp/./chapters/part_02/p2_ch01.aux))
+) (temp/main.aux (temp/chapters/part_01/p1_ch01.aux) (temp/./chapters/part_01/p1_ch02.aux) (temp/./chapters/part_01/p1_ch03.aux) (temp/./chapters/part_01/p1_ch04.aux) (temp/./chapters/part_02/p2_ch01.aux) (temp/./chapters/part_02/p2_ch02.aux) (temp/./chapters/part_02/p2_ch03.aux) (temp/./chapters/part_02/p2_ch04.aux) (temp/./chapters/part_02/p2_ch05.aux) (temp/./chapters/part_02/p2_ch06.aux))
 \openout1 = `main.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 20.
@@ -1345,18 +1345,104 @@ LaTeX Font Info:    Calculating math sizes for size <8.3334> on input line 116.
 
 ]) (temp/main.toc [3
 
-])
+]
+Overfull \hbox (2.61247pt too wide) detected at line 54
+ \TU/lmr/bx/n/10.5 101
+ []
+
+
+Overfull \hbox (0.24997pt too wide) detected at line 55
+ \TU/lmr/m/n/10.5 101
+ []
+
+
+Overfull \hbox (0.24997pt too wide) detected at line 56
+ \TU/lmr/m/n/10.5 102
+ []
+
+
+Overfull \hbox (0.24997pt too wide) detected at line 57
+ \TU/lmr/m/n/10.5 106
+ []
+
+
+Overfull \hbox (2.61247pt too wide) detected at line 58
+ \TU/lmr/bx/n/10.5 110
+ []
+
+
+Overfull \hbox (0.24997pt too wide) detected at line 59
+ \TU/lmr/m/n/10.5 110
+ []
+
+
+Overfull \hbox (0.24997pt too wide) detected at line 60
+ \TU/lmr/m/n/10.5 112
+ []
+
+
+Overfull \hbox (0.24997pt too wide) detected at line 61
+ \TU/lmr/m/n/10.5 115
+ []
+
+
+Overfull \hbox (0.24997pt too wide) detected at line 62
+ \TU/lmr/m/n/10.5 117
+ []
+
+[4]
+Overfull \hbox (2.61247pt too wide) detected at line 63
+ \TU/lmr/bx/n/10.5 122
+ []
+
+
+Overfull \hbox (0.24997pt too wide) detected at line 64
+ \TU/lmr/m/n/10.5 122
+ []
+
+
+Overfull \hbox (0.24997pt too wide) detected at line 65
+ \TU/lmr/m/n/10.5 123
+ []
+
+
+Overfull \hbox (0.24997pt too wide) detected at line 66
+ \TU/lmr/m/n/10.5 124
+ []
+
+
+Overfull \hbox (0.24997pt too wide) detected at line 67
+ \TU/lmr/m/n/10.5 126
+ []
+
+
+Overfull \hbox (0.24997pt too wide) detected at line 68
+ \TU/lmr/m/n/10.5 128
+ []
+
+
+Overfull \hbox (0.24997pt too wide) detected at line 69
+ \TU/lmr/m/n/10.5 130
+ []
+
+
+Overfull \hbox (0.24997pt too wide) detected at line 70
+ \TU/lmr/m/n/10.5 131
+ []
+
+)
 \tf@toc=\write6
 \openout6 = `main.toc'.
 
- [4] [1
+ [5] [6
 
+] [1
 
 
 ] [2
 
 ]
-\openout2 = `./chapters/part_01/p1_ch01.aux'.
+\openout2 = `chapters/part_01/p1_ch01.aux'.
 
  (./chapters/part_01/p1_ch01.tex
 Chapter 1.
@@ -1640,35 +1726,34 @@ File: figures/part_01/p1_ch04/batch_normalization.pdf Graphic file (type pdf)
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [49]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [50]
 File: figures/part_01/p1_ch04/underfit_overfit_plot.pdf Graphic file (type pdf)
 <use figures/part_01/p1_ch04/underfit_overfit_plot.pdf>
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [50]
+ [51]
 File: figures/part_01/p1_ch04/underfit_overfit_loss.pdf Graphic file (type pdf)
 <use figures/part_01/p1_ch04/underfit_overfit_loss.pdf>
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [51]
+ [52]
 File: figures/part_01/p1_ch04/l1_l2.pdf Graphic file (type pdf)
 <use figures/part_01/p1_ch04/l1_l2.pdf>
- [52]
-File: figures/part_01/p1_ch04/dropout.pdf Graphic file (type pdf)
-<use figures/part_01/p1_ch04/dropout.pdf>
 
-Underfull \vbox (badness 5403) has occurred while \output is active []
-
- [53]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [54]) [55] [56
+ [53]
+File: figures/part_01/p1_ch04/dropout.pdf Graphic file (type pdf)
+<use figures/part_01/p1_ch04/dropout.pdf>
+ [54]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [55]) [56] [57
 \def\@LN@column{1}
 
 
 
-] [57
 
 ] [58
 
@@ -1751,7 +1836,333 @@ File: figures/part_02/p2_ch01/lenet.pdf Graphic file (type pdf)
 
 Underfull \vbox (badness 1902) has occurred while \output is active []
 
- [70]) [71] (./chapters/back_cover.tex [72
+ [70]) [71]
+\openout2 = `./chapters/part_02/p2_ch02.aux'.
+
+ (./chapters/part_02/p2_ch02.tex
+Chapter 6.
+File: figures/part_02/p2_ch02/cnn.pdf Graphic file (type pdf)
+<use figures/part_02/p2_ch02/cnn.pdf>
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [72
+
+
+
+
+]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [73]
+File: figures/part_02/p2_ch02/bp_pooling.pdf Graphic file (type pdf)
+<use figures/part_02/p2_ch02/bp_pooling.pdf>
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [74]
+File: figures/part_02/p2_ch02/bp_convolution.pdf Graphic file (type pdf)
+<use figures/part_02/p2_ch02/bp_convolution.pdf>
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [75]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [76]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [77]
+File: figures/part_02/p2_ch02/bp_input.pdf Graphic file (type pdf)
+<use figures/part_02/p2_ch02/bp_input.pdf>
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [78]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [79]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [80]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [81]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [82]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [83]
+File: figures/part_02/p2_ch02/translation_equivariance.pdf Graphic file (type pdf)
+<use figures/part_02/p2_ch02/translation_equivariance.pdf>
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [84]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [85]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [86]) [87]
+\openout2 = `./chapters/part_02/p2_ch03.aux'.
+
+ (./chapters/part_02/p2_ch03.tex
+Chapter 7.
+File: figures/part_02/p2_ch03/alexnet.pdf Graphic file (type pdf)
+<use figures/part_02/p2_ch03/alexnet.pdf>
+
+Underfull \vbox (badness 3343) has occurred while \output is active []
+
+ [88
+
+
+
+
+]
+File: figures/part_02/p2_ch03/alexnet_single_gpu.pdf Graphic file (type pdf)
+<use figures/part_02/p2_ch03/alexnet_single_gpu.pdf>
+File: figures/part_02/p2_ch03/alexnet_single.pdf Graphic file (type pdf)
+<use figures/part_02/p2_ch03/alexnet_single.pdf>
+
+Underfull \vbox (badness 1107) has occurred while \output is active []
+
+ [89]
+Underfull \vbox (badness 4060) has occurred while \output is active []
+
+ [90]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [91]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [92]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [93]
+File: figures/part_02/p2_ch03/vgg_receptive_field.pdf Graphic file (type pdf)
+<use figures/part_02/p2_ch03/vgg_receptive_field.pdf>
+
+Underfull \vbox (badness 2142) has occurred while \output is active []
+
+ [94]
+File: figures/part_02/p2_ch03/vggnet.pdf Graphic file (type pdf)
+<use figures/part_02/p2_ch03/vggnet.pdf>
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [95]
+File: figures/part_02/p2_ch03/inception.pdf Graphic file (type pdf)
+<use figures/part_02/p2_ch03/inception.pdf>
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [96]
+File: figures/part_02/p2_ch03/11_convolution.pdf Graphic file (type pdf)
+<use figures/part_02/p2_ch03/11_convolution.pdf>
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [97]
+File: figures/part_02/p2_ch03/inception_module.pdf Graphic file (type pdf)
+<use figures/part_02/p2_ch03/inception_module.pdf>
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [98]
+File: figures/part_02/p2_ch03/googlenet.pdf Graphic file (type pdf)
+<use figures/part_02/p2_ch03/googlenet.pdf>
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [99]) [100]
+\openout2 = `./chapters/part_02/p2_ch04.aux'.
+
+ (./chapters/part_02/p2_ch04.tex
+Chapter 8.
+File: figures/part_02/p2_ch04/degradation.pdf Graphic file (type pdf)
+<use figures/part_02/p2_ch04/degradation.pdf>
+[101
+
+
+
+
+]
+File: figures/part_02/p2_ch04/residual.pdf Graphic file (type pdf)
+<use figures/part_02/p2_ch04/residual.pdf>
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [102]
+File: figures/part_02/p2_ch04/residual_basic.pdf Graphic file (type pdf)
+<use figures/part_02/p2_ch04/residual_basic.pdf>
+ [103]
+File: figures/part_02/p2_ch04/residual_bottleneck.pdf Graphic file (type pdf)
+<use figures/part_02/p2_ch04/residual_bottleneck.pdf>
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [104]
+File: figures/part_02/p2_ch04/resnet.pdf Graphic file (type pdf)
+<use figures/part_02/p2_ch04/resnet.pdf>
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [105]
+File: figures/part_02/p2_ch04/add_concat.pdf Graphic file (type pdf)
+<use figures/part_02/p2_ch04/add_concat.pdf>
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [106]
+File: figures/part_02/p2_ch04/dense_block.pdf Graphic file (type pdf)
+<use figures/part_02/p2_ch04/dense_block.pdf>
+File: figures/part_02/p2_ch04/dense.pdf Graphic file (type pdf)
+<use figures/part_02/p2_ch04/dense.pdf>
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [107] [108]) [109]
+\openout2 = `./chapters/part_02/p2_ch05.aux'.
+
+ (./chapters/part_02/p2_ch05.tex
+Chapter 9.
+File: figures/part_02/p2_ch05/convolution.pdf Graphic file (type pdf)
+<use figures/part_02/p2_ch05/convolution.pdf>
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [110
+
+
+
+
+]
+File: figures/part_02/p2_ch05/group.pdf Graphic file (type pdf)
+<use figures/part_02/p2_ch05/group.pdf>
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [111]
+File: figures/part_02/p2_ch05/depthwise.pdf Graphic file (type pdf)
+<use figures/part_02/p2_ch05/depthwise.pdf>
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [112]
+File: figures/part_02/p2_ch05/pointwise.pdf Graphic file (type pdf)
+<use figures/part_02/p2_ch05/pointwise.pdf>
+File: figures/part_02/p2_ch05/depthwise_separable.pdf Graphic file (type pdf)
+<use figures/part_02/p2_ch05/depthwise_separable.pdf>
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [113] [114]
+File: figures/part_02/p2_ch05/receptive_field.pdf Graphic file (type pdf)
+<use figures/part_02/p2_ch05/receptive_field.pdf>
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [115]
+File: figures/part_02/p2_ch05/dilated.pdf Graphic file (type pdf)
+<use figures/part_02/p2_ch05/dilated.pdf>
+File: figures/part_02/p2_ch05/dilated_example.pdf Graphic file (type pdf)
+<use figures/part_02/p2_ch05/dilated_example.pdf>
+
+Underfull \vbox (badness 5817) has occurred while \output is active []
+
+ [116]
+File: figures/part_02/p2_ch05/channel.pdf Graphic file (type pdf)
+<use figures/part_02/p2_ch05/channel.pdf>
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [117]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [118]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [119]
+File: figures/part_02/p2_ch05/se.pdf Graphic file (type pdf)
+<use figures/part_02/p2_ch05/se.pdf>
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [120]) [121]
+\openout2 = `./chapters/part_02/p2_ch06.aux'.
+
+ (./chapters/part_02/p2_ch06.tex
+Chapter 10.
+File: figures/part_02/p2_ch06/cnn_for_classification.pdf Graphic file (type pdf)
+<use figures/part_02/p2_ch06/cnn_for_classification.pdf>
+File: figures/part_02/p2_ch06/segment.pdf Graphic file (type pdf)
+<use figures/part_02/p2_ch06/segment.pdf>
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [122
+
+
+
+
+]
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 25.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\times' on input line 25.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 25.
+
+File: figures/part_02/p2_ch06/conv_pool.pdf Graphic file (type pdf)
+<use figures/part_02/p2_ch06/conv_pool.pdf>
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [123]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [124]
+File: figures/part_02/p2_ch06/transpose_convolution.pdf Graphic file (type pdf)
+<use figures/part_02/p2_ch06/transpose_convolution.pdf>
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [125]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [126]
+File: figures/part_02/p2_ch06/conv_pool_transpose.pdf Graphic file (type pdf)
+<use figures/part_02/p2_ch06/conv_pool_transpose.pdf>
+File: figures/part_02/p2_ch06/full_convolution_network.pdf Graphic file (type pdf)
+<use figures/part_02/p2_ch06/full_convolution_network.pdf>
+ [127]
+File: figures/part_02/p2_ch06/unet.pdf Graphic file (type pdf)
+<use figures/part_02/p2_ch06/unet.pdf>
+
+Underfull \vbox (badness 5403) has occurred while \output is active []
+
+ [128]
+Underfull \vbox (badness 5316) has occurred while \output is active []
+
+ [129]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [130]
+File: figures/part_02/p2_ch06/aspp.pdf Graphic file (type pdf)
+<use figures/part_02/p2_ch06/aspp.pdf>
+File: figures/part_02/p2_ch06/deeplab.pdf Graphic file (type pdf)
+<use figures/part_02/p2_ch06/deeplab.pdf>
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [131] [132]) [133] (./chapters/back_cover.tex [134
 \def\@LN@column{1}
 
 
@@ -1763,23 +2174,23 @@ File: figures/back_cover/wechat_pay.png Graphic file (type bmp)
 <figures/back_cover/wechat_pay.png>
 File: figures/back_cover/ali_pay.png Graphic file (type bmp)
 <figures/back_cover/ali_pay.png>
- [73] [74
+ [135] [136
 
-]) (temp/main.aux (temp/./chapters/part_01/p1_ch01.aux) (temp/./chapters/part_01/p1_ch02.aux) (temp/./chapters/part_01/p1_ch03.aux) (temp/./chapters/part_01/p1_ch04.aux) (temp/./chapters/part_02/p2_ch01.aux))
+]) (temp/main.aux (temp/chapters/part_01/p1_ch01.aux) (temp/./chapters/part_01/p1_ch02.aux) (temp/./chapters/part_01/p1_ch03.aux) (temp/./chapters/part_01/p1_ch04.aux) (temp/./chapters/part_02/p2_ch01.aux) (temp/./chapters/part_02/p2_ch02.aux) (temp/./chapters/part_02/p2_ch03.aux) (temp/./chapters/part_02/p2_ch04.aux) (temp/./chapters/part_02/p2_ch05.aux) (temp/./chapters/part_02/p2_ch06.aux))
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2022/08/05>
  ***********
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 12742398AE27DA4ED583B2388B33E438;4587.
+(rerunfilecheck)             Checksum: 9051E24D77E471FAB47599725C101010;8554.
  ) 
 Here is how much of TeX's memory you used:
- 52234 strings out of 468168
- 1322426 string characters out of 5436524
- 1825898 words of memory out of 5000000
- 79983 multiletter control sequences out of 15000+600000
- 650912 words of font info for 208 fonts, out of 8000000 for 9000
+ 53006 strings out of 468168
+ 1356498 string characters out of 5436524
+ 1828902 words of memory out of 5000000
+ 80668 multiletter control sequences out of 15000+600000
+ 654024 words of font info for 223 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 108i,17n,131p,1079b,1679s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 108i,17n,131p,1271b,1679s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on temp/main.xdv (80 pages, 1333904 bytes).
+Output written on temp/main.xdv (144 pages, 2469356 bytes).

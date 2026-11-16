@@ -1,69 +1,72 @@
 \relax 
 \providecommand\hyper@newdestlabel[2]{}
 \def\@LN@column{1}
-\@writefile{toc}{\contentsline {chapter}{\numberline {15}Attention机制}{196}{chapter.15}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {15}Seq2Seq}{201}{chapter.15}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {15.1}Attention 的基本思想}{196}{section.15.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {15.1}{\ignorespaces RNN的基本单元与典型序列任务结构。左：RNN单元结合当前输入$x_t$与上一隐藏状态$h_{t-1}$算出$h_t$；右：两种任务结构——多对一在读完序列后由最终状态$h_T$生成单个输出，同步多对多则在每个时间步由$h_t$生成对应输出、与输入逐步对齐。}}{201}{figure.caption.135}\protected@file@percent }
+\newlabel{fig:rnn_structures}{{15.1}{201}{RNN的基本单元与典型序列任务结构。左：RNN单元结合当前输入$x_t$与上一隐藏状态$h_{t-1}$算出$h_t$；右：两种任务结构——多对一在读完序列后由最终状态$h_T$生成单个输出，同步多对多则在每个时间步由$h_t$生成对应输出、与输入逐步对齐。}{figure.caption.135}{}}
+\newlabel{fig:rnn_structures@cref}{{[figure][1][15]15.1}{[1][201][]201}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {15.2}{\ignorespaces 翻译任务。两个中译英示例：左例源端11字对应目标端7词，右例14字对应8词，输入与输出长度不等（$T\neq  S$）；虚线为词级对应关系，左例大致顺序对齐，右例交叉错开。}}{202}{figure.caption.136}\protected@file@percent }
+\newlabel{fig:translation_mission}{{15.2}{202}{翻译任务。两个中译英示例：左例源端11字对应目标端7词，右例14字对应8词，输入与输出长度不等（$T\neq S$）；虚线为词级对应关系，左例大致顺序对齐，右例交叉错开。}{figure.caption.136}{}}
+\newlabel{fig:translation_mission@cref}{{[figure][2][15]15.2}{[1][202][]202}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {15.3}{\ignorespaces 编码器—解码器（Encoder-Decoder）架构。左侧编码器RNN依次读入源序列$x_1,\ldots  ,x_T$，将信息压缩进最终隐藏状态$h_T$；该状态传入右侧解码器，解码器RNN以其为起点自回归地逐步生成目标序列$y_1,\ldots  ,y_S$，即前一步生成的词作为下一步输入。两序列长度$T$与$S$不必相等。}}{203}{figure.caption.137}\protected@file@percent }
+\newlabel{fig:encoder_decoder}{{15.3}{203}{编码器—解码器（Encoder-Decoder）架构。左侧编码器RNN依次读入源序列$x_1,\ldots ,x_T$，将信息压缩进最终隐藏状态$h_T$；该状态传入右侧解码器，解码器RNN以其为起点自回归地逐步生成目标序列$y_1,\ldots ,y_S$，即前一步生成的词作为下一步输入。两序列长度$T$与$S$不必相等。}{figure.caption.137}{}}
+\newlabel{fig:encoder_decoder@cref}{{[figure][3][15]15.3}{[1][202][]203}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {15.1}Encoder}{203}{section.15.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {15.4}{\ignorespaces 编码器沿时间方向展开。词向量$x_1,\ldots  ,x_T$依次进入参数共享的同一RNN单元，隐藏状态自$h_0$逐步右传为$h_1,\ldots  ,h_T$；读入过程不产生输出，全部信息浓缩进高亮的$h_T$交给下一模块。单元可替换为LSTM/GRU。}}{203}{figure.caption.138}\protected@file@percent }
+\newlabel{fig:seq2seq_encoder}{{15.4}{203}{编码器沿时间方向展开。词向量$x_1,\ldots ,x_T$依次进入参数共享的同一RNN单元，隐藏状态自$h_0$逐步右传为$h_1,\ldots ,h_T$；读入过程不产生输出，全部信息浓缩进高亮的$h_T$交给下一模块。单元可替换为LSTM/GRU。}{figure.caption.138}{}}
+\newlabel{fig:seq2seq_encoder@cref}{{[figure][4][15]15.4}{[1][203][]203}{}{}{}}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {section}{\numberline {15.2}Decoder}{204}{section.15.2}\protected@file@percent }
 \def\@LN@column{1}
 \def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {15.5}{\ignorespaces 解码器逐步生成目标序列示意图。上下文向量$c$作为初始状态$s_0$；首个时间步输入启动标记$\langle \mathrm  {SOS}\rangle $计算$s_1$并生成$y_1$。此后，每一步将上一步生成的词作为输入，结合上一隐藏状态计算并预测下一个词，直至生成结束标记$\langle \mathrm  {EOS}\rangle $终止。}}{206}{figure.caption.139}\protected@file@percent }
+\newlabel{fig:seq2seq_decoder}{{15.5}{206}{解码器逐步生成目标序列示意图。上下文向量$c$作为初始状态$s_0$；首个时间步输入启动标记$\langle \mathrm {SOS}\rangle $计算$s_1$并生成$y_1$。此后，每一步将上一步生成的词作为输入，结合上一隐藏状态计算并预测下一个词，直至生成结束标记$\langle \mathrm {EOS}\rangle $终止。}{figure.caption.139}{}}
+\newlabel{fig:seq2seq_decoder@cref}{{[figure][5][15]15.5}{[1][206][]206}{}{}{}}
 \def\@LN@column{1}
-\@writefile{lof}{\contentsline {figure}{\numberline {15.1}{\ignorespaces Attention 基本思想的整体示意图。当 Decoder 准备生成第 $t$ 个目标词时，它不再依赖一个固定的 Context Vector，而是以当前状态 $s_{t-1}$ 为出发点，重新查看 Encoder 保留下来的全部隐藏状态 $h_1,\ldots  ,h_5$。图中红色箭头表示 $s_{t-1}$ 与每一个隐藏状态逐一比较后得到的匹配分数 $e_{t,1},\ldots  ,e_{t,5}$，箭头的粗细直观反映了分数的大小：在本例中，第 2、3 两个位置与当前生成需求最为相关，因而获得最高的匹配分数。分数经归一化后转化为注意力权重，各隐藏状态按权重大小不同程度地参与当前信息的构建（蓝色箭头的粗细对应权重的大小），再经加权求和（Weighted sum）得到专属于当前生成时刻的动态 Context Vector $c_t$（Dynamic context）。与传统 Seq2Seq 将整段输入一次性压缩为固定 $c$ 并反复使用不同，Attention 在每一个生成时刻都会重新计算一组权重、得到不同的 $c_t$，从而让 Decoder 能够动态地决定查看输入序列的哪些位置。}}{199}{figure.caption.136}\protected@file@percent }
-\newlabel{fig:attention_pipeline}{{15.1}{199}{Attention 基本思想的整体示意图。当 Decoder 准备生成第 $t$ 个目标词时，它不再依赖一个固定的 Context Vector，而是以当前状态 $s_{t-1}$ 为出发点，重新查看 Encoder 保留下来的全部隐藏状态 $h_1,\ldots ,h_5$。图中红色箭头表示 $s_{t-1}$ 与每一个隐藏状态逐一比较后得到的匹配分数 $e_{t,1},\ldots ,e_{t,5}$，箭头的粗细直观反映了分数的大小：在本例中，第 2、3 两个位置与当前生成需求最为相关，因而获得最高的匹配分数。分数经归一化后转化为注意力权重，各隐藏状态按权重大小不同程度地参与当前信息的构建（蓝色箭头的粗细对应权重的大小），再经加权求和（Weighted sum）得到专属于当前生成时刻的动态 Context Vector $c_t$（Dynamic context）。与传统 Seq2Seq 将整段输入一次性压缩为固定 $c$ 并反复使用不同，Attention 在每一个生成时刻都会重新计算一组权重、得到不同的 $c_t$，从而让 Decoder 能够动态地决定查看输入序列的哪些位置。}{figure.caption.136}{}}
-\newlabel{fig:attention_pipeline@cref}{{[figure][1][15]15.1}{[1][199][]199}{}{}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {15.2}Attention Score}{199}{section.15.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {15.6}{\ignorespaces Seq2Seq（编码器—解码器）完整架构。编码器依次读入源序列$x_1,\ldots  ,x_T$，将最终隐藏状态$h_T$作为上下文向量$c$，用于初始化解码器状态$s_0$。解码器以$\langle \mathrm  {SOS}\rangle $为起点，将上一步生成的词作为下一步输入，经输出层与Softmax逐步生成目标序列，直到输出$\langle \mathrm  {EOS}\rangle $。编码器与解码器使用各自的参数，输入与输出长度$T$和$S$可以不同。图中以普通RNN为例，也可替换为LSTM或GRU。}}{207}{figure.caption.140}\protected@file@percent }
+\newlabel{fig:seq2seq_full}{{15.6}{207}{Seq2Seq（编码器—解码器）完整架构。编码器依次读入源序列$x_1,\ldots ,x_T$，将最终隐藏状态$h_T$作为上下文向量$c$，用于初始化解码器状态$s_0$。解码器以$\langle \mathrm {SOS}\rangle $为起点，将上一步生成的词作为下一步输入，经输出层与Softmax逐步生成目标序列，直到输出$\langle \mathrm {EOS}\rangle $。编码器与解码器使用各自的参数，输入与输出长度$T$和$S$可以不同。图中以普通RNN为例，也可替换为LSTM或GRU。}{figure.caption.140}{}}
+\newlabel{fig:seq2seq_full@cref}{{[figure][6][15]15.6}{[1][207][]207}{}{}{}}
 \def\@LN@column{1}
-\def\@LN@column{1}
-\@writefile{lof}{\contentsline {figure}{\numberline {15.2}{\ignorespaces Attention Score 的计算过程示意图。图中以 Decoder 当前状态 $s_{t-1}$ 为出发点，Encoder 输出的隐藏状态 $h_1,h_2,\ldots  ,h_5$ 沿水平方向依次排列，分别对应输入序列中的不同位置。由 $s_{t-1}$ 分别连接到每一个 $h_i$，表示 Decoder 在当前生成时刻并不是只查看某一个固定位置，而是需要将当前状态与全部候选输入信息逐一进行比较。每一条连接对应一个匹配分数 $e_{t,i}=\operatorname  {score}(s_{t-1},h_i)$，用于表示当前 Decoder 状态与对应 Encoder 隐藏状态之间的匹配程度。图中可以通过连接线的不同粗细或视觉强弱表现 Score 的差异，例如让 $s_{t-1}$ 与 $h_3$ 之间的连接最为突出，以表示本例中 $e_{t,3}$ 最大，而其他位置得到相对较小的分数。图中需要明确标出 Score 的产生位置，但不应出现 Softmax、Attention Weight 或 Context Vector，因为这些内容属于后续步骤。本图的重点是帮助读者理解 Attention 的第一步：当前 Decoder 状态同时检查输入序列中的所有位置，并为每一个位置得到一个独立的匹配分数。}}{201}{figure.caption.137}\protected@file@percent }
-\newlabel{fig:attention_score}{{15.2}{201}{Attention Score 的计算过程示意图。图中以 Decoder 当前状态 $s_{t-1}$ 为出发点，Encoder 输出的隐藏状态 $h_1,h_2,\ldots ,h_5$ 沿水平方向依次排列，分别对应输入序列中的不同位置。由 $s_{t-1}$ 分别连接到每一个 $h_i$，表示 Decoder 在当前生成时刻并不是只查看某一个固定位置，而是需要将当前状态与全部候选输入信息逐一进行比较。每一条连接对应一个匹配分数 $e_{t,i}=\operatorname {score}(s_{t-1},h_i)$，用于表示当前 Decoder 状态与对应 Encoder 隐藏状态之间的匹配程度。图中可以通过连接线的不同粗细或视觉强弱表现 Score 的差异，例如让 $s_{t-1}$ 与 $h_3$ 之间的连接最为突出，以表示本例中 $e_{t,3}$ 最大，而其他位置得到相对较小的分数。图中需要明确标出 Score 的产生位置，但不应出现 Softmax、Attention Weight 或 Context Vector，因为这些内容属于后续步骤。本图的重点是帮助读者理解 Attention 的第一步：当前 Decoder 状态同时检查输入序列中的所有位置，并为每一个位置得到一个独立的匹配分数。}{figure.caption.137}{}}
-\newlabel{fig:attention_score@cref}{{[figure][2][15]15.2}{[1][200][]201}{}{}{}}
-\def\@LN@column{1}
-\@writefile{toc}{\contentsline {section}{\numberline {15.3}Attention Weight：将重要性转换为权重}{202}{section.15.3}\protected@file@percent }
-\def\@LN@column{1}
-\def\@LN@column{1}
-\def\@LN@column{1}
-\@writefile{toc}{\contentsline {section}{\numberline {15.4}Context Vector：动态获取信息}{205}{section.15.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {15.3}Seq2Seq的训练}{208}{section.15.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {15.7}{\ignorespaces 教师强制的工作原理。左图使用模型自身的预测作为下一步输入，错误预测可能影响后续步骤；右图始终使用目标序列中的真实词作为下一步输入，并将每一步的预测与对应的正确目标进行比较、计算损失。解码器输入为目标序列右移一位后，在开头添加启动标记$\langle \mathrm  {SOS}\rangle $。}}{208}{figure.caption.141}\protected@file@percent }
+\newlabel{fig:seq2seq_teacher_forcing}{{15.7}{208}{教师强制的工作原理。左图使用模型自身的预测作为下一步输入，错误预测可能影响后续步骤；右图始终使用目标序列中的真实词作为下一步输入，并将每一步的预测与对应的正确目标进行比较、计算损失。解码器输入为目标序列右移一位后，在开头添加启动标记$\langle \mathrm {SOS}\rangle $。}{figure.caption.141}{}}
+\newlabel{fig:seq2seq_teacher_forcing@cref}{{[figure][7][15]15.7}{[1][208][]208}{}{}{}}
 \def\@LN@column{1}
 \def\@LN@column{1}
-\@writefile{toc}{\contentsline {section}{\numberline {15.5}Attention 与 Decoder 的结合}{207}{section.15.5}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {15.8}{\ignorespaces 暴露偏差示意图。左侧为训练阶段，解码器使用真实目标词作为下一步输入；右侧为推理阶段，解码器只能使用自身生成的词，早期预测错误可能沿后续时间步传播，导致训练与推理之间产生差异。}}{210}{figure.caption.142}\protected@file@percent }
+\newlabel{fig:seq2seq_train_infer}{{15.8}{210}{暴露偏差示意图。左侧为训练阶段，解码器使用真实目标词作为下一步输入；右侧为推理阶段，解码器只能使用自身生成的词，早期预测错误可能沿后续时间步传播，导致训练与推理之间产生差异。}{figure.caption.142}{}}
+\newlabel{fig:seq2seq_train_infer@cref}{{[figure][8][15]15.8}{[1][210][]210}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {15.4}Seq2Seq的局限}{210}{section.15.4}\protected@file@percent }
 \def\@LN@column{1}
-\def\@LN@column{1}
-\@writefile{toc}{\contentsline {section}{\numberline {15.6}Bahdanau Attention 与 Luong Attention}{209}{section.15.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {15.6.1}Bahdanau Attention}{209}{subsection.15.6.1}\protected@file@percent }
-\def\@LN@column{1}
-\@writefile{toc}{\contentsline {subsection}{\numberline {15.6.2}Luong Attention}{210}{subsection.15.6.2}\protected@file@percent }
-\def\@LN@column{1}
-\@writefile{toc}{\contentsline {section}{\numberline {15.7}Attention 的完整计算流程}{211}{section.15.7}\protected@file@percent }
-\def\@LN@column{1}
-\@writefile{toc}{\contentsline {section}{\numberline {15.8}注意力机制的本质}{212}{section.15.8}\protected@file@percent }
-\def\@LN@column{1}
-\def\@LN@column{1}
-\@writefile{toc}{\contentsline {section}{\numberline {15.9}从 Attention 走向 Self-Attention}{214}{section.15.9}\protected@file@percent }
-\def\@LN@column{1}
-\@writefile{toc}{\contentsline {section}{\numberline {15.10}本章小结}{215}{section.15.10}\protected@file@percent }
-\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {15.9}{\ignorespaces Seq2Seq的信息瓶颈。无论输入序列有多长，编码器最终都将其压缩为维度相同的上下文向量$c\in \mathbb  {R}^{n}$。随着输入长度增加，单个向量需要承载的信息越来越多，难以充分保留所有细节。}}{211}{figure.caption.143}\protected@file@percent }
+\newlabel{fig:seq2seq_context}{{15.9}{211}{Seq2Seq的信息瓶颈。无论输入序列有多长，编码器最终都将其压缩为维度相同的上下文向量$c\in \mathbb {R}^{n}$。随着输入长度增加，单个向量需要承载的信息越来越多，难以充分保留所有细节。}{figure.caption.143}{}}
+\newlabel{fig:seq2seq_context@cref}{{[figure][9][15]15.9}{[1][211][]211}{}{}{}}
 \def\@LN@column{1}
 \@setckpt{./chapters/part_03/p3_ch05}{
-\setcounter{page}{218}
+\setcounter{page}{213}
 \setcounter{equation}{0}
 \setcounter{enumi}{11}
 \setcounter{enumii}{0}
 \setcounter{enumiii}{0}
 \setcounter{enumiv}{0}
-\setcounter{footnote}{0}
+\setcounter{footnote}{2}
 \setcounter{mpfootnote}{0}
 \setcounter{part}{3}
 \setcounter{chapter}{15}
-\setcounter{section}{10}
+\setcounter{section}{4}
 \setcounter{subsection}{0}
 \setcounter{subsubsection}{0}
 \setcounter{paragraph}{0}
 \setcounter{subparagraph}{0}
-\setcounter{figure}{2}
+\setcounter{figure}{9}
 \setcounter{table}{0}
 \setcounter{FancyVerbLine}{0}
 \setcounter{linenumber}{1}
-\setcounter{LN@truepage}{225}
+\setcounter{LN@truepage}{222}
 \setcounter{FancyVerbWriteLine}{0}
 \setcounter{FancyVerbBufferLine}{0}
 \setcounter{FV@TrueTabGroupLevel}{0}
@@ -84,7 +87,7 @@
 \setcounter{lstnumber}{1}
 \setcounter{tcbbreakpart}{1}
 \setcounter{tcblayer}{0}
-\setcounter{tcolorbox@number}{123}
+\setcounter{tcolorbox@number}{94}
 \setcounter{tcbrastercolumn}{1}
 \setcounter{tcbrasterrow}{1}
 \setcounter{tcbrasternum}{1}
@@ -92,8 +95,8 @@
 \setcounter{tcblisting}{0}
 \setcounter{section@level}{0}
 \setcounter{Item}{47}
-\setcounter{Hfootnote}{45}
+\setcounter{Hfootnote}{47}
 \setcounter{Hy@AnnotLevel}{0}
-\setcounter{bookmark@seq@number}{114}
+\setcounter{bookmark@seq@number}{108}
 \setcounter{lstlisting}{0}
 }

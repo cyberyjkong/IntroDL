@@ -1,0 +1,108 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\@writefile{toc}{\contentsline {chapter}{\numberline {20}自回归语言模型}{279}{chapter.20}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{lof}{\contentsline {figure}{\numberline {20.1}{\ignorespaces Seq2Seq模型中基于RNN的自回归生成过程。解码器以编码器输出的上下文向量$c$初始化隐藏状态，从$\langle \mathrm  {SOS}\rangle $开始逐步预测token。橙色虚线表示将预测结果作为下一时间步的输入，直到生成$\langle \mathrm  {EOS}\rangle $。}}{279}{figure.caption.178}\protected@file@percent }
+\newlabel{fig:autoregressive}{{20.1}{279}{Seq2Seq模型中基于RNN的自回归生成过程。解码器以编码器输出的上下文向量$c$初始化隐藏状态，从$\langle \mathrm {SOS}\rangle $开始逐步预测token。橙色虚线表示将预测结果作为下一时间步的输入，直到生成$\langle \mathrm {EOS}\rangle $。}{figure.caption.178}{}}
+\newlabel{fig:autoregressive@cref}{{[figure][1][20]20.1}{[1][279][]279}{}{}{}}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {section}{\numberline {20.1}统计语言模型}{280}{section.20.1}\protected@file@percent }
+\def\@LN@column{1}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {20.2}{\ignorespaces 文本联合概率的链式分解。以“请／先／登录／账号”为例，绿色表示已有历史token，橙色表示当前预测的token。随着历史逐步增长，各项条件概率相乘得到整个序列的联合概率。}}{282}{figure.caption.179}\protected@file@percent }
+\newlabel{fig:chain_rule}{{20.2}{282}{文本联合概率的链式分解。以“请／先／登录／账号”为例，绿色表示已有历史token，橙色表示当前预测的token。随着历史逐步增长，各项条件概率相乘得到整个序列的联合概率。}{figure.caption.179}{}}
+\newlabel{fig:chain_rule@cref}{{[figure][2][20]20.2}{[1][282][]282}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {20.1.1}N-gram}{282}{subsection.20.1.1}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {20.3}{\ignorespaces 不同N-gram模型的历史上下文范围。以预测“账号”为例，Bigram仅考虑“登录”，Trigram考虑“先／登录”，4-gram考虑“请／先／登录”。绿色表示使用的历史token，灰色表示忽略的历史，橙色表示当前预测的token。}}{283}{figure.caption.180}\protected@file@percent }
+\newlabel{fig:ngram_window}{{20.3}{283}{不同N-gram模型的历史上下文范围。以预测“账号”为例，Bigram仅考虑“登录”，Trigram考虑“先／登录”，4-gram考虑“请／先／登录”。绿色表示使用的历史token，灰色表示忽略的历史，橙色表示当前预测的token。}{figure.caption.180}{}}
+\newlabel{fig:ngram_window@cref}{{[figure][3][20]20.3}{[1][283][]283}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {20.1.2}词频估计}{283}{subsection.20.1.2}\protected@file@percent }
+\def\@LN@column{1}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {20.4}{\ignorespaces Trigram模型基于词频估计条件概率。以“请／先”为历史，其出现100次，其中后接“登录”65次、后接“登陆”3次，对应概率分别为0.65和0.03；“先／登录”后接“账号”的概率为0.8。图中数据均为假设值。}}{285}{figure.caption.181}\protected@file@percent }
+\newlabel{fig:ngram_count}{{20.4}{285}{Trigram模型基于词频估计条件概率。以“请／先”为历史，其出现100次，其中后接“登录”65次、后接“登陆”3次，对应概率分别为0.65和0.03；“先／登录”后接“账号”的概率为0.8。图中数据均为假设值。}{figure.caption.181}{}}
+\newlabel{fig:ngram_count@cref}{{[figure][4][20]20.4}{[1][284][]285}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {20.1.3}N-gram的局限}{285}{subsection.20.1.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {20.5}{\ignorespaces N-gram语言模型的数据稀疏问题。随着$n$增大，可能的token组合数量迅速增长，而训练语料只能覆盖其中一部分。绿色方格表示已观察到的组合，空白方格表示未观察到的组合，方格比例仅作示意。}}{285}{figure.caption.182}\protected@file@percent }
+\newlabel{fig:ngram_sparsity}{{20.5}{285}{N-gram语言模型的数据稀疏问题。随着$n$增大，可能的token组合数量迅速增长，而训练语料只能覆盖其中一部分。绿色方格表示已观察到的组合，空白方格表示未观察到的组合，方格比例仅作示意。}{figure.caption.182}{}}
+\newlabel{fig:ngram_sparsity@cref}{{[figure][5][20]20.5}{[1][285][]285}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {20.6}{\ignorespaces N-gram模型对相似表达的独立统计。以“请／先／登录”为历史，展示后接“账号”“系统”“平台”时，token组合分别出现较多、较少和未出现的情况。模型主要依赖各自的出现次数估计概率，图中数据均为假设值。}}{286}{figure.caption.183}\protected@file@percent }
+\newlabel{fig:ngram_sparsity_example}{{20.6}{286}{N-gram模型对相似表达的独立统计。以“请／先／登录”为历史，展示后接“账号”“系统”“平台”时，token组合分别出现较多、较少和未出现的情况。模型主要依赖各自的出现次数估计概率，图中数据均为假设值。}{figure.caption.183}{}}
+\newlabel{fig:ngram_sparsity_example@cref}{{[figure][6][20]20.6}{[1][286][]286}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {20.2}神经网络语言模型}{286}{section.20.2}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {subsection}{\numberline {20.2.1}前馈语言模型}{287}{subsection.20.2.1}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {20.7}{\ignorespaces 前馈神经网络语言模型的计算过程。历史token的嵌入向量按顺序拼接为输入向量$\mathbf  z_t$，经过隐藏层的线性变换与非线性激活得到$\mathbf  h_t$，再通过输出层计算Logits，最后利用Softmax得到下一个token的概率分布。图中$d$、$d_h$和$V$分别表示嵌入维度、隐藏层维度和词表大小。}}{288}{figure.caption.184}\protected@file@percent }
+\newlabel{fig:nnlm_ffn}{{20.7}{288}{前馈神经网络语言模型的计算过程。历史token的嵌入向量按顺序拼接为输入向量$\mathbf z_t$，经过隐藏层的线性变换与非线性激活得到$\mathbf h_t$，再通过输出层计算Logits，最后利用Softmax得到下一个token的概率分布。图中$d$、$d_h$和$V$分别表示嵌入维度、隐藏层维度和词表大小。}{figure.caption.184}{}}
+\newlabel{fig:nnlm_ffn@cref}{{[figure][7][20]20.7}{[1][288][]288}{}{}{}}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {subsection}{\numberline {20.2.2}循环语言模型}{289}{subsection.20.2.2}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {20.8}{\ignorespaces 前馈语言模型与循环语言模型的上下文利用方式对比。左侧的前馈网络每次只使用固定窗口内的历史token进行预测，忽略窗口之外的信息；右侧的RNN依次读取token，通过隐藏状态不断传递和积累历史信息，并利用当前状态预测下一个token的概率分布。}}{290}{figure.caption.185}\protected@file@percent }
+\newlabel{fig:nnlm_rnn}{{20.8}{290}{前馈语言模型与循环语言模型的上下文利用方式对比。左侧的前馈网络每次只使用固定窗口内的历史token进行预测，忽略窗口之外的信息；右侧的RNN依次读取token，通过隐藏状态不断传递和积累历史信息，并利用当前状态预测下一个token的概率分布。}{figure.caption.185}{}}
+\newlabel{fig:nnlm_rnn@cref}{{[figure][8][20]20.8}{[1][290][]290}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {20.2.3}神经网络语言模型的训练}{290}{subsection.20.2.3}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {20.9}{\ignorespaces 神经网络语言模型的训练过程。输入序列与目标序列错开一个token，模型根据真实的历史token预测下一个token，并利用各个位置的预测结果与真实目标计算训练损失。}}{291}{figure.caption.186}\protected@file@percent }
+\newlabel{fig:nnlm_train}{{20.9}{291}{神经网络语言模型的训练过程。输入序列与目标序列错开一个token，模型根据真实的历史token预测下一个token，并利用各个位置的预测结果与真实目标计算训练损失。}{figure.caption.186}{}}
+\newlabel{fig:nnlm_train@cref}{{[figure][9][20]20.9}{[1][291][]291}{}{}{}}
+\def\@LN@column{1}
+\def\@LN@column{1}
+\@setckpt{chapters/part_04/p4_ch01}{
+\setcounter{page}{294}
+\setcounter{equation}{0}
+\setcounter{enumi}{11}
+\setcounter{enumii}{0}
+\setcounter{enumiii}{0}
+\setcounter{enumiv}{0}
+\setcounter{footnote}{4}
+\setcounter{mpfootnote}{0}
+\setcounter{part}{4}
+\setcounter{chapter}{20}
+\setcounter{section}{2}
+\setcounter{subsection}{3}
+\setcounter{subsubsection}{0}
+\setcounter{paragraph}{0}
+\setcounter{subparagraph}{0}
+\setcounter{figure}{9}
+\setcounter{table}{0}
+\setcounter{FancyVerbLine}{0}
+\setcounter{linenumber}{1}
+\setcounter{LN@truepage}{303}
+\setcounter{FancyVerbWriteLine}{0}
+\setcounter{FancyVerbBufferLine}{0}
+\setcounter{FV@TrueTabGroupLevel}{0}
+\setcounter{FV@TrueTabCounter}{0}
+\setcounter{FV@HighlightLinesStart}{0}
+\setcounter{FV@HighlightLinesStop}{0}
+\setcounter{FancyVerbLineBreakLast}{0}
+\setcounter{FV@BreakBufferDepth}{0}
+\setcounter{parentequation}{0}
+\setcounter{float@type}{16}
+\setcounter{caption@flags}{2}
+\setcounter{continuedfloat}{0}
+\setcounter{subfigure}{0}
+\setcounter{subtable}{0}
+\setcounter{LT@tables}{0}
+\setcounter{LT@chunks}{0}
+\setcounter{nlinenum}{0}
+\setcounter{lstnumber}{1}
+\setcounter{tcbbreakpart}{1}
+\setcounter{tcblayer}{0}
+\setcounter{tcolorbox@number}{107}
+\setcounter{tcbrastercolumn}{1}
+\setcounter{tcbrasterrow}{1}
+\setcounter{tcbrasternum}{1}
+\setcounter{tcbraster}{0}
+\setcounter{tcblisting}{0}
+\setcounter{section@level}{0}
+\setcounter{Item}{47}
+\setcounter{Hfootnote}{59}
+\setcounter{Hy@AnnotLevel}{0}
+\setcounter{bookmark@seq@number}{143}
+\setcounter{lstlisting}{0}
+}

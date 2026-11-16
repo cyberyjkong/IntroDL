@@ -1,0 +1,118 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {chapter}{\numberline {8}对话建模与后训练}{106}{chapter.8}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{toc}{\contentsline {section}{\numberline {8.1}对话序列化}{106}{section.8.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {8.1}{\ignorespaces 同一句请求放进两种文本。练习列表中可以继续列题，对话模板中则为助手回答留下位置。图中两条续写是教学示意。}}{106}{figure.caption.81}\protected@file@percent }
+\newlabel{fig:p4_chat_continuation}{{8.1}{106}{同一句请求放进两种文本。练习列表中可以继续列题，对话模板中则为助手回答留下位置。图中两条续写是教学示意。}{figure.caption.81}{}}
+\newlabel{fig:p4_chat_continuation@cref}{{[figure][1][8]8.1}{[1][106][]106}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {8.2}{\ignorespaces 单轮与两轮对话的序列化。紫色表示已经写出的助手正文，绿色表示用户正文，橙色表示当前等待续写的助手边界。图中EOS为示意的回答结束标记。}}{107}{figure.caption.82}\protected@file@percent }
+\newlabel{fig:p4_chat_turns}{{8.2}{107}{单轮与两轮对话的序列化。紫色表示已经写出的助手正文，绿色表示用户正文，橙色表示当前等待续写的助手边界。图中EOS为示意的回答结束标记。}{figure.caption.82}{}}
+\newlabel{fig:p4_chat_turns@cref}{{[figure][2][8]8.2}{[1][106][]107}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {8.2}监督微调}{107}{section.8.2}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {8.3}{\ignorespaces 只监督助手回答的微调样本。上方是模型实际读取的输入，下方是右移后的目标。灰色目标不计入损失，红色目标参与损失。回答的首个词元\unhbox \voidb@x \hspace  {0.2em}{\color  {inlineRed}\ttfamily  \fontsize  {9.5pt}{9pt}\selectfont  4}\futurelet \@let@token \let \hspace  {0.2em}\hspace  {0.2em}\hspace  {0.2em}由角色标记\unhbox \voidb@x \hspace  {0.2em}{\color  {inlineRed}\ttfamily  \fontsize  {9.5pt}{9pt}\selectfont  [AST]}\futurelet \@let@token \let \hspace  {0.2em}\hspace  {0.2em}\hspace  {0.2em}所在位置预测。}}{108}{figure.caption.83}\protected@file@percent }
+\newlabel{fig:p4_sft_labels}{{8.3}{108}{只监督助手回答的微调样本。上方是模型实际读取的输入，下方是右移后的目标。灰色目标不计入损失，红色目标参与损失。回答的首个词元\texttt {4}由角色标记\texttt {[AST]}所在位置预测。}{figure.caption.83}{}}
+\newlabel{fig:p4_sft_labels@cref}{{[figure][3][8]8.3}{[1][107][]108}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {8.4}{\ignorespaces 预训练、监督微调和偏好优化使用的训练信号。前两行给出要预测的词元；第三行同时给出同一请求下的两个候选及相对偏好。}}{109}{figure.caption.84}\protected@file@percent }
+\newlabel{fig:p4_chat_training_signals}{{8.4}{109}{预训练、监督微调和偏好优化使用的训练信号。前两行给出要预测的词元；第三行同时给出同一请求下的两个候选及相对偏好。}{figure.caption.84}{}}
+\newlabel{fig:p4_chat_training_signals@cref}{{[figure][4][8]8.4}{[1][109][]109}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {8.5}{\ignorespaces 两轮对话中的输入、右移标签、可见范围和损失标记。每列的箭头从该位置的输入指向它所预测的下一项。可见范围在两种配置中相同。橙色的1表示本行标签计入损失，灰色的0表示忽略。图只列出助手边界附近的位置。}}{110}{figure.caption.85}\protected@file@percent }
+\newlabel{fig:p4_sft_two_turn_grid}{{8.5}{110}{两轮对话中的输入、右移标签、可见范围和损失标记。每列的箭头从该位置的输入指向它所预测的下一项。可见范围在两种配置中相同。橙色的1表示本行标签计入损失，灰色的0表示忽略。图只列出助手边界附近的位置。}{figure.caption.85}{}}
+\newlabel{fig:p4_sft_two_turn_grid@cref}{{[figure][5][8]8.5}{[1][110][]110}{}{}{}}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {section}{\numberline {8.3}偏好数据与偏好优化}{111}{section.8.3}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {8.6}{\ignorespaces 对同一请求的两个候选逐项比较。两者都回答了问题、也都只有一句话；用第5章的算例核对定义后，才确定应偏好A。}}{112}{figure.caption.86}\protected@file@percent }
+\newlabel{fig:p4_chat_preference_checks}{{8.6}{112}{对同一请求的两个候选逐项比较。两者都回答了问题、也都只有一句话；用第5章的算例核对定义后，才确定应偏好A。}{figure.caption.86}{}}
+\newlabel{fig:p4_chat_preference_checks@cref}{{[figure][6][8]8.6}{[1][111][]112}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {8.7}{\ignorespaces 偏好信号的两段路径。左上是同一请求的两个候选及人工选择，用于学习回答评分。下方区分对已有候选重排和对生成模型做进一步训练，两者改变的对象不同。}}{113}{figure.caption.87}\protected@file@percent }
+\newlabel{fig:p4_preference_signal_path}{{8.7}{113}{偏好信号的两段路径。左上是同一请求的两个候选及人工选择，用于学习回答评分。下方区分对已有候选重排和对生成模型做进一步训练，两者改变的对象不同。}{figure.caption.87}{}}
+\newlabel{fig:p4_preference_signal_path@cref}{{[figure][7][8]8.7}{[1][113][]113}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {8.8}{\ignorespaces 同一偏好对在参考模型和当前模型下的教学概率。先沿每行计算对数概率之差，再对比两行变化。只有当前模型的分数参与参数求导。}}{114}{figure.caption.88}\protected@file@percent }
+\newlabel{fig:p4_dpo_likelihood_path}{{8.8}{114}{同一偏好对在参考模型和当前模型下的教学概率。先沿每行计算对数概率之差，再对比两行变化。只有当前模型的分数参与参数求导。}{figure.caption.88}{}}
+\newlabel{fig:p4_dpo_likelihood_path@cref}{{[figure][8][8]8.8}{[1][114][]114}{}{}{}}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {section}{\numberline {8.4}对话生成流程}{115}{section.8.4}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {8.9}{\ignorespaces 一条翻译请求的词元账本。Prefill处理7个位置，选出ID 12。Decode把12送入位置7，缓存增至8项，随后选出停止标记。词元ID均为教学示意。}}{116}{figure.caption.89}\protected@file@percent }
+\newlabel{fig:p4_chat_token_trace}{{8.9}{116}{一条翻译请求的词元账本。Prefill处理7个位置，选出ID 12。Decode把12送入位置7，缓存增至8项，随后选出停止标记。词元ID均为教学示意。}{figure.caption.89}{}}
+\newlabel{fig:p4_chat_token_trace@cref}{{[figure][9][8]8.9}{[1][115][]116}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8.10}{\ignorespaces 从用户消息到回答的生成过程。左上先将角色与正文组成前缀，Prefill建立缓存并给出首个新词元。若还未停止，就把刚选出的词元输入下一次Decode并更新缓存。遇到结束条件后，将生成的ID解码为可读文本。}}{116}{figure.caption.90}\protected@file@percent }
+\newlabel{fig:p4_chat_pipeline}{{8.10}{116}{从用户消息到回答的生成过程。左上先将角色与正文组成前缀，Prefill建立缓存并给出首个新词元。若还未停止，就把刚选出的词元输入下一次Decode并更新缓存。遇到结束条件后，将生成的ID解码为可读文本。}{figure.caption.90}{}}
+\newlabel{fig:p4_chat_pipeline@cref}{{[figure][10][8]8.10}{[1][116][]116}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {8.11}{\ignorespaces 第二轮请求的前缀和缓存。左侧是第一轮实际处理过的位置0到7，中间依次追加尚未入缓存的结束标记、用户输入和助手标记。最右端刚选出的输出ID要等下一轮前向才写入缓存。}}{117}{figure.caption.91}\protected@file@percent }
+\newlabel{fig:p4_chat_second_turn_cache}{{8.11}{117}{第二轮请求的前缀和缓存。左侧是第一轮实际处理过的位置0到7，中间依次追加尚未入缓存的结束标记、用户输入和助手标记。最右端刚选出的输出ID要等下一轮前向才写入缓存。}{figure.caption.91}{}}
+\newlabel{fig:p4_chat_second_turn_cache@cref}{{[figure][11][8]8.11}{[1][117][]117}{}{}{}}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {section}{\numberline {8.5}对话模型评估}{118}{section.8.5}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {8.12}{\ignorespaces 从一次翻译失败回查四个环节。每列保存一个实际结果，先检查角色和输入，再检查选词，最后检查显示。节点只标出应核对的对象。}}{119}{figure.caption.92}\protected@file@percent }
+\newlabel{fig:p4_chat_eval_trace}{{8.12}{119}{从一次翻译失败回查四个环节。每列保存一个实际结果，先检查角色和输入，再检查选词，最后检查显示。节点只标出应核对的对象。}{figure.caption.92}{}}
+\newlabel{fig:p4_chat_eval_trace@cref}{{[figure][12][8]8.12}{[1][119][]119}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {8.13}{\ignorespaces 三条对话检查及其依据。第一条检查分词后的输出，第二条检查追问能否使用历史，第三条记录删除上下文后还能判断哪些内容。}}{120}{figure.caption.93}\protected@file@percent }
+\newlabel{fig:p4_chat_eval_cases}{{8.13}{120}{三条对话检查及其依据。第一条检查分词后的输出，第二条检查追问能否使用历史，第三条记录删除上下文后还能判断哪些内容。}{figure.caption.93}{}}
+\newlabel{fig:p4_chat_eval_cases@cref}{{[figure][13][8]8.13}{[1][120][]120}{}{}{}}
+\@setckpt{chapters/part_04/p4_ch08}{
+\setcounter{page}{121}
+\setcounter{equation}{0}
+\setcounter{enumi}{4}
+\setcounter{enumii}{0}
+\setcounter{enumiii}{0}
+\setcounter{enumiv}{0}
+\setcounter{footnote}{2}
+\setcounter{mpfootnote}{0}
+\setcounter{part}{1}
+\setcounter{chapter}{8}
+\setcounter{section}{5}
+\setcounter{subsection}{0}
+\setcounter{subsubsection}{0}
+\setcounter{paragraph}{0}
+\setcounter{subparagraph}{0}
+\setcounter{figure}{13}
+\setcounter{table}{0}
+\setcounter{FancyVerbLine}{0}
+\setcounter{linenumber}{1}
+\setcounter{LN@truepage}{120}
+\setcounter{FancyVerbWriteLine}{0}
+\setcounter{FancyVerbBufferLine}{0}
+\setcounter{FV@TrueTabGroupLevel}{0}
+\setcounter{FV@TrueTabCounter}{0}
+\setcounter{FV@HighlightLinesStart}{0}
+\setcounter{FV@HighlightLinesStop}{0}
+\setcounter{FancyVerbLineBreakLast}{0}
+\setcounter{FV@BreakBufferDepth}{0}
+\setcounter{parentequation}{0}
+\setcounter{float@type}{16}
+\setcounter{caption@flags}{2}
+\setcounter{continuedfloat}{0}
+\setcounter{subfigure}{0}
+\setcounter{subtable}{0}
+\setcounter{LT@tables}{0}
+\setcounter{LT@chunks}{0}
+\setcounter{nlinenum}{0}
+\setcounter{lstnumber}{1}
+\setcounter{tcbbreakpart}{1}
+\setcounter{tcblayer}{0}
+\setcounter{tcolorbox@number}{16}
+\setcounter{tcbrastercolumn}{1}
+\setcounter{tcbrasterrow}{1}
+\setcounter{tcbrasternum}{1}
+\setcounter{tcbraster}{0}
+\setcounter{tcblisting}{0}
+\setcounter{section@level}{0}
+\setcounter{Item}{4}
+\setcounter{Hfootnote}{20}
+\setcounter{Hy@AnnotLevel}{0}
+\setcounter{bookmark@seq@number}{52}
+\setcounter{lstlisting}{0}
+}

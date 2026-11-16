@@ -1,0 +1,96 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\@writefile{toc}{\contentsline {chapter}{\numberline {1}GPT预训练}{1}{chapter.1}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{toc}{\contentsline {section}{\numberline {1.1}预训练数据}{1}{section.1.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1.1}{\ignorespaces GPT预训练数据的处理流程。原始文本经过基本清理与分词后，按照词表映射为Token ID序列，供后续训练样本构建使用。}}{1}{figure.caption.1}\protected@file@percent }
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{fig:pretraining_corpus}{{1.1}{1}{GPT预训练数据的处理流程。原始文本经过基本清理与分词后，按照词表映射为Token ID序列，供后续训练样本构建使用。}{figure.caption.1}{}}
+\newlabel{fig:pretraining_corpus@cref}{{[figure][1][1]1.1}{[1][1][]1}{}{}{}}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {section}{\numberline {1.2}训练样本构建}{2}{section.1.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1.2}{\ignorespaces 从长Token序列中选取训练片段。模型按照上下文长度从连续文本中采样局部序列，不同片段可以来自不同位置，也可能包含重叠的token，但每个片段内部始终保留文本的原有顺序。}}{2}{figure.caption.2}\protected@file@percent }
+\newlabel{fig:context_sampling}{{1.2}{2}{从长Token序列中选取训练片段。模型按照上下文长度从连续文本中采样局部序列，不同片段可以来自不同位置，也可能包含重叠的token，但每个片段内部始终保留文本的原有顺序。}{figure.caption.2}{}}
+\newlabel{fig:context_sampling@cref}{{[figure][2][1]1.2}{[1][2][]2}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {1.3}{\ignorespaces GPT训练样本的输入与目标错位关系。取出连续$T+1$个token，使用前$T$个构造输入，后$T$个构造目标；输入中每个位置对应的真实预测目标都是它后面的一个token。图中以$T=8$为例。}}{3}{figure.caption.3}\protected@file@percent }
+\newlabel{fig:input_target_shift}{{1.3}{3}{GPT训练样本的输入与目标错位关系。取出连续$T+1$个token，使用前$T$个构造输入，后$T$个构造目标；输入中每个位置对应的真实预测目标都是它后面的一个token。图中以$T=8$为例。}{figure.caption.3}{}}
+\newlabel{fig:input_target_shift@cref}{{[figure][3][1]1.3}{[1][3][]3}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {1.4}{\ignorespaces 多个训练样本组成Batch的过程。将$B$条长度为$T$的输入序列按行排列，得到$B\times T$的输入矩阵$U$；相同方式构造目标矩阵$Y$。图中以$B=4$、$T=8$为例。}}{4}{figure.caption.4}\protected@file@percent }
+\newlabel{fig:batch_construction}{{1.4}{4}{多个训练样本组成Batch的过程。将$B$条长度为$T$的输入序列按行排列，得到$B\times T$的输入矩阵$U$；相同方式构造目标矩阵$Y$。图中以$B=4$、$T=8$为例。}{figure.caption.4}{}}
+\newlabel{fig:batch_construction@cref}{{[figure][4][1]1.4}{[1][4][]4}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {1.3}损失计算}{4}{section.1.3}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {1.5}{\ignorespaces GPT对一个Batch计算预训练损失的过程。输入$B\times T$的Token ID矩阵后，模型输出$B\times T\times V$的Logits；各位置分别与目标Token ID计算交叉熵，最后对有效位置求平均，得到标量损失$\mathcal  {L}$。}}{5}{figure.caption.5}\protected@file@percent }
+\newlabel{fig:pretraining_loss}{{1.5}{5}{GPT对一个Batch计算预训练损失的过程。输入$B\times T$的Token ID矩阵后，模型输出$B\times T\times V$的Logits；各位置分别与目标Token ID计算交叉熵，最后对有效位置求平均，得到标量损失$\mathcal {L}$。}{figure.caption.5}{}}
+\newlabel{fig:pretraining_loss@cref}{{[figure][5][1]1.5}{[1][5][]5}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {1.6}{\ignorespaces GPT预训练与文本生成的计算方式对比。预训练时已知完整输入序列，可在因果掩码下并行计算各位置的预测结果；文本生成时则需要逐步确定新token，并将其作为后续生成的上下文。}}{6}{figure.caption.6}\protected@file@percent }
+\newlabel{fig:training_vs_generation}{{1.6}{6}{GPT预训练与文本生成的计算方式对比。预训练时已知完整输入序列，可在因果掩码下并行计算各位置的预测结果；文本生成时则需要逐步确定新token，并将其作为后续生成的上下文。}{figure.caption.6}{}}
+\newlabel{fig:training_vs_generation@cref}{{[figure][6][1]1.6}{[1][6][]6}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {1.4}参数优化}{6}{section.1.4}\protected@file@percent }
+\def\@LN@column{1}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {1.7}{\ignorespaces 普通批量更新与梯度累积的对比。梯度累积将一个较大的有效Batch拆成多个Micro-Batch，依次计算并累积梯度，在全部Micro-Batch处理结束后才更新一次参数。图中每次处理4条序列，累积8次后等效于32条序列参与一次梯度更新。}}{8}{figure.caption.7}\protected@file@percent }
+\newlabel{fig:gradient_accumulation}{{1.7}{8}{普通批量更新与梯度累积的对比。梯度累积将一个较大的有效Batch拆成多个Micro-Batch，依次计算并累积梯度，在全部Micro-Batch处理结束后才更新一次参数。图中每次处理4条序列，累积8次后等效于32条序列参与一次梯度更新。}{figure.caption.7}{}}
+\newlabel{fig:gradient_accumulation@cref}{{[figure][7][1]1.7}{[1][8][]8}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {1.8}{\ignorespaces GPT预训练的完整流程。连续Token序列被构造成输入与目标Batch，模型通过前向传播计算预测损失，再利用反向传播与优化器更新参数；在使用梯度累积时，需要等待多个Micro-Batch的梯度完成累积后再执行参数更新。}}{9}{figure.caption.8}\protected@file@percent }
+\newlabel{fig:pretraining_loop}{{1.8}{9}{GPT预训练的完整流程。连续Token序列被构造成输入与目标Batch，模型通过前向传播计算预测损失，再利用反向传播与优化器更新参数；在使用梯度累积时，需要等待多个Micro-Batch的梯度完成累积后再执行参数更新。}{figure.caption.8}{}}
+\newlabel{fig:pretraining_loop@cref}{{[figure][8][1]1.8}{[1][9][]9}{}{}{}}
+\@setckpt{chapters/part_04/p4_ch03}{
+\setcounter{page}{10}
+\setcounter{equation}{0}
+\setcounter{enumi}{0}
+\setcounter{enumii}{0}
+\setcounter{enumiii}{0}
+\setcounter{enumiv}{0}
+\setcounter{footnote}{1}
+\setcounter{mpfootnote}{0}
+\setcounter{part}{0}
+\setcounter{chapter}{1}
+\setcounter{section}{4}
+\setcounter{subsection}{0}
+\setcounter{subsubsection}{0}
+\setcounter{paragraph}{0}
+\setcounter{subparagraph}{0}
+\setcounter{figure}{8}
+\setcounter{table}{0}
+\setcounter{FancyVerbLine}{0}
+\setcounter{linenumber}{1}
+\setcounter{LN@truepage}{9}
+\setcounter{FancyVerbWriteLine}{0}
+\setcounter{FancyVerbBufferLine}{0}
+\setcounter{FV@TrueTabGroupLevel}{0}
+\setcounter{FV@TrueTabCounter}{0}
+\setcounter{FV@HighlightLinesStart}{0}
+\setcounter{FV@HighlightLinesStop}{0}
+\setcounter{FancyVerbLineBreakLast}{0}
+\setcounter{FV@BreakBufferDepth}{0}
+\setcounter{parentequation}{0}
+\setcounter{float@type}{16}
+\setcounter{caption@flags}{2}
+\setcounter{continuedfloat}{0}
+\setcounter{subfigure}{0}
+\setcounter{subtable}{0}
+\setcounter{LT@tables}{0}
+\setcounter{LT@chunks}{0}
+\setcounter{nlinenum}{0}
+\setcounter{lstnumber}{1}
+\setcounter{tcbbreakpart}{1}
+\setcounter{tcblayer}{0}
+\setcounter{tcolorbox@number}{1}
+\setcounter{tcbrastercolumn}{1}
+\setcounter{tcbrasterrow}{1}
+\setcounter{tcbrasternum}{1}
+\setcounter{tcbraster}{0}
+\setcounter{tcblisting}{0}
+\setcounter{section@level}{0}
+\setcounter{Item}{0}
+\setcounter{Hfootnote}{1}
+\setcounter{Hy@AnnotLevel}{0}
+\setcounter{bookmark@seq@number}{5}
+\setcounter{lstlisting}{0}
+}

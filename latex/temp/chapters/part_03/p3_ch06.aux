@@ -1,0 +1,112 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {chapter}{\numberline {16}注意力机制}{213}{chapter.16}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{toc}{\contentsline {section}{\numberline {16.1}加性注意力}{213}{section.16.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {16.1}{\ignorespaces 注意力分数示意图。编码器依次处理输入序列，得到隐藏状态$h_1,h_2,\ldots  ,h_T$。在生成当前输出词$y_t$时，解码器分别为各个隐藏状态计算注意力分数。图中不同位置对应不同的分数，其中分数较高的位置会受到更多关注。图中的数值仅用于示意。}}{213}{figure.caption.144}\protected@file@percent }
+\newlabel{fig:attention_score}{{16.1}{213}{注意力分数示意图。编码器依次处理输入序列，得到隐藏状态$h_1,h_2,\ldots ,h_T$。在生成当前输出词$y_t$时，解码器分别为各个隐藏状态计算注意力分数。图中不同位置对应不同的分数，其中分数较高的位置会受到更多关注。图中的数值仅用于示意。}{figure.caption.144}{}}
+\newlabel{fig:attention_score@cref}{{[figure][1][16]16.1}{[1][213][]213}{}{}{}}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {subsection}{\numberline {16.1.1}注意力分数}{214}{subsection.16.1.1}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {subsection}{\numberline {16.1.2}注意力权重}{215}{subsection.16.1.2}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {subsection}{\numberline {16.1.3}加权求和}{216}{subsection.16.1.3}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {16.2}{\ignorespaces 加性注意力机制的计算流程。对于解码器上一时刻的隐藏状态$s_{t-1}$与编码器各位置的隐藏状态$H$，模型先分别进行线性变换并相加，通过激活函数与点积计算注意力分数$\boldsymbol  {e}_t$；随后经Softmax归一化得到权重$\boldsymbol  {\alpha }_t$，对$H$加权求和获得上下文向量$\boldsymbol  {c}_t$。在后续生成步骤中，该注意力计算会随解码状态动态更新。}}{217}{figure.caption.145}\protected@file@percent }
+\newlabel{fig:additive_attention}{{16.2}{217}{加性注意力机制的计算流程。对于解码器上一时刻的隐藏状态$s_{t-1}$与编码器各位置的隐藏状态$H$，模型先分别进行线性变换并相加，通过激活函数与点积计算注意力分数$\boldsymbol {e}_t$；随后经Softmax归一化得到权重$\boldsymbol {\alpha }_t$，对$H$加权求和获得上下文向量$\boldsymbol {c}_t$。在后续生成步骤中，该注意力计算会随解码状态动态更新。}{figure.caption.145}{}}
+\newlabel{fig:additive_attention@cref}{{[figure][2][16]16.2}{[1][216][]217}{}{}{}}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {section}{\numberline {16.2}解码生成}{218}{section.16.2}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {16.3}{\ignorespaces 普通与带注意力机制的Seq2Seq解码单元对比。左侧由$s_{t-1}$和$y_{t-1}$更新状态并预测，编码信息固定传入；右侧动态计算$c_t$更新$s_t$，拼接后预测$y_t$，动态利用输入信息。}}{219}{figure.caption.146}\protected@file@percent }
+\newlabel{fig:decoder_comparison}{{16.3}{219}{普通与带注意力机制的Seq2Seq解码单元对比。左侧由$s_{t-1}$和$y_{t-1}$更新状态并预测，编码信息固定传入；右侧动态计算$c_t$更新$s_t$，拼接后预测$y_t$，动态利用输入信息。}{figure.caption.146}{}}
+\newlabel{fig:decoder_comparison@cref}{{[figure][3][16]16.3}{[1][218][]219}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {16.4}{\ignorespaces 普通与带注意力机制的Seq2Seq解码器对比。普通解码器将编码器最终状态作为固定输入，仅利用隐藏状态预测输出；带注意力的解码器在每步利用$h_{t-1}$与编码状态计算分数并经Softmax得权重$\alpha _{ti}$，加权得$c_t$，结合前一状态与$c_t$更新$h_t$并预测$\hat  {y}_t$，动态聚焦输入信息，直至生成结束标记。}}{219}{figure.caption.147}\protected@file@percent }
+\newlabel{fig:attention_seq2seq_decoder}{{16.4}{219}{普通与带注意力机制的Seq2Seq解码器对比。普通解码器将编码器最终状态作为固定输入，仅利用隐藏状态预测输出；带注意力的解码器在每步利用$h_{t-1}$与编码状态计算分数并经Softmax得权重$\alpha _{ti}$，加权得$c_t$，结合前一状态与$c_t$更新$h_t$并预测$\hat {y}_t$，动态聚焦输入信息，直至生成结束标记。}{figure.caption.147}{}}
+\newlabel{fig:attention_seq2seq_decoder@cref}{{[figure][4][16]16.4}{[1][219][]219}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {16.5}{\ignorespaces 注意力权重矩阵与输入输出对齐。以“我喜欢吃又大又红的苹果”到“\emph  {I like to eat big red apples}”的翻译为例，横轴表示输入词语，纵轴表示输出单词。}}{220}{figure.caption.148}\protected@file@percent }
+\newlabel{fig:attention_matrix}{{16.5}{220}{注意力权重矩阵与输入输出对齐。以“我喜欢吃又大又红的苹果”到“\emph {I like to eat big red apples}”的翻译为例，横轴表示输入词语，纵轴表示输出单词。}{figure.caption.148}{}}
+\newlabel{fig:attention_matrix@cref}{{[figure][5][16]16.5}{[1][220][]220}{}{}{}}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {section}{\numberline {16.3}点积注意力}{221}{section.16.3}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {16.6}{\ignorespaces 点积注意力的计算流程。解码器隐藏状态$s_{t-1}$分别与编码器隐藏状态$h_i$计算点积，得到注意力分数$e_{t,i}$。分数经Softmax得到注意力权重$\alpha _{t,i}$，再对编码器隐藏状态加权求和，得到上下文向量$c_t$。}}{222}{figure.caption.149}\protected@file@percent }
+\newlabel{fig:dot_product_attention}{{16.6}{222}{点积注意力的计算流程。解码器隐藏状态$s_{t-1}$分别与编码器隐藏状态$h_i$计算点积，得到注意力分数$e_{t,i}$。分数经Softmax得到注意力权重$\alpha _{t,i}$，再对编码器隐藏状态加权求和，得到上下文向量$c_t$。}{figure.caption.149}{}}
+\newlabel{fig:dot_product_attention@cref}{{[figure][6][16]16.6}{[1][222][]222}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {16.7}{\ignorespaces 加性注意力（左）与点积注意力（右）计算注意力分数对比。加性注意力通过权重矩阵$W_s$、$W_h$及非线性函数$\tanh $计算；点积注意力直接计算$s_{t-1}^\top h_i$。}}{223}{figure.caption.150}\protected@file@percent }
+\newlabel{fig:additive_dot_product}{{16.7}{223}{加性注意力（左）与点积注意力（右）计算注意力分数对比。加性注意力通过权重矩阵$W_s$、$W_h$及非线性函数$\tanh $计算；点积注意力直接计算$s_{t-1}^\top h_i$。}{figure.caption.150}{}}
+\newlabel{fig:additive_dot_product@cref}{{[figure][7][16]16.7}{[1][223][]223}{}{}{}}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {section}{\numberline {16.4}注意力机制的$Q$、$K$、$V$表示}{224}{section.16.4}\protected@file@percent }
+\def\@LN@column{1}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {section}{\numberline {16.5}自注意力机制}{226}{section.16.5}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {16.8}{\ignorespaces 指代问题示意图。当句末为\emph  {tired}时，代词\emph  {it}的注意力高度集中在\emph  {animal}上（上图）；当句末替换为\emph  {wide}时，\emph  {it}的注意力则转移至\emph  {street}上（下图）。这一对比直观表明：指代关系的判断不能仅依赖词间距离或单个词义，模型必须结合全局上下文动态建立不同位置的联系。}}{226}{figure.caption.151}\protected@file@percent }
+\newlabel{fig:coreference_problem}{{16.8}{226}{指代问题示意图。当句末为\emph {tired}时，代词\emph {it}的注意力高度集中在\emph {animal}上（上图）；当句末替换为\emph {wide}时，\emph {it}的注意力则转移至\emph {street}上（下图）。这一对比直观表明：指代关系的判断不能仅依赖词间距离或单个词义，模型必须结合全局上下文动态建立不同位置的联系。}{figure.caption.151}{}}
+\newlabel{fig:coreference_problem@cref}{{[figure][8][16]16.8}{[1][226][]226}{}{}{}}
+\def\@LN@column{1}
+\def\@LN@column{1}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {16.9}{\ignorespaces 自注意力机制的完整矩阵计算流程。首先，输入矩阵$X$分别与三个可学习的权重矩阵$W^Q$、$W^K$和$W^V$进行线性变换，得到查询矩阵$Q$、键矩阵$K$和值矩阵$V$。接着，将$Q$与$K$的转置$K^\top $进行矩阵乘法（MatMul），计算所有位置两两之间的匹配分数，得到注意力分数矩阵$S$。随后，对分数矩阵除以$\sqrt  {d_k}$进行缩放（Scale），并逐行应用Softmax函数进行归一化，生成注意力权重矩阵$A$。最后，将权重矩阵$A$与值矩阵$V$进行矩阵乘法，加权求和得到最终包含全局上下文信息的输出矩阵$Z$。}}{229}{figure.caption.152}\protected@file@percent }
+\newlabel{fig:self_attention}{{16.9}{229}{自注意力机制的完整矩阵计算流程。首先，输入矩阵$X$分别与三个可学习的权重矩阵$W^Q$、$W^K$和$W^V$进行线性变换，得到查询矩阵$Q$、键矩阵$K$和值矩阵$V$。接着，将$Q$与$K$的转置$K^\top $进行矩阵乘法（MatMul），计算所有位置两两之间的匹配分数，得到注意力分数矩阵$S$。随后，对分数矩阵除以$\sqrt {d_k}$进行缩放（Scale），并逐行应用Softmax函数进行归一化，生成注意力权重矩阵$A$。最后，将权重矩阵$A$与值矩阵$V$进行矩阵乘法，加权求和得到最终包含全局上下文信息的输出矩阵$Z$。}{figure.caption.152}{}}
+\newlabel{fig:self_attention@cref}{{[figure][9][16]16.9}{[1][229][]229}{}{}{}}
+\def\@LN@column{1}
+\@setckpt{./chapters/part_03/p3_ch06}{
+\setcounter{page}{231}
+\setcounter{equation}{0}
+\setcounter{enumi}{11}
+\setcounter{enumii}{0}
+\setcounter{enumiii}{0}
+\setcounter{enumiv}{0}
+\setcounter{footnote}{3}
+\setcounter{mpfootnote}{0}
+\setcounter{part}{3}
+\setcounter{chapter}{16}
+\setcounter{section}{5}
+\setcounter{subsection}{0}
+\setcounter{subsubsection}{0}
+\setcounter{paragraph}{0}
+\setcounter{subparagraph}{0}
+\setcounter{figure}{9}
+\setcounter{table}{0}
+\setcounter{FancyVerbLine}{0}
+\setcounter{linenumber}{1}
+\setcounter{LN@truepage}{240}
+\setcounter{FancyVerbWriteLine}{0}
+\setcounter{FancyVerbBufferLine}{0}
+\setcounter{FV@TrueTabGroupLevel}{0}
+\setcounter{FV@TrueTabCounter}{0}
+\setcounter{FV@HighlightLinesStart}{0}
+\setcounter{FV@HighlightLinesStop}{0}
+\setcounter{FancyVerbLineBreakLast}{0}
+\setcounter{FV@BreakBufferDepth}{0}
+\setcounter{parentequation}{0}
+\setcounter{float@type}{16}
+\setcounter{caption@flags}{2}
+\setcounter{continuedfloat}{0}
+\setcounter{subfigure}{0}
+\setcounter{subtable}{0}
+\setcounter{LT@tables}{0}
+\setcounter{LT@chunks}{0}
+\setcounter{nlinenum}{0}
+\setcounter{lstnumber}{1}
+\setcounter{tcbbreakpart}{1}
+\setcounter{tcblayer}{0}
+\setcounter{tcolorbox@number}{98}
+\setcounter{tcbrastercolumn}{1}
+\setcounter{tcbrasterrow}{1}
+\setcounter{tcbrasternum}{1}
+\setcounter{tcbraster}{0}
+\setcounter{tcblisting}{0}
+\setcounter{section@level}{0}
+\setcounter{Item}{47}
+\setcounter{Hfootnote}{50}
+\setcounter{Hy@AnnotLevel}{0}
+\setcounter{bookmark@seq@number}{117}
+\setcounter{lstlisting}{0}
+}

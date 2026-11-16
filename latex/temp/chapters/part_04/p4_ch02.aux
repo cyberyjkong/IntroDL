@@ -1,0 +1,115 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {chapter}{\numberline {21}GPT架构设计}{294}{chapter.21}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{toc}{\contentsline {section}{\numberline {21.1}Decoder-Only架构}{294}{section.21.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {21.1}{\ignorespaces Transformer的Encoder与Decoder结构。Encoder由多头自注意力、前馈网络和Add \& Norm组成；Decoder在此基础上引入掩码多头自注意力和交叉注意力，通过交叉注意力读取Encoder的输出。两者均由$N$个结构相同的网络层堆叠而成，图中省略了输入嵌入、位置编码和输出层等模块。}}{294}{figure.caption.187}\protected@file@percent }
+\newlabel{fig:transformer_encoder_decoder}{{21.1}{294}{Transformer的Encoder与Decoder结构。Encoder由多头自注意力、前馈网络和Add \& Norm组成；Decoder在此基础上引入掩码多头自注意力和交叉注意力，通过交叉注意力读取Encoder的输出。两者均由$N$个结构相同的网络层堆叠而成，图中省略了输入嵌入、位置编码和输出层等模块。}{figure.caption.187}{}}
+\newlabel{fig:transformer_encoder_decoder@cref}{{[figure][1][21]21.1}{[1][294][]294}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {21.2}{\ignorespaces 从原始Transformer到Decoder-Only架构的结构简化。左侧为Encoder-Decoder结构，Decoder通过掩码自注意力和交叉注意力生成目标序列；右侧移除Encoder及交叉注意力，仅保留掩码自注意力、前馈网络和Add \& Norm，根据历史token预测下一个token。灰色表示移除的模块。}}{295}{figure.caption.188}\protected@file@percent }
+\newlabel{fig:decoder_only}{{21.2}{295}{从原始Transformer到Decoder-Only架构的结构简化。左侧为Encoder-Decoder结构，Decoder通过掩码自注意力和交叉注意力生成目标序列；右侧移除Encoder及交叉注意力，仅保留掩码自注意力、前馈网络和Add \& Norm，根据历史token预测下一个token。灰色表示移除的模块。}{figure.caption.188}{}}
+\newlabel{fig:decoder_only@cref}{{[figure][2][21]21.2}{[1][295][]295}{}{}{}}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {subsection}{\numberline {21.1.1}输入表示}{296}{subsection.21.1.1}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {21.3}{\ignorespaces Decoder-Only架构的输入表示。根据token ID和位置索引，分别从Token Embedding矩阵和Position Embedding矩阵中获取对应向量，形成词嵌入矩阵$X_{\mathrm  {token}}$和位置嵌入矩阵$X_{\mathrm  {position}}$。两者维度均为$T\times d$，逐元素相加后得到最终输入矩阵$X^{(0)}$。}}{297}{figure.caption.189}\protected@file@percent }
+\newlabel{fig:input_embedding}{{21.3}{297}{Decoder-Only架构的输入表示。根据token ID和位置索引，分别从Token Embedding矩阵和Position Embedding矩阵中获取对应向量，形成词嵌入矩阵$X_{\mathrm {token}}$和位置嵌入矩阵$X_{\mathrm {position}}$。两者维度均为$T\times d$，逐元素相加后得到最终输入矩阵$X^{(0)}$。}{figure.caption.189}{}}
+\newlabel{fig:input_embedding@cref}{{[figure][3][21]21.3}{[1][297][]297}{}{}{}}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {subsection}{\numberline {21.1.2}网络层结构}{298}{subsection.21.1.2}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {21.4}{\ignorespaces ReLU与GELU的函数及导数对比。ReLU将负输入直接置零，其导数在负半轴恒为零；GELU则根据输入大小进行平滑调整，其函数和导数均连续变化。其中，$\operatorname  {erf}$表示误差函数（Error Function），与标准正态分布累积分布函数的关系为$\Phi (x)=\frac  12[1+\operatorname  {erf}(x/\sqrt  {2})]$。}}{299}{figure.caption.190}\protected@file@percent }
+\newlabel{fig:relu_gelu}{{21.4}{299}{ReLU与GELU的函数及导数对比。ReLU将负输入直接置零，其导数在负半轴恒为零；GELU则根据输入大小进行平滑调整，其函数和导数均连续变化。其中，$\operatorname {erf}$表示误差函数（Error Function），与标准正态分布累积分布函数的关系为$\Phi (x)=\frac 12[1+\operatorname {erf}(x/\sqrt {2})]$。}{figure.caption.190}{}}
+\newlabel{fig:relu_gelu@cref}{{[figure][4][21]21.4}{[1][299][]299}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {21.5}{\ignorespaces Decoder-Only架构中单个Transformer Block的结构。输入依次经过掩码多头自注意力、Add \& Norm、前馈网络和Add \& Norm，其中前馈网络采用Linear、GELU和Linear结构。两次层归一化均位于残差相加之后，整体采用Post-LN结构。}}{300}{figure.caption.191}\protected@file@percent }
+\newlabel{fig:gpt_1_block}{{21.5}{300}{Decoder-Only架构中单个Transformer Block的结构。输入依次经过掩码多头自注意力、Add \& Norm、前馈网络和Add \& Norm，其中前馈网络采用Linear、GELU和Linear结构。两次层归一化均位于残差相加之后，整体采用Post-LN结构。}{figure.caption.191}{}}
+\newlabel{fig:gpt_1_block@cref}{{[figure][5][21]21.5}{[1][300][]300}{}{}{}}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {subsection}{\numberline {21.1.3}网络输出}{301}{subsection.21.1.3}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {21.6}{\ignorespaces Decoder-Only架构的输出计算。最后一层隐藏表示$X^{(12)}$与共享词嵌入矩阵的转置$E^\top $相乘，得到$T\times V$的Logits矩阵$O$，再沿词表维度执行Softmax，得到概率矩阵$\Pi $。其中，每一行表示对应位置对下一个token的预测概率分布。}}{302}{figure.caption.192}\protected@file@percent }
+\newlabel{fig:output_embedding}{{21.6}{302}{Decoder-Only架构的输出计算。最后一层隐藏表示$X^{(12)}$与共享词嵌入矩阵的转置$E^\top $相乘，得到$T\times V$的Logits矩阵$O$，再沿词表维度执行Softmax，得到概率矩阵$\Pi $。其中，每一行表示对应位置对下一个token的预测概率分布。}{figure.caption.192}{}}
+\newlabel{fig:output_embedding@cref}{{[figure][6][21]21.6}{[1][301][]302}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {21.7}{\ignorespaces GPT-1的整体架构。输入token经过词嵌入、可学习位置嵌入及12层Transformer Block，再通过共享权重的输出映射和Softmax得到各位置的预测概率。模型隐藏维度为768，包含12个注意力头，前馈网络中间维度为3072，最大上下文长度为512。}}{303}{figure.caption.193}\protected@file@percent }
+\newlabel{fig:gpt_1}{{21.7}{303}{GPT-1的整体架构。输入token经过词嵌入、可学习位置嵌入及12层Transformer Block，再通过共享权重的输出映射和Softmax得到各位置的预测概率。模型隐藏维度为768，包含12个注意力头，前馈网络中间维度为3072，最大上下文长度为512。}{figure.caption.193}{}}
+\newlabel{fig:gpt_1@cref}{{[figure][7][21]21.7}{[1][303][]303}{}{}{}}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {section}{\numberline {21.2}GPT架构的演进}{304}{section.21.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {21.1}{\ignorespaces GPT-1、GPT-2和GPT-3代表性版本的架构配置及模型开放情况对比。}}{304}{table.caption.194}\protected@file@percent }
+\newlabel{tab:gpt_123}{{21.1}{304}{GPT-1、GPT-2和GPT-3代表性版本的架构配置及模型开放情况对比。}{table.caption.194}{}}
+\newlabel{tab:gpt_123@cref}{{[table][1][21]21.1}{[1][304][]304}{}{}{}}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {subsection}{\numberline {21.2.1}GPT-2}{305}{subsection.21.2.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {21.8}{\ignorespaces GPT-2的整体网络架构。模型采用48层Transformer Block，每层包含掩码多头自注意力和前馈网络，并将LayerNorm放置在子模块之前，形成Pre-LN结构。全部Block之后额外添加Final LayerNorm，输出层与Token Embedding共享权重。模型隐藏维度为1600，包含25个注意力头，最大上下文长度为1024个token。}}{305}{figure.caption.195}\protected@file@percent }
+\newlabel{fig:gpt_2}{{21.8}{305}{GPT-2的整体网络架构。模型采用48层Transformer Block，每层包含掩码多头自注意力和前馈网络，并将LayerNorm放置在子模块之前，形成Pre-LN结构。全部Block之后额外添加Final LayerNorm，输出层与Token Embedding共享权重。模型隐藏维度为1600，包含25个注意力头，最大上下文长度为1024个token。}{figure.caption.195}{}}
+\newlabel{fig:gpt_2@cref}{{[figure][8][21]21.8}{[1][305][]305}{}{}{}}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {subsection}{\numberline {21.2.2}GPT-3}{306}{subsection.21.2.2}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {21.9}{\ignorespaces GPT-3的整体网络架构。模型采用96层Transformer Block，延续GPT-2的Pre-LN结构，并在全部网络层之后添加Final LayerNorm。不同网络层交替采用稠密注意力和局部带状稀疏注意力。模型隐藏维度为12288，包含96个注意力头，最大上下文长度为2048个token。}}{307}{figure.caption.196}\protected@file@percent }
+\newlabel{fig:gpt_3}{{21.9}{307}{GPT-3的整体网络架构。模型采用96层Transformer Block，延续GPT-2的Pre-LN结构，并在全部网络层之后添加Final LayerNorm。不同网络层交替采用稠密注意力和局部带状稀疏注意力。模型隐藏维度为12288，包含96个注意力头，最大上下文长度为2048个token。}{figure.caption.196}{}}
+\newlabel{fig:gpt_3@cref}{{[figure][9][21]21.9}{[1][306][]307}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {21.10}{\ignorespaces 完整自注意力、因果自注意力与局部带状稀疏注意力的计算对比。上方为双向自注意力，所有位置之间均可计算注意力；中间为因果自注意力，通过掩码屏蔽未来位置；下方为局部带状稀疏注意力，进一步将可见范围限制在主对角线及其下方宽度为$k$的带状区域内。三者均通过缩放点积、Softmax和Value加权求和得到输出，区别在于注意力分数的可见范围。}}{308}{figure.caption.197}\protected@file@percent }
+\newlabel{fig:sparse}{{21.10}{308}{完整自注意力、因果自注意力与局部带状稀疏注意力的计算对比。上方为双向自注意力，所有位置之间均可计算注意力；中间为因果自注意力，通过掩码屏蔽未来位置；下方为局部带状稀疏注意力，进一步将可见范围限制在主对角线及其下方宽度为$k$的带状区域内。三者均通过缩放点积、Softmax和Value加权求和得到输出，区别在于注意力分数的可见范围。}{figure.caption.197}{}}
+\newlabel{fig:sparse@cref}{{[figure][10][21]21.10}{[1][308][]308}{}{}{}}
+\def\@LN@column{1}
+\@setckpt{chapters/part_04/p4_ch02}{
+\setcounter{page}{310}
+\setcounter{equation}{0}
+\setcounter{enumi}{11}
+\setcounter{enumii}{0}
+\setcounter{enumiii}{0}
+\setcounter{enumiv}{0}
+\setcounter{footnote}{3}
+\setcounter{mpfootnote}{0}
+\setcounter{part}{4}
+\setcounter{chapter}{21}
+\setcounter{section}{2}
+\setcounter{subsection}{2}
+\setcounter{subsubsection}{0}
+\setcounter{paragraph}{0}
+\setcounter{subparagraph}{0}
+\setcounter{figure}{10}
+\setcounter{table}{1}
+\setcounter{FancyVerbLine}{0}
+\setcounter{linenumber}{1}
+\setcounter{LN@truepage}{319}
+\setcounter{FancyVerbWriteLine}{0}
+\setcounter{FancyVerbBufferLine}{0}
+\setcounter{FV@TrueTabGroupLevel}{0}
+\setcounter{FV@TrueTabCounter}{0}
+\setcounter{FV@HighlightLinesStart}{0}
+\setcounter{FV@HighlightLinesStop}{0}
+\setcounter{FancyVerbLineBreakLast}{0}
+\setcounter{FV@BreakBufferDepth}{0}
+\setcounter{parentequation}{0}
+\setcounter{float@type}{16}
+\setcounter{caption@flags}{2}
+\setcounter{continuedfloat}{0}
+\setcounter{subfigure}{0}
+\setcounter{subtable}{0}
+\setcounter{LT@tables}{0}
+\setcounter{LT@chunks}{0}
+\setcounter{nlinenum}{0}
+\setcounter{lstnumber}{1}
+\setcounter{tcbbreakpart}{1}
+\setcounter{tcblayer}{0}
+\setcounter{tcolorbox@number}{108}
+\setcounter{tcbrastercolumn}{1}
+\setcounter{tcbrasterrow}{1}
+\setcounter{tcbrasternum}{1}
+\setcounter{tcbraster}{0}
+\setcounter{tcblisting}{0}
+\setcounter{section@level}{0}
+\setcounter{Item}{47}
+\setcounter{Hfootnote}{62}
+\setcounter{Hy@AnnotLevel}{0}
+\setcounter{bookmark@seq@number}{151}
+\setcounter{lstlisting}{0}
+}

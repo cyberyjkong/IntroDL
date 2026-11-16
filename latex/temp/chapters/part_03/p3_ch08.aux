@@ -1,0 +1,96 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {chapter}{\numberline {18}Transformer Decoder}{249}{chapter.18}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{toc}{\contentsline {section}{\numberline {18.1}位置编码}{249}{section.18.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {18.1}{\ignorespaces Transformer Decoder在推理阶段的自回归生成过程。为便于展示，图中仅绘制一个解码器层，即$N=1$。解码器以起始标记$\langle \mathrm  {SOS}\rangle $作为初始输入，通过掩码多头自注意力、交叉注意力和前馈网络预测目标词语；橙色虚线表示将本次生成的词语加入下一步输入，直至生成结束标记。}}{249}{figure.caption.161}\protected@file@percent }
+\newlabel{fig:transformer_seq2seq_decoder}{{18.1}{249}{Transformer Decoder在推理阶段的自回归生成过程。为便于展示，图中仅绘制一个解码器层，即$N=1$。解码器以起始标记$\langle \mathrm {SOS}\rangle $作为初始输入，通过掩码多头自注意力、交叉注意力和前馈网络预测目标词语；橙色虚线表示将本次生成的词语加入下一步输入，直至生成结束标记。}{figure.caption.161}{}}
+\newlabel{fig:transformer_seq2seq_decoder@cref}{{[figure][1][18]18.1}{[1][249][]249}{}{}{}}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {section}{\numberline {18.2}掩码自注意力机制}{250}{section.18.2}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {18.2}{\ignorespaces 因果掩码下的词语可见关系。以\emph  {I like to eat big and red apples}为例，图中选取\emph  {eat}所在的位置进行展示。绿色实线表示该位置可以关注起始标记及之前的词语和自身，灰色虚线与叉号表示后面的\emph  {big}、\emph  {and}、\emph  {red}和\emph  {apples}不能参与当前位置的注意力计算。}}{251}{figure.caption.162}\protected@file@percent }
+\newlabel{fig:causal_visibility}{{18.2}{251}{因果掩码下的词语可见关系。以\emph {I like to eat big and red apples}为例，图中选取\emph {eat}所在的位置进行展示。绿色实线表示该位置可以关注起始标记及之前的词语和自身，灰色虚线与叉号表示后面的\emph {big}、\emph {and}、\emph {red}和\emph {apples}不能参与当前位置的注意力计算。}{figure.caption.162}{}}
+\newlabel{fig:causal_visibility@cref}{{[figure][2][18]18.2}{[1][251][]251}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {18.3}{\ignorespaces 单个注意力头中掩码自注意力的完整计算流程。输入分别投影为Query、Key和Value，先通过$QK^\top $计算注意力分数并除以$\sqrt  {d_k}$进行缩放，再在Softmax之前加入因果掩码$M$，使未来位置的注意力权重变为$0$；最后将权重矩阵与Value相乘，得到融合可见历史信息的输出。}}{252}{figure.caption.163}\protected@file@percent }
+\newlabel{fig:masked_attention}{{18.3}{252}{单个注意力头中掩码自注意力的完整计算流程。输入分别投影为Query、Key和Value，先通过$QK^\top $计算注意力分数并除以$\sqrt {d_k}$进行缩放，再在Softmax之前加入因果掩码$M$，使未来位置的注意力权重变为$0$；最后将权重矩阵与Value相乘，得到融合可见历史信息的输出。}{figure.caption.163}{}}
+\newlabel{fig:masked_attention@cref}{{[figure][3][18]18.3}{[1][252][]252}{}{}{}}
+\def\@LN@column{1}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {section}{\numberline {18.3}交叉注意力机制}{254}{section.18.3}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {18.4}{\ignorespaces 交叉注意力机制示意图。Query来自Decoder经过掩码自注意力处理后的目标序列表示，Key和Value来自Encoder的输出；后续通过缩放点积注意力计算相关程度，并对Value进行加权求和。图中仅展示一个注意力头。}}{255}{figure.caption.164}\protected@file@percent }
+\newlabel{fig:cross_attention}{{18.4}{255}{交叉注意力机制示意图。Query来自Decoder经过掩码自注意力处理后的目标序列表示，Key和Value来自Encoder的输出；后续通过缩放点积注意力计算相关程度，并对Value进行加权求和。图中仅展示一个注意力头。}{figure.caption.164}{}}
+\newlabel{fig:cross_attention@cref}{{[figure][4][18]18.4}{[1][255][]255}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {18.5}{\ignorespaces Transformer Decoder的整体架构与自回归生成过程。Decoder由$N$个结构相同的网络层堆叠而成，每层包含掩码多头自注意力、交叉注意力和前馈神经网络，并经过Add \& Norm处理。蓝色连线表示各层交叉注意力均使用Encoder的输出；橙色虚线表示将当前生成的词语加入下一步输入。}}{256}{figure.caption.165}\protected@file@percent }
+\newlabel{fig:transformer_decoder}{{18.5}{256}{Transformer Decoder的整体架构与自回归生成过程。Decoder由$N$个结构相同的网络层堆叠而成，每层包含掩码多头自注意力、交叉注意力和前馈神经网络，并经过Add \& Norm处理。蓝色连线表示各层交叉注意力均使用Encoder的输出；橙色虚线表示将当前生成的词语加入下一步输入。}{figure.caption.165}{}}
+\newlabel{fig:transformer_decoder@cref}{{[figure][5][18]18.5}{[1][256][]256}{}{}{}}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {section}{\numberline {18.4}Decoder的训练与推理}{257}{section.18.4}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {18.6}{\ignorespaces 因果掩码矩阵示意图。横轴为Key位置，纵轴为Query位置。绿色区域表示允许关注的位置，灰色区域表示被屏蔽的未来位置。每一行对应一个目标词语预测任务，橙色边框突出\emph  {eat}所在的位置，该位置只能关注自身及之前的词语。}}{258}{figure.caption.166}\protected@file@percent }
+\newlabel{fig:causal_mask}{{18.6}{258}{因果掩码矩阵示意图。横轴为Key位置，纵轴为Query位置。绿色区域表示允许关注的位置，灰色区域表示被屏蔽的未来位置。每一行对应一个目标词语预测任务，橙色边框突出\emph {eat}所在的位置，该位置只能关注自身及之前的词语。}{figure.caption.166}{}}
+\newlabel{fig:causal_mask@cref}{{[figure][6][18]18.6}{[1][258][]258}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {18.7}{\ignorespaces Transformer Decoder的训练与推理过程对比。左侧训练阶段将右移后的正确目标序列同时输入Decoder，在因果掩码约束下并行预测各位置的词语，并与正确目标计算损失；右侧推理阶段从起始标记开始，将每一步预测结果作为后续输入，逐步生成词语直至结束标记。图中每个推理步骤仅突出新加入的词元，实际计算仍依赖完整历史前缀。}}{259}{figure.caption.167}\protected@file@percent }
+\newlabel{fig:transformer_decoder_train_infer}{{18.7}{259}{Transformer Decoder的训练与推理过程对比。左侧训练阶段将右移后的正确目标序列同时输入Decoder，在因果掩码约束下并行预测各位置的词语，并与正确目标计算损失；右侧推理阶段从起始标记开始，将每一步预测结果作为后续输入，逐步生成词语直至结束标记。图中每个推理步骤仅突出新加入的词元，实际计算仍依赖完整历史前缀。}{figure.caption.167}{}}
+\newlabel{fig:transformer_decoder_train_infer@cref}{{[figure][7][18]18.7}{[1][259][]259}{}{}{}}
+\def\@LN@column{1}
+\@setckpt{./chapters/part_03/p3_ch08}{
+\setcounter{page}{261}
+\setcounter{equation}{3}
+\setcounter{enumi}{11}
+\setcounter{enumii}{0}
+\setcounter{enumiii}{0}
+\setcounter{enumiv}{0}
+\setcounter{footnote}{1}
+\setcounter{mpfootnote}{0}
+\setcounter{part}{3}
+\setcounter{chapter}{18}
+\setcounter{section}{4}
+\setcounter{subsection}{0}
+\setcounter{subsubsection}{0}
+\setcounter{paragraph}{0}
+\setcounter{subparagraph}{0}
+\setcounter{figure}{7}
+\setcounter{table}{0}
+\setcounter{FancyVerbLine}{0}
+\setcounter{linenumber}{1}
+\setcounter{LN@truepage}{270}
+\setcounter{FancyVerbWriteLine}{0}
+\setcounter{FancyVerbBufferLine}{0}
+\setcounter{FV@TrueTabGroupLevel}{0}
+\setcounter{FV@TrueTabCounter}{0}
+\setcounter{FV@HighlightLinesStart}{0}
+\setcounter{FV@HighlightLinesStop}{0}
+\setcounter{FancyVerbLineBreakLast}{0}
+\setcounter{FV@BreakBufferDepth}{0}
+\setcounter{parentequation}{0}
+\setcounter{float@type}{16}
+\setcounter{caption@flags}{2}
+\setcounter{continuedfloat}{0}
+\setcounter{subfigure}{0}
+\setcounter{subtable}{0}
+\setcounter{LT@tables}{0}
+\setcounter{LT@chunks}{0}
+\setcounter{nlinenum}{0}
+\setcounter{lstnumber}{1}
+\setcounter{tcbbreakpart}{1}
+\setcounter{tcblayer}{0}
+\setcounter{tcolorbox@number}{102}
+\setcounter{tcbrastercolumn}{1}
+\setcounter{tcbrasterrow}{1}
+\setcounter{tcbrasternum}{1}
+\setcounter{tcbraster}{0}
+\setcounter{tcblisting}{0}
+\setcounter{section@level}{0}
+\setcounter{Item}{47}
+\setcounter{Hfootnote}{53}
+\setcounter{Hy@AnnotLevel}{0}
+\setcounter{bookmark@seq@number}{127}
+\setcounter{lstlisting}{0}
+}

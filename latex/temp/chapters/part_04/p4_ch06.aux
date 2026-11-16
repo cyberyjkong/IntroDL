@@ -1,0 +1,117 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {chapter}{\numberline {6}自回归生成与推理}{76}{chapter.6}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{toc}{\contentsline {section}{\numberline {6.1}词元选择策略}{76}{section.6.1}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.1}{\ignorespaces 同两条提示的右填充和左填充。列号是批次张量中的格号，橙色格的logits用于本轮选词元，紫色填充格不作为有效Key。}}{77}{figure.caption.56}\protected@file@percent }
+\newlabel{fig:p4_decode_last_positions}{{6.1}{77}{同两条提示的右填充和左填充。列号是批次张量中的格号，橙色格的logits用于本轮选词元，紫色填充格不作为有效Key。}{figure.caption.56}{}}
+\newlabel{fig:p4_decode_last_positions@cref}{{[figure][1][6]6.1}{[1][76][]77}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.2}{\ignorespaces 同一行logits使用三种温度时的概率。较低的温度使概率集中在前几项，较高的温度使各候选更接近。各柱采用同一纵轴。}}{78}{figure.caption.57}\protected@file@percent }
+\newlabel{fig:p4_decode_temperatures}{{6.2}{78}{同一行logits使用三种温度时的概率。较低的温度使概率集中在前几项，较高的温度使各候选更接近。各柱采用同一纵轴。}{figure.caption.57}{}}
+\newlabel{fig:p4_decode_temperatures@cref}{{[figure][2][6]6.2}{[1][77][]78}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.3}{\ignorespaces 在同一原始分布上比较两种采样筛选方式。Top-$k$取2时保留前两项；Top-$p$取$0.80$时，两项累计只有$0.75$，因此还要保留第三项。两列结果都已在各自的候选集合内重新归一化。}}{79}{figure.caption.58}\protected@file@percent }
+\newlabel{fig:p4_sampling_choices}{{6.3}{79}{在同一原始分布上比较两种采样筛选方式。Top-$k$取2时保留前两项；Top-$p$取$0.80$时，两项累计只有$0.75$，因此还要保留第三项。两列结果都已在各自的候选集合内重新归一化。}{figure.caption.58}{}}
+\newlabel{fig:p4_sampling_choices@cref}{{[figure][3][6]6.3}{[1][78][]79}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6.2}自回归生成流程}{79}{section.6.2}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {section}{\numberline {6.3}KV Cache}{80}{section.6.3}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.4}{\ignorespaces 三轮前向中需要新算投影的位置。重算方案每轮重新计算完整前缀；缓存方案首轮处理提示，之后每轮只为新增位置计算投影。}}{81}{figure.caption.59}\protected@file@percent }
+\newlabel{fig:p4_decode_recompute}{{6.4}{81}{三轮前向中需要新算投影的位置。重算方案每轮重新计算完整前缀；缓存方案首轮处理提示，之后每轮只为新增位置计算投影。}{figure.caption.59}{}}
+\newlabel{fig:p4_decode_recompute@cref}{{[figure][4][6]6.4}{[1][81][]81}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.5}{\ignorespaces 一次Prefill与两次Decode的模型输入、缓存和所选词元。左列是本轮实际送入的词元，中间是这一轮计算结束后的每层缓存。紫色为复用项，橙色为新写入项。橙色虚线将右侧刚选出的词元送到下一轮左列，结束标记触发停止。}}{82}{figure.caption.60}\protected@file@percent }
+\newlabel{fig:p4_kv_timeline}{{6.5}{82}{一次Prefill与两次Decode的模型输入、缓存和所选词元。左列是本轮实际送入的词元，中间是这一轮计算结束后的每层缓存。紫色为复用项，橙色为新写入项。橙色虚线将右侧刚选出的词元送到下一轮左列，结束标记触发停止。}{figure.caption.60}{}}
+\newlabel{fig:p4_kv_timeline@cref}{{[figure][5][6]6.5}{[1][81][]82}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.6}{\ignorespaces 单层第一次Decode中的读写。新词元产生一个位置的Q、K、V；旋转后的K与V追加到旧缓存。当前Q与四个可见Key计算分数，再读取四个Value。}}{82}{figure.caption.61}\protected@file@percent }
+\newlabel{fig:p4_decode_layer_cache}{{6.6}{82}{单层第一次Decode中的读写。新词元产生一个位置的Q、K、V；旋转后的K与V追加到旧缓存。当前Q与四个可见Key计算分数，再读取四个Value。}{figure.caption.61}{}}
+\newlabel{fig:p4_decode_layer_cache@cref}{{[figure][6][6]6.6}{[1][82][]82}{}{}{}}
+\def\@LN@column{1}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.7}{\ignorespaces 把采样结果和缓存更新时间放到同一张表。句号在第二轮被选出，第三轮才被送进模型；结束标记触发停止，不再启动一轮前向。}}{84}{figure.caption.62}\protected@file@percent }
+\newlabel{fig:p4_decode_stop_steps}{{6.7}{84}{把采样结果和缓存更新时间放到同一张表。句号在第二轮被选出，第三轮才被送进模型；结束标记触发停止，不再启动一轮前向。}{figure.caption.62}{}}
+\newlabel{fig:p4_decode_stop_steps@cref}{{[figure][7][6]6.7}{[1][83][]84}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.8}{\ignorespaces 位置3的单头注意力。前三列的Key和Value来自历史缓存，第四列由本轮输入产生。红色列必须参加当前行的同一次Softmax。}}{85}{figure.caption.63}\protected@file@percent }
+\newlabel{fig:p4_decode_value_audit}{{6.8}{85}{位置3的单头注意力。前三列的Key和Value来自历史缓存，第四列由本轮输入产生。红色列必须参加当前行的同一次Softmax。}{figure.caption.63}{}}
+\newlabel{fig:p4_decode_value_audit@cref}{{[figure][8][6]6.8}{[1][85][]85}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6.4}分组查询注意力与推理开销}{85}{section.6.4}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.9}{\ignorespaces 固定8个Query头时的三种连接方式。左图各Query头读取各自的K、V，中图所有Query头共享一组，右图前四个与后四个Query头各共享一组。每个下方方框代表一对需要保存的K、V头。}}{86}{figure.caption.64}\protected@file@percent }
+\newlabel{fig:p4_kv_heads}{{6.9}{86}{固定8个Query头时的三种连接方式。左图各Query头读取各自的K、V，中图所有Query头共享一组，右图前四个与后四个Query头各共享一组。每个下方方框代表一对需要保存的K、V头。}{figure.caption.64}{}}
+\newlabel{fig:p4_kv_heads@cref}{{[figure][9][6]6.9}{[1][86][]86}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.10}{\ignorespaces 三类优化在生成流程中的位置。GQA改变K、V投影的头数，KV Cache把历史投影交给下一轮，FlashAttention式的分块优化关注一次注意力的数据搬运。}}{87}{figure.caption.65}\protected@file@percent }
+\newlabel{fig:p4_decode_optimization_map}{{6.10}{87}{三类优化在生成流程中的位置。GQA改变K、V投影的头数，KV Cache把历史投影交给下一轮，FlashAttention式的分块优化关注一次注意力的数据搬运。}{figure.caption.65}{}}
+\newlabel{fig:p4_decode_optimization_map@cref}{{[figure][10][6]6.10}{[1][87][]87}{}{}{}}
+\def\@LN@column{1}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.11}{\ignorespaces 一条教学请求的时间分段。Prefill结束后已经选出第一个词元，后面的三个时间段各对应一次Decode。时间只用于说明两种指标如何计数。}}{89}{figure.caption.66}\protected@file@percent }
+\newlabel{fig:p4_decode_latency_phases}{{6.11}{89}{一条教学请求的时间分段。Prefill结束后已经选出第一个词元，后面的三个时间段各对应一次Decode。时间只用于说明两种指标如何计数。}{figure.caption.66}{}}
+\newlabel{fig:p4_decode_latency_phases@cref}{{[figure][11][6]6.11}{[1][88][]89}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.12}{\ignorespaces 两条提示长度不同的请求在同一批次生成。每个格子列出本轮处理位置和处理后的有效长度，红色标出乙选中结束标记，下一轮只处理甲。}}{89}{figure.caption.67}\protected@file@percent }
+\newlabel{fig:p4_decode_batch_lifecycle}{{6.12}{89}{两条提示长度不同的请求在同一批次生成。每个格子列出本轮处理位置和处理后的有效长度，红色标出乙选中结束标记，下一轮只处理甲。}{figure.caption.67}{}}
+\newlabel{fig:p4_decode_batch_lifecycle@cref}{{[figure][12][6]6.12}{[1][89][]89}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.13}{\ignorespaces 两个Query头访问同一组KV。上、下两行分别计算各自的Softmax权重，并对相同Value做加权。标出的$e$与1是Softmax分子。}}{90}{figure.caption.68}\protected@file@percent }
+\newlabel{fig:p4_decode_gqa_weights}{{6.13}{90}{两个Query头访问同一组KV。上、下两行分别计算各自的Softmax权重，并对相同Value做加权。标出的$e$与1是Softmax分子。}{figure.caption.68}{}}
+\newlabel{fig:p4_decode_gqa_weights@cref}{{[figure][13][6]6.13}{[1][90][]90}{}{}{}}
+\@setckpt{chapters/part_04/p4_ch06}{
+\setcounter{page}{91}
+\setcounter{equation}{0}
+\setcounter{enumi}{0}
+\setcounter{enumii}{0}
+\setcounter{enumiii}{0}
+\setcounter{enumiv}{0}
+\setcounter{footnote}{3}
+\setcounter{mpfootnote}{0}
+\setcounter{part}{1}
+\setcounter{chapter}{6}
+\setcounter{section}{4}
+\setcounter{subsection}{0}
+\setcounter{subsubsection}{0}
+\setcounter{paragraph}{0}
+\setcounter{subparagraph}{0}
+\setcounter{figure}{13}
+\setcounter{table}{0}
+\setcounter{FancyVerbLine}{0}
+\setcounter{linenumber}{1}
+\setcounter{LN@truepage}{90}
+\setcounter{FancyVerbWriteLine}{0}
+\setcounter{FancyVerbBufferLine}{0}
+\setcounter{FV@TrueTabGroupLevel}{0}
+\setcounter{FV@TrueTabCounter}{0}
+\setcounter{FV@HighlightLinesStart}{0}
+\setcounter{FV@HighlightLinesStop}{0}
+\setcounter{FancyVerbLineBreakLast}{0}
+\setcounter{FV@BreakBufferDepth}{0}
+\setcounter{parentequation}{0}
+\setcounter{float@type}{16}
+\setcounter{caption@flags}{2}
+\setcounter{continuedfloat}{0}
+\setcounter{subfigure}{0}
+\setcounter{subtable}{0}
+\setcounter{LT@tables}{0}
+\setcounter{LT@chunks}{0}
+\setcounter{nlinenum}{0}
+\setcounter{lstnumber}{1}
+\setcounter{tcbbreakpart}{1}
+\setcounter{tcblayer}{0}
+\setcounter{tcolorbox@number}{6}
+\setcounter{tcbrastercolumn}{1}
+\setcounter{tcbrasterrow}{1}
+\setcounter{tcbrasternum}{1}
+\setcounter{tcbraster}{0}
+\setcounter{tcblisting}{0}
+\setcounter{section@level}{0}
+\setcounter{Item}{0}
+\setcounter{Hfootnote}{16}
+\setcounter{Hy@AnnotLevel}{0}
+\setcounter{bookmark@seq@number}{40}
+\setcounter{lstlisting}{0}
+}

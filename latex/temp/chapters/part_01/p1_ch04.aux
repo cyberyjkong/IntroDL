@@ -30,36 +30,37 @@
 \def\@LN@column{1}
 \@writefile{toc}{\contentsline {section}{\numberline {4.3}批量归一化}{48}{section.4.3}\protected@file@percent }
 \def\@LN@column{1}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.6}{\ignorespaces 批归一化示意图。输入$x_i$（左，均值$\mu _B$、标准差$\sigma _B$）先被标准化为零均值、单位方差的$\hat  {x}_i$（中），再经可学习参数$\gamma $、$\beta $缩放平移为$y_i$（右）。}}{49}{figure.caption.36}\protected@file@percent }
-\newlabel{fig:batch_normalization}{{4.6}{49}{批归一化示意图。输入$x_i$（左，均值$\mu _B$、标准差$\sigma _B$）先被标准化为零均值、单位方差的$\hat {x}_i$（中），再经可学习参数$\gamma $、$\beta $缩放平移为$y_i$（右）。}{figure.caption.36}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.6}{\ignorespaces 批量归一化示意图。输入$x_i$（左，均值$\mu _B$、标准差$\sigma _B$）先被标准化为零均值、单位方差的$\hat  {x}_i$（中），再经可学习参数$\gamma $、$\beta $缩放和平移，得到最终输出$y_i$（右）。}}{49}{figure.caption.36}\protected@file@percent }
+\newlabel{fig:batch_normalization}{{4.6}{49}{批量归一化示意图。输入$x_i$（左，均值$\mu _B$、标准差$\sigma _B$）先被标准化为零均值、单位方差的$\hat {x}_i$（中），再经可学习参数$\gamma $、$\beta $缩放和平移，得到最终输出$y_i$（右）。}{figure.caption.36}{}}
 \newlabel{fig:batch_normalization@cref}{{[figure][6][4]4.6}{[1][49][]49}{}{}{}}
 \def\@LN@column{1}
 \@writefile{toc}{\contentsline {section}{\numberline {4.4}过拟合与正则化}{50}{section.4.4}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {4.1}{\ignorespaces 三种拟合情况在训练集与测试集上的准确率}}{50}{table.caption.37}\protected@file@percent }
-\newlabel{tab:fitting}{{4.1}{50}{三种拟合情况在训练集与测试集上的准确率}{table.caption.37}{}}
-\newlabel{tab:fitting@cref}{{[table][1][4]4.1}{[1][50][]50}{}{}{}}
 \def\@LN@column{1}
+\@writefile{lot}{\contentsline {table}{\numberline {4.1}{\ignorespaces 三种拟合情况在训练集与测试集上的准确率}}{51}{table.caption.37}\protected@file@percent }
+\newlabel{tab:fitting}{{4.1}{51}{三种拟合情况在训练集与测试集上的准确率}{table.caption.37}{}}
+\newlabel{tab:fitting@cref}{{[table][1][4]4.1}{[1][51][]51}{}{}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {4.7}{\ignorespaces 欠拟合、拟合良好、过拟合的决策边界。散点为两类训练样本，黑线为模型学到的决策边界。}}{51}{figure.caption.38}\protected@file@percent }
 \newlabel{fig:underfit_overfit_plot}{{4.7}{51}{欠拟合、拟合良好、过拟合的决策边界。散点为两类训练样本，黑线为模型学到的决策边界。}{figure.caption.38}{}}
-\newlabel{fig:underfit_overfit_plot@cref}{{[figure][7][4]4.7}{[1][50][]51}{}{}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.8}{\ignorespaces 欠拟合、拟合良好、过拟合的损失曲线。横轴为模型容量，纵轴为损失；红虚线与蓝实线分别表示训练损失与泛化损失。}}{51}{figure.caption.39}\protected@file@percent }
-\newlabel{fig:underfit_overfit_loss}{{4.8}{51}{欠拟合、拟合良好、过拟合的损失曲线。横轴为模型容量，纵轴为损失；红虚线与蓝实线分别表示训练损失与泛化损失。}{figure.caption.39}{}}
-\newlabel{fig:underfit_overfit_loss@cref}{{[figure][8][4]4.8}{[1][51][]51}{}{}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.1}L1与L2正则化}{51}{subsection.4.4.1}\protected@file@percent }
+\newlabel{fig:underfit_overfit_plot@cref}{{[figure][7][4]4.7}{[1][51][]51}{}{}{}}
 \def\@LN@column{1}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.9}{\ignorespaces L1与L2正则化的几何示意。在权重平面$(w_1, w_2)$上，虚线椭圆为原始损失的等高线，实线为正则化约束区域（左为L1的菱形、右为L2的圆形）；黑点为二者接触处，即正则化后的最优解，左图落在坐标轴上、右图落在坐标轴外。}}{52}{figure.caption.40}\protected@file@percent }
-\newlabel{fig:l1_l2}{{4.9}{52}{L1与L2正则化的几何示意。在权重平面$(w_1, w_2)$上，虚线椭圆为原始损失的等高线，实线为正则化约束区域（左为L1的菱形、右为L2的圆形）；黑点为二者接触处，即正则化后的最优解，左图落在坐标轴上、右图落在坐标轴外。}{figure.caption.40}{}}
-\newlabel{fig:l1_l2@cref}{{[figure][9][4]4.9}{[1][52][]52}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.8}{\ignorespaces 欠拟合、拟合良好、过拟合的损失曲线。横轴为模型容量，纵轴为损失；红虚线与蓝实线分别表示训练损失与泛化损失。}}{52}{figure.caption.39}\protected@file@percent }
+\newlabel{fig:underfit_overfit_loss}{{4.8}{52}{欠拟合、拟合良好、过拟合的损失曲线。横轴为模型容量，纵轴为损失；红虚线与蓝实线分别表示训练损失与泛化损失。}{figure.caption.39}{}}
+\newlabel{fig:underfit_overfit_loss@cref}{{[figure][8][4]4.8}{[1][52][]52}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.1}L1与L2正则化}{52}{subsection.4.4.1}\protected@file@percent }
 \def\@LN@column{1}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.2}Dropout}{53}{subsection.4.4.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4.9}{\ignorespaces L1与L2正则化的几何示意。在权重平面$(w_1, w_2)$上，虚线椭圆为原始损失的等高线，实线为正则化约束区域（左为L1的菱形、右为L2的圆形）；黑点为二者接触处，即正则化后的最优解，左图落在坐标轴上、右图落在坐标轴外。}}{53}{figure.caption.40}\protected@file@percent }
+\newlabel{fig:l1_l2}{{4.9}{53}{L1与L2正则化的几何示意。在权重平面$(w_1, w_2)$上，虚线椭圆为原始损失的等高线，实线为正则化约束区域（左为L1的菱形、右为L2的圆形）；黑点为二者接触处，即正则化后的最优解，左图落在坐标轴上、右图落在坐标轴外。}{figure.caption.40}{}}
+\newlabel{fig:l1_l2@cref}{{[figure][9][4]4.9}{[1][53][]53}{}{}{}}
 \def\@LN@column{1}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.2}Dropout}{54}{subsection.4.4.2}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {4.10}{\ignorespaces Dropout示意图。左图为完整网络，红色高亮路径$x_2 \to h_2^{(1)} \to h_1^{(2)} \to y_1$表示模型可能过度依赖的特定路径；右图为一次Dropout采样得到的子网络：带红叉的神经元在本次迭代中被随机关闭，剩余神经元重新连接以完成前向计算。}}{54}{figure.caption.41}\protected@file@percent }
 \newlabel{fig:dropout}{{4.10}{54}{Dropout示意图。左图为完整网络，红色高亮路径$x_2 \to h_2^{(1)} \to h_1^{(2)} \to y_1$表示模型可能过度依赖的特定路径；右图为一次Dropout采样得到的子网络：带红叉的神经元在本次迭代中被随机关闭，剩余神经元重新连接以完成前向计算。}{figure.caption.41}{}}
-\newlabel{fig:dropout@cref}{{[figure][10][4]4.10}{[1][53][]54}{}{}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.3}Early Stopping}{54}{subsection.4.4.3}\protected@file@percent }
+\newlabel{fig:dropout@cref}{{[figure][10][4]4.10}{[1][54][]54}{}{}{}}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.3}Early Stopping}{55}{subsection.4.4.3}\protected@file@percent }
 \def\@LN@column{1}
 \@setckpt{./chapters/part_01/p1_ch04}{
-\setcounter{page}{56}
+\setcounter{page}{57}
 \setcounter{equation}{0}
 \setcounter{enumi}{0}
 \setcounter{enumii}{0}
@@ -78,7 +79,7 @@
 \setcounter{table}{1}
 \setcounter{FancyVerbLine}{0}
 \setcounter{linenumber}{1}
-\setcounter{LN@truepage}{61}
+\setcounter{LN@truepage}{64}
 \setcounter{FancyVerbWriteLine}{0}
 \setcounter{FancyVerbBufferLine}{0}
 \setcounter{FV@TrueTabGroupLevel}{0}
@@ -99,7 +100,7 @@
 \setcounter{lstnumber}{1}
 \setcounter{tcbbreakpart}{1}
 \setcounter{tcblayer}{0}
-\setcounter{tcolorbox@number}{48}
+\setcounter{tcolorbox@number}{47}
 \setcounter{tcbrastercolumn}{1}
 \setcounter{tcbrasterrow}{1}
 \setcounter{tcbrasternum}{1}

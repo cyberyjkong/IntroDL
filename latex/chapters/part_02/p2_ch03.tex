@@ -1,0 +1,256 @@
+% !TEX root = ../../main.tex
+
+\chapter{深层卷积网络}
+
+在LeNet提出后的数年间，该系统逐步应用于美国邮政系统的邮政编码识别、银行支票手写数字识别等实际场景。20世纪90年代末，基于LeNet的支票识别系统已经在美国多家银行投入商业使用，每天可自动读取数百万张手写支票。
+
+然而，LeNet-5在学术界的反响却相对平淡。此后十余年间，计算机视觉研究仍以“手工设计特征+分类器”为主流范式：研究者根据具体任务人工构造特征描述子，再将其输入支持向量机等分类模型中完成识别。相比之下，直接从原始数据中自动学习特征的卷积神经网络，受限于当时的数据规模、计算能力等条件，尚未展现出足以取代传统方法的优势。此外，第二次人工智能寒冬带来的影响仍未完全消退\footnote{20世纪80年代，专家系统逐渐兴起。作为\textbf{符号主义}的典型代表（神经网络属于\textbf{连接主义}），专家系统通过人工编码领域知识和决策规则，在医疗诊断等特定领域取得了一定成功。然而，随着应用规模扩大，其局限性也逐渐显现：知识获取和维护成本高，规则难以覆盖复杂多变的实际情况，系统的泛化能力也较为有限等。随着这些问题逐渐暴露，业界对人工智能的预期不断降低，投资与研究热情随之减退，最终导致了第二次人工智能寒冬。}，神经网络相关研究整体处于相对低迷的阶段。因此，尽管卷积神经网络已经展现出在图像识别任务中的潜力，但并未成为主流。
+
+直到2012年，ImageNet大规模视觉识别挑战赛（ILSVRC）成为这一局面的重要转折点。AlexNet\footnote{AlexNet由Alex Krizhevsky、Ilya Sutskever和Geoffrey Hinton于2012年提出，论文标题为\href{https://proceedings.neurips.cc/paper_files/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf}{\textit{ImageNet Classification with Deep Convolutional Neural Networks}}。}在比赛中取得了显著突破，其Top-5错误率仅为15.3\%，远低于当年第二名方法的26.2\%。这一结果充分展示了深度卷积神经网络在大规模图像识别任务中的优势，也重新引起了学术界对深度神经网络的关注，推动现代深度学习由此进入快速发展阶段。
+
+\section{AlexNet}
+
+\begin{figure}[H]
+    \boxedimage[width=0.95\textwidth]{figures/part_02/p2_ch03/alexnet.pdf}
+    \caption{AlexNet网络架构（原始论文的双GPU画法）。上下两排为两张GPU上并行计算的卷积分支，跨分支的连线表示GPU之间的特征传递，末端汇合到全连接层并输出1000个类别。}
+    \label{fig:alexnet}
+\end{figure}
+
+如\cref{fig:alexnet}所示，AlexNet的整体架构相比LeNet-5明显更加复杂。受限于当时的计算资源，AlexNet并不是在单个GPU上完成训练，而是将网络分布在两张GPU上进行训练。为了便于理解，我们将原论文中的双GPU架构重绘为单GPU版本，如\cref{fig:alexnet_single_gpu}所示。
+
+\begin{figure}[H]
+    \boxedimage[width=0.95\textwidth]{figures/part_02/p2_ch03/alexnet_single_gpu.pdf}
+    \caption{AlexNet网络架构（单GPU）。将双GPU分支合并为单条计算链：$224\times 224\times 3$输入经5个卷积层与3个最大池化层逐层提取特征，末端由4096、4096两个全连接层映射到1000类输出。}
+    \label{fig:alexnet_single_gpu}
+\end{figure}
+
+这样看起来清晰了不少，但原论文的网络示意图对池化层进行了简化，只标注了“Max Pooling”等文字，没有将池化操作单独绘制出来。为了更直观地展示卷积层与池化层之间的交替关系，我们暂时忽略后面的全连接层，并参照LeNet-5的经典画法，重新绘制卷积层与池化层，如\cref{fig:alexnet_single}所示。
+
+\begin{figure}[H]
+    \boxedimage[width=0.95\textwidth]{figures/part_02/p2_ch03/alexnet_single.pdf}
+    \caption{AlexNet卷积层与池化层的重绘。改用与LeNet一致的特征图堆叠画法，逐层标出通道数与空间尺寸，便于直观对照各层的输入输出形状。}
+    \label{fig:alexnet_single}
+\end{figure}
+
+与LeNet-5相比，AlexNet的结构明显更深、更宽。它总共包含5个卷积层、3个池化层以及3个全连接层，总共11层。AlexNet的具体流程如下：
+
+\begin{enumerate}
+    \item \textbf{输入层}：接收$224\times224$的RGB图像，即$224\times224\times3$\footnote{AlexNet论文原文写的是$224\times224$，但其第一层采用$11\times11$卷积、步长$s=4$且不使用填充。按照卷积输出尺寸公式计算，$224\times224$的输出应该得到$54\times54$的特征图，与论文图示中的$55\times55$不一致。根据特征图尺寸反推出实际输入应为$227\times227$，因此通常认为原论文此处存在笔误，或实现中实际使用了$227\times227$。如果采用现在通用的$224\times224$输入设定，则第一层需填充$p=2$。}。
+    \item \textbf{卷积层Conv1}：使用96个$11\times11$卷积核，步长$s=4$、填充$p=2$，输出$55\times55\times96$，随后经过ReLU激活。
+    \item \textbf{池化层Pool1}：采用$3\times3$最大池化，步长$s=2$，输出$27\times27\times96$\footnote{原始AlexNet在池化之前还使用了局部响应归一化（Local Response Normalization, LRN）。不过后续研究指出，LRN对模型准确率的提升十分有限，反而增加了网络复杂性；随着2015年Batch Normalization的提出，LRN已基本被取代。}。
+    \item \textbf{卷积层Conv2}：使用256个$5\times5$卷积核，步长$s=1$、填充$p=2$，输出$27\times27\times256$，随后经过ReLU激活。
+    \item \textbf{池化层Pool2}：采用$3\times3$最大池化，步长$s=2$，输出$13\times13\times256$\footnote{原始AlexNet在此处同样采用了局部响应归一化（LRN）。}。
+    \item \textbf{卷积层Conv3}：使用384个$3\times3$卷积核，步长$s=1$、填充$p=1$，输出$13\times13\times384$，随后经过ReLU激活。
+    \item \textbf{卷积层Conv4}：使用384个$3\times3$卷积核，步长$s=1$、填充$p=1$，输出$13\times13\times384$，随后经过ReLU激活。
+    \item \textbf{卷积层Conv5}：使用256个$3\times3$卷积核，步长$s=1$、填充$p=1$，输出$13\times13\times256$，随后经过ReLU激活。
+    \item \textbf{池化层Pool3}：采用$3\times3$最大池化，步长$s=2$，输出$6\times6\times256$。
+    \item \textbf{展平}：将$6\times6\times256$的特征图展平为一个长度为$9216$的一维向量。
+    \item \textbf{全连接层FC1}：将$9216$维向量映射为4096维特征，随后经过ReLU激活和Dropout。
+    \item \textbf{全连接层FC2}：将4096维特征进一步映射为4096维，随后经过ReLU激活和Dropout。
+    \item \textbf{输出层}：将4096维特征映射为1000维，对应ImageNet中的1000个类别，最终经softmax输出各类别的预测概率。
+\end{enumerate}
+
+可以看到，AlexNet基本继承了LeNet的整体思想，仍然采用“卷积+池化+全连接”的基本结构，但在网络设计上进行了进一步改进，主要体现在三个方面。首先，AlexNet将LeNet中的平均池化改为最大池化，并采用了$3\times3$窗口、步长为2的重叠池化。相比平均池化，最大池化能够更直接地保留局部区域中最显著的特征响应，而重叠池化也有助于抑制过拟合、提升泛化能力\footnote{不过，后续研究对重叠池化的普适性提出了质疑。Dominik Scherer 等人在\href{https://dl.acm.org/doi/abs/10.5555/1886436.1886447}{\textit{Evaluation of Pooling Operations in Convolutional Architectures for Object Recognition}}中通过直接比较发现，重叠池化窗口相比非重叠池化窗口并没有带来显著提升。Dmytro Mishkin 等人在\href{https://arxiv.org/abs/1606.02228}{\textit{Systematic Evaluation of CNN Advances on the ImageNet}}中则指出，在特定架构下重叠池化甚至可能不如非重叠的$2\times2$池化，其效果依赖于输出特征图尺寸等设置。}。其次，AlexNet将LeNet中的Sigmoid激活函数改为ReLU。ReLU在正区间的梯度恒为$1$，能够有效缓解深层网络训练中的梯度消失问题，同时计算形式更加简单，有利于提高训练效率。因此，ReLU更适合用于AlexNet这样规模更大、层数更深的网络。最后，AlexNet采用GPU而不是CPU进行训练。相比CPU，GPU更擅长执行大规模并行计算，而卷积和矩阵运算中包含大量彼此独立、可并行执行的计算操作，因此GPU更适合用于神经网络训练，能够显著提高训练速度。
+
+为了更直观地感受AlexNet的网络规模，我们可以大致计算一下它包含多少参数。对于卷积层，每个卷积核需要为输入的所有通道学习一组权重，并包含一个偏置，因此其参数量为：
+$$
+N_{\mathrm{conv}}=C_{\mathrm{out}}\times\left(K_h\times K_w\times C_{\mathrm{in}}+1\right)
+$$
+其中$C_{\mathrm{in}}$和$C_{\mathrm{out}}$分别表示输入和输出通道数，而$C_{\mathrm{out}}$也等于该层卷积核的个数；$K_h$和$K_w$表示卷积核的高和宽，最后的$1$对应每个卷积核的偏置。对于全连接层，每个输入节点与每个输出节点之间都有一个权重，同时每个输出节点对应一个偏置，因此其参数量为：
+$$
+N_{\mathrm{fc}}=N_{\mathrm{in}}\times N_{\mathrm{out}}+N_{\mathrm{out}}
+$$
+其中$N_{\mathrm{in}}$和$N_{\mathrm{out}}$分别表示输入和输出维度。按照单GPU版本的网络结构，我们可以逐层计算：
+
+\begin{itemize}
+    \item \textbf{卷积层Conv1}：输入为$224\times224\times3$的图像，使用了96个$11\times11$卷积核，每个卷积核包含$11\times11\times3$个权重和1个偏置，因此共有$96\times(11\times11\times3+1)=34,944$个参数。
+    \item \textbf{卷积层Conv2}：输入通道数为96，使用了256个$5\times5$卷积核，因此共有$256\times(5\times5\times96+1)=614,656$个参数。
+    \item \textbf{卷积层Conv3}：输入通道数为256，使用了384个$3\times3$卷积核，因此共有$384\times(3\times3\times256+1)=885,120$个参数。
+    \item \textbf{卷积层Conv4}：输入通道数为384，使用了384个$3\times3$卷积核，因此共有$384\times(3\times3\times384+1)=1,327,488$个参数。
+    \item \textbf{卷积层Conv5}：输入通道数为384，使用了256个$3\times3$卷积核，因此共有$256\times(3\times3\times384+1)=884,992$个参数。
+    \item \textbf{全连接层FC1}：上一层经过池化后得到$6\times6\times256=9216$维特征，将其映射到4096维，因此共有$9216\times4096+4096=37,752,832$个参数。
+    \item \textbf{全连接层FC2}：4096维$\rightarrow$4096维，因此共有$4096\times4096+4096=16,781,312$个参数。
+    \item \textbf{输出层}：4096维$\rightarrow$1000维，因此共有$4096\times1000+1000=4,097,000$个参数。
+\end{itemize}
+按照单GPU版本的网络结构计算，AlexNet共有$62,378,344$个参数，即约6200万个参数；原论文则将双GPU版本概括为约6000万个参数。相比之下，LeNet-5只有约6万个参数，AlexNet的参数量高出约三个数量级。其中，仅三个全连接层就占据了约94\%的参数。
+
+如此大规模的网络，在ImageNet这样的百万级数据集上进行训练，需要处理海量的卷积和矩阵运算。以一次前向传播为例，对于卷积层，每个输出位置都需要进行“卷积核大小$\times$输入通道数”次乘加运算，因此Conv1约需要
+$$
+55\times55\times96\times363\approx1.05\times10^8
+$$
+次乘加运算，Conv2、Conv3、Conv4和Conv5分别约需要$4.5\times10^8$、$1.5\times10^8$、$2.2\times10^8$和$1.5\times10^8$次。再加上全连接层约$0.6\times10^8$次，一次前向传播总共约需要$1.1\times10^9$次乘加运算。而一次乘加通常计为2次浮点运算，因此$1.1\times10^9$次乘加运算约合$2.2\times10^9$次浮点运算，即$2.2$ GFLOP。
+
+反向传播除了需要计算权重梯度，还需要计算输入梯度，其计算量通常约为前向传播的两倍。因此，完成一张训练图像的一次前向和反向传播，大约需要$6.6$ GFLOP的计算量。
+
+再看整个训练过程。ImageNet包含约120万张训练图像，AlexNet训练了约90个Epoch，因此总共需要处理
+$$
+1.2\times10^6\times90\approx1.1\times10^8
+$$
+张图像，对应的总计算量约为
+$$
+1.1\times10^8\times6.6\times10^9
+\approx7.3\times10^{17}\ \text{FLOP}
+$$
+也就是约7.3亿亿次浮点运算。
+
+2012年前后，高端CPU的单精度理论峰值约为158 GFLOPS，而两张NVIDIA GTX 580 GPU的理论峰值合计约为3.2 TFLOPS，二者理论计算能力相差约20倍。更重要的是，卷积和矩阵运算中包含大量彼此独立、可并行执行的计算操作，而GPU恰好擅长处理这类大规模并行计算，因此能够显著提升神经网络的训练效率。借助两张NVIDIA GTX 580，AlexNet完成整个ImageNet训练过程仅需约5--6天。
+
+\begin{cyanBox}{从LeNet到AlexNet，为什么花了14年？}
+
+站在今天回望，深度学习的发展离不开三个要素：\textbf{算法、数据与算力}。1998年LeNet-5提出时，卷积、池化、全连接以及反向传播等关键技术已经具备，但受限于当时的数据规模和计算能力，深层卷积网络难以在更复杂的视觉任务中发挥优势。
+
+在很长一段时间里，计算机视觉所使用的数据集规模都较为有限。以经典的MNIST为例，只有6万张$28\times28$的手写数字图像；而更复杂的通用物体识别数据集，规模也通常只有几千到几万张图像。在这样的数据规模下，大模型容易过拟合，因此研究者更多采用“小模型+手工特征”的路线。2009年，李飞飞团队提出ImageNet，构建了一个包含超过1500万张高分辨率图像、涵盖约2.2万个类别的大规模数据集（\href{https://image-net.org/static_files/papers/imagenet_cvpr09.pdf}{\textit{ImageNet: A Large-Scale Hierarchical Image Database}}）。2010年起，李飞飞团队进一步发起\textbf{ImageNet大规模视觉识别挑战赛（ImageNet Large Scale Visual Recognition Challenge，ILSVRC）}，其中使用1000个类别、约120万张训练图像，为大规模视觉识别任务提供了统一的训练和评测平台。在AlexNet出现之前，传统的“SIFT特征+SVM”等方法仍占据主导地位，Top-5错误率也长期处于较高水平（26\%--28\%）。
+
+算力的发展同样是深度学习兴起的重要条件。GPU最初主要面向图形渲染设计，而电子游戏的发展进一步推动了其性能提升。由于图形渲染需要对大量像素执行相似计算，GPU逐渐形成了高吞吐、大规模并行的架构，而神经网络中的卷积和矩阵运算同样包含大量彼此独立、可以并行执行的计算操作，因此GPU天然适合用于加速神经网络训练。在CUDA出现之前，研究者已经开始探索GPU的通用计算能力。2004年，Oh和Jung在\href{https://doi.org/10.1016/j.patcog.2004.01.013}{\textit{GPU Implementation of Neural Networks}}中利用GPU加速神经网络计算；2005年，Steinkraus、Buck和Simard通过\href{https://doi.org/10.1109/ICDAR.2005.251}{\textit{Using GPUs for Machine Learning Algorithms}}进一步验证了GPU加速机器学习的可行性。不过，当时的GPU主要面向图形处理，研究者仍需要借助纹理、像素着色器等图形学机制间接完成通用计算，编程过程较为复杂。真正的转机出现在2007年，NVIDIA推出了CUDA。CUDA并不是深度学习框架，而是一个面向GPU的通用并行计算平台与编程模型，使程序员能够直接以类似C语言的方式编写GPU程序，而不必再通过图形渲染流程完成通用计算。CUDA出现后，研究者很快将其应用于神经网络：2009年，Raina、Madhavan和Andrew Ng在\href{https://proceedings.neurips.cc/paper_files/paper/2009/file/1c82eeb6e5d2b6f4f9b0a2b3b0c6a8c6-Paper.pdf}{\textit{Large-scale Deep Unsupervised Learning using Graphics Processors}}中展示了GPU对大规模深度学习的加速能力；2011年，Ciresan等人在\href{https://www.ijcai.org/Proceedings/11/Papers/001.pdf}{\textit{High-Performance Neural Networks for Visual Object Classification}}中进一步展示了GPU训练深层卷积网络的潜力，并在交通标志识别等任务上取得了较好的结果。然而，这些工作使用的数据集规模仍然有限，深度学习仍需要在更大规模、更复杂的任务中进一步验证自身的潜力。
+
+2012年，数据、算力与算法三要素终于交汇，AlexNet横空出世，以领先第二名近11个百分点的巨大优势夺得ImageNet冠军。在这场突破的背后，Alex Krizhevsky所完成的工程实现同样至关重要。当Hinton团队决定参加2012年的ILSVRC时，\code{PyTorch}、\code{TensorFlow}等现代深度学习框架尚未出现。Krizhevsky直接使用C++和CUDA实现了网络的前向传播与反向传播，并针对GPU对卷积和矩阵运算进行了高度优化。由于当时单张NVIDIA GTX 580的显存只有3GB，受显存限制，AlexNet采用两张GPU进行训练。Krizhevsky自己用CUDA编写了GPU之间的通信代码，通过专门设计的通信方式将网络分布到两张GPU上，并只在部分层之间进行必要的跨GPU数据交换。经过约5--6天的训练，AlexNet最终取得了15.3\%的Top-5错误率，在当时的ImageNet挑战赛中取得了突破性的成绩，相关论文详见\href{https://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks.pdf}{\textit{ImageNet Classification with Deep Convolutional Neural Networks}}。Krizhevsky在参加ILSVRC之前就已经开发了基于C++和CUDA的\code{cuda-convnet}，用于在GPU上训练卷积神经网络。参加ImageNet竞赛时，他在此基础上扩展了多GPU训练等功能，并将其用于AlexNet的训练。后来，这套代码（原始仓库托管于GoogleCode：\href{https://code.google.com/archive/p/cuda-convnet/}{\textit{https://code.google.com/archive/p/cuda-convnet/}}）及其后续版本被研究者广泛用于卷积神经网络实验，为早期深度学习研究提供了重要的工程基础。在当时深度学习框架尚不成熟的背景下，这套代码很快成为研究者训练卷积神经网络的重要工具之一，也让更多人能够复现和进一步探索AlexNet的训练方法。从更长的历史视角来看，AlexNet带来的意义并不只是更低的分类错误率，而是首次在大规模视觉任务中充分展示了数据、算法与算力协同所带来的巨大优势。
+\end{cyanBox}
+
+\section{VGG}
+
+LeNet-5共8层，成功解决了手写数字识别；AlexNet进一步将网络加深到11层，并在ImageNet上取得了突破性的成绩。这似乎释放出了一个明确的信号：随着网络不断加深，模型能够逐步学习更加丰富、更加抽象的特征表示。既然11层就已经带来了如此显著的提升，那么16层、19层又会怎样？不过，如果要进一步加深网络，一个新的问题也随之而来：卷积核到底应该多大？
+
+回顾LeNet-5，它采用的是$5\times5$卷积核。对于当时$32\times32$左右的输入图像，这样的卷积核能够覆盖较大的局部区域，比较适合提取手写数字中的笔画和局部形状。AlexNet则采用了混合的卷积核设计：第一层使用$11\times11$的大卷积核，第二层使用$5\times5$卷积核，后面的卷积层才逐渐统一为$3\times3$。这种设计有一定的直觉：网络越靠近输入，越需要从较大的局部区域中提取基础特征；随着网络逐渐加深，特征图上的信息变得更加抽象，使用较小的卷积核不断堆叠也能够逐步扩大感受野。但这又带来了一个新的问题：面对不同的任务和网络深度，我们是否需要逐层设计卷积核的大小，在$11\times11$、$7\times7$和$5\times5$之间不断做选择？能不能把卷积核统一起来，让整个网络都使用$3\times3$这样的小卷积核？
+
+一层$3\times3$卷积的感受野是$3\times3$。如果连续堆叠两层$3\times3$卷积，那第二层特征图中的一个位置由第一层特征图上的一个$3\times3$区域计算得到，而第一层中的这$3\times3$个位置又分别对应原始输入中的局部区域。将两层的映射关系叠加起来，第二层的一个位置实际上对应于原始输入中的$5\times5$区域，因此两层$3\times3$卷积可以获得与一层$5\times5$卷积相同的有效感受野。同理，连续堆叠三层$3\times3$卷积，其有效感受野可以扩大到$7\times7$，如\cref{fig:vgg_receptive_field}所示。
+
+\begin{figure}[H]
+    \boxedimage[width=0.95\textwidth]{figures/part_02/p2_ch03/vgg_receptive_field.pdf}
+    \caption{感受野的堆叠效应。红、蓝框链展示末端单个位置（右端粉格）的感受野逐层向回映射：每回退一层，覆盖区域就扩大一圈。两层$3\times 3$卷积堆叠后覆盖原始输入的$5\times 5$区域（上排），三层堆叠后扩大为$7\times 7$（下排），即堆叠小卷积核可获得与大卷积核相同的有效感受野。}
+    \label{fig:vgg_receptive_field}
+\end{figure}
+
+既然感受野相同，为什么不直接使用一层大卷积核，而要堆叠多层$3\times3$卷积呢？我们可以从参数量来看。假设输入和输出通道数均为$C$：
+\begin{itemize}
+    \item 一层$5\times5$卷积的参数量为：$5\times5\times C\times C=25C^2$。
+    \item 两层$3\times3$卷积的参数量为：$2\times(3\times3\times C\times C)=18C^2$。
+\end{itemize}
+可以看到，在获得相同$5\times5$感受野的情况下，两层$3\times3$卷积的参数量只有一层$5\times5$卷积的约72\%，同时还多了一次ReLU激活。也就是说，在减少参数量的同时，网络还获得了更多的非线性变换能力。
+
+类似地，三层$3\times3$卷积能够获得与一层$7\times7$卷积相同的有效感受野，但参数量仅为$3\times9C^2=27C^2$，而一层$7\times7$卷积需要$7\times7\times C\times C=49C^2$。参数量减少了约45\%，同时还增加了两次非线性激活。
+
+这正是VGG\footnote{VGG由Karen Simonyan和Andrew Zisserman提出，其名称取自牛津大学视觉几何组（Visual Geometry Group）的缩写。论文详见\href{https://www.robots.ox.ac.uk/~vgg/publications/2015/Simonyan15/simonyan15.pdf}{\textit{Very Deep Convolutional Networks for Large-Scale Image Recognition}}。正是该论文发现，局部响应归一化（LRN）在ImageNet上并不能提升性能，反而会增加内存消耗和计算开销，因此后续更深的VGG网络不再使用LRN。}的核心思路：用多个$3\times3$小卷积核进行堆叠，在扩大感受野的同时减少参数量，并增加网络的非线性变换能力。确定了“全$3\times3$小卷积核堆叠”的设计思路后，VGG的网络结构也变得十分规整：所有卷积层统一使用$3\times3$卷积核，步长均为1，并通过填充$p=1$保持空间尺寸不变；所有池化层则统一采用$2\times2$最大池化，步长为2，使特征图的空间尺寸逐步减半。在通道数的设计上，VGG遵循了一个简单的规律：随着池化操作不断压缩空间分辨率，特征图的通道数逐步增加，通常每经过一次池化就扩大一倍，直到达到512个通道。这样做的直觉是，随着空间信息逐渐压缩，网络需要通过更多通道来表示更加丰富和抽象的特征。
+
+\begin{figure}[H]
+    \boxedimage[width=0.95\textwidth, trim=0 {0.12\height} 0 0, clip]{figures/part_02/p2_ch03/vggnet.pdf}
+    \caption{VGG-16网络架构。13个$3\times 3$卷积（后接ReLU）与5个最大池化层交替堆叠，通道数逐级翻倍（64、128、256、512），空间尺寸随每次池化减半（224、112、56、28、14），最终压缩为$7\times 7\times 512$；末端经两个4096维全连接层与Softmax输出类别概率。}
+    \label{fig:vggnet}
+\end{figure}
+
+如\cref{fig:vggnet}所示，以经典的\textbf{VGG-16}为例，它包含13个卷积层和3个全连接层，共16个参数层。其具体流程如下：
+
+\begin{enumerate}
+    \item \textbf{输入层}：$224\times224\times3$。
+    \item \textbf{Block 1}：连续2个$3\times3$卷积层，每层使用64个$3\times3\times C_{\mathrm{in}}$卷积核，输出64个通道 $\to$ $2\times2$最大池化 $\to$ $112\times112\times64$。
+    \item \textbf{Block 2}：连续2个$3\times3$卷积层，每层使用128个$3\times3\times C_{\mathrm{in}}$卷积核，输出128个通道 $\to$ $2\times2$最大池化 $\to$ $56\times56\times128$。
+    \item \textbf{Block 3}：连续3个$3\times3$卷积层，每层使用256个$3\times3\times C_{\mathrm{in}}$卷积核，输出256个通道 $\to$ $2\times2$最大池化 $\to$ $28\times28\times256$。
+    \item \textbf{Block 4}：连续3个$3\times3$卷积层，每层使用512个$3\times3\times C_{\mathrm{in}}$卷积核，输出512个通道 $\to$ $2\times2$最大池化 $\to$ $14\times14\times512$。
+    \item \textbf{Block 5}：连续3个$3\times3$卷积层，每层使用512个$3\times3\times C_{\mathrm{in}}$卷积核，输出512个通道 $\to$ $2\times2$最大池化 $\to$ $7\times7\times512$。
+    \item \textbf{FC1}：将$7\times7\times512$展平为25088维，映射到4096维，后接ReLU和Dropout。
+    \item \textbf{FC2}：$4096\to4096$，后接ReLU和Dropout。
+    \item \textbf{输出层}：$4096\to1000$，最终经softmax输出1000个类别的预测概率。
+\end{enumerate}
+
+VGG-16的总参数量约为\textbf{1.38亿}。其中，仅三个全连接层就占据了约1.23亿个参数，占总参数量的90\%以上；相比之下，13个卷积层的参数量只有约1500万。也就是说，VGG-16虽然通过大量$3\times3$卷积层实现了更深的网络结构，但庞大的全连接层仍然占据了绝大部分参数。在FP32精度下，仅保存VGG-16的模型权重就需要约550MB的存储空间。如此庞大的参数规模，也使VGG-16在计算和存储方面都具有较高的成本。
+
+尽管如此，VGG-16在ImageNet上依然取得了优异的成绩，Top-5错误率达到约7.3\%，相比AlexNet的15.3\%大幅下降。VGG-16的实验进一步表明，在合理的网络设计下，增加网络深度能够带来更强的特征表示能力和更好的识别性能。其核心贡献正是将$3\times3$小卷积核进行系统堆叠，把构建更深网络变成了一种简单而有效的设计方式。
+
+\section{GoogLeNet}
+
+VGGNet通过不断堆叠$3\times3$卷积，使网络能够在逐步加深的过程中获得更大的感受野。但与此同时，不同尺度的特征通常出现在不同的网络层次中：浅层更关注边缘、纹理等细粒度信息，深层则逐渐关注物体部件乃至整体结构。既然不同特征可能需要不同大小的感受野，那么能不能换一种思路：让网络在同一层同时观察不同尺度的信息？
+
+不同大小的卷积核，本质上是在用不同大小的窗口观察输入特征图。$3\times3$卷积更适合提取局部的边缘、纹理和小尺度结构；$5\times5$卷积能够覆盖更大的区域，获得更加宽广的空间信息；而$1\times1$卷积虽然不涉及空间邻域，却可以在当前位置对不同通道的信息进行重新组合。也就是说，不同尺寸的卷积核实际上是在从不同尺度观察同一张特征图。对于特征图中的某个位置，我们很难事先判断究竟应该关注多大的范围：如果这里是一条细小的边缘，$3\times3$的局部区域可能已经足够；如果这里对应一个较大的轮廓或物体部件，则可能需要更大的感受野。既然我们无法提前确定哪一种尺度最合适，那么与其人为选择，不如让网络同时使用多种尺度进行特征提取，再将这些信息综合起来。
+
+\begin{figure}[H]
+    \boxedimage[width=0.8\textwidth, trim=0 0 0 0, clip]{figures/part_02/p2_ch03/inception.pdf}
+    \caption{Inception模块基本结构。同一张输入特征图同时送入四条并行分支：$1\times1$卷积、$3\times3$卷积、$5\times5$卷积与$3\times3$最大池化；四条分支的输出保持相同的空间尺寸，再沿通道维度拼接（concatenate），合并为一张新的输出特征图。}
+    \label{fig:inception}
+\end{figure}
+
+如\cref{fig:inception}所示，一个输入特征图可以同时进入四条并行分支：$1\times1$卷积、$3\times3$卷积、$5\times5$卷积以及$3\times3$最大池化。四条分支分别从不同尺度和不同角度提取特征，最后再将得到的结果沿通道维度进行拼接（Concatenate），形成新的特征图。例如，若四条分支分别输出64、128、32和32个通道，那么拼接后就得到一张$64+128+32+32=256$通道的特征图。这就是\textbf{Inception}的核心思想：在同一层中设置多个并行分支，让网络同时观察不同尺度的信息，再将这些特征进行融合。接下来，我们需要解决一个更现实的问题：如果把这些分支全部直接做出来，计算量会不会太大？尤其是像$7\times7$这样的更大卷积核，虽然能够获得更大的感受野，却会带来更高的参数量和计算量。因此，Inception并不会一味增大卷积核，而是需要在扩大感受野与控制计算成本之间找到平衡。
+
+先看$1\times1$卷积。它的空间尺寸虽然只有$1\times1$，但并不意味着它只处理一个通道。对于输入特征图上的每一个位置，如\cref{fig:11_convolution}所示，一个$1\times1$卷积核实际上会同时读取该位置的全部通道，并对这些通道进行加权求和，因此它能够完成跨通道的信息融合。与此同时，通过控制$1\times1$卷积核的数量，还可以改变输出通道数。
+
+\begin{figure}[H]
+    \boxedimage[width=0.8\textwidth, trim=0 0 0 0, clip]{figures/part_02/p2_ch03/11_convolution.pdf}
+    \caption{$1\times 1$卷积示意图。卷积核的空间尺寸仅为$1\times 1$（图中红框柱），不观察空间邻域，只在每个空间位置对全部$M$个通道做加权求和，完成跨通道的信息组合；输出特征图的空间尺寸保持$H\times W$不变，仅通道数由$M$变为$N$。}
+    \label{fig:11_convolution}
+\end{figure}
+
+因此，$1\times1$卷积不仅可以进行跨通道的信息混合，还可以用来压缩通道数，从而降低后续卷积的参数量和计算量。这在Inception中尤其重要。假设输入特征图为$28\times28\times512$，如果$5\times5$分支直接使用128个卷积核，那么仅这一条分支的参数量就将达到：
+$$
+5\times5\times512\times128=1,638,400
+$$
+也就是说，仅一个$5\times5$卷积分支就需要超过160万个参数。如果这样的分支被反复堆叠，整个网络的计算量会迅速增长。
+
+问题就在于：$5\times5$卷积必须直接处理512个输入通道。那么，能不能先利用$1\times1$卷积降低输入通道数，再进行计算更加昂贵的空间卷积？例如，我们先使用32个$1\times1$卷积核，将通道数从512压缩到32：
+$$
+28\times28\times512
+\xrightarrow{1\times1\text{卷积},\ 32\text{个核}}
+28\times28\times32
+$$
+可以看到，空间尺寸保持不变，但通道数从512降到了32。此时再让$5\times5$卷积作用于这32个通道，参数量就会大幅下降：
+\begin{itemize}
+    \item $1\times1$卷积参数量：$1\times1\times512\times32=16,384$。
+    \item $5\times5$卷积参数量：$5\times5\times32\times128=102,400$。
+    \item 总参数量：$16,384+102,400=118,784$。
+\end{itemize}
+与直接进行$5\times5$卷积的1,638,400个参数相比，参数量下降到了原来的约十四分之一。由此可见，$1\times1$卷积在这里最重要的作用之一，就是先对高维通道进行压缩，再让计算量更大的空间卷积处理较低维的特征。这种先利用$1\times1$卷积压缩通道，再进行空间卷积的设计，可以看作一种\textbf{通道压缩结构}。同时，$1\times1$卷积本身也承担着跨通道信息融合的作用，并可以结合ReLU进一步引入非线性变换。
+
+有了这个设计，一个完整的Inception模块就可以写成四条分支：
+\begin{itemize}
+    \item \textbf{分支一}：$1\times1$卷积，进行跨通道的信息融合；
+    \item \textbf{分支二}：$1\times1\to3\times3$，先压缩通道，再提取局部空间特征；
+    \item \textbf{分支三}：$1\times1\to5\times5$，先压缩通道，再提取更大范围的空间特征；
+    \item \textbf{分支四}：$3\times3$最大池化$\to1\times1$卷积，先进行局部信息聚合，再通过$1\times1$卷积控制输出通道数。
+\end{itemize}
+最后，将四条分支的输出沿通道维度拼接起来。这样，一个Inception模块就在同一层中同时完成了多尺度特征提取，并利用$1\times1$卷积有效控制了参数量和计算量\footnote{这种Inception模块正是GoogLeNet的核心组成部分。GoogLeNet由Christian Szegedy等人提出，论文为\href{https://www.cv-foundation.org/openaccess/content_cvpr_2015/papers/Szegedy_Going_Deeper_With_2015_CVPR_paper.pdf}{\textit{Going Deeper with Convolutions}}。论文将这种多分支结构称为Inception，并将参加ILSVRC 2014的具体网络命名为GoogLeNet。值得注意的是，GoogLeNet中的“L”特意采用大写，用于向Yann LeCun提出的LeNet-5致敬。}。
+
+\begin{figure}[H]
+    \boxedimage[width=0.8\textwidth, trim=0 0 0 0, clip]{figures/part_02/p2_ch03/inception_module.pdf}
+    \caption{Inception模块完整结构。与图\ref{fig:inception}相比，$3\times3$和$5\times5$分支前各加$1\times1$卷积压缩通道，$3\times3$最大池化后也加$1\times1$卷积控制输出通道；四分支输出沿通道拼接。该设计保持多尺度并行特征提取的同时，显著降低了参数量与计算量，且$1\times1$卷积兼具跨通道融合与非线性变换作用。}
+    \label{fig:inception_module}
+\end{figure}
+
+模块设计完成后，剩下的就是将多个Inception模块逐层堆叠，并在适当位置通过步长为2的池化操作逐步降低空间分辨率：
+\[
+224\to112\to56\to28\to14\to7
+\]
+与此同时，特征图的通道数逐步增加。最终得到的GoogLeNet共有22层，其中包含9个Inception模块，如\cref{fig:googlenet}所示。
+
+\begin{figure}[H]
+    \boxedimage[width=0.95\textwidth, trim=0 0 0 0, clip]{figures/part_02/p2_ch03/googlenet.pdf}
+    \caption{GoogLeNet整体结构。网络堆叠9个Inception模块，并在适当位置插入步长为2的最大池化，使分辨率按$224\to112\to56\to28\to14\to7$降低、通道数增加；中部引入两个辅助分类器缓解梯度消失，末端用全局平均池化取代全连接层，将$7\times7\times1024$特征图直接送入softmax分类。}
+    \label{fig:googlenet}
+\end{figure}
+
+网络来到最后，我们得到了一张$7\times7\times1024$的特征图。接下来还有一个问题：这张特征图应该如何送入最终的分类器？回顾VGG-16，它会将最后的$7\times7\times512$特征图直接展平为$25088$维向量，再接两个$4096$维全连接层。正如前面计算过的，这两个全连接层贡献了上亿个参数，成为整个网络中最庞大的部分。
+
+既然卷积层已经提取出了大量高级特征，那么我们是否真的还需要如此庞大的全连接层？观察网络最后的特征图可以发现，此时每个通道已经可以看作某种高级特征的响应，而对于图像分类任务来说，这些特征具体出现在$7\times7$网格中的哪个位置，往往已经没有那么重要。例如，一个通道主要响应“猫耳朵”，那么它出现在图像左上角还是右上角，并不会改变最终的类别判断。因此，与其保留完整的空间信息，不如直接统计每个通道在整个空间范围内的平均响应。以第$c$个通道为例，其$7\times7$特征图可以写成一个矩阵：
+$$
+\begin{bmatrix}
+x_{1,1,c} & x_{1,2,c} & \cdots & x_{1,7,c}\\
+x_{2,1,c} & x_{2,2,c} & \cdots & x_{2,7,c}\\
+\vdots & \vdots & \ddots & \vdots\\
+x_{7,1,c} & x_{7,2,c} & \cdots & x_{7,7,c}
+\end{bmatrix}
+$$
+我们可以直接求该矩阵所有元素的平均值：
+$$
+a_c=\frac{1}{7\times7}\sum_{i=1}^{7}\sum_{j=1}^{7}x_{i,j,c}
+$$
+这样，原本的$7\times7\times1024$特征图就被压缩为一个$1024$维向量。这种操作称为\textbf{全局平均池化（Global Average Pooling，GAP）}。GAP与普通池化不同。普通池化通常在局部区域中进行下采样，而GAP直接覆盖整个空间维度，每个通道最终只保留一个平均响应值。它不需要引入额外的可学习参数，却可以将每个通道的空间信息压缩为一个标量。
+
+接下来，只需要一个简单的线性分类层，将$1024$维向量映射到1000个ImageNet类别。这样，GoogLeNet就用一个几乎不包含参数的GAP和一个小型分类层，替代了VGG中庞大的全连接层。
+
+不过，GoogLeNet还有一个容易让人困惑的地方，如\cref{fig:googlenet}所示，为什么网络中会出现三个Softmax？这是因为GoogLeNet的网络较深，作者希望进一步改善深层网络的训练过程。于是，网络中间增加了两个辅助分类器，分别连接在较早和较后的Inception模块之后，网络末端则保留主分类器。训练过程中，三个分类器都会产生预测结果，并将它们对应的损失加权求和：
+$$
+L=L_{\mathrm{main}}+\lambda_1L_{\mathrm{aux1}}+\lambda_2L_{\mathrm{aux2}}
+$$
+这里统一使用大写的$L$表示损失函数。三个分类头并不意味着模型最终需要输出三个答案：它们主要用于训练阶段提供额外的监督信号，推理时只使用最终的主分类器。
+
+最终，GoogLeNet通过Inception模块实现了多尺度特征提取，同时利用$1\times1$卷积有效控制通道数和计算量，并通过全局平均池化（GAP）大幅减少了全连接层带来的参数开销。得益于这些设计，GoogLeNet的参数量仅约为680万，远低于VGG-16的约1.38亿。在2014年的ImageNet挑战赛中，GoogLeNet取得了约6.7\%的Top-5错误率，进一步证明了这种高效网络设计的有效性。
+
+\begin{quote}
+    AlexNet11层，VGG16层，GoogLeNet则达到22层。网络不断加深，模型也能学习更加丰富的特征。那么，50层，甚至100层呢？效果会不会更好？
+\end{quote}
